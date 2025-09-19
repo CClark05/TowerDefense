@@ -1,0 +1,151 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
+
+
+public class InventoryUI : Singleton<InventoryUI>, IUsesCards
+{
+    [System.Serializable]
+    private class MaterialUIBinding
+    {
+        public ResourceData data;
+        public TextMeshProUGUI text;
+    }
+    
+    private Dictionary<ResourceData, TextMeshProUGUI> materialsDictionary = new();
+    [SerializeField] private Button_Hover chestButton;
+    [SerializeField] private GameObject inventoryUI;
+    [SerializeField] private GameObject materialsGridObject;
+    [SerializeField] private GameObject MaterialAmountPrefab;
+
+    [SerializeField] private VerticalLayoutGroup cardLayoutGroup;
+    [SerializeField] private GameObject cardPrefab;
+    [SerializeField] private SkillRegistry skillRegistry;
+    public List<SkillCardUI> SkillCards { get; private set; } = new();
+    public event Action OnRemovedCard;
+    
+    public List<SkillData> testingData; //REMOVE THIS LATER
+    [SerializeField] private InventorySettings settings;
+    private void Start()
+    {
+        InventoryChestUI chestUI = chestButton.GetComponent<InventoryChestUI>();
+        PlayerInventory.Instance.OnMaterialAmountUpdated += UpdateMaterial;
+        PlayerInventory.Instance.OnNewMaterialAdded += data =>
+        {
+            GameObject newMaterial = Instantiate(MaterialAmountPrefab, materialsGridObject.transform);
+            newMaterial.GetComponentInChildren<Image>().sprite = data.prefab.GetComponent<SpriteRenderer>().sprite;
+            newMaterial.GetComponentInChildren<Image>().color = data.prefab.GetComponent<SpriteRenderer>().color;
+            materialsDictionary[data] = newMaterial.GetComponentInChildren<TextMeshProUGUI>();
+        };
+        BuildingManager.Instance.OnEnterBuildMode += EnterBuildMode;
+        BuildingManager.Instance.OnExitBuildMode += ExitBuildMode;
+        BuildingUI.Instance.OnEnterBuildMode += EnterBuildMode;
+        BuildingUI.Instance.OnExitBuildMode += ExitBuildMode;
+        void ExitBuildMode()
+        {
+            if (chestUI.RemainOpen) return;
+            inventoryUI.SetActive(false);
+            chestUI.SetState(InventoryChestUI.States.Closed);
+        }
+
+        void EnterBuildMode()
+        {
+            chestUI.SetState(InventoryChestUI.States.Open);
+            inventoryUI.SetActive(true);
+        }
+        chestButton.OnHover += () =>
+        {
+            if (chestUI.RemainOpen || BuildingManager.Instance.IsBuildMode) return;
+            chestUI.SetState(InventoryChestUI.States.Peeking);
+            inventoryUI.SetActive(true);
+        };
+        chestButton.OnLeaveHover += () =>
+        {
+            if (chestUI.RemainOpen || BuildingManager.Instance.IsBuildMode) return;
+            inventoryUI.SetActive(false);
+            chestUI.SetState(InventoryChestUI.States.Closed);
+        };
+        chestButton.OnClick.AddListener(() =>
+        {
+            chestUI.ToggleRemainOpen(!chestUI.RemainOpen);
+            chestUI.SetState(chestUI.RemainOpen ? InventoryChestUI.States.Open : InventoryChestUI.States.Closed);
+            inventoryUI.SetActive(chestUI.RemainOpen);
+        });
+        foreach (var kvp in materialsDictionary)
+        {
+            UpdateMaterial(kvp.Key, PlayerInventory.Instance.GetAmount(kvp.Key));
+        }
+
+        EnemyManager.Instance.OnWaveStarted += () =>
+        {
+            inventoryUI.SetActive(false);
+            chestUI.gameObject.SetActive(false);
+        };
+        EnemyManager.Instance.OnIdle += () =>
+        {
+            inventoryUI.SetActive(true);
+            chestUI.gameObject.SetActive(true);
+        };
+    }
+    //REMOVE THIS
+    private int test = 0;
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            TryAddCard(testingData[test]);
+            test++;
+        }
+    }
+
+    private void UpdateMaterial(ResourceData data, int newAmount)
+    {
+        if (materialsDictionary.TryGetValue(data, out var textMesh))
+        {
+            textMesh.text = newAmount.ToString();
+        }
+    }
+    public bool TryAddCard(SkillData data)
+    {
+        int maxCards = settings.MaxCards;
+        if (SkillCards.Count >= maxCards) return false;
+        SkillCardUI skillCard = Instantiate(cardPrefab, cardLayoutGroup.transform).GetComponent<SkillCardUI>();
+        skillCard.transform.SetAsLastSibling();
+        var canvas = skillCard.GetComponent<Canvas>();
+        int maxOrder = 0;
+        foreach (Transform t in cardLayoutGroup.transform)
+        {
+            var c = t.GetComponent<Canvas>();
+            if (c && c.overrideSorting) maxOrder = Mathf.Max(maxOrder, c.sortingOrder);
+        }
+        canvas.sortingOrder = maxOrder + 1; 
+        skillCard.GetComponent<SetCardData>().SetData(data);
+        SkillCards.Add(skillCard);
+        skillRegistry.AddNewSkill(data);
+        skillCard.OnRemoveCard += cardUI =>
+        {
+            SkillCards.Remove(cardUI);
+            Destroy(skillCard.gameObject);
+            OnRemovedCard?.Invoke();
+        };
+        return true;
+    }
+
+    public void RemoveCard(SkillData skillData)
+    {
+        var card = SkillCards.FirstOrDefault(c => c.SkillData == skillData);
+        if (card != null)
+        {
+            SkillCards.Remove(card);
+            Destroy(card.gameObject);
+            OnRemovedCard?.Invoke();
+        }
+    }
+
+   
+}

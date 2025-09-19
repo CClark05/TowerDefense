@@ -1,0 +1,89 @@
+using System;
+using System.Collections;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Assertions.Must;
+
+public static class DamageService
+{
+    public static void ApplyDamage(
+        HitData hitData,
+        IDamageable damageable,
+        IUsesStatusEffects statusEffects,
+        SkillContext skillContext,
+        Action<HitData, Vector2> onDealDamage,
+        float finalMult = 1)
+    {
+
+        var onHitEffects = statusEffects.PersistentEffectsApplied.Where(kvp => kvp.Key is OnHitStatusEffect).ToList();
+        if (onHitEffects.Count > 0)
+        {
+            foreach (var kvp in onHitEffects)
+            {
+                ((OnHitStatusEffect)kvp.Key).OnPersistentHit(hitData, kvp.Value);
+            }
+        }
+        foreach (var mod in skillContext.GetSkillInstancesWith<IHitModifier>().OrderBy(p => p.modifier.priority))
+        {
+            mod.modifier.Modify(hitData, damageable);
+            if(mod.instance.PlayTwice)
+                mod.modifier.Modify(hitData, damageable);
+        }
+        foreach (var status in hitData.effectsApplied.OfType<IHitModifier>().OrderBy(s => s.priority))
+        {
+            status.Modify(hitData, damageable);
+        }
+        foreach (var kvp in hitData.effectsApplied)
+        {
+            if(kvp.Key is not PersistentStatusEffect persistentEffect) continue;
+            var onEffects = skillContext.GetSkillInstancesWith<IOnEffectApplied>().Where(e => e.modifier.Effect == kvp.Key);
+            var effectData = new ModifyEffectData();
+            foreach (var mod in onEffects)
+            {
+                mod.modifier.Modify(effectData, hitData);
+                if(mod.instance.PlayTwice)
+                    mod.modifier.Modify(effectData, hitData);
+            }
+            statusEffects.AddPersistentEffect(persistentEffect, hitData, kvp.Value, effectData);
+        }
+        
+        hitData.finalDamage = Mathf.RoundToInt(hitData.finalDamage * finalMult);
+        bool isDead = damageable.TakeDamage(hitData.finalDamage);
+        hitData.didKill = isDead;
+        onDealDamage?.Invoke(hitData, damageable.Transform.position);
+        if (isDead)
+        {
+            foreach (var onKill in skillContext.GetSkillInstancesWith<IOnKill>())
+            {
+                onKill.modifier.OnKill(hitData);
+                if(onKill.instance.PlayTwice)
+                    onKill.modifier.OnKill(hitData);
+            }
+        }
+        hitData.RetriggerDamage = mult =>
+        {
+            CoroutineRunner.Instance.StartCoroutine(Retrigger());
+            IEnumerator Retrigger()
+            {
+                float delay = 0.4f;
+                yield return new WaitForSeconds(delay);
+                var clone = new HitData(hitData); 
+                DamageService.ApplyDamage(clone, damageable, statusEffects, skillContext, onDealDamage, mult);
+            }
+        };
+    }
+
+    public static IEnumerator ApplyDelayedDamage(
+        HitData hitData,
+        IDamageable damageable,
+        IUsesStatusEffects statusEffects,
+        SkillContext skillContext,
+        float delay,
+        float multiplier,
+        Action<HitData, Vector2> onDealDamage)
+    {
+        yield return new WaitForSeconds(delay);
+        if (damageable == null) yield break;
+        ApplyDamage(hitData, damageable, statusEffects, skillContext,onDealDamage,  multiplier);
+    }
+}

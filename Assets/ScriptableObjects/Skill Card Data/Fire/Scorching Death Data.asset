@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24eda9eb5de441d9aa637d153e05ae3d, type: 3}
+  m_Name: Scorching Death Data
+  m_EditorClassIdentifier: 
+  price: 0
+  name: Scorching Death
+  icon: {fileID: 0}
+  rarity: 0
+  description: Applies 5 <color=#A53030>Fire</color> on kill to all enemies.
+  statusEffects:
+  - showInUI: 1
+    data: {fileID: 11400000, guid: e27d48209898baa4da32440daf087efd, type: 2}
+  buffs: []
+  prerequisiteSkills:
+  - {fileID: 11400000, guid: 3f4fa63c1aa112a4aa74dbb9665043f6, type: 2}
+  fireOnKill: 5

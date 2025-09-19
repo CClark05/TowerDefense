@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c989bdb60e441a9977d51994ca63e77, type: 3}
+  m_Name: Focused Impact Data
+  m_EditorClassIdentifier: 
+  price: 10
+  name: Focused Impact
+  icon: {fileID: 2584138411059364241, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  rarity: 0
+  description: Adds +3 flat damage on hit.
+  statusEffects: []
+  buffs: []
+  prerequisiteSkills: []
+  PlusDamage: 3

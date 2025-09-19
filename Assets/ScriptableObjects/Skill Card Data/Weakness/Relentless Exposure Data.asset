@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14c9181b60494393921180e41b0ea3b3, type: 3}
+  m_Name: Relentless Exposure Data
+  m_EditorClassIdentifier: 
+  price: 0
+  name: Relentless Exposure
+  icon: {fileID: 0}
+  rarity: 0
+  description: Re-applying <color=#A23E8C>Weak</color> to an enemy grants additional
+    stacks, increasing by +1 each re-apply.
+  statusEffects:
+  - showInUI: 1
+    data: {fileID: 11400000, guid: bbc4e7296f4b7db49a7dda77c757b7f0, type: 2}
+  buffs: []
+  prerequisiteSkills:
+  - {fileID: 11400000, guid: 03d3d4cdd9236f54a9cf8b9b51ea1c3a, type: 2}
+  additionalStacks: 1
