@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Speed Buff", menuName = "Buffs/Speed")]
 public class SpeedBuffData : BuffData, IBuff

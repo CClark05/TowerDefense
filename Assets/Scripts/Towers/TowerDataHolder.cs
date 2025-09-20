@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using CodeMonkey.Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class TowerDataHolder : MonoBehaviour
+public class TowerDataHolder : MonoBehaviour, IBuffOverride
 {
     [SerializeField] private TowerData baseData;
     public TowerData Data => baseData;
@@ -106,6 +107,14 @@ public class TowerDataHolder : MonoBehaviour
         RuntimeData.Range += towerWaveData.increasedRange;
         RuntimeData.CardSlots += towerWaveData.increasedSlots;
         RuntimeData.timeBetweenShots /= towerWaveData.increasedSpeed;
+        if(towerWaveData.stunnedDuration > 0)
+        {
+            RuntimeData.stunned = true;
+            FunctionTimer.Create(() =>
+            {
+                RuntimeData.stunned = false;
+            }, towerWaveData.stunnedDuration);
+        }
     }
     private void OnKillEnemy()
     {
@@ -118,15 +127,19 @@ public class TowerDataHolder : MonoBehaviour
         TotalDamage += damage;
         OnUpdateStats?.Invoke();
     }
+    public void AddBuff(IBuff buff, int stacks) => SkillContext.AddBuff(buff, stacks);
+
+    public void RemoveBuff(IBuff buff, int stacks) => SkillContext.TryRemoveBuff(buff, stacks);
 
     private void OnDisable()
     {
         enemyManager.OnWaveStarted -= OnWaveStart;
         enemyManager.OnWaveComplete -= OnWaveComplete;
     }
-
     private void OnDestroy()
     {
         ActiveTowerList.Remove(this);
     }
+
+    
 }

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4574e392c0bb4186b1729069a35ee1dd, type: 3}
-  m_Name: WaveFive
+  m_Script: {fileID: 11500000, guid: 0ae43cd940eb4d19a34ca5ac44f174c4, type: 3}
+  m_Name: Stunned Debuff
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 11400000, guid: 7626989f1d64c6746837866535bcca89, type: 2}
-  delayBetweenSpawns: 1.25
-  reward: 5
-  movesAllowed: 50
+  name: Stunned
+  description: Tower is unable to shoot for 1 seconds per stack.
+  color: {r: 0.64705884, g: 0.1882353, b: 0.1882353, a: 1}
+  sprite: {fileID: 0}
+  duration: 1

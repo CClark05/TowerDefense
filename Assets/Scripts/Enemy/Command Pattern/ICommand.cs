@@ -8,10 +8,5 @@ public interface ICommand
 public abstract class EnemyCommand : ICommand
 {
     public abstract IEnumerator Execute(IAgent agent);
-    protected float duration;
-
-    protected EnemyCommand(float duration)
-    {
-        this.duration = duration;
-    }
+    
 }

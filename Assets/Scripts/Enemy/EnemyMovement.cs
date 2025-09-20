@@ -16,6 +16,7 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
     public float Progress => (float)currentIndex / path.Count;
     private Rigidbody2D rb;
     private Vector2 velocity;
+    public event Action<float> OnJump;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -94,6 +95,25 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
         speedRoutine = StartCoroutine(SmoothMultiplier(targetMult, duration));
     }
     public void ResetSpeed(float duration = 0f) => SetSpeed(1f, duration);
+    public void Jump(float height, float duration)
+    {
+        StartCoroutine(JumpCoroutine(height, duration));
+    }
+    private IEnumerator JumpCoroutine(float height, float duration)
+    {
+        Vector2 originalPos = transform.position;
+        float t = 0;
+        OnJump?.Invoke(duration);
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float u = Mathf.Clamp01(t / duration);
+            float h = 4f * height * u * (1f - u);
+            transform.position = originalPos + Vector2.up * h;
+            yield return null; 
+        }
+        transform.position = originalPos; 
+    }
     private IEnumerator SmoothMultiplier(float target, float duration)
     {
         float start = speedMult;

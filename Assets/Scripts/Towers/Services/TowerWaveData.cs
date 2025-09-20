@@ -8,5 +8,6 @@ public class TowerWaveData
     public float increasedRange;
     public int increasedSlots;
     public float increasedSpeed = 1;
+    public float stunnedDuration;
 }
 

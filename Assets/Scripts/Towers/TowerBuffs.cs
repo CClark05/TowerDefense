@@ -38,10 +38,8 @@ public class TowerBuffs : MonoBehaviour
             activeBuffs.Remove(effectUI);
             Destroy(effectUI.gameObject);
         }
-            
         
     }
-
     private void OnBuffAdded(IBuff buff, int stacks)
     {
         if (EnemyManager.Instance.WaveState == EnemyManager.WaveStates.Complete) return;

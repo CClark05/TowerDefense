@@ -198,7 +198,7 @@ MonoBehaviour:
   range: 3
   hoverLayer:
     serializedVersion: 2
-    m_Bits: 243
+    m_Bits: 755
 --- !u!114 &5681560965647973596
 MonoBehaviour:
   m_ObjectHideFlags: 0

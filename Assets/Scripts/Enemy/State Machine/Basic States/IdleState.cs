@@ -8,7 +8,7 @@ public class IdleState : BaseState
         Debug.Log("enter idle");
         runner.Play(this,new ICommand[]
         {
-            new IdleCommand(duration, slowTime)
+            new StopMovementCommand(slowTime)
         });
     }
 
@@ -17,7 +17,7 @@ public class IdleState : BaseState
         Debug.Log("exit idle");
     }
 
-    public IdleState(IAgent agent, float duration, float slowTime) : base(agent, duration)
+    public IdleState(IAgent agent, float duration, float slowTime) : base(agent)
     {
         this.slowTime = slowTime;
     }

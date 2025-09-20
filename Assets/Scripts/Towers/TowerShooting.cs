@@ -49,6 +49,7 @@ public class TowerShooting : MonoBehaviour
 
     private void Update()
     {
+        if (towerDataHolder.RuntimeData.stunned) return;
         shootTimer += Time.deltaTime;
 
         if (shootCoroutine != null && shootTimer >= timeBetweenShots)
@@ -142,4 +143,5 @@ public class TowerShooting : MonoBehaviour
 
         EnemyStatusEffects.OnTakeDamageStatic -= EnemyStatusEffectsOnTakeDamage;
     }
+    
 }

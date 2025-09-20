@@ -3,7 +3,7 @@ using UnityEngine;
 public class SprintState : BaseState
 {
     private float speedMult;
-    public SprintState(IAgent agent, float duration, float speedMult) : base(agent, duration)
+    public SprintState(IAgent agent,float speedMult) : base(agent)
     {
         this.speedMult = speedMult;
     }
@@ -12,7 +12,7 @@ public class SprintState : BaseState
         Debug.Log("enter sprint");
         runner.Play(this,new ICommand[]
         {
-            new IncreaseSpeedCommand(duration, speedMult)
+            new IncreaseSpeedCommand(speedMult)
         });
     }
 
@@ -20,7 +20,5 @@ public class SprintState : BaseState
     {
         Debug.Log("exit sprint");
     }
-
-
     
 }

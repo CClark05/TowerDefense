@@ -22,6 +22,7 @@ public class TowerRuntimeData
     public float timeBetweenShots;
     private float range;
     private int cardSlots;
+    public bool stunned;
     public float Range
     {
         get => range;
