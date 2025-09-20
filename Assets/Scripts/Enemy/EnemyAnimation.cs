@@ -1,12 +1,10 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.XR;
-
 public class EnemyAnimation : MonoBehaviour
 {
     private Vector2 originalScale;
-
+    [SerializeField] private Transform shockwave;
     private void Awake()
     {
         originalScale = transform.localScale;
@@ -14,9 +12,8 @@ public class EnemyAnimation : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<EnemyMovement>().OnJump += JumpAnimation;
+        //GetComponent<EnemyMovement>().OnJump += JumpAnimation;
     }
-
     private void JumpAnimation(float duration)
     {
         var seq = DOTween.Sequence().SetLink(gameObject);
@@ -27,6 +24,10 @@ public class EnemyAnimation : MonoBehaviour
         seq.Append(transform.DOScale(new Vector3(originalScale.x * 1.16f, originalScale.y * 0.86f), 0.06f)
             .SetEase(Ease.OutQuad));
         seq.Append(transform.DOScale(originalScale, 0.06f));
-        seq.OnComplete(() => transform.localScale = originalScale);
+        seq.OnComplete(() =>
+        {
+            transform.localScale = originalScale;
+        });
+        
     }
 }

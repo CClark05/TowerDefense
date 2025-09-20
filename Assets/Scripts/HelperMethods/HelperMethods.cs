@@ -52,4 +52,10 @@ public static class HelperMethods
 
         return textMesh;
     }
+    
+    public static float ScaleForRadius(SpriteRenderer sr, float targetRadius)
+    {
+        float baseRadius = sr.sprite.bounds.extents.x; 
+        return targetRadius / baseRadius;
+    }
 }
