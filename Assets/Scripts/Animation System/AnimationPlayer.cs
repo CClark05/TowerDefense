@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimationPlayer : MonoBehaviour, IAnimationPlayer
 {
     private Dictionary<(object owner, int layer), Coroutine> currentAnimations = new();
-    public Coroutine Play(AnimationClip clip, Transform transform, AnimPlayMode mode = AnimPlayMode.Auto, float? duration = null, object owner = null, int layer = 0)
+    public Coroutine Play(AnimationClip clip, Transform transform, AnimPlayMode mode = AnimPlayMode.Auto, float? duration = null, AnimArgs args = null, object owner = null, int layer = 0)
     {
         var key = (owner ?? this, layer);
         Stop(owner, layer);
@@ -15,7 +15,7 @@ public class AnimationPlayer : MonoBehaviour, IAnimationPlayer
             AnimPlayMode.Loop => true,
             _ => clip.looping
         };
-        var routine = StartCoroutine(Run(clip, transform, loop, loop ? clip.defaultDuration : duration ?? clip.defaultDuration, key));
+        var routine = StartCoroutine(Run(clip, transform, loop, loop ? clip.defaultDuration : duration ?? clip.defaultDuration, key, args));
         currentAnimations[key] = routine;
         return routine;
     }
@@ -30,17 +30,17 @@ public class AnimationPlayer : MonoBehaviour, IAnimationPlayer
         }
     }
     
-    private IEnumerator Run(AnimationClip clip, Transform transform, bool loop, float duration, (object owner, int layer) key)
+    private IEnumerator Run(AnimationClip clip, Transform transform, bool loop, float duration, (object owner, int layer) key, AnimArgs args = null)
     {
         bool Cancelled() => !currentAnimations.ContainsKey(key) || transform == null;
         if (!loop)
         {
-            yield return clip.Play(transform, duration, Cancelled);
+            yield return clip.Play(transform, duration, Cancelled, args);
             currentAnimations.Remove(key);
             yield break;
         }
         while (!Cancelled())
-            yield return clip.Play(transform, duration, Cancelled);
+            yield return clip.Play(transform, duration, Cancelled, args);
 
         currentAnimations.Remove(key);
     }

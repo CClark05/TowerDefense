@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 2661289385655798022}
   - component: {fileID: 552441973868095623}
   - component: {fileID: 6376516497736485663}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,6 +363,7 @@ MonoBehaviour:
   stunDebuff: {fileID: 11400000, guid: 7006be7218381c2479cb0c8d961b3c9d, type: 2}
   jumpAnimation: {fileID: 11400000, guid: a8157f7313482ce40969f04f0489d94f, type: 2}
   shockwaveAnimation: {fileID: 11400000, guid: bae03227aed301a4cb89954cfbe7ebb9, type: 2}
+  slimeMinionData: {fileID: 11400000, guid: dff3923ac185ebc43b7eff3aa7c02785, type: 2}
 --- !u!114 &1834585981986707518
 MonoBehaviour:
   m_ObjectHideFlags: 0

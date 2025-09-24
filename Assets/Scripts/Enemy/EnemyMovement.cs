@@ -7,6 +7,7 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
 {
     private List<Vector2> path;
     private int currentIndex;
+    
     private float baseSpeed;
     private float originalMoveSpeed;
     private float speedMult = 1;
@@ -24,27 +25,26 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
 
     private void Start()
     {
+        currentIndex = AStarPathfinding.Instance.GetPathIndex(transform.position);
         baseSpeed = GetComponent<EnemyDataHolder>().Data.speed;
         originalMoveSpeed = baseSpeed;
         path = AStarPathfinding.Instance.GetPath();
         if(path == null) Debug.LogError("No path found");
+        var segment = AStarPathfinding.GetSegment(path, transform.position);
+        var projectedPath = AStarPathfinding.BuildOffsetPath(path, segment.signedOffset);
     }
+    
     private void Update()
     {
-        if (currentIndex >= path.Count)
+        if (currentIndex >= path.Count) 
         {
             OnReachedEndStatic?.Invoke(GetComponent<EnemyDataHolder>().Data.livesCost);
             OnReachedEnd?.Invoke();
             Destroy(gameObject);
             return;
         }
-        
-        Vector2 target = path[currentIndex];
-        Vector2 direction = (target - (Vector2)transform.position).normalized;
-        velocity = direction * effectiveSpeed;
-        if (Vector2.Distance(transform.position, target) < 0.1f)
-            currentIndex++;
     }
+
     
     private void FixedUpdate()
     {

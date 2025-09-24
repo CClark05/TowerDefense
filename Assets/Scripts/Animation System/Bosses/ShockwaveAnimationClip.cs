@@ -7,10 +7,11 @@ using UnityEngine;
 public class ShockwaveAnimationClip : AnimationClip
 {
     //TODO ADD OPTIONAL PARAMETERS
-    public override IEnumerator Play(Transform transform, float duration, Func<bool> cancelled)
+    public override IEnumerator Play(Transform transform, float duration, Func<bool> cancelled, AnimArgs args = null)
     {
         var seq = DOTween.Sequence().SetLink(transform.gameObject);
-        seq.Append(transform.DOScale(new Vector2(0.6f,0.6f), duration).SetEase(Ease.OutQuint));
+        Vector2 scaleTo = args?.scaleTo ?? new Vector2(0.0f, 0.0f);
+        seq.Append(transform.DOScale(scaleTo, duration).SetEase(Ease.OutQuint));
         seq.Join(transform.GetComponent<SpriteRenderer>().DOFade(0, duration * 1.5f).SetEase(Ease.OutQuad));
         seq.OnComplete(() =>
         {

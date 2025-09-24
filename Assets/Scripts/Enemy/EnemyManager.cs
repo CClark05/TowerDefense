@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
@@ -9,15 +11,24 @@ public class EnemyManager : Singleton<EnemyManager>
     public List<GameObject> CurrentEnemies => currentEnemies;
     private LevelData levelData;
     public int CurrentWave { get; private set; } = 1;
-    public enum WaveStates {Idle,Spawning, DoneSpawning, Complete}
+
+    public enum WaveStates
+    {
+        Idle,
+        Spawning,
+        DoneSpawning,
+        Complete
+    }
 
     public WaveStates WaveState { get; private set; } = WaveStates.Idle;
-    
+
     public event Action OnIdle;
     public event Action OnWaveStarted;
     public event Action<int> OnWaveComplete;
     public event Action<GameOverData> OnNoWavesLeft;
     public event Action OnEnemiesUpdated;
+    private WaveData waveData => levelData.waves[CurrentWave - 1];
+
     private void Start()
     {
         levelData = LevelDataHolder.Instance.Data;
@@ -25,7 +36,7 @@ public class EnemyManager : Singleton<EnemyManager>
         PlayButtonUI.Instance.OnNextWave += () =>
         {
             if (WaveState != WaveStates.Idle) return;
-            StartCoroutine(SpawnWave(levelData.waves[CurrentWave - 1]));
+            StartCoroutine(SpawnWave(waveData));
         };
         CardSelectUI.Instance.OnSelectedCard += () =>
         {
@@ -34,18 +45,40 @@ public class EnemyManager : Singleton<EnemyManager>
         };
     }
 
-    private void SpawnEnemy(EnemyData enemyData, WaveData waveData)
+    private void SpawnEnemy(EnemyData enemyData) => SpawnEnemyAtPosition(enemyData, AStarPathfinding.Instance.GetPath()[0]);
+
+    public void SpawnEnemyAtPosition(EnemyData enemyData, Vector2 position)
     {
-        var enemy = Instantiate(enemyData.prefab, AStarPathfinding.Instance.GetPath()[0], Quaternion.identity);
+        var enemy = Instantiate(enemyData.prefab, position, Quaternion.identity);
         enemy.GetComponent<EnemyDataHolder>().Init(enemyData);
-        enemy.GetComponent<EnemyHealth>().OnDeath += () => RemoveEnemy(enemy, waveData);
-        enemy.GetComponent<EnemyMovement>().OnReachedEnd += () => RemoveEnemy(enemy, waveData);
+        enemy.GetComponent<EnemyHealth>().OnDeath += () => RemoveEnemy(enemy);
+        enemy.GetComponent<EnemyMovement>().OnReachedEnd += () => RemoveEnemy(enemy);
         currentEnemies.Add(enemy);
         OnEnemiesUpdated?.Invoke();
         enemy.GetComponent<IUsesStatusEffects>().OnEffectsUpdated += () => OnEnemiesUpdated?.Invoke();
     }
 
-    private void RemoveEnemy(GameObject enemy, WaveData waveData)
+    public void SpawnEnemyBurst(EnemyData enemyData, int count, Vector2 position)
+    {
+        EnemyData[] dataArray = new EnemyData[count];
+        for (int i = 0; i < count; i++)
+        {
+            dataArray[i] = enemyData;
+        }
+
+        SpawnEnemyBurst(dataArray, position);
+    }
+    
+    private void SpawnEnemyBurst(EnemyData[] enemyData, Vector2 position)
+    {
+        var spawnPoints = ClusterSpawning.CreateRandomCluster(position, 3, enemyData.Length);
+        for (int i = 0; i < enemyData.Length; i++)
+        {
+            Vector2 spawnPos = (i < spawnPoints.Length) ? spawnPoints[i] : position;
+            SpawnEnemyAtPosition(enemyData.ElementAt(i), spawnPos);
+        }
+    }
+    private void RemoveEnemy(GameObject enemy)
     {
         currentEnemies.Remove(enemy);
         OnEnemiesUpdated?.Invoke();
@@ -58,10 +91,12 @@ public class EnemyManager : Singleton<EnemyManager>
                 OnNoWavesLeft?.Invoke(PlayerGameOverStats.GetGameOverData());
                 return;
             }
+
             WaveState = WaveStates.Complete;
             OnWaveComplete?.Invoke(waveData.reward);
         }
     }
+
     private IEnumerator SpawnWave(WaveData data)
     {
         Debug.Log("Starting wave");
@@ -69,7 +104,7 @@ public class EnemyManager : Singleton<EnemyManager>
         WaveState = WaveStates.Spawning;
         foreach (var enemy in data.enemies)
         {
-            SpawnEnemy(enemy, data);
+            SpawnEnemy(enemy);
             yield return new WaitForSeconds(data.delayBetweenSpawns);
         }
 

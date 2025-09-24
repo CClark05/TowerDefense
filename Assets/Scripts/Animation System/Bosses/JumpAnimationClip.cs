@@ -11,7 +11,7 @@ public class JumpAnimationClip : AnimationClip
     public Vector2 stretchScale = new(0.9f, 1.1f);
     public float impactTime = 0.06f;
     
-    public override IEnumerator Play(Transform transform, float duration, Func<bool> cancelled)
+    public override IEnumerator Play(Transform transform, float duration, Func<bool> cancelled, AnimArgs args = null)
     {
         var seq = DOTween.Sequence().SetLink(transform.gameObject);
         float squashDuration = duration * 0.2f;

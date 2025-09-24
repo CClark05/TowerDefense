@@ -55,7 +55,14 @@ public static class HelperMethods
     
     public static float ScaleForRadius(SpriteRenderer sr, float targetRadius)
     {
-        float baseRadius = sr.sprite.bounds.extents.x; 
-        return targetRadius / baseRadius;
+        float localBaseRadius = sr.sprite.bounds.extents.x;
+        if (localBaseRadius <= 0f) return 1f;
+        
+        float parentScaleX = 1f;
+        if (sr.transform.parent != null)
+            parentScaleX = Mathf.Abs(sr.transform.parent.lossyScale.x);
+        
+        float requiredLocalScale = targetRadius / (localBaseRadius * parentScaleX);
+        return requiredLocalScale;
     }
 }

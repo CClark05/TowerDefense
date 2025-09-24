@@ -9,16 +9,12 @@ public class SlimeJumpState : BaseState
     private float duration;
     private float stunRadius;
     private List<TowerDataHolder> nearbyTowers = new();
-    private float readyAt;
-    public bool IsReady => Time.time >= readyAt;
-    private float jumpCooldown;
     private AnimationClip jumpAnimation;
     private AnimationClip shockwaveAnimation;
-    public SlimeJumpState(IAgent agent, float duration, float jumpHeight, float jumpCooldown, BuffData stunDebuff, int stunStacks, float stunRadius, AnimationClip jumpAnimation, AnimationClip shockwaveAnimation) : base(agent)
+    public SlimeJumpState(IAgent agent, float duration, float jumpHeight, BuffData stunDebuff, int stunStacks, float stunRadius, AnimationClip jumpAnimation, AnimationClip shockwaveAnimation, float cooldown) : base(agent, cooldown)
     {
         this.jumpHeight = jumpHeight;
         this.stunDebuff = stunDebuff;
-        this.jumpCooldown = jumpCooldown;
         this.stunStacks = stunStacks;
         this.duration = duration;
         this.stunRadius = stunRadius;
@@ -39,12 +35,16 @@ public class SlimeJumpState : BaseState
 
     public override void OnExit()
     {
-        agent.Require<IAnimationPlayer>().Play(shockwaveAnimation, agent.Transform.GetComponent<AnimationVisualGroup>().TryGet(0));
+        base.OnExit();
+        Transform shockWave = agent.Transform.GetComponent<AnimationVisualGroup>().TryGet(0);
+        float scaleTo = HelperMethods.ScaleForRadius(shockWave.GetComponent<SpriteRenderer>(), stunRadius);
+        agent.Require<IAnimationPlayer>().Play(shockwaveAnimation, shockWave, AnimPlayMode.Auto, 0.5f, 
+            args: new AnimArgs{scaleTo = new Vector2(scaleTo,scaleTo)});
+        CameraShake.Shake(Camera.main.transform, 0.2f, 0.4f);
         runner.Play(this, new ICommand[]
         {
             new StunCommand(stunDebuff, stunStacks, nearbyTowers)
         });
-        readyAt = Time.time + jumpCooldown;
     }
     
 }

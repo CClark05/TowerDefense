@@ -5,9 +5,13 @@ public abstract class BaseState : IState
     protected CommandRunner runner;
     public bool IsDone => !runner.IsPlaying(this);
     protected IAgent agent;
-    protected BaseState(IAgent agent)
+    private float cooldown;
+    private float readyAt;
+    public bool IsReady => Time.time >= readyAt;
+    protected BaseState(IAgent agent, float cooldown = 0f)
     {
         this.agent = agent;
+        this.cooldown = cooldown;
         runner = (agent as Component).GetComponent<CommandRunner>() ??
                  (agent as Component).gameObject.AddComponent<CommandRunner>();
         runner.Init(agent);
@@ -18,6 +22,7 @@ public abstract class BaseState : IState
 
     public virtual void OnExit()
     {
+        readyAt = Time.time + cooldown;
     }
 
     public virtual void FixedUpdate()
