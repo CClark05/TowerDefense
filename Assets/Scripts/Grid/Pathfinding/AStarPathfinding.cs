@@ -71,16 +71,6 @@ public class AStarPathfinding : Singleton<AStarPathfinding>
         return closest;
     }
 
-    //closest point on a line segment AB to a point P
-    public static Vector2 ProjectOnSegment(Vector2 p, Vector2 a, Vector2 b)
-    {
-        Vector2 ab = b - a;
-        float l2 = ab.sqrMagnitude;
-        if (l2 < 1e-8f) return a;
-        float u = Mathf.Clamp01(Vector2.Dot(p - a, ab) / l2);
-        return a + u * ab;
-    }
-
     public static (int seg, float t, float signedOffset) GetSegment(IReadOnlyList<Vector2> path, Vector2 position)
     {
         int bestSeg = 0;

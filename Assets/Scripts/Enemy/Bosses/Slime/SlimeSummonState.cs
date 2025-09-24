@@ -1,14 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SlimeSummonState : BaseState
 {
     private float duration;
-    private int summons;
+    private int summonsPerCluster;
     private EnemyData summonData;
-    public SlimeSummonState(IAgent agent, float duration, int summons, EnemyData summonData,float cooldown) : base(agent, cooldown)
+    public SlimeSummonState(IAgent agent, float duration, int summonsPerCluster, EnemyData summonData,float cooldown) : base(agent, cooldown)
     {
         this.duration = duration;
-        this.summons = summons;
+        this.summonsPerCluster = summonsPerCluster;
         this.summonData = summonData;
     }
 
@@ -19,8 +20,9 @@ public class SlimeSummonState : BaseState
         {
             new StopMovementCommand(0.25f),
             new WaitCommand(0.5f),
-            new SpawnEnemyCommand(summonData, summons, agent.Transform.position),
+            new SpawnEnemyCommand(summonData, summonsPerCluster, agent.Transform.position),
             new WaitCommand(1),
+            new SpawnEnemyCommand(summonData, summonsPerCluster, agent.Transform.position),
             new ResetSpeedCommand(0.25f),
         });
     }

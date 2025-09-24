@@ -6,5 +6,4 @@ public interface IDamageable
 {
     public Transform Transform { get; }
     public bool TakeDamage(int amount);
-    
 }

@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
 {
-    private List<Vector2> path;
+    private List<Vector2> centerPath;
+    private List<Vector2> projectedPath;
     private int currentIndex;
     
     private float baseSpeed;
@@ -14,7 +15,7 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
     private float effectiveSpeed => originalMoveSpeed * speedMult;
     public static event Action<int> OnReachedEndStatic;
     public event Action OnReachedEnd;
-    public float Progress => (float)currentIndex / path.Count;
+    public float Progress => (float)currentIndex / (projectedPath.Count - 1);
     private Rigidbody2D rb;
     private Vector2 velocity;
     public event Action<float> OnJump;
@@ -25,24 +26,29 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
 
     private void Start()
     {
-        currentIndex = AStarPathfinding.Instance.GetPathIndex(transform.position);
         baseSpeed = GetComponent<EnemyDataHolder>().Data.speed;
         originalMoveSpeed = baseSpeed;
-        path = AStarPathfinding.Instance.GetPath();
-        if(path == null) Debug.LogError("No path found");
-        var segment = AStarPathfinding.GetSegment(path, transform.position);
-        var projectedPath = AStarPathfinding.BuildOffsetPath(path, segment.signedOffset);
+        centerPath = AStarPathfinding.Instance.GetPath();
+        if(centerPath == null) Debug.LogError("No path found");
+        var segment = AStarPathfinding.GetSegment(centerPath, transform.position);
+        projectedPath = AStarPathfinding.BuildOffsetPath(centerPath, segment.signedOffset);
+        currentIndex =  Mathf.Clamp(segment.seg + (segment.t > 0.5f ? 1 : 0), 0, projectedPath.Count - 1);
     }
     
     private void Update()
     {
-        if (currentIndex >= path.Count) 
+        if (currentIndex >= projectedPath.Count) 
         {
             OnReachedEndStatic?.Invoke(GetComponent<EnemyDataHolder>().Data.livesCost);
             OnReachedEnd?.Invoke();
             Destroy(gameObject);
             return;
         }
+        Vector2 target = projectedPath[currentIndex];
+        Vector2 direction = (target - (Vector2)transform.position).normalized;
+        velocity = direction * effectiveSpeed;
+        if (Vector2.Distance(transform.position, target) < 0.1f)
+            currentIndex++;
     }
 
     
@@ -53,7 +59,7 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
     
     public bool TryPosVelAt(float t, out Vector2 pos, out Vector2 vel)
     {
-        if (path == null || path.Count == 0) { pos = transform.position; vel = Vector2.zero; return false; }
+        if (centerPath == null || centerPath.Count == 0) { pos = transform.position; vel = Vector2.zero; return false; }
 
         float remaining = effectiveSpeed * Mathf.Max(0f, t);
         Vector2 cur = transform.position;
@@ -61,8 +67,8 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
 
         while (true)
         {
-            if (idx >= path.Count) { pos = cur; vel = Vector2.zero; return true; }
-            Vector2 tgt = path[idx];
+            if (idx >= centerPath.Count) { pos = cur; vel = Vector2.zero; return true; }
+            Vector2 tgt = centerPath[idx];
             Vector2 seg = tgt - cur;
             float segLen = seg.magnitude;
 
