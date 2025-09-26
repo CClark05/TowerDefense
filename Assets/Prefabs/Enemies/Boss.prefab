@@ -140,6 +140,8 @@ GameObject:
   - component: {fileID: 2661289385655798022}
   - component: {fileID: 552441973868095623}
   - component: {fileID: 6376516497736485663}
+  - component: {fileID: 5786162247630632988}
+  - component: {fileID: 4242396133354370729}
   m_Layer: 10
   m_Name: Boss
   m_TagString: Untagged
@@ -188,7 +190,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: -876546973899608171, guid: 9a4b6d4ef7411a64ca87dc718244f032, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -431,6 +433,35 @@ MonoBehaviour:
   entries:
   - id: 0
     comp: {fileID: 784379625943645214}
+--- !u!114 &5786162247630632988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4048362118106325107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7223ecc5fd841fbbaa5537258227ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashAmountOnHit: 1
+  flashToDuration: 0.1
+  holdDuration: 0.06
+  flashBackDuration: 0.18
+--- !u!114 &4242396133354370729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4048362118106325107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebb524e78764e35886227b69b4e1fbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticlesPrefab: {fileID: 3814077728722885872, guid: 4d439a72d84ea2947b99d1915481f0f1, type: 3}
 --- !u!1 &6111767520381826524
 GameObject:
   m_ObjectHideFlags: 0

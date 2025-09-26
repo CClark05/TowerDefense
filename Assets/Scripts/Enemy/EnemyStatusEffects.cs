@@ -10,6 +10,7 @@ public class EnemyStatusEffects : MonoBehaviour, IUsesStatusEffects
     [SerializeField] private GameObject statusEffectPrefab;
     [SerializeField] private GridLayoutGroup layoutGroup;
     public Dictionary<PersistentStatusEffect, int> PersistentEffectsApplied { get; } = new();
+    public Dictionary<PersistentStatusEffect, int> PersistentEffectsGhost { get; } = new();
     private List<EffectUI> activeEffectUI = new();
     private Dictionary<OnTickStatusEffect, TickData> OnTickEffects = new();
     public Action<DamageData, TowerShooting> OnTakeDamage { get; set; }
@@ -24,9 +25,14 @@ public class EnemyStatusEffects : MonoBehaviour, IUsesStatusEffects
         };
     }
 
-    public void AddPersistentEffect(PersistentStatusEffect effect, HitData hitData, int stacks, ModifyEffectData modifyData)
+    public void AddPersistentEffect(PersistentStatusEffect effect, HitData hitData, int stacks, ModifyEffectData modifyData, bool ghost = false)
     {
         int newStacks = stacks + modifyData.additionalStacks;
+        if (ghost)
+        {
+            PersistentEffectsGhost[effect] = PersistentEffectsGhost.GetValueOrDefault(effect) + newStacks;
+            return;
+        }
         if (effect is OnTickStatusEffect tickEffect)
         {
             if (!OnTickEffects.ContainsKey(tickEffect))
@@ -51,9 +57,16 @@ public class EnemyStatusEffects : MonoBehaviour, IUsesStatusEffects
         activeEffectUI.Add(newEffect);
         OnEffectsUpdated?.Invoke();
     }
+    
 
-    public void RemoveAllStacks(PersistentStatusEffect effect)
+    public void RemoveAllStacks(PersistentStatusEffect effect, bool ghost = false)
     {
+        if (ghost)
+        {
+            PersistentEffectsGhost.Remove(effect);
+            return;
+        }
+
         var effectUI = activeEffectUI.Find(e => e.data == effect);
         PersistentEffectsApplied.Remove(effect);
         if (effect is OnTickStatusEffect onTick)
@@ -63,8 +76,13 @@ public class EnemyStatusEffects : MonoBehaviour, IUsesStatusEffects
         OnEffectsUpdated?.Invoke();
     }
 
-    public void RemoveStacks(PersistentStatusEffect effect, int stacks)
+    public void RemoveStacks(PersistentStatusEffect effect, int stacks, bool ghost = false)
     {
+        if(ghost){
+            if (PersistentEffectsGhost.TryGetValue(effect, out var ghostStacks))
+                PersistentEffectsGhost[effect] = Mathf.Max(0, ghostStacks - stacks);
+            return;
+        }
         if (!PersistentEffectsApplied.TryGetValue(effect, out int current)) return;
         PersistentEffectsApplied[effect] = Mathf.Max(0, current - stacks);
         var effectUI = activeEffectUI.Find(e => e.data == effect);

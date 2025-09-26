@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a5e99e318d94d42b0e34536f3d70989, type: 3}
+  m_Name: Sniper Data
+  m_EditorClassIdentifier: 
+  price: 0
+  name: Sniper
+  icon: {fileID: 0}
+  rarity: 0
+  description: Gain +5 base damage per 2 tiles between you and the target.
+  statusEffects: []
+  buffs: []
+  prerequisiteSkills: []
+  plusDamage: 5
+  tileInterval: 2

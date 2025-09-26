@@ -1,15 +1,14 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Sniper", menuName = "SkillData/Generic/Sniper")]
+[CreateAssetMenu(fileName = "Sniper Data", menuName = "SkillData/Generic/Sniper")]
 public class SniperSkillData : SkillData
 {
-    public int damagePerSecond = 10;
+    public int plusDamage = 3;
+    public int tileInterval = 2;
 
     private void OnValidate()
     {
-        description = $"Projectiles gain +{damagePerSecond} damage per second in the air.";
+        description = $"Gain +{plusDamage} base damage per {tileInterval} tiles between you and the target.";
     }
 
     public override SkillInstance CreateInstance()
@@ -18,24 +17,16 @@ public class SniperSkillData : SkillData
     }
 }
 
-public class SniperSkillInstance : SkillInstance<SniperSkillData>, IProjectileModifier, IOnHit
+public class SniperSkillInstance : SkillInstance<SniperSkillData>, IOnHit
 {
-    private ProjectileShotData projectileData;
     public SniperSkillInstance(SniperSkillData data) : base(data)
     {
     }
 
-    public IEnumerator Modify(ProjectileShotData shotData)
-    {
-        PlayCard();
-        projectileData = shotData;
-        yield return null;
-    }
     public void OnHit(HitData hitData)
     {
         PlayCard();
-        hitData.finalDamage += Mathf.FloorToInt(projectileData.AirTime * Data.damagePerSecond);
+        int tiles = Mathf.CeilToInt(Vector2.Distance(hitData.damageable.Transform.position, skillContext.Tower.transform.position) / GridManager.Instance.CellSize);
+        hitData.finalDamage += (tiles / Data.tileInterval) * Data.plusDamage;
     }
-    public bool DelayShot { get; }
-    
 }

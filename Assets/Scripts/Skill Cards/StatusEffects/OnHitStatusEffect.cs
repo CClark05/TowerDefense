@@ -10,6 +10,6 @@ public abstract class OnHitStatusEffect : PersistentStatusEffect
 
     protected void RemoveAllStacks(HitData hitData)
     {
-        hitData.statusEffects.RemoveAllStacks(this);
+        hitData.statusEffects.RemoveAllStacks(this, hitData.ghost);
     }
 }

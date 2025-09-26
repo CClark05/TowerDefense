@@ -52,7 +52,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
         PlayerService.ModifyWaveStart(SkillContext);
         UpdateTowerData(towerWaveData);
     }
-    private void OnWaveComplete(int obj)
+    private void OnWaveComplete(int obj, bool _)
     {
         TowerWaveData towerWaveData = new TowerWaveData();
         TowerService.ModifyWaveEnd(towerWaveData, SkillContext);

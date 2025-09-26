@@ -10,7 +10,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private ProjectileData data;
     [SerializeField] private float maxLeadSeconds = 0.3f;
     [SerializeField] private float steerGain = 12;
-    [SerializeField] private float homingWindow = 0.1f;
+    private float preHitWindow = 0.075f;
     private IDamageable target;
     private TowerDataHolder towerData;
 
@@ -20,43 +20,58 @@ public class Projectile : MonoBehaviour
     private int maxEnemiesPierced;
     private float speedIncrease = 1;
     private HashSet<IDamageable> enemiesHit = new();
+    private bool homing;
+    public static event Action OnWillKill;
     private void Init(IDamageable target, ProjectileShotData shotData)
     {
         this.target = target;
+        homing = shotData.homing;
         GetComponent<ProjectileVisual>().SetColor(shotData.projectileColor);
         maxEnemiesPierced = shotData.maxEnemiesPierced;
         targetTransform = target.Transform;
         speedIncrease *= shotData.speedIncrease;
         CalculateAim(transform.position, data.speed * speedIncrease);
+        
     }
 
     public static Projectile CreateProjectile(ProjectileData data, ProjectileShotData shotData, Vector2 position, IDamageable target, TowerDataHolder tower)
     {
         var projectile = Instantiate(data.prefab, position, Quaternion.identity).GetComponent<Projectile>();
-        projectile.Init(target, shotData);
         projectile.towerData = tower;
+        projectile.Init(target, shotData);
         return projectile;
     }
-    
-    private float homingTimer;
+    private bool preHitTriggered;
     private void Update()
     {
-        homingTimer += Time.deltaTime;
-        if (homingTimer < homingWindow)
-        {
-            
-        }
+        if (homing)
+            direction = (targetTransform.position - transform.position).normalized;
+        
         transform.position += (Vector3)direction * (data.speed * speedIncrease * Time.deltaTime);
+        if (targetTransform == null) return;
+        var predictor = targetTransform.GetComponent<IPathPredictor>();
+        if(TryPathIntercept(predictor, transform.position, data.speed * speedIncrease, preHitWindow, out var aim, out var tHit))
+        {
+            if (!preHitTriggered && tHit <= preHitWindow) {
+                preHitTriggered = true;
+                var damage = CalculateHitDamage(target, out var didKill);
+                if(didKill) OnWillKill?.Invoke();
+            }
+        }
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.GetComponent<IDamageable>() == null) return;
-        var damageable = other.GetComponent<IDamageable>();
-        var statusEffects = other.GetComponent<IUsesStatusEffects>();
+        ApplyDamage(other.GetComponent<IDamageable>());
+    }
+
+    private void ApplyDamage(IDamageable damageable)
+    {
+        var statusEffects = damageable.Transform.GetComponent<IUsesStatusEffects>();
         enemiesHit.Add(damageable);
-        if (other.GetComponent<IUsesShields>() != null)
+        if (damageable.Transform.GetComponent<IUsesShields>() != null)
         {
-            if (other.GetComponent<IUsesShields>().TryRemoveShield(1))
+            if (damageable.Transform.GetComponent<IUsesShields>().TryRemoveShield(1))
             {
                 if (enemiesHit.Count >= maxEnemiesPierced)
                 {
@@ -91,10 +106,30 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
     }
-    
-    private bool TryPathIntercept(IPathPredictor predictor, Vector2 shooterPos, float projSpeed, float tMax, out Vector2 aim)
+    private int CalculateHitDamage(IDamageable damageable, out bool didKill)
+    {
+        var statusEffects = damageable.Transform.GetComponent<IUsesStatusEffects>();
+        if (damageable.Transform.GetComponent<IUsesShields>() != null)
+        {
+            if (damageable.Transform.GetComponent<IUsesShields>().ShieldCount > 0)
+            {
+                didKill = false;
+                return 0;
+            }
+        }
+        int baseDamage = data.damage + towerData.Data.damage;
+        var hitData = new HitData(baseDamage, towerData.GetComponent<TowerShooting>(), damageable, statusEffects);
+        var list = towerData.SkillContext.GetSkillInstancesWith<IOnHit>();
+        foreach (var mod in towerData.SkillContext.GetSkillInstancesWith<IOnHit>().OrderBy(p => p.modifier.Priority)) 
+        {
+            mod.modifier.OnHit(hitData);
+            if (mod.instance.PlayTwice)
+                mod.modifier.OnHit(hitData);
+        }
+        return DamageService.CalculateDamage(hitData, damageable, statusEffects, towerData.SkillContext, out didKill);
+    }
+    private bool TryPathIntercept(IPathPredictor predictor, Vector2 shooterPos, float projSpeed, float tMax, out Vector2 aim, out float tHit)
     {
         float G(float t)
         {
@@ -118,7 +153,7 @@ public class Projectile : MonoBehaviour
                     if (Mathf.Sign(gm) == Mathf.Sign(gPrev)) { a = m; gPrev = gm; }
                     else { b = m; }
                 }
-                float tHit = 0.5f * (a + b);
+                tHit = 0.5f * (a + b);
                 predictor.TryPosVelAt(tHit, out aim, out _);
                 return true;
             }
@@ -131,13 +166,15 @@ public class Projectile : MonoBehaviour
             float a = Mathf.Abs(G(t));
             if (a < bestAbs) { bestAbs = a; bestT = t; }
         }
+
+        tHit = bestT;
         predictor.TryPosVelAt(bestT, out aim, out _);
         return false;
     }
     private void CalculateAim(Vector2 shooterPos, float projSpeed)
     {
         var predictor = targetTransform.GetComponent<IPathPredictor>();
-        TryPathIntercept(predictor, shooterPos, projSpeed, maxLeadSeconds, out var aim);
+        TryPathIntercept(predictor, shooterPos, projSpeed, maxLeadSeconds, out var aim, out var tHit);
         Vector2 desired = (aim - shooterPos).normalized;
         float a = 1f - Mathf.Exp(-steerGain * Time.deltaTime);
         direction = Vector2.Lerp(direction, desired, a).normalized;

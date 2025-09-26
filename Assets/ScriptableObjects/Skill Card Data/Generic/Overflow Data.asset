@@ -18,5 +18,6 @@ MonoBehaviour:
   rarity: 0
   description: Gives +2 card slots.
   statusEffects: []
+  buffs: []
   prerequisiteSkills: []
   extraSlots: 2

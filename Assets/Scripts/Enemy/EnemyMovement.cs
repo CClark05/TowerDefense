@@ -3,17 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
+public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, IJumpable, IMovementListener
 {
     private List<Vector2> centerPath;
     private List<Vector2> projectedPath;
     private int currentIndex;
     
     private float baseSpeed;
-    private float originalMoveSpeed;
     private float speedMult = 1;
-    private float effectiveSpeed => originalMoveSpeed * speedMult;
-    public static event Action<int> OnReachedEndStatic;
+    private float effectiveSpeed => baseSpeed * speedMult;
     public event Action OnReachedEnd;
     public float Progress => (float)currentIndex / (projectedPath.Count - 1);
     private Rigidbody2D rb;
@@ -27,7 +25,6 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
     private void Start()
     {
         baseSpeed = GetComponent<EnemyDataHolder>().Data.speed;
-        originalMoveSpeed = baseSpeed;
         centerPath = AStarPathfinding.Instance.GetPath();
         if(centerPath == null) Debug.LogError("No path found");
         var segment = AStarPathfinding.GetSegment(centerPath, transform.position);
@@ -39,7 +36,6 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride
     {
         if (currentIndex >= projectedPath.Count) 
         {
-            OnReachedEndStatic?.Invoke(GetComponent<EnemyDataHolder>().Data.livesCost);
             OnReachedEnd?.Invoke();
             Destroy(gameObject);
             return;

@@ -59,7 +59,9 @@ namespace CodeMonkey.Utils {
         public static FunctionTimer Create(Action action, float timer, string functionName, bool useUnscaledDeltaTime) {
             return Create(action, timer, functionName, useUnscaledDeltaTime, false);
         }
-
+        public static FunctionTimer Create(Action action, float timer, bool useUnscaledDeltaTime) {
+            return Create(action, timer, "", useUnscaledDeltaTime, false);
+        }
         public static FunctionTimer Create(Action action, float timer, string functionName, bool useUnscaledDeltaTime, bool stopAllWithSameName) {
             InitIfNeeded();
 

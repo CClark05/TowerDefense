@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using CodeMonkey.Utils;
 using UnityEngine;
 
 public class PlayerInventory : Singleton<PlayerInventory>
@@ -22,7 +23,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
     public event Action<ResourceData, int> OnMaterialAmountUpdated;
     public event Action<ResourceData> OnNewMaterialAdded;
     [SerializeField] private PlayerWaveRewardSettings waveRewardSettings;
-    public event Action<WaveRewards> OnWaveRewardsCalculated;
+    public event Action<WaveRewards, bool> OnWaveRewardsCalculated;
     private void Start()
     {
         Resource.OnDroppedMaterial += (data, amount) =>
@@ -51,11 +52,11 @@ public class PlayerInventory : Singleton<PlayerInventory>
     }
     
 
-    private void OnWaveComplete(int baseReward)
+    private void OnWaveComplete(int baseReward, bool fromDeath)
     {
         var settings = waveRewardSettings;
         var waveRewards = new WaveRewards(settings.InterestRate, settings.coinsPerMove, Coins, baseReward, PlayerTurnManager.Instance.MovesRemaining, EnemyManager.Instance.CurrentWave - 1);
-        OnWaveRewardsCalculated?.Invoke(waveRewards);
+        OnWaveRewardsCalculated?.Invoke(waveRewards, fromDeath);
     }
 
     private void SellCardStatic(SkillData data) => AddCoins(Mathf.FloorToInt(data.price * 0.5f));

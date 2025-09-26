@@ -19,4 +19,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
   delayBetweenSpawns: 1
   reward: 5
-  movesAllowed: 5
+  movesAllowed: 0

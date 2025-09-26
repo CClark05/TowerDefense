@@ -7,7 +7,7 @@ public class FocusedImpactSkillData : SkillData
     
     private void OnValidate()
     {
-        description = $"Adds +{PlusDamage} flat damage on hit.";
+        description = $"Adds +{PlusDamage} base damage on hit.";
     }
 
     public override SkillInstance CreateInstance()

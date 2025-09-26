@@ -16,7 +16,7 @@ public class JumpCommand : EnemyCommand
     public override IEnumerator Execute(IAgent agent)
     {
         agent.Require<IMovementOverride>().SetSpeed(0);
-        agent.Get<IMovementOverride>().Jump(jumpHeight, duration);
+        agent.Get<IJumpable>().Jump(jumpHeight, duration);
         yield return new WaitForSeconds(duration);
         agent.Get<IMovementOverride>().ResetSpeed();
     }

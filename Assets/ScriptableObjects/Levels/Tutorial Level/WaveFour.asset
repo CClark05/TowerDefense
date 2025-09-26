@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemies:
   - {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
-  - {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
-  - {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+  - {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
   - {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
   - {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
   - {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
   delayBetweenSpawns: 0.75
   reward: 5
-  movesAllowed: 30
+  movesAllowed: 0

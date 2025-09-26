@@ -38,7 +38,7 @@ public class ScorchingDeathSkillInstance : SkillInstance<ScorchingDeathSkillData
                 if(mod.instance.PlayTwice)
                     mod.modifier.Modify(effectData, hitData);
             }
-            enemy.AddPersistentEffect(Data.statusEffects[0].data as PersistentStatusEffect, hitData, Data.fireOnKill, effectData);
+            enemy.AddPersistentEffect(Data.statusEffects[0].data as PersistentStatusEffect, hitData, Data.fireOnKill, effectData, hitData.ghost);
             PlayCard();
         }
     }

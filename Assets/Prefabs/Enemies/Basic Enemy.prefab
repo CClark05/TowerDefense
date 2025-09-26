@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 3198148408304115504}
   - component: {fileID: 8779664000096357501}
   - component: {fileID: 3806639763986037551}
+  - component: {fileID: 3732669516646141128}
+  - component: {fileID: 4223098207583143547}
   m_Layer: 8
   m_Name: Basic Enemy
   m_TagString: Untagged
@@ -180,7 +182,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: -876546973899608171, guid: 9a4b6d4ef7411a64ca87dc718244f032, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -201,7 +203,7 @@ SpriteRenderer:
   m_SortingLayerID: 2103342471
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a0e35f6b808bb7447826cc6c69ffe448, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -247,7 +249,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Radius: 0.54
 --- !u!50 &4203311527308130844
 Rigidbody2D:
   serializedVersion: 5
@@ -340,6 +342,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   statusEffectPrefab: {fileID: 1972723069292693692, guid: da86f4214f9501c4fa352d320eb7e60b, type: 3}
   layoutGroup: {fileID: 4911601579179922633}
+--- !u!114 &3732669516646141128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784637425888943160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ebb524e78764e35886227b69b4e1fbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathParticlesPrefab: {fileID: 3814077728722885872, guid: 4d439a72d84ea2947b99d1915481f0f1, type: 3}
+--- !u!114 &4223098207583143547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784637425888943160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7223ecc5fd841fbbaa5537258227ac9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashAmountOnHit: 1
+  flashToDuration: 0.1
+  holdDuration: 0.06
+  flashBackDuration: 0.18
 --- !u!1 &5852598952880042616
 GameObject:
   m_ObjectHideFlags: 0

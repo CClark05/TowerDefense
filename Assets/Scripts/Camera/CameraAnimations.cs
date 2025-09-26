@@ -2,7 +2,7 @@ using System;
 using DG.Tweening;
 using UnityEngine;
 
-public class CameraZoom : MonoBehaviour
+public class CameraAnimations : MonoBehaviour
 {
     private float originalSize;
     private Camera camera;
@@ -20,6 +20,7 @@ public class CameraZoom : MonoBehaviour
         originalX = camera.transform.localPosition.x;
         BuildingUI.Instance.OnEnterBuildMode += () => ZoomOut(16);
         BuildingUI.Instance.OnExitBuildMode += ZoomBack;
+        EnemyHealth.OnFinalEnemyDeath += () => CameraShake.ShakeDefault();
     }
 
     private void ZoomOut(float newSize)
@@ -33,4 +34,5 @@ public class CameraZoom : MonoBehaviour
         camera.DOOrthoSize(originalSize, duration).SetEase(easeType);
         camera.transform.DOMoveX(originalX, duration).SetEase(easeType);
     }
+    
 }

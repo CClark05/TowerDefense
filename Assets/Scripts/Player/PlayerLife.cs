@@ -25,7 +25,7 @@ public class PlayerLife : Singleton<PlayerLife>
     private void Start()
     {
         CurrentLives = LevelDataHolder.Instance.Data.playerLives;
-        EnemyMovement.OnReachedEndStatic += OnEnemyReachedEndStatic;
+        EnemyManager.Instance.OnEnemyReachedEnd += OnEnemyReachedEndStatic;
     }
     private void OnEnemyReachedEndStatic(int lives)
     {

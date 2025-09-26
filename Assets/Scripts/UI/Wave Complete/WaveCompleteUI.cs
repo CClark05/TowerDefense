@@ -1,4 +1,5 @@
 using System;
+using CodeMonkey.Utils;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -22,17 +23,21 @@ public class WaveCompleteUI : Singleton<WaveCompleteUI>
         background.SetActive(false);
     }
 
-    private void OnWaveRewards(WaveRewards reward)
+    private void OnWaveRewards(WaveRewards reward, bool fromDeath)
     {
-        waveRewards = reward;
-        background.SetActive(true);
-        interestText.text = $"Interest ({reward.InterestRate * 100}% of ${reward.InitialCoins})";
-        interestAmount.text = $"${reward.InterestAmount}";
-        leftoverMovesText.text = $"Leftover Moves ({reward.LeftoverMoves})";
-        leftoverMovesReward.text = $"${reward.LeftoverMovesReward}";
-        baseRewardAmount.text = $"${reward.BaseReward}";
-        totalAmount.text = $"${reward.TotalReward}";
-        waveText.text = $"WAVE {reward.WaveNumber}";
+        FunctionTimer.Create(() =>
+        {
+            waveRewards = reward;
+            background.SetActive(true);
+            interestText.text = $"Interest ({reward.InterestRate * 100}% of ${reward.InitialCoins})";
+            interestAmount.text = $"${reward.InterestAmount}";
+            leftoverMovesText.text = $"Leftover Moves ({reward.LeftoverMoves})";
+            leftoverMovesReward.text = $"${reward.LeftoverMovesReward}";
+            baseRewardAmount.text = $"${reward.BaseReward}";
+            totalAmount.text = $"${reward.TotalReward}";
+            waveText.text = $"WAVE {reward.WaveNumber}";
+        }, fromDeath ? 2.5f : 0.5f);
+
     }
     
 }

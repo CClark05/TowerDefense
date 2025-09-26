@@ -20,7 +20,7 @@ public class PlayerTurnManager : Singleton<PlayerTurnManager>
         BuildingManager.Instance.OnPlacedBuilding += i => LoseTurn();
         EnemyManager.Instance.OnIdle += () =>
         {
-            movesRemaining = LevelDataHolder.Instance.Data.waves[EnemyManager.Instance.CurrentWave - 1].movesAllowed;
+            movesRemaining += LevelDataHolder.Instance.Data.waves[EnemyManager.Instance.CurrentWave - 1].movesAllowed;
             OnMovesUpdated?.Invoke(movesRemaining);
         };
         //TowerSelectUI.Instance.OnSellTower += i => LoseTurn();

@@ -102,11 +102,11 @@ public class TowerShooting : MonoBehaviour
             switch (targetingMode)
             {
                 case TargetingModes.First:
-                    var enemyMovement = enemy.GetComponent<EnemyMovement>();
-                    if (enemyMovement.Progress > best.bestValue)
+                    var movementListener = enemy.GetComponent<IMovementListener>();
+                    if (movementListener.Progress > best.bestValue)
                     {
                         best.enemy = enemy;
-                        best.bestValue = enemyMovement.Progress;
+                        best.bestValue = movementListener.Progress;
                     }
 
                     break;

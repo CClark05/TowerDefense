@@ -24,9 +24,10 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public event Action OnIdle;
     public event Action OnWaveStarted;
-    public event Action<int> OnWaveComplete;
+    public event Action<int, bool> OnWaveComplete;
     public event Action<GameOverData> OnNoWavesLeft;
     public event Action OnEnemiesUpdated;
+    public event Action<int> OnEnemyReachedEnd;
     private WaveData waveData => levelData.waves[CurrentWave - 1];
 
     private void Start()
@@ -47,12 +48,16 @@ public class EnemyManager : Singleton<EnemyManager>
 
     private void SpawnEnemy(EnemyData enemyData) => SpawnEnemyAtPosition(enemyData, AStarPathfinding.Instance.GetPath()[0]);
 
-    public void SpawnEnemyAtPosition(EnemyData enemyData, Vector2 position)
+    private void SpawnEnemyAtPosition(EnemyData enemyData, Vector2 position)
     {
         var enemy = Instantiate(enemyData.prefab, position, Quaternion.identity);
         enemy.GetComponent<EnemyDataHolder>().Init(enemyData);
-        enemy.GetComponent<EnemyHealth>().OnDeath += () => RemoveEnemy(enemy);
-        enemy.GetComponent<EnemyMovement>().OnReachedEnd += () => RemoveEnemy(enemy);
+        enemy.GetComponent<EnemyHealth>().OnDeath += () => RemoveEnemy(enemy, true);
+        enemy.GetComponent<IMovementListener>().OnReachedEnd += () =>
+        {
+            OnEnemyReachedEnd?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.livesCost);
+            RemoveEnemy(enemy, false);
+        };
         currentEnemies.Add(enemy);
         OnEnemiesUpdated?.Invoke();
         enemy.GetComponent<IUsesStatusEffects>().OnEffectsUpdated += () => OnEnemiesUpdated?.Invoke();
@@ -78,10 +83,11 @@ public class EnemyManager : Singleton<EnemyManager>
             SpawnEnemyAtPosition(enemyData.ElementAt(i), spawnPos);
         }
     }
-    private void RemoveEnemy(GameObject enemy)
+    private void RemoveEnemy(GameObject enemy, bool fromDeath)
     {
         currentEnemies.Remove(enemy);
         OnEnemiesUpdated?.Invoke();
+        //OnEnemyRemoved?.Invoke(enemy.GetComponent<EnemyHealth>());
         if (currentEnemies.Count == 0 && WaveState == WaveStates.DoneSpawning && PlayerLife.Instance.CurrentLives > 0)
         {
             Debug.Log("Wave Complete");
@@ -93,7 +99,7 @@ public class EnemyManager : Singleton<EnemyManager>
             }
 
             WaveState = WaveStates.Complete;
-            OnWaveComplete?.Invoke(waveData.reward);
+            OnWaveComplete?.Invoke(waveData.reward, fromDeath);
         }
     }
 
