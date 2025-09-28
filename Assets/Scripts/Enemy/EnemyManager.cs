@@ -24,7 +24,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     public event Action OnIdle;
     public event Action OnWaveStarted;
-    public event Action<int, bool> OnWaveComplete;
+    public event Action OnWaveComplete;
     public event Action<GameOverData> OnNoWavesLeft;
     public event Action OnEnemiesUpdated;
     public event Action<int> OnEnemyReachedEnd;
@@ -56,12 +56,12 @@ public class EnemyManager : Singleton<EnemyManager>
         enemy.GetComponent<EnemyHealth>().OnDeath += () =>
         {
             OnEnemyKilled?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.coins);
-            RemoveEnemy(enemy, true);
+            RemoveEnemy(enemy);
         };
         enemy.GetComponent<IMovementListener>().OnReachedEnd += () =>
         {
             OnEnemyReachedEnd?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.livesCost);
-            RemoveEnemy(enemy, false);
+            RemoveEnemy(enemy);
         };
         currentEnemies.Add(enemy);
         OnEnemiesUpdated?.Invoke();
@@ -88,7 +88,7 @@ public class EnemyManager : Singleton<EnemyManager>
             SpawnEnemyAtPosition(enemyData.ElementAt(i), spawnPos);
         }
     }
-    private void RemoveEnemy(GameObject enemy, bool fromDeath)
+    private void RemoveEnemy(GameObject enemy)
     {
         currentEnemies.Remove(enemy);
         OnEnemiesUpdated?.Invoke();
@@ -103,7 +103,7 @@ public class EnemyManager : Singleton<EnemyManager>
             }
 
             WaveState = WaveStates.Complete;
-            OnWaveComplete?.Invoke(waveData.reward, fromDeath);
+            OnWaveComplete?.Invoke();
         }
     }
 

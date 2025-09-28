@@ -6,7 +6,6 @@ public class WaveData : ScriptableObject
 {
     public List<EnemyData> enemies;
     public float delayBetweenSpawns;
-    public int reward;
     public int movesAllowed;
 }
 

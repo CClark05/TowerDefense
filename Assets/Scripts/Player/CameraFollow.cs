@@ -50,7 +50,7 @@ public class CameraFollow : MonoBehaviour
             StartCoroutine(FollowClosestEnemy());
         };
 
-        EnemyManager.Instance.OnWaveComplete += (_,_) =>
+        EnemyManager.Instance.OnWaveComplete += () =>
         {
             ZoomTo(baseOrthoSize);
             isZoomedOut = false;

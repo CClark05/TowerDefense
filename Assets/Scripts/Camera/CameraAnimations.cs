@@ -20,7 +20,7 @@ public class CameraAnimations : MonoBehaviour
         originalX = camera.transform.localPosition.x;
         BuildingUI.Instance.OnEnterBuildMode += () => ZoomOut(16);
         BuildingUI.Instance.OnExitBuildMode += ZoomBack;
-        EnemyHealth.OnFinalEnemyDeath += () => CameraShake.ShakeDefault();
+        EnemyHealth.OnFinalEnemyDeath += () => CameraShake.Shake(Camera.main.transform, 0.4f, 0.6f);
     }
 
     private void ZoomOut(float newSize)

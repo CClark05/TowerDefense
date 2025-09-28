@@ -19,7 +19,7 @@ public class TowerBuffs : MonoBehaviour
         enemyManager.OnWaveComplete += OnWaveComplete;
     }
 
-    private void OnWaveComplete(int obj, bool _)
+    private void OnWaveComplete()
     {
         foreach (var buff in activeBuffs)
         {

@@ -165,7 +165,7 @@ public class TowerSelectUI : MonoBehaviour
 
         UI.SetActive(false);
     }
-    private void OnWaveComplete(int obj, bool _)
+    private void OnWaveComplete()
     {
         selected = false;
         selectedCard = null;

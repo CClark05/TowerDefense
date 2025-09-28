@@ -26,7 +26,7 @@ public class TowerVisual : MonoBehaviour
         rangeVisual.gameObject.SetActive(false);
     }
 
-    private void OnWaveComplete(int obj, bool _)
+    private void OnWaveComplete()
     {
         isSelected = false;
         rangeVisual.SetActive(false);

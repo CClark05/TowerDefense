@@ -20,6 +20,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
 
     public int TotalCoinsEarned { get; private set; }
     public event Action<int> OnCoinsUpdated;
+    public event Action<int> OnCoinsAdded;
     private Dictionary<ResourceData, int> materialAmounts = new();
     public event Action<ResourceData, int> OnMaterialAmountUpdated;
     public event Action<ResourceData> OnNewMaterialAdded;
@@ -44,22 +45,13 @@ public class PlayerInventory : Singleton<PlayerInventory>
                 OnMaterialAmountUpdated?.Invoke(kvp.Key, materialAmounts[kvp.Key]);
             }
         };
-        EnemyManager.Instance.OnWaveComplete += OnWaveComplete;
         TowerSellable.OnSellTower += AddCoins;
         SkillCardUI.OnSellCardStatic += AddCoins;
         TowerSelectUI.OnSellCardStatic += SellCardStatic;
         CardSelectUI.Instance.OnReroll += SubtractCoins;
-        WaveCompleteUI.Instance.OnCollectedReward += AddCoins;
         EnemyManager.Instance.OnEnemyKilled += AddCoins;
     }
     
-
-    private void OnWaveComplete(int baseReward, bool fromDeath)
-    {
-        var settings = waveRewardSettings;
-        var waveRewards = new WaveRewards(settings.InterestRate, settings.coinsPerMove, Coins, baseReward, PlayerTurnManager.Instance.MovesRemaining, EnemyManager.Instance.CurrentWave - 1);
-        OnWaveRewardsCalculated?.Invoke(waveRewards, fromDeath);
-    }
 
     private void SellCardStatic(SkillData data) => AddCoins(Mathf.FloorToInt(data.price * 0.5f));
     private void Update()
@@ -75,6 +67,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
 
     public void AddCoins(int amount)
     {
+        OnCoinsAdded?.Invoke(amount);
         Coins += amount;
         TotalCoinsEarned += amount;
     }

@@ -16,4 +16,5 @@ MonoBehaviour:
   speed: 3
   livesCost: 1
   shields: 0
+  coins: 1
   prefab: {fileID: 9100206265802528946, guid: 56e6f066fc202b94dbb6670d14823ada, type: 3}

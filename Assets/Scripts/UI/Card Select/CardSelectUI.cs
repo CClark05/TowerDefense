@@ -61,12 +61,13 @@ public class CardSelectUI : Singleton<CardSelectUI>
             string priceColor = PlayerInventory.Instance.Coins >= rerollCost ? originalColor : redColor;
             rerollCostText.text = $"<color={priceColor}>${rerollCost}</color>";
         }
-        WaveCompleteUI.Instance.OnCollectedReward += OnCollectedReward;
+
+        EnemyManager.Instance.OnWaveComplete += OnWaveComplete;
         background.SetActive(false);
     }
-    private void OnCollectedReward(int reward)
+    private void OnWaveComplete()
     {
-        float delay = 0.5f;
+        float delay = 1.5f;
         FunctionTimer.Create(() =>
         {
             background.SetActive(true);

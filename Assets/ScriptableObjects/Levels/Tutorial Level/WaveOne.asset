@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: WaveOne
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
-  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
-  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
-  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
-  delayBetweenSpawns: 1
-  reward: 5
+  - {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
+  - {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
+  - {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
+  - {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
+  - {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
+  - {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
+  delayBetweenSpawns: 2
   movesAllowed: 50
