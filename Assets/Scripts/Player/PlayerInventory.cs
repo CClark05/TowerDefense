@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInventory : Singleton<PlayerInventory>
@@ -49,6 +50,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
         TowerSelectUI.OnSellCardStatic += SellCardStatic;
         CardSelectUI.Instance.OnReroll += SubtractCoins;
         WaveCompleteUI.Instance.OnCollectedReward += AddCoins;
+        EnemyManager.Instance.OnEnemyKilled += AddCoins;
     }
     
 

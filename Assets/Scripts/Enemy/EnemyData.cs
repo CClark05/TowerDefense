@@ -7,5 +7,6 @@ public class EnemyData : ScriptableObject
     public float speed;
     public int livesCost;
     public int shields;
+    public int coins;
     public GameObject prefab;
 }

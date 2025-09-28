@@ -28,6 +28,7 @@ public class EnemyManager : Singleton<EnemyManager>
     public event Action<GameOverData> OnNoWavesLeft;
     public event Action OnEnemiesUpdated;
     public event Action<int> OnEnemyReachedEnd;
+    public event Action<int> OnEnemyKilled;
     private WaveData waveData => levelData.waves[CurrentWave - 1];
 
     private void Start()
@@ -52,7 +53,11 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         var enemy = Instantiate(enemyData.prefab, position, Quaternion.identity);
         enemy.GetComponent<EnemyDataHolder>().Init(enemyData);
-        enemy.GetComponent<EnemyHealth>().OnDeath += () => RemoveEnemy(enemy, true);
+        enemy.GetComponent<EnemyHealth>().OnDeath += () =>
+        {
+            OnEnemyKilled?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.coins);
+            RemoveEnemy(enemy, true);
+        };
         enemy.GetComponent<IMovementListener>().OnReachedEnd += () =>
         {
             OnEnemyReachedEnd?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.livesCost);
@@ -87,7 +92,6 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         currentEnemies.Remove(enemy);
         OnEnemiesUpdated?.Invoke();
-        //OnEnemyRemoved?.Invoke(enemy.GetComponent<EnemyHealth>());
         if (currentEnemies.Count == 0 && WaveState == WaveStates.DoneSpawning && PlayerLife.Instance.CurrentLives > 0)
         {
             Debug.Log("Wave Complete");
