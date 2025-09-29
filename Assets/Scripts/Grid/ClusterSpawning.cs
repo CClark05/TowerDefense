@@ -64,24 +64,27 @@ public static class ClusterSpawning
         return true;
     }
 
-    public static Vector2[] CreateRandomCluster(Vector2 position, int cellSize, int count, float padding = 0.75f, float enemyRadius = 0.25f, int attempts = 150, string layerMask = "Enemy")
+    public static Vector2[] CreateRandomCluster(Vector2 position, int cellSize, int count, float padding = 0.75f, float enemyRadius = 0.35f, int attempts = 200, string layerMask = "Enemy")
     {
         List<Vector2> cluster = new List<Vector2>(count);
         var pathPoint = AStarPathfinding.Instance.GetClosestPathPoint(position);
         var pad = padding + enemyRadius;
         float maxOffset = Mathf.Max(0, cellSize / 2f - pad);
+        float separationMult = 1.5f;
         for (int i = 0; i < attempts; i++)
         {
             Vector2 randomPos = pathPoint + new Vector2(UnityEngine.Random.Range(-maxOffset, maxOffset), UnityEngine.Random.Range(-maxOffset, maxOffset));
             if (Physics2D.OverlapCircle(randomPos, enemyRadius, LayerMask.GetMask(layerMask)))
                 continue;
-            if(cluster.Any(c => (c - randomPos).sqrMagnitude < Math.Pow(enemyRadius * 2, 2)))
+            if(cluster.Any(c => (c - randomPos).sqrMagnitude < Math.Pow(enemyRadius * 2 * separationMult, 2)))
                 continue;
             if (cluster.Count >= count)
                 return cluster.ToArray();
             cluster.Add(randomPos);
         }
         Debug.LogError("Not able to create full cluster");
+        while (cluster.Count < count)
+            cluster.Add(pathPoint);
         return cluster.ToArray();
     }
 }

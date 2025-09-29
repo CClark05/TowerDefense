@@ -2,13 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
     private List<GameObject> currentEnemies = new();
     public List<GameObject> CurrentEnemies => currentEnemies;
+    public List<EnemyData> DeadEnemies { get; private set; } = new();
     private LevelData levelData;
     public int CurrentWave { get; private set; } = 1;
 
@@ -56,6 +56,7 @@ public class EnemyManager : Singleton<EnemyManager>
         enemy.GetComponent<EnemyHealth>().OnDeath += () =>
         {
             OnEnemyKilled?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.coins);
+            DeadEnemies.Add(enemyData);
             RemoveEnemy(enemy);
         };
         enemy.GetComponent<IMovementListener>().OnReachedEnd += () =>
@@ -79,9 +80,9 @@ public class EnemyManager : Singleton<EnemyManager>
         SpawnEnemyBurst(dataArray, position);
     }
     
-    private void SpawnEnemyBurst(EnemyData[] enemyData, Vector2 position)
+    public void SpawnEnemyBurst(EnemyData[] enemyData, Vector2 position)
     {
-        var spawnPoints = ClusterSpawning.CreateRandomCluster(position, 3, enemyData.Length);
+        var spawnPoints = ClusterSpawning.CreateRandomCluster(position, 4, enemyData.Length);
         for (int i = 0; i < enemyData.Length; i++)
         {
             Vector2 spawnPos = (i < spawnPoints.Length) ? spawnPoints[i] : position;
@@ -101,7 +102,7 @@ public class EnemyManager : Singleton<EnemyManager>
                 OnNoWavesLeft?.Invoke(PlayerGameOverStats.GetGameOverData());
                 return;
             }
-
+            DeadEnemies.Clear();
             WaveState = WaveStates.Complete;
             OnWaveComplete?.Invoke();
         }

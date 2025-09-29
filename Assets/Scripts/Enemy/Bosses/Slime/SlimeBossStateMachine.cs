@@ -3,15 +3,9 @@ using UnityEngine;
 
 public class SlimeBossStateMachine : BossStateMachine
 {
-    private EnemyFacade facade;
     [SerializeField] private BuffData stunDebuff;
     [SerializeField] private AnimationClip jumpAnimation, shockwaveAnimation;
     [SerializeField] private EnemyData slimeMinionData;
-    private new void Awake()
-    {
-        base.Awake();
-        facade = GetComponent<EnemyFacade>();
-    }
     private void Start()
     {
         var healthPredicate = new HealthPercentagePredicate(facade.GetComponent<IUsesHealth>());

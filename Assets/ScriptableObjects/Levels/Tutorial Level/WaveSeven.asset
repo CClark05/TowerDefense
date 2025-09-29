@@ -10,12 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4574e392c0bb4186b1729069a35ee1dd, type: 3}
-  m_Name: WaveOne
+  m_Name: WaveSeven
   m_EditorClassIdentifier: 
-  enemies:
-  - {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
-  - {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
-  - {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
-  - {fileID: 11400000, guid: d95970f9e90610047af1cfc4ca4261c2, type: 2}
-  delayBetweenSpawns: 2
-  movesAllowed: 50
+  enemies: []
+  delayBetweenSpawns: 0
+  movesAllowed: 0

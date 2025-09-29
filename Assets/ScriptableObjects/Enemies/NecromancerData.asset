@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
-  m_Name: BossData
+  m_Name: NecromancerData
   m_EditorClassIdentifier: 
-  health: 200
+  health: 50
   speed: 2
-  livesCost: 10
-  shields: 2
+  livesCost: 1
+  shields: 0
   coins: 1
-  prefab: {fileID: 4048362118106325107, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+  prefab: {fileID: 8226108817824266775, guid: f0881d77ffba51a49be9d168b50e7c7b, type: 3}
