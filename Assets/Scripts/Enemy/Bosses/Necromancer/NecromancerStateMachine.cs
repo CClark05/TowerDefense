@@ -7,7 +7,7 @@ public class NecromancerStateMachine : BossStateMachine
     private void Start()
     {
         var defaultState = new NecromancerDefaultState(facade, 3);
-        var summonState = new NecromancerSummonState(facade, 3f, defaultState.DeadEnemies, 4f);
+        var summonState = new NecromancerSummonState(facade, 3f, defaultState.DeadEnemies, 6f);
         stateMachine.SetState(defaultState);
         stateMachine.AddTransition(defaultState, summonState, new FuncPredicate(() => defaultState.IsDone && summonState.IsReady));
         stateMachine.AddTransition(summonState, defaultState, new FuncPredicate(() => summonState.IsDone));

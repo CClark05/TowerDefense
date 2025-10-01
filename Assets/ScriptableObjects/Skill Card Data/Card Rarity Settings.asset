@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rarityChances:
   - rarity: 0
-    weight: 75
+    weight: 80
   - rarity: 1
-    weight: 20
+    weight: 15
   - rarity: 2
     weight: 5

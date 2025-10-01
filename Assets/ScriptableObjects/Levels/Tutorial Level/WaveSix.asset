@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4574e392c0bb4186b1729069a35ee1dd, type: 3}
   m_Name: WaveSix
   m_EditorClassIdentifier: 
-  enemies: []
-  delayBetweenSpawns: 0
+  enemies:
+  - {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+  - {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+  - {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+  - {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+  - {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+  - {fileID: 11400000, guid: d95970f9e90610047af1cfc4ca4261c2, type: 2}
+  - {fileID: 11400000, guid: d95970f9e90610047af1cfc4ca4261c2, type: 2}
+  delayBetweenSpawns: 0.5
   movesAllowed: 0

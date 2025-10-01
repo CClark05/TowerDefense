@@ -51,7 +51,6 @@ public class ExposingHasteSkillInstance : SkillInstance<ExposingHasteSkillData>
         {
             if(currentStacks >= 1) skillContext.TryRemoveBuff(Data.buffs[0].data as IBuff, currentStacks);
             currentStacks = 0;
-            PlayCard();
         }
     }
 

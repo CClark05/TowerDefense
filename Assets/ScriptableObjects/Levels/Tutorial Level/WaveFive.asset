@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: WaveFive
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 11400000, guid: 7626989f1d64c6746837866535bcca89, type: 2}
-  delayBetweenSpawns: 1.25
-  reward: 5
+  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
+  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
+  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
+  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
+  delayBetweenSpawns: 1
   movesAllowed: 0

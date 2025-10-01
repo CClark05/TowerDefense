@@ -25,9 +25,7 @@ public static class ProjectileService
             
             if (mod.instance.PlayTwice)
             {
-                var second = mod.modifier.Modify(shotData);
-                if (second != null)
-                    yield return second;
+                mod.modifier.Modify(shotData);
             }
         }
     }

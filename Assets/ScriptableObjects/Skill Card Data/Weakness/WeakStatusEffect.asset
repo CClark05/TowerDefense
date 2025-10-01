@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: WeakStatusEffect
   m_EditorClassIdentifier: 
   name: Weak
-  description: 'Next hit against this target deals +10% damage per stack, consumes
-    all stacks. '
-  sprite: {fileID: -6934812312457971156, guid: fb850fd42165eb44d996fd7f1b6c159b, type: 3}
+  description: Next hit against this target deals +20% damage per stack, consumes
+    all stacks.
   color: {r: 0.63529414, g: 0.24313726, b: 0.54901963, a: 1}
+  sprite: {fileID: -6934812312457971156, guid: fb850fd42165eb44d996fd7f1b6c159b, type: 3}
   damageMarkerSizeMult: 1.25
   damageMarkerPunchEffect: 1
-  damageIncrease: 0.1
+  damageIncrease: 0.2

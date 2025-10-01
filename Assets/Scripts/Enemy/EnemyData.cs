@@ -9,4 +9,5 @@ public class EnemyData : ScriptableObject
     public int shields;
     public int coins;
     public GameObject prefab;
+    public bool summonable = true;
 }

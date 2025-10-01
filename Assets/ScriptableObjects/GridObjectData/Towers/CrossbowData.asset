@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d16044eb0045e89f91a1a3b30215be, type: 3}
   m_Name: CrossbowData
   m_EditorClassIdentifier: 
-  timeBetweenShots: 0.5
+  timeBetweenShots: 1
   range: 5
   damage: 5
   cardSlots: 3

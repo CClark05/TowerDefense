@@ -16,7 +16,7 @@ MonoBehaviour:
   name: Burning Haste
   icon: {fileID: 0}
   rarity: 0
-  description: Gain 3 <color=#DE9E41>Haste</color> for 5 seconds on killing a burning
+  description: Gain 1 <color=#DE9E41>Haste</color> for 3 seconds on killing a burning
     enemy.
   statusEffects:
   - showInUI: 0
@@ -26,5 +26,5 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: cd6844518b81a7148b069ae01942a042, type: 2}
   prerequisiteSkills:
   - {fileID: 11400000, guid: 3f4fa63c1aa112a4aa74dbb9665043f6, type: 2}
-  duration: 5
-  hasteStacks: 3
+  duration: 3
+  hasteStacks: 1

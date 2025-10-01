@@ -16,6 +16,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
   - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
   - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
-  delayBetweenSpawns: 1
-  reward: 5
+  delayBetweenSpawns: 1.5
   movesAllowed: 0

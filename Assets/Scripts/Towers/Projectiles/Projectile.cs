@@ -44,8 +44,11 @@ public class Projectile : MonoBehaviour
     private bool preHitTriggered;
     private void Update()
     {
-        if (homing)
+        if (homing && targetTransform != null)
+        {
             direction = (targetTransform.position - transform.position).normalized;
+        }
+            
         
         transform.position += (Vector3)direction * (data.speed * speedIncrease * Time.deltaTime);
         if (targetTransform == null) return;

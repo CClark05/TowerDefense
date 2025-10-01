@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WaitForDeadEnemiesCommand : EnemyCommand
@@ -18,7 +19,7 @@ public class WaitForDeadEnemiesCommand : EnemyCommand
         while (true)
         {
             deadEnemies.Clear();
-            deadEnemies.AddRange(EnemyManager.Instance.DeadEnemies);
+            deadEnemies.AddRange(EnemyManager.Instance.DeadEnemies.Where(e => e.summonable));
             if(deadEnemies.Count >= enemyCount)
                 yield break;
             yield return new WaitForSeconds(pollingInterval);

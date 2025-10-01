@@ -21,6 +21,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
     public int TotalCoinsEarned { get; private set; }
     public event Action<int> OnCoinsUpdated;
     public event Action<int> OnCoinsAdded;
+    public event Action<int> OnCoinsRemoved;
     private Dictionary<ResourceData, int> materialAmounts = new();
     public event Action<ResourceData, int> OnMaterialAmountUpdated;
     public event Action<ResourceData> OnNewMaterialAdded;
@@ -71,6 +72,11 @@ public class PlayerInventory : Singleton<PlayerInventory>
         Coins += amount;
         TotalCoinsEarned += amount;
     }
-    private void SubtractCoins(int amount) => Coins -= amount;
+
+    private void SubtractCoins(int amount)
+    {
+        OnCoinsRemoved?.Invoke(amount);
+        Coins -= amount;
+    }
     
 }

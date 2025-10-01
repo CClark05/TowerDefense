@@ -8,7 +8,7 @@ using ColorUtility = UnityEngine.ColorUtility;
 public class BurningHasteSkillData : SkillData
 {
     public float duration;
-    public int hasteStacks = 3;
+    public int hasteStacks = 1;
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(buffs[0].data.color);

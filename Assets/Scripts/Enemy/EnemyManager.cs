@@ -113,10 +113,16 @@ public class EnemyManager : Singleton<EnemyManager>
         Debug.Log("Starting wave");
         OnWaveStarted?.Invoke();
         WaveState = WaveStates.Spawning;
-        foreach (var enemy in data.enemies)
+        for (var i = 0; i < data.enemies.Count; i++)
         {
-            SpawnEnemy(enemy);
-            yield return new WaitForSeconds(data.delayBetweenSpawns);
+            var enemy = data.enemies[i];
+            if(i > 0)
+                yield return new WaitForSeconds(data.delayBetweenSpawns + enemy.delay);
+            if (enemy.count > 1)
+                SpawnEnemyBurst(enemy.data, enemy.count, AStarPathfinding.Instance.GetPath()[0]);
+            else
+                SpawnEnemy(enemy.data);
+            
         }
 
         WaveState = WaveStates.DoneSpawning;

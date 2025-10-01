@@ -58,11 +58,11 @@ public class SkillContext
         return ActiveSkills.FirstOrDefault(s => s.GetType() == type);
     }
     public IEnumerable<(SkillInstance instance, T modifier)> GetSkillInstancesWith<T>() where T : class
-    {
-        foreach (var instance in ActiveSkills)
-            if (instance is T t)
-                yield return (instance, t);  
-    }
+        => ActiveSkills.ToArray()                                
+            .Select(i => (i, i as T))
+            .Where(t => t.Item2 != null)!                        
+            .ToArray();  
+    
 
     public void AddBuff(IBuff buff, int stacks)
     {
