@@ -49,7 +49,7 @@ public class CardIconUI : MonoBehaviour
     }
     private void OnCardPlayTwiceUpdated(SkillData data, bool playTwice)
     {
-        if (data != SkillData) return;
+        if (data != SkillData || redOutline == null) return;
         redOutline.gameObject.SetActive(playTwice);
     }
     private void UpdateVisual()

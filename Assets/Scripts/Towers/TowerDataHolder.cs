@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CodeMonkey.Utils;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,6 +10,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
     [SerializeField] private TowerData baseData;
     public TowerData Data => baseData;
     public TowerRuntimeData RuntimeData { get; private set; }
+    public TowerWaveData WaveData;
     [SerializeField] private ProjectileData projectileData;
     public ProjectileData ProjectileData => projectileData;
     public int Level { get; private set; } = 1;
@@ -34,67 +36,41 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
     }
     private void Start()
     {
-        
         towerShooting.OnDealDamage += OnDealDamage;
         towerShooting.OnKillEnemy += OnKillEnemy;
-        towerSelectUI.OnSellCard += TryRemoveCard;
+        towerSelectUI.OnSellCard += (data) => TryRemoveCard(data);
         enemyManager = EnemyManager.Instance;
         enemyManager.OnWaveStarted += OnWaveStart;
         enemyManager.OnWaveComplete += OnWaveComplete;
         GetComponent<TowerCards>().OnAddedCard += AddCard; 
-        GetComponent<TowerCards>().OnRemovedCard += TryRemoveCard;
+        GetComponent<TowerCards>().OnRemovedCard += (data) => TryRemoveCard(data);
         SkillContext.OnTowerUpdated += UpdateTowerData;
     }
     private void OnWaveStart()
     {
-        TowerWaveData towerWaveData = new TowerWaveData();
-        TowerService.ModifyWaveStart(towerWaveData, SkillContext);
+        TowerService.ModifyWaveStart(WaveData, SkillContext);
         PlayerService.ModifyWaveStart(SkillContext);
-        UpdateTowerData(towerWaveData);
+        TowerService.MarkWaveStartDone(this);
     }
     private void OnWaveComplete()
     {
-        TowerWaveData towerWaveData = new TowerWaveData();
-        TowerService.ModifyWaveEnd(towerWaveData, SkillContext);
+        TowerWaveData waveData = new TowerWaveData
+        {
+            borrowRequests = WaveData.borrowRequests
+        };
+        TowerService.ModifyWaveEnd(waveData, SkillContext);
         PlayerService.ModifyWaveEnd(SkillContext);
-        UpdateTowerData(towerWaveData);
-    }
-    public float RealDPS { get; private set; }
-    public float MaxDPS { get; private set; } = 0;
-    private float dpsTimer;
-    private float damageThisSecond;
-    private void Update()
-    {
-        if (EnemyManager.Instance.WaveState == EnemyManager.WaveStates.Idle) return;
-        dpsTimer += Time.deltaTime;
-        if (dpsTimer >= 1)
+        UpdateTowerData(waveData);
+        foreach(var borrowRequest in waveData.borrowRequests)
         {
-            RealDPS = damageThisSecond / dpsTimer;
-            if (RealDPS > MaxDPS)
-                MaxDPS = RealDPS;
-            damageThisSecond = 0;
-            dpsTimer = 0;
-            OnUpdateStats?.Invoke();
+            if (borrowRequest.borrower == this && borrowRequest.fulfilled && TryRemoveCard(borrowRequest.card))
+            {
+                Debug.Log("returned card");
+                borrowRequest.lender.AddCard(borrowRequest.card);
+            }
         }
     }
-
-    public void TryRemoveCard(SkillData data)
-    {
-        if (SkillContext.TryRemoveSkill(data))
-        {
-            SkillDataList.Remove(data);
-            GoldValue -= Mathf.FloorToInt(data.price * 0.5f);
-            OnUpdateCards?.Invoke();
-        }
-    }
-    public void AddCard(SkillData data)
-    {
-        SkillContext.AddSkill(data);
-        SkillDataList.Add(data);
-        GoldValue += Mathf.FloorToInt(data.price * 0.5f);
-        OnUpdateCards?.Invoke();
-    }
-    private void UpdateTowerData(TowerWaveData towerWaveData)
+    public void UpdateTowerData(TowerWaveData towerWaveData)
     {
         foreach (var card in towerWaveData.addedCards)
         {
@@ -116,6 +92,44 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
             }, towerWaveData.stunnedDuration);
         }
     }
+    public float RealDPS { get; private set; }
+    public float MaxDPS { get; private set; } = 0;
+    private float dpsTimer;
+    private float damageThisSecond;
+    private void Update()
+    {
+        if (EnemyManager.Instance.WaveState == EnemyManager.WaveStates.Idle) return;
+        dpsTimer += Time.deltaTime;
+        if (dpsTimer >= 1)
+        {
+            RealDPS = damageThisSecond / dpsTimer;
+            if (RealDPS > MaxDPS)
+                MaxDPS = RealDPS;
+            damageThisSecond = 0;
+            dpsTimer = 0;
+            OnUpdateStats?.Invoke();
+        }
+    }
+    public bool TryRemoveCard(SkillData data)
+    {
+        if (SkillContext.TryRemoveSkill(data))
+        {
+            SkillDataList.Remove(data);
+            GoldValue -= Mathf.FloorToInt(data.price * 0.5f);
+            OnUpdateCards?.Invoke();
+            return true;
+        }
+
+        return false;
+    }
+    public void AddCard(SkillData data)
+    {
+        SkillContext.AddSkill(data);
+        SkillDataList.Add(data);
+        GoldValue += Mathf.FloorToInt(data.price * 0.5f);
+        OnUpdateCards?.Invoke();
+    }
+  
     private void OnKillEnemy()
     {
         EnemiesKilled++;

@@ -9,7 +9,7 @@ public class SkillContext
     public List<SkillInstance> ActiveSkills { get; private set; } = new();
     public Dictionary<IBuff, int> ActiveBuffs { get; private set; } = new();
     public TowerDataHolder Tower { get; private set; } = new();
-    public event Action<SkillInstance> OnCardInstanceCreated;
+    public Action<SkillInstance> OnCardInstanceCreated;
     public event Action<TowerWaveData> OnTowerUpdated;
     public event Action<IBuff, int> OnBuffAdded;
     public event Action<IBuff, int> OnBuffRemoved;

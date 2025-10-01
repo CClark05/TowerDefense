@@ -111,6 +111,7 @@ public class EnemyManager : Singleton<EnemyManager>
     private IEnumerator SpawnWave(WaveData data)
     {
         Debug.Log("Starting wave");
+        TowerService.BeginWave(TowerDataHolder.ActiveTowerList);
         OnWaveStarted?.Invoke();
         WaveState = WaveStates.Spawning;
         for (var i = 0; i < data.enemies.Count; i++)

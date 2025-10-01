@@ -22,24 +22,34 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
     {
         closestTower = FindClosestTower();
         if (closestTower == null) return;
-        randomCard = closestTower.SkillDataList[UnityEngine.Random.Range(0, closestTower.SkillDataList.Count)];
-        towerWaveData.addedCards.Add(randomCard);
-        closestTower.TryRemoveCard(randomCard);
+        var pool = closestTower.WaveData.startingSnapshot;
+        if (pool.Count == 0) return;
+        randomCard = pool[UnityEngine.Random.Range(0, pool.Count)];
+        towerWaveData.borrowRequests.Add(new BorrowRequest
+        {
+            borrower = towerWaveData.owner,
+            lender = closestTower,
+            card = randomCard
+        });
         skillContext.OnCardInstanceCreated += OnInstanceAdded;
         void OnInstanceAdded(SkillInstance instance)
         {
             if (instance.Data != randomCard) return;
             instance.PlayTwice = true;
+            if (instance.Data == Data) return;
             skillContext.OnCardInstanceCreated -= OnInstanceAdded;
         }
         PlayCard();
     }
-
     void ITowerWaveEndModifier.Modify(TowerWaveData towerWaveData)
     {
+        closestTower = FindClosestTower();
         if (closestTower == null) return;
+        /**
+        Debug.Log("test");
         closestTower.AddCard(randomCard);
         towerWaveData.removedCards.Add(randomCard);
+        */
     }
     private TowerDataHolder FindClosestTower()
     {
@@ -56,5 +66,11 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
         }
         return closestTower.tower;
     }
-    
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        if (skillContext?.OnCardInstanceCreated != null)
+            skillContext.OnCardInstanceCreated = null;
+    }
 }
