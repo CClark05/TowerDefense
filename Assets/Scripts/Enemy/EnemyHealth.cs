@@ -7,7 +7,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
     public HealthSystem HealthSystem { get; private set; }
     public Transform Transform => transform;
     public event Action OnDeath;
-    public static event Action OnFinalEnemyDeath;
+    public static event Action<bool> OnDeathStatic; // bool indicates if final enemy of wave
     public event Action OnHit;
     private void Start()
     {
@@ -20,15 +20,13 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
         bool isDead = HealthSystem.Damage(amount);
         if (isDead)
         {
-            if (EnemyManager.Instance.CurrentEnemies.Count == 1)
-            {
-                OnFinalEnemyDeath?.Invoke();
-            }
+            bool finalEnemy = EnemyManager.Instance.CurrentEnemies.Count == 1 && EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning;
+            OnDeathStatic?.Invoke(finalEnemy);
             FunctionTimer.Create(() =>
             {
                 OnDeath?.Invoke();
                 Destroy(gameObject);
-            }, EnemyManager.Instance.CurrentEnemies.Count == 1 ? SlowmotionEffect.freezeFrameDration : 0f, true);
+            }, finalEnemy ? KillEffects.finalFreezeFrameDration : KillEffects.freezeFrameDuration, true);
         }
         return isDead;
     }

@@ -7,18 +7,9 @@ public class TowerWaveData
     public List<SkillData> addedCards = new();
     public List<SkillData> removedCards = new();
     public List<BorrowRequest> borrowRequests = new();
-    public List<SkillData> startingSnapshot = new();
+    public List<SkillInstance> startingSnapshot = new();
     public float increasedRange;
     public int increasedSlots;
     public float increasedSpeed = 1;
     public float stunnedDuration;
 }
-
-public class BorrowRequest
-{
-    public TowerDataHolder borrower;
-    public TowerDataHolder lender;
-    public SkillData card;
-    public bool fulfilled;
-}
-

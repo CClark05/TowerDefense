@@ -9,24 +9,23 @@ public class SkillContext
     public List<SkillInstance> ActiveSkills { get; private set; } = new();
     public Dictionary<IBuff, int> ActiveBuffs { get; private set; } = new();
     public TowerDataHolder Tower { get; private set; } = new();
-    public Action<SkillInstance> OnCardInstanceCreated;
+    //public Action<SkillInstance> OnCardInstanceCreated;
     public event Action<TowerWaveData> OnTowerUpdated;
     public event Action<IBuff, int> OnBuffAdded;
     public event Action<IBuff, int> OnBuffRemoved;
     public event Action<SkillData> OnCardPlayed;
-    public event Action<SkillData, bool> OnCardPlayTwiceUpdated;
     public SkillContext(TowerDataHolder tower)
     {
         Tower = tower;
     }
-    public void AddSkill(SkillData skillData)
+    public void AddSkill(SkillData skillData, int playCount = 1)
     {
         var instance = skillData.CreateInstance();
-        instance.OnPlayTwiceUpdated += (playTwice) => OnCardPlayTwiceUpdated?.Invoke(skillData, playTwice);
         ActiveSkills.Add(instance);
+        instance.PlayCount = playCount;
         instance.SetContext(this);
         TowerWaveData towerWaveData = new TowerWaveData();
-        OnCardInstanceCreated?.Invoke(instance);
+        //OnCardInstanceCreated?.Invoke(instance);
         if (TowerService.TryModifyOnCardReceived(towerWaveData, instance))
             OnTowerUpdated?.Invoke(towerWaveData);
         instance.OnPlayCard += () => OnCardPlayed?.Invoke(skillData);

@@ -23,7 +23,7 @@ public class CardIconAnimation : MonoBehaviour
     {
         float scaleFactor = 0.25f;
         float duration = 0.3f;
-        if (data != iconUI.SkillData) return;
+        if (data != iconUI.SkillInstance.Data) return;
         transform.DOKill();
         transform.localScale = originalScale;
         transform.DOPunchScale(Vector3.one * scaleFactor, duration, 10, 1f)

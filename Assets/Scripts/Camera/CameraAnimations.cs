@@ -1,12 +1,13 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CameraAnimations : MonoBehaviour
 {
     private float originalSize;
     private Camera camera;
-    [SerializeField] private float duration = 0.3f;
+    [FormerlySerializedAs("duration")] [SerializeField] private float zoomDuration = 0.3f;
     [SerializeField] private Ease easeType = Ease.OutCubic;
     private float originalX;
     private void Awake()
@@ -20,19 +21,24 @@ public class CameraAnimations : MonoBehaviour
         originalX = camera.transform.localPosition.x;
         BuildingUI.Instance.OnEnterBuildMode += () => ZoomOut(16);
         BuildingUI.Instance.OnExitBuildMode += ZoomBack;
-        EnemyHealth.OnFinalEnemyDeath += () => CameraShake.Shake(Camera.main.transform, 0.4f, 0.6f);
+        EnemyHealth.OnDeathStatic += (bool final) =>
+        {
+            float duration = final ? 1.75f : 0.1f;
+            float strength = final ? 0.65f : 0.2f;
+            CameraShake.Shake(Camera.main.transform, duration, strength);
+        };
     }
 
     private void ZoomOut(float newSize)
     {
-        camera.DOOrthoSize(newSize, duration).SetEase(easeType);
-        camera.transform.DOMoveX(-5.3f, duration).SetEase(easeType);
+        camera.DOOrthoSize(newSize, zoomDuration).SetEase(easeType);
+        camera.transform.DOMoveX(-5.3f, zoomDuration).SetEase(easeType);
     }
 
     private void ZoomBack()
     {
-        camera.DOOrthoSize(originalSize, duration).SetEase(easeType);
-        camera.transform.DOMoveX(originalX, duration).SetEase(easeType);
+        camera.DOOrthoSize(originalSize, zoomDuration).SetEase(easeType);
+        camera.transform.DOMoveX(originalX, zoomDuration).SetEase(easeType);
     }
     
 }

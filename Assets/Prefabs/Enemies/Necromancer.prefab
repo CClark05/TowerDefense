@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Necromancer
       objectReference: {fileID: 0}
+    - target: {fileID: 4242396133354370729, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: deathParticlesPrefab
+      value: 
+      objectReference: {fileID: 3814077728722885872, guid: 015ee4ff3ad53ba4989f009cb31e9656, type: 3}
     - target: {fileID: 6376516497736485663, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
       propertyPath: nextId
       value: 2
@@ -77,9 +81,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6423339356686965217, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_Size.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423339356686965217, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_Size.y
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6423339356686965217, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -4731958343328302637, guid: 350e5ccd2c7b035469bda7195a793602, type: 3}
+      objectReference: {fileID: 6590898725256695938, guid: e3cae0f81b668fe41bc6a538035def2a, type: 3}
     - target: {fileID: 6423339356686965217, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
       propertyPath: m_Color.b
       value: 1
@@ -92,13 +104,17 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6423339356686965217, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7224636725142256174, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.17
+      value: 1.74
       objectReference: {fileID: 0}
     - target: {fileID: 8066698530144228589, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
       propertyPath: m_Radius
-      value: 0.84
+      value: 0.57
       objectReference: {fileID: 0}
     - target: {fileID: 8066698530144228589, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
       propertyPath: m_Offset.x
@@ -112,9 +128,13 @@ PrefabInstance:
     - {fileID: 6376516497736485663, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
     - {fileID: 2661289385655798022, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
     - {fileID: 5267796830266426185, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+    - {fileID: 8066698530144228589, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4048362118106325107, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      insertIndex: 3
+      addedObject: {fileID: 7991099918894001077}
     - targetCorrespondingSourceObject: {fileID: 4048362118106325107, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
       insertIndex: 9
       addedObject: {fileID: 6557232095366681004}
@@ -124,6 +144,52 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4048362118106325107, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
   m_PrefabInstance: {fileID: 5334418682573462116}
   m_PrefabAsset: {fileID: 0}
+--- !u!61 &7991099918894001077
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8226108817824266775}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.08, y: 0.76}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.43}
+    oldSize: {x: 8, y: 8}
+    newSize: {x: 8, y: 8}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1.48, y: 2.74}
+  m_EdgeRadius: 0
 --- !u!114 &6557232095366681004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,3 +202,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f082e256ad9a4da8b1e21e8b374b4d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  summonAnimation: {fileID: 11400000, guid: 34bacad676eb7da4195239e51cdd7f77, type: 2}
+  moveAnimation: {fileID: 11400000, guid: 2a05e8642213cb94cbe70be228994b6e, type: 2}

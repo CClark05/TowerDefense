@@ -67,7 +67,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
     }
     private void OnWaveComplete()
     {
-        float delay = 1.5f;
+        float delay = 2f;
         FunctionTimer.Create(() =>
         {
             background.SetActive(true);

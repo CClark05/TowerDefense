@@ -22,7 +22,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
     public event Action OnUpdateStats;
     public event Action OnUpdateCards;
     public SkillContext SkillContext { get; private set; }
-    public List<SkillData> SkillDataList { get; private set; } = new();
+    public List<SkillInstance> SkillInstanceList => SkillContext.ActiveSkills;
     public static List<TowerDataHolder> ActiveTowerList { get; private set; } = new();
     private EnemyManager enemyManager;
     private void Awake()
@@ -42,7 +42,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
         enemyManager = EnemyManager.Instance;
         enemyManager.OnWaveStarted += OnWaveStart;
         enemyManager.OnWaveComplete += OnWaveComplete;
-        GetComponent<TowerCards>().OnAddedCard += AddCard; 
+        GetComponent<TowerCards>().OnAddedCard += (data) => AddCard(data); 
         GetComponent<TowerCards>().OnRemovedCard += (data) => TryRemoveCard(data);
         SkillContext.OnTowerUpdated += UpdateTowerData;
     }
@@ -61,14 +61,17 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
         TowerService.ModifyWaveEnd(waveData, SkillContext);
         PlayerService.ModifyWaveEnd(SkillContext);
         UpdateTowerData(waveData);
+        /**
         foreach(var borrowRequest in waveData.borrowRequests)
         {
             if (borrowRequest.borrower == this && borrowRequest.fulfilled && TryRemoveCard(borrowRequest.card))
             {
-                Debug.Log("returned card");
+                Debug.Log("returned card" + gameObject.GetInstanceID());
                 borrowRequest.lender.AddCard(borrowRequest.card);
             }
         }
+        */
+        TowerService.MarkWaveEnd(this);
     }
     public void UpdateTowerData(TowerWaveData towerWaveData)
     {
@@ -114,18 +117,20 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
     {
         if (SkillContext.TryRemoveSkill(data))
         {
-            SkillDataList.Remove(data);
+            //SkillInstanceList.Remove(data);
             GoldValue -= Mathf.FloorToInt(data.price * 0.5f);
             OnUpdateCards?.Invoke();
+            Debug.Log($"Removed card");
             return true;
         }
 
         return false;
     }
-    public void AddCard(SkillData data)
+    public void AddCard(SkillData data, int playCount = 1)
     {
-        SkillContext.AddSkill(data);
-        SkillDataList.Add(data);
+        Debug.Log($"[{name}] AddCard {data.name} (PlayCount={playCount})");
+        SkillContext.AddSkill(data, playCount);
+        //SkillInstanceList.Add(data);
         GoldValue += Mathf.FloorToInt(data.price * 0.5f);
         OnUpdateCards?.Invoke();
     }

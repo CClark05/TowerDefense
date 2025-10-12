@@ -20,7 +20,7 @@ public class TowerSelectUI : MonoBehaviour
     [SerializeField] private GameObject emptySlotPrefab;
     private List<GameObject> emptySlots = new();
     private bool selected;
-    private List<(SkillData data, CardIconUI iconUI)> activeCards = new();
+    private List<(SkillInstance instance, CardIconUI iconUI)> activeCards = new();
     private CardIconUI selectedCard;
     public static event Action<SkillData> OnSellCardStatic;
     public event Action<SkillData> OnSellCard;
@@ -56,8 +56,8 @@ public class TowerSelectUI : MonoBehaviour
             }
 
             var card = activeCards.FirstOrDefault(c => c.iconUI == selectedCard);
-            OnSellCardStatic?.Invoke(card.data);
-            OnSellCard?.Invoke(card.data);
+            OnSellCardStatic?.Invoke(card.instance.Data);
+            OnSellCard?.Invoke(card.instance.Data);
             activeCards.Remove(card);
             Destroy(selectedCard.gameObject);
             selectedCard = null;
@@ -103,29 +103,31 @@ public class TowerSelectUI : MonoBehaviour
     }
     private void UpdateCards()
     {
-        var toRemove = activeCards.Where(card => !towerData.SkillDataList.Contains(card.data)).ToList();
-        foreach (var (_data, iconUI) in toRemove)
+        Debug.Log("Update cards");
+        var toRemove = activeCards.Where(card => !towerData.SkillContext.ActiveSkills.Contains(card.instance)).ToList();
+        foreach (var (instance, iconUI) in toRemove)
         {
             Destroy(iconUI.gameObject);
-            activeCards.Remove((_data, iconUI));
+            activeCards.Remove((instance, iconUI));
         }
 
-        foreach (var data in towerData.SkillDataList)
+        foreach (var instance in towerData.SkillContext.ActiveSkills)
         {
-            if (activeCards.Any(c => c.data == data)) continue;
+            if (activeCards.Any(c => c.instance == instance)) continue;
             var newCard = Instantiate(cardIconPrefab, cardLayoutGroup.transform).GetComponent<CardIconUI>();
-            newCard.Init(data, towerData.GetComponent<IUsesCards>());
+            //Debug.Log("init");
+            newCard.Init(instance, towerData.GetComponent<IUsesCards>());
             var button = newCard.Button;
-            activeCards.Add((data, newCard));
+            activeCards.Add((instance, newCard));
             newCard.GetComponent<CardIconDragDrop>().OnRemoveCard += skillData =>
             {
-                activeCards.Remove((data, newCard));
+                activeCards.Remove((instance, newCard));
                 fullCardPreview.SetActive(false);
             };
             button.OnHover += () =>
             {
                 if (selectedCard != null) return;
-                fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(data);
+                fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance.Data);
                 fullCardPreview.SetActive(true);
             };
             button.OnLeaveHover += () =>
@@ -148,8 +150,8 @@ public class TowerSelectUI : MonoBehaviour
 
                 newCard.Selected = true;
                 selectedCard = newCard;
-                fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(data);
-                sellText.text = $"SELL : <color=#DE9E41>${Mathf.FloorToInt(data.price * 0.5f)}</color>";
+                fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance.Data);
+                sellText.text = $"SELL : <color=#DE9E41>${Mathf.FloorToInt(instance.Data.price * 0.5f)}</color>";
             });
         }
     }

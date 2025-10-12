@@ -25,9 +25,10 @@ public static class DamageService
 
         foreach (var mod in skillContext.GetSkillInstancesWith<IHitModifier>().OrderBy(p => p.modifier.priority))
         {
-            mod.modifier.Modify(hitData, damageable);
-            if (mod.instance.PlayTwice)
+            for(int i = 0; i < mod.instance.PlayCount; i++)
+            {
                 mod.modifier.Modify(hitData, damageable);
+            }
         }
 
         foreach (var status in hitData.effectsApplied.OfType<IHitModifier>().OrderBy(s => s.priority))
@@ -42,9 +43,10 @@ public static class DamageService
             var effectData = new ModifyEffectData();
             foreach (var mod in onEffects)
             {
-                mod.modifier.Modify(effectData, hitData);
-                if (mod.instance.PlayTwice)
+                for(int i = 0; i < mod.instance.PlayCount; i++)
+                {
                     mod.modifier.Modify(effectData, hitData);
+                }
             }
 
             statusEffects.AddPersistentEffect(persistentEffect, hitData, kvp.Value, effectData);
@@ -58,9 +60,10 @@ public static class DamageService
         {
             foreach (var onKill in skillContext.GetSkillInstancesWith<IOnKill>())
             {
-                onKill.modifier.OnKill(hitData);
-                if (onKill.instance.PlayTwice)
+                for(int i = 0; i < onKill.instance.PlayCount; i++)
+                {
                     onKill.modifier.OnKill(hitData);
+                }
             }
         }
         hitData.RetriggerDamage = mult =>
@@ -95,9 +98,10 @@ public static class DamageService
 
         foreach (var mod in skillContext.GetSkillInstancesWith<IHitModifier>().OrderBy(p => p.modifier.priority))
         {
-            mod.modifier.Modify(hitData, damageable);
-            if (mod.instance.PlayTwice)
+            for(int i = 0; i < mod.instance.PlayCount; i++)
+            {
                 mod.modifier.Modify(hitData, damageable);
+            }
         }
 
         foreach (var status in hitData.effectsApplied.OfType<IHitModifier>().OrderBy(s => s.priority))
@@ -112,9 +116,10 @@ public static class DamageService
             var effectData = new ModifyEffectData();
             foreach (var mod in onEffects)
             {
-                mod.modifier.Modify(effectData, hitData);
-                if (mod.instance.PlayTwice)
+                for(int i = 0; i < mod.instance.PlayCount; i++)
+                {
                     mod.modifier.Modify(effectData, hitData);
+                }
             }
 
             statusEffects.AddPersistentEffect(persistentEffect, hitData, kvp.Value, effectData, true);
@@ -127,9 +132,10 @@ public static class DamageService
         {
             foreach (var onKill in skillContext.GetSkillInstancesWith<IOnKill>())
             {
-                onKill.modifier.OnKill(hitData);
-                if (onKill.instance.PlayTwice)
+                for(int i = 0; i < onKill.instance.PlayCount; i++)
+                {
                     onKill.modifier.OnKill(hitData);
+                }
             }
         }
         didKill = isDead;

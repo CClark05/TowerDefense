@@ -12,4 +12,5 @@ public abstract class AnimationClip : ScriptableObject
 public class AnimArgs
 {
     public Vector2? scaleTo;
+    public float? fps;
 }

@@ -43,8 +43,8 @@ public class ExposingHasteSkillInstance : SkillInstance<ExposingHasteSkillData>
                 return;
             }
         }
-
-        currentStacks = PlayTwice ? enemyManager.CurrentEnemies.Count * 2 : enemyManager.CurrentEnemies.Count;
+        
+        currentStacks = enemyManager.CurrentEnemies.Count * PlayCount;
         skillContext.AddBuff(Data.buffs[0].data as IBuff, currentStacks * Data.hasteStacksPerEnemy);
         PlayCard();
         void RemoveStacks()

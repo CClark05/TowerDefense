@@ -95,9 +95,10 @@ public class Projectile : MonoBehaviour
         var list = towerData.SkillContext.GetSkillInstancesWith<IOnHit>();
         foreach (var mod in towerData.SkillContext.GetSkillInstancesWith<IOnHit>().OrderBy(p => p.modifier.Priority)) 
         {
-            mod.modifier.OnHit(hitData);
-            if (mod.instance.PlayTwice)
+            for(int i = 0; i < mod.instance.PlayCount; i++)
+            {
                 mod.modifier.OnHit(hitData);
+            }
         }
         if (delayed)
         {
@@ -126,9 +127,10 @@ public class Projectile : MonoBehaviour
         var list = towerData.SkillContext.GetSkillInstancesWith<IOnHit>();
         foreach (var mod in towerData.SkillContext.GetSkillInstancesWith<IOnHit>().OrderBy(p => p.modifier.Priority)) 
         {
-            mod.modifier.OnHit(hitData);
-            if (mod.instance.PlayTwice)
+            for(int i = 0; i < mod.instance.PlayCount; i++)
+            {
                 mod.modifier.OnHit(hitData);
+            }
         }
         return DamageService.CalculateDamage(hitData, damageable, statusEffects, towerData.SkillContext, out didKill);
     }

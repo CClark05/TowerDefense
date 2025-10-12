@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
@@ -16,7 +17,7 @@ public class TowerCards : MonoBehaviour, IUsesCards
 
     public bool TryAddCard(SkillData skillData)
     {
-        if (towerDataHolder.SkillDataList.Contains(skillData) || towerDataHolder.SkillDataList.Count >= towerDataHolder.RuntimeData.CardSlots) return false;
+        if (towerDataHolder.SkillInstanceList.Any(s => s.Data == skillData) || towerDataHolder.SkillInstanceList.Count >= towerDataHolder.RuntimeData.CardSlots) return false;
         OnAddedCard?.Invoke(skillData);
         skillRegistry.AddNewSkill(skillData);
         return true;

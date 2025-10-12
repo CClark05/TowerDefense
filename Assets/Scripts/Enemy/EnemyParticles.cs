@@ -9,7 +9,7 @@ public class EnemyParticles : MonoBehaviour
         var baseColor = SpriteColorUtils.AverageColor(GetComponent<SpriteRenderer>().sprite);
         GetComponent<EnemyHealth>().OnDeath += () =>
         {
-            if (EnemyManager.Instance.CurrentEnemies.Count != 0) return;
+            if (EnemyManager.Instance.CurrentEnemies.Count != 0 || EnemyManager.Instance.WaveState is not EnemyManager.WaveStates.Complete) return;
             var particles = Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
             var main = particles.main;
             
@@ -28,8 +28,8 @@ public class EnemyParticles : MonoBehaviour
                 Mathf.Clamp01(s + ds),
                 Mathf.Clamp01(v + dv)
             );
-            cMin.a = baseColor.a;
-            cMax.a = baseColor.a;
+            cMin.a = 1;
+            cMax.a = 1;
             main.startColor = new ParticleSystem.MinMaxGradient(cMin, cMax);
         };
     }

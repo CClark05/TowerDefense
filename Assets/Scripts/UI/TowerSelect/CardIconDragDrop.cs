@@ -83,10 +83,10 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         canvasGroup.alpha = 1;
         if (isOverReceiver)
         {
-            if (cardReceiver.TryAddCard(iconUI.SkillData))
+            if (cardReceiver.TryAddCard(iconUI.SkillInstance.Data))
             {
-                iconUI.usesCards.RemoveCard(iconUI.SkillData);
-                OnRemoveCard?.Invoke(iconUI.SkillData);
+                iconUI.usesCards.RemoveCard(iconUI.SkillInstance.Data);
+                OnRemoveCard?.Invoke(iconUI.SkillInstance.Data);
                 Destroy(gameObject);
                 return;
             }

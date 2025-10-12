@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class TowerSelectUIOLD : MonoBehaviour
 {
+    /**
     [SerializeField] private TextMeshProUGUI nameText, levelText, damageText, fireRateText, DPSText, enemiesKilledText, totalDamageText, sellPriceText;
     [SerializeField] private GameObject UI;
     //[SerializeField] private RectTransform canvasRect;
@@ -84,7 +85,7 @@ public class TowerSelectUIOLD : MonoBehaviour
         totalDamageText.text = "Total Damage : " + towerData.TotalDamage;
         sellPriceText.text = "$" + towerData.GoldValue;
 
-        foreach (var skill in towerData.SkillDataList)
+        foreach (var skill in towerData.SkillInstanceList)
         {
             var card = Instantiate(cardSlotPrefab, cardSlotLayout.transform).GetComponent<CardSlotUI>();
             card.Init(skill);
@@ -133,5 +134,5 @@ public class TowerSelectUIOLD : MonoBehaviour
         TowerHoverable.OnLeaveTowerHoverStatic -= OnLeaveTowerHover;
         TowerHoverable.OnClickTowerStatic -= OnClickTower;
     }
-    
+    */
 }

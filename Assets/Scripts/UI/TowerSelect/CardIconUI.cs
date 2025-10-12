@@ -11,7 +11,7 @@ public class CardIconUI : MonoBehaviour
     [SerializeField] private Button_Scale_Hover button;
     [SerializeField] private Image redOutline;
     public Button_Scale_Hover Button { get; private set; }
-    public SkillData SkillData { get; private set; }
+    public SkillInstance SkillInstance { get; private set; }
     public IUsesCards usesCards { get; private set; }
     private bool selected;
     private SkillContext skillContext;
@@ -26,15 +26,16 @@ public class CardIconUI : MonoBehaviour
         }
     }
 
-    public void Init(SkillData skillData, IUsesCards usesCards)
+    public void Init(SkillInstance instance, IUsesCards usesCards)
     {
+        Debug.Log($"INIT {instance.PlayCount} (inst={instance.GetHashCode()})");
         Button = button;
-        SkillData = skillData;
+        SkillInstance = instance;
         this.usesCards = usesCards;
-        image.sprite = skillData.icon;
+        image.sprite = instance.Data.icon;
         skillContext = GetComponentInParent<TowerDataHolder>().SkillContext;
-        skillContext.OnCardPlayTwiceUpdated += OnCardPlayTwiceUpdated;
-        redOutline.gameObject.SetActive(skillContext.ActiveSkills.LastOrDefault(s => s.Data == skillData).PlayTwice);
+        SkillInstance.OnPlayCountUpdated += CardPlayCountUpdated;
+        redOutline.gameObject.SetActive(instance.PlayCount > 1);
         if (ColorUtility.TryParseHtmlString("#75a743", out Color greenColor))
             GetComponent<CardIconDragDrop>().OnIsOverReceiverUpdated += isOver =>
             {
@@ -47,10 +48,10 @@ public class CardIconUI : MonoBehaviour
                 selectionOutline.color = Color.white;
             };
     }
-    private void OnCardPlayTwiceUpdated(SkillData data, bool playTwice)
+    private void CardPlayCountUpdated(int playCount)
     {
-        if (data != SkillData || redOutline == null) return;
-        redOutline.gameObject.SetActive(playTwice);
+        Debug.Log("update " + playCount);
+        redOutline.gameObject.SetActive(playCount > 1);
     }
     private void UpdateVisual()
     {
@@ -61,6 +62,6 @@ public class CardIconUI : MonoBehaviour
 
     private void OnDestroy()
     {
-        skillContext.OnCardPlayTwiceUpdated -= OnCardPlayTwiceUpdated;
+        SkillInstance.OnPlayCountUpdated -= CardPlayCountUpdated;
     }
 }

@@ -8,7 +8,8 @@ public class AnimationPlayer : MonoBehaviour, IAnimationPlayer
     public Coroutine Play(AnimationClip clip, Transform transform, AnimPlayMode mode = AnimPlayMode.Auto, float? duration = null, AnimArgs args = null, object owner = null, int layer = 0)
     {
         var key = (owner ?? this, layer);
-        Stop(owner, layer);
+        StopRoutine(owner, layer);
+        currentAnimations[key] = null;
         bool loop = mode switch
         {
             AnimPlayMode.Once => false,
@@ -19,8 +20,11 @@ public class AnimationPlayer : MonoBehaviour, IAnimationPlayer
         currentAnimations[key] = routine;
         return routine;
     }
-
-    public void Stop(object owner, int layer = 0)
+    public Coroutine Play(AnimationClip clip, Transform transform, AnimArgs args, AnimPlayMode mode = AnimPlayMode.Auto, float? duration = null, object owner = null, int layer = 0)
+    {
+        return Play(clip, transform, mode, duration, args, owner, layer);
+    }
+    public void StopRoutine(object owner, int layer = 0)
     {
         var key = (owner ?? this, layer);
         if(currentAnimations.TryGetValue(key, out var routine))
@@ -28,6 +32,11 @@ public class AnimationPlayer : MonoBehaviour, IAnimationPlayer
             StopCoroutine(routine);
             currentAnimations.Remove(key);
         }
+    }
+    public void Cancel(object owner, int layer = 0)
+    {
+        var key = (owner ?? this, layer);
+        currentAnimations.Remove(key);
     }
     
     private IEnumerator Run(AnimationClip clip, Transform transform, bool loop, float duration, (object owner, int layer) key, AnimArgs args = null)

@@ -8,24 +8,18 @@ public static class ProjectileService
     {
         foreach (var mod in skillContext.GetSkillInstancesWith<IProjectileModifier>().Where(m => !m.modifier.DelayShot))
         {
-            var r1 = mod.modifier.Modify(shotData);
-            if (r1 != null) while (r1.MoveNext()) { }  
-
-            if (mod.instance.PlayTwice)
+            for (int i = 0; i < mod.instance.PlayCount; i++)
             {
-                var r2 = mod.modifier.Modify(shotData);
-                if (r2 != null) while (r2.MoveNext()) { } 
+                var r = mod.modifier.Modify(shotData);
+                if (r != null) while (r.MoveNext()) { } 
             }
         }
         foreach (var mod in skillContext.GetSkillInstancesWith<IProjectileModifier>().Where(m => m.modifier.DelayShot))
         {
-            var routine = mod.modifier.Modify(shotData);
-            if (routine != null)
-                yield return routine;
-            
-            if (mod.instance.PlayTwice)
+            for (int i = 0; i < mod.instance.PlayCount; i++)
             {
-                mod.modifier.Modify(shotData);
+                var r = mod.modifier.Modify(shotData);
+                if (r != null) yield return r; 
             }
         }
     }

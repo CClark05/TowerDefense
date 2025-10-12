@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abaebcbabb5142d29a808e3f123ec75a, type: 3}
+  m_Name: Necromancer_Move
+  m_EditorClassIdentifier: 
+  defaultDuration: 0.5
+  looping: 1
+  sprites:
+  - {fileID: -83338685930964757, guid: 995a3739dd3c1b446aaaf5d7c67fa776, type: 3}
+  - {fileID: 6445411363264054360, guid: 995a3739dd3c1b446aaaf5d7c67fa776, type: 3}
+  - {fileID: 2391654854516095875, guid: 995a3739dd3c1b446aaaf5d7c67fa776, type: 3}
+  - {fileID: 508730673187278447, guid: 995a3739dd3c1b446aaaf5d7c67fa776, type: 3}
+  - {fileID: -7395606965570142361, guid: 995a3739dd3c1b446aaaf5d7c67fa776, type: 3}
+  - {fileID: 5311158172943168991, guid: 995a3739dd3c1b446aaaf5d7c67fa776, type: 3}
+  - {fileID: 5909899131182740922, guid: 995a3739dd3c1b446aaaf5d7c67fa776, type: 3}
+  - {fileID: -7431586225850950622, guid: 995a3739dd3c1b446aaaf5d7c67fa776, type: 3}

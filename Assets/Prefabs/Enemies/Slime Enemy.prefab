@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 4947755595148166757, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.242
+      objectReference: {fileID: 0}
     - target: {fileID: 5699391364458080422, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
       propertyPath: m_Radius
       value: 0.44
@@ -67,7 +71,7 @@ PrefabInstance:
     - target: {fileID: 9076988599805704464, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -8308266928199415298, guid: 350e5ccd2c7b035469bda7195a793602, type: 3}
+      objectReference: {fileID: -6978071840667542382, guid: 032bdb261ef0e0e43bcf985ca7781928, type: 3}
     - target: {fileID: 9076988599805704464, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
       propertyPath: m_Color.b
       value: 1

@@ -10,7 +10,7 @@ public class BanditsSecretSkillData : SkillData
     }
 }
 
-public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>, ITowerWaveStartModifier, ITowerWaveEndModifier
+public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>, ITowerWaveStartModifier
 {
     private SkillData randomCard;
     private TowerDataHolder closestTower;
@@ -24,32 +24,16 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
         if (closestTower == null) return;
         var pool = closestTower.WaveData.startingSnapshot;
         if (pool.Count == 0) return;
-        randomCard = pool[UnityEngine.Random.Range(0, pool.Count)];
-        towerWaveData.borrowRequests.Add(new BorrowRequest
+        randomCard = pool[UnityEngine.Random.Range(0, pool.Count)].Data;
+        var request = new BorrowRequest
         {
             borrower = towerWaveData.owner,
             lender = closestTower,
-            card = randomCard
-        });
-        skillContext.OnCardInstanceCreated += OnInstanceAdded;
-        void OnInstanceAdded(SkillInstance instance)
-        {
-            if (instance.Data != randomCard) return;
-            instance.PlayTwice = true;
-            if (instance.Data == Data) return;
-            skillContext.OnCardInstanceCreated -= OnInstanceAdded;
-        }
+            card = randomCard,
+        };
+        request.playCount++;
+        towerWaveData.borrowRequests.Add(request);
         PlayCard();
-    }
-    void ITowerWaveEndModifier.Modify(TowerWaveData towerWaveData)
-    {
-        closestTower = FindClosestTower();
-        if (closestTower == null) return;
-        /**
-        Debug.Log("test");
-        closestTower.AddCard(randomCard);
-        towerWaveData.removedCards.Add(randomCard);
-        */
     }
     private TowerDataHolder FindClosestTower()
     {
@@ -66,11 +50,5 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
         }
         return closestTower.tower;
     }
-
-    public override void Dispose()
-    {
-        base.Dispose();
-        if (skillContext?.OnCardInstanceCreated != null)
-            skillContext.OnCardInstanceCreated = null;
-    }
+    
 }

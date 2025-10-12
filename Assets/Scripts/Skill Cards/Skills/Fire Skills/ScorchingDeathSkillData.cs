@@ -34,8 +34,7 @@ public class ScorchingDeathSkillInstance : SkillInstance<ScorchingDeathSkillData
             var effectData = new ModifyEffectData();
             foreach (var mod in onEffects)
             {
-                mod.modifier.Modify(effectData, hitData);
-                if(mod.instance.PlayTwice)
+                for(int i = 0; i < mod.instance.PlayCount; i++)
                     mod.modifier.Modify(effectData, hitData);
             }
             enemy.AddPersistentEffect(Data.statusEffects[0].data as PersistentStatusEffect, hitData, Data.fireOnKill, effectData, hitData.ghost);

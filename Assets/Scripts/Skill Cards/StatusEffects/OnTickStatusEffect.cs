@@ -17,8 +17,7 @@ public abstract class OnTickStatusEffect : PersistentStatusEffect
         {
             foreach (var onKill in tickData.hitData.tower.GetComponent<TowerDataHolder>().SkillContext.GetSkillInstancesWith<IOnKill>())
             {
-                onKill.modifier.OnKill(tickData.hitData);
-                if(onKill.instance.PlayTwice)
+                for(int i = 0; i < onKill.instance.PlayCount; i++)
                     onKill.modifier.OnKill(tickData.hitData);
             }
         }

@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.A)) direction = Vector2.left;
         else if (Input.GetKeyDown(KeyCode.D)) direction = Vector2.right;
 
-        if (direction != Vector2.zero && turnManager.MovesRemaining > 0)
+        if (direction != Vector2.zero && turnManager.MovesRemaining > 0 && EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Idle)
         {
             Vector2 targetPos = rb.position + direction * cellSize;
             GridManager.Instance.Grid.GetXY(targetPos, out int x, out int y);

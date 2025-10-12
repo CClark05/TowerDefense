@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 350e5ccd2c7b035469bda7195a793602
+guid: 032bdb261ef0e0e43bcf985ca7781928
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638945047476873597
+  platformSettingsDirtyTick: 638952025666865388
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -124,7 +124,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: EnemySprites
     originalName: 
-    pivot: {x: 1.125, y: -3.25}
+    pivot: {x: 0.8103448, y: -0.7017544}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,9 +132,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 16
-      height: 16
-    spriteID: 360d65adc4030e841acde118caa36439
+      width: 58
+      height: 57
+    spriteID: 76569696354a1d946a9b7a502960ea89
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -152,11 +152,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 34
-      y: 65
+      x: 33
+      y: 32
       width: 32
       height: 32
-    spriteID: 03b038cfb1c1c2246a79c1a0d4dda392
+    spriteID: 03a611bdeac549347b428f33d67f4514
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -165,7 +165,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: BirdSprite_Up
+  - name: Bird_Left
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -173,11 +173,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 34
-      y: 33
+      x: 1
+      y: 0
       width: 32
       height: 32
-    spriteID: f0f5717765ea89042b361d53592b52d9
+    spriteID: d60bdb480e4ebe34a9a115c1dbb72958
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -186,7 +186,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: BirdSprite_Left
+  - name: Bird_Up
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -194,32 +194,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 0
-      y: 33
+      x: 33
+      y: 0
       width: 32
       height: 32
-    spriteID: 42b5d2164571be84cbe28833ee0ee680
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: NecromancerSprite
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 0
-      y: 1
-      width: 32
-      height: 32
-    spriteID: 051758e7b1444cd4c92d5811d99e9188
+    spriteID: ee86a1c2ca22fa0479031e420d449481
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -241,10 +220,10 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 3
-        y: 205
+        y: 40
         width: 58
-        height: 90
-      spriteId: 360d65adc4030e841acde118caa36439
+        height: 57
+      spriteId: 76569696354a1d946a9b7a502960ea89
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -287,4 +266,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 239, y: 298}
+  canvasSize: {x: 100, y: 100}

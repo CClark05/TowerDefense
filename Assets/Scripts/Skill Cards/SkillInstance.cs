@@ -9,15 +9,15 @@ public abstract class SkillInstance
 {
     protected SkillContext skillContext;
     public SkillData Data { get; }
-    private bool playTwice;
-    public bool PlayTwice
+    private int playCount = 1;
+    public int PlayCount
     {
-        get => playTwice;
+        get => playCount;
         set
         {
-            if (playTwice == value) return;
-            playTwice = value;
-            OnPlayTwiceUpdated?.Invoke(value);
+            if (playCount == value) return;
+            playCount = value;
+            OnPlayCountUpdated?.Invoke(value);
         }
     }
     protected SkillInstance(SkillData data)
@@ -26,13 +26,13 @@ public abstract class SkillInstance
     }
     public void SetContext(SkillContext context) => skillContext = context;
     public event Action OnPlayCard;
-    public event Action<bool> OnPlayTwiceUpdated;
+    public event Action<int> OnPlayCountUpdated;
     protected void PlayCard() => OnPlayCard?.Invoke();
 
     public virtual void Dispose()
     {
         OnPlayCard = null;
-        OnPlayTwiceUpdated = null;
+        OnPlayCountUpdated = null;
         skillContext = null;
     }
 }
