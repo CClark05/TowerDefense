@@ -23,7 +23,7 @@ public static class DamageService
             }
         }
 
-        foreach (var mod in skillContext.GetSkillInstancesWith<IHitModifier>().OrderBy(p => p.modifier.priority))
+        foreach (var mod in skillContext.GetSkillInstancesWith<IHitModifier>())
         {
             for(int i = 0; i < mod.instance.PlayCount; i++)
             {
@@ -31,7 +31,7 @@ public static class DamageService
             }
         }
 
-        foreach (var status in hitData.effectsApplied.OfType<IHitModifier>().OrderBy(s => s.priority))
+        foreach (var status in hitData.effectsApplied.OfType<IHitModifier>())
         {
             status.Modify(hitData, damageable);
         }
@@ -96,7 +96,7 @@ public static class DamageService
             }
         }
 
-        foreach (var mod in skillContext.GetSkillInstancesWith<IHitModifier>().OrderBy(p => p.modifier.priority))
+        foreach (var mod in skillContext.GetSkillInstancesWith<IHitModifier>())
         {
             for(int i = 0; i < mod.instance.PlayCount; i++)
             {
@@ -104,7 +104,7 @@ public static class DamageService
             }
         }
 
-        foreach (var status in hitData.effectsApplied.OfType<IHitModifier>().OrderBy(s => s.priority))
+        foreach (var status in hitData.effectsApplied.OfType<IHitModifier>())
         {
             status.Modify(hitData, damageable);
         }

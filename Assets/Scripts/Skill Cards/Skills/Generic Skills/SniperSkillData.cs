@@ -4,11 +4,11 @@ using UnityEngine;
 public class SniperSkillData : SkillData
 {
     public int plusDamage = 3;
-    public int tileInterval = 2;
+    public int tileInterval = 1;
 
     private void OnValidate()
     {
-        description = $"Gain +{plusDamage} base damage per {tileInterval} tiles between you and the target.";
+        description = $"Gain +{plusDamage} base damage per {tileInterval} tile(s) between you and the target.";
     }
 
     public override SkillInstance CreateInstance()

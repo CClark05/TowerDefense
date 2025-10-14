@@ -9,11 +9,11 @@ using UnityEngine.Serialization;
 public class JajankenSkillData : SkillData
 {
     public int ChargeTime = 2;
-    public float DamageIncrease = 0.5f;
+    [FormerlySerializedAs("DamageIncrease")] public float DamageMult = 0.5f;
     public Color Color;
     private void OnValidate()
     {
-        description = $"Shots charge up for {ChargeTime} seconds before releasing for +{DamageIncrease * 100}% damage.";
+        description = $"Shots charge up for {ChargeTime} seconds before releasing for +{DamageMult * 100}% damage.";
     }
 
     public override SkillInstance CreateInstance()
@@ -39,8 +39,6 @@ public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, IProjecti
     public void Modify(HitData hitData, IDamageable target)
     {
         PlayCard();
-        hitData.finalDamage = CalculateDamage.MultIncrease(Data.DamageIncrease, hitData.finalDamage);
+        hitData.finalDamage = CalculateDamage.MultIncrease(Data.DamageMult, hitData.finalDamage);
     }
-
-    public IHitModifier.Priority priority => IHitModifier.Priority.MultDamage;
 }

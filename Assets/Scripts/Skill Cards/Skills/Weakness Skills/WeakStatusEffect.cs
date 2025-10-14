@@ -22,7 +22,7 @@ public class WeakStatusEffect : OnHitStatusEffect
     {
         hitData.damageMarkerPunchEffect = damageMarkerPunchEffect;
         hitData.colors.Add(color);
-        hitData.damageMarkerSizeMult = damageMarkerSizeMult;
+        hitData.damageMarkerSizeMult *= damageMarkerSizeMult;
         hitData.finalDamage = CalculateDamage.MultIncrease(damageIncrease * stacks, hitData.finalDamage);
         RemoveAllStacks(hitData);
     }

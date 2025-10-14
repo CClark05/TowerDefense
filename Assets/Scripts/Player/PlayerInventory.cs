@@ -57,7 +57,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
     private void SellCardStatic(SkillData data) => AddCoins(Mathf.FloorToInt(data.price * 0.5f));
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.C))
             Coins += 10;
     }
     

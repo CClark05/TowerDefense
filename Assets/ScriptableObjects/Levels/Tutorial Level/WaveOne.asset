@@ -13,13 +13,16 @@ MonoBehaviour:
   m_Name: WaveOne
   m_EditorClassIdentifier: 
   enemies:
-  - data: {fileID: 11400000, guid: dff3923ac185ebc43b7eff3aa7c02785, type: 2}
+  - data: {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
     count: 0
     delay: 0
-  - data: {fileID: 11400000, guid: dff3923ac185ebc43b7eff3aa7c02785, type: 2}
+  - data: {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
     count: 0
     delay: 0
-  - data: {fileID: 11400000, guid: dff3923ac185ebc43b7eff3aa7c02785, type: 2}
+  - data: {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
+    count: 0
+    delay: 0
+  - data: {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
     count: 0
     delay: 0
   - data: {fileID: 11400000, guid: d95970f9e90610047af1cfc4ca4261c2, type: 2}

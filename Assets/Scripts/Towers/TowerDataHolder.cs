@@ -13,7 +13,6 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
     public TowerWaveData WaveData;
     [SerializeField] private ProjectileData projectileData;
     public ProjectileData ProjectileData => projectileData;
-    public int Level { get; private set; } = 1;
     public int EnemiesKilled { get; private set; }
     public int TotalDamage { get; private set; }
     public int GoldValue { get; private set; }

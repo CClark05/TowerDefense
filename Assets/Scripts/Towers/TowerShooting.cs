@@ -24,6 +24,8 @@ public class TowerShooting : MonoBehaviour
     private float range => towerDataHolder.RuntimeData.Range;
     [SerializeField] private TargetingModes targetingMode = TargetingModes.First;
     public TargetingModes TargetingMode => targetingMode;
+    public int ShotsThisRound { get; private set; }
+    private EnemyManager enemyManager;
     private void Awake()
     {
         towerDataHolder = GetComponent<TowerDataHolder>();
@@ -37,6 +39,13 @@ public class TowerShooting : MonoBehaviour
         {
             targetingMode = mode;
         };
+        enemyManager = EnemyManager.Instance;
+        enemyManager.OnWaveStarted += OnWaveStarted;
+    }
+
+    private void OnWaveStarted()
+    {
+        ShotsThisRound = 0;
     }
 
     private void EnemyStatusEffectsOnTakeDamage(DamageData data, TowerShooting tower, Vector2 position)
@@ -77,7 +86,7 @@ public class TowerShooting : MonoBehaviour
         if (target != null && target.TryGetComponent<IDamageable>(out var damageable))
         {
             var projectile = Projectile.CreateProjectile(projectileData, shotData, transform.position, damageable, towerDataHolder);
-
+            ShotsThisRound++;
             projectile.OnDealDamage += (HitData hitData, Vector2 pos) =>
             {
                 OnDealDamage?.Invoke(hitData.finalDamage);
@@ -142,6 +151,7 @@ public class TowerShooting : MonoBehaviour
         }
 
         EnemyStatusEffects.OnTakeDamageStatic -= EnemyStatusEffectsOnTakeDamage;
+        enemyManager.OnWaveStarted -= OnWaveStarted;
     }
     
 }

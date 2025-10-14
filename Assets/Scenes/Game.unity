@@ -4839,11 +4839,8 @@ MonoBehaviour:
   cardPrefab: {fileID: 6204308533141475000, guid: 7f78933451dfd624cb1bc0d1a2a137f2, type: 3}
   skillRegistry: {fileID: 11400000, guid: 5437b0564b2259044824ede22bb06552, type: 2}
   testingData:
-  - {fileID: 11400000, guid: d33b3f49069a49e4b86130c7b3244fd9, type: 2}
-  - {fileID: 11400000, guid: d33b3f49069a49e4b86130c7b3244fd9, type: 2}
-  - {fileID: 11400000, guid: 59beb66dd33f3eb43b91f74d31fb5779, type: 2}
-  - {fileID: 11400000, guid: 558c2f8a679efd846a3c7903b2a17e57, type: 2}
-  - {fileID: 11400000, guid: c43815f674c7f0843b06bdc998822493, type: 2}
+  - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
+  - {fileID: 11400000, guid: 60e86dad96a8e2b4d961dbfb2f0f75c8, type: 2}
   settings: {fileID: 11400000, guid: 3e51d1c9009932449b6d19df8edce600, type: 2}
 --- !u!1 &1074720624
 GameObject:

@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Fire Status Effect
   m_EditorClassIdentifier: 
   name: Fire
-  description: Each stack deals 1 damage per second.
-  sprite: {fileID: -8570666745522228103, guid: fb850fd42165eb44d996fd7f1b6c159b, type: 3}
+  description: Deals 1 damage per second for each stack.
   color: {r: 0.64705884, g: 0.1882353, b: 0.1882353, a: 1}
+  sprite: {fileID: -8570666745522228103, guid: fb850fd42165eb44d996fd7f1b6c159b, type: 3}
   damageMarkerSizeMult: 1
   damageMarkerPunchEffect: 0
-  damagePerStackPerSecond: 1
+  tickInterval: 1
+  damagePerTick: 1

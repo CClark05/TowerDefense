@@ -11,7 +11,7 @@ public abstract class OnTickStatusEffect : PersistentStatusEffect
         data.finalDamage += damage;
         data.colors.Add(color);
         data.damageMarkerPunchEffect = damageMarkerPunchEffect;
-        data.damageMarkerSizeMult = damageMarkerSizeMult;
+        data.damageMarkerSizeMult *= damageMarkerSizeMult;
         data.didKill = tickData.damageable.TakeDamage(data.finalDamage);
         if (data.didKill)
         {

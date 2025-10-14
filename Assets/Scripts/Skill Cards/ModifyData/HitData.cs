@@ -10,6 +10,7 @@ public class HitData : DamageData
     public Dictionary<StatusEffectData, int> effectsApplied = new();
     public Action<float, float> DelayDamage; //delay, mult
     public Action<float> RetriggerDamage; //mult
+    public bool didCrit;
     public bool ghost;
     public HitData(int baseDamage, TowerShooting tower, IDamageable damageable, IUsesStatusEffects statusEffects)
     {
