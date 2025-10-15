@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeMonkey.Utils;
+using NUnit.Framework.Constraints;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
     [SerializeField] private TextMeshProUGUI rerollCostText;
     [SerializeField] private GameObject background;
     private List<GameObject> currentCards = new();
+    private Dictionary<SkillData, int> cardCooldowns = new();
     private int rerollAmount;
     private int rerollCost;
     public event Action<int> OnReroll;
@@ -65,8 +67,16 @@ public class CardSelectUI : Singleton<CardSelectUI>
         EnemyManager.Instance.OnWaveComplete += OnWaveComplete;
         background.SetActive(false);
     }
+    private int counter;
     private void OnWaveComplete()
     {
+        var keys = cardCooldowns.Keys.ToList();
+        foreach (var key in keys)
+        {
+            cardCooldowns[key]--;
+            if (cardCooldowns[key] <= 0)
+                cardCooldowns.Remove(key);
+        }
         float delay = 2f;
         FunctionTimer.Create(() =>
         {
@@ -77,19 +87,20 @@ public class CardSelectUI : Singleton<CardSelectUI>
 
     }
 
+    
     private void GenerateRandomCards()
     {
         foreach (var card in currentCards)
-        {
             Destroy(card);
-        }
-
+        
         currentCards.Clear();
         var availableSkills = skillRegistry.Skills.Where(skill =>
                 skill.prerequisiteSkills.Length == 0 || skill.prerequisiteSkills.Any(pr => skillRegistry.CurrentSkills.Contains(pr))).ToHashSet();
-        var filteredSkills = availableSkills.Where(skill => !skillRegistry.CurrentSkills.Contains(skill)).ToHashSet();
+        var filteredSkills = availableSkills.Where(skill => !skillRegistry.CurrentSkills.Contains(skill) && !cardCooldowns.ContainsKey(skill)).ToHashSet();
         var pool = filteredSkills.Count >= 3 ? filteredSkills : availableSkills;
         var cards = CardRarityPicker.PickCards(pool.ToList(), raritySettings, 3);
+        foreach (var c in cards)
+            cardCooldowns[c] = 3;
         foreach (var data in cards)
         {
             var newCard = Instantiate(cardPrefab, cardLayout.transform);

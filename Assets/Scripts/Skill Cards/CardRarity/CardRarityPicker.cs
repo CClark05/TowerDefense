@@ -3,7 +3,7 @@ using System.Linq;
 
 public static class CardRarityPicker
 {
-    public static CardRarity RollRarity(List<RarityChance> chances)
+    private static CardRarity RollRarity(List<RarityChance> chances)
     {
         float total = chances.Sum(c => c.weight);
         float roll = UnityEngine.Random.Range(0f, total);

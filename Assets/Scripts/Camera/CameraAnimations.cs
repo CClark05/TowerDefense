@@ -23,9 +23,10 @@ public class CameraAnimations : MonoBehaviour
         BuildingUI.Instance.OnExitBuildMode += ZoomBack;
         EnemyHealth.OnDeathStatic += (bool final) =>
         {
-            float duration = final ? 1.75f : 0.1f;
-            float strength = final ? 0.65f : 0.2f;
-            CameraShake.Shake(Camera.main.transform, duration, strength);
+            float duration = final ? 0.3f : 0.1f;
+            float strength = final ? 0.5f : 0.2f;
+            if(final)
+                CameraShake.Shake(Camera.main.transform, duration, strength);
         };
     }
 

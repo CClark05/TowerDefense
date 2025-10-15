@@ -15,6 +15,8 @@ public class KillEffects : MonoBehaviour
         };
         EnemyHealth.OnDeathStatic += (bool final) =>
         {
+            if(final)
+                SlowmoAnimation(0.1f, 0, 1f);
             StartCoroutine(FreezeFrame(final ? finalFreezeFrameDration : freezeFrameDuration));
         };
     }

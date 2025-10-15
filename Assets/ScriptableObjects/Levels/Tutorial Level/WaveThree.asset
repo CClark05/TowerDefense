@@ -13,8 +13,20 @@ MonoBehaviour:
   m_Name: WaveThree
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
-  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
-  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
-  delayBetweenSpawns: 1.5
+  - data: {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+    count: 0
+    delay: 0
+  - data: {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+    count: 0
+    delay: 0
+  - data: {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+    count: 0
+    delay: 0
+  - data: {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+    count: 0
+    delay: 0
+  - data: {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+    count: 0
+    delay: 0
+  delayBetweenSpawns: 0.5
   movesAllowed: 0

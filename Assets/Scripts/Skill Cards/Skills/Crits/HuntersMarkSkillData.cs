@@ -24,14 +24,8 @@ public class HuntersMarkSkillInstance : SkillInstance<HuntersMarkSkillData>, IHi
     public void Modify(HitData hitData, IDamageable target)
     {
         CritStats critStats = new CritStats();
-        foreach (var mod in skillContext.GetSkillInstancesWith<ICritModifier>())
-        {
-            for (int i = 0; i < mod.instance.PlayCount; i++)
-            {
-                critStats.MultIncrease += mod.modifier.CritStats.MultIncrease;
-                critStats.ChanceIncrease += mod.modifier.CritStats.ChanceIncrease;
-            }
-        }
+        critStats.CalculateBonus(skillContext);
+        Debug.Log(critStats.CritChance);
         if (UnityEngine.Random.value < critStats.CritChance)
         {
             critStats.DealCrit(hitData);
@@ -47,7 +41,7 @@ public interface ICritModifier
 
 public class CritStats
 {
-    public static readonly float baseCritChance = 1f;
+    public static readonly float baseCritChance = 0.15f;
     public static readonly float baseCritMult = 1f;
     public static readonly Color color = new Color(70 / 255f, 130 / 255f, 50 / 255f);
     public static readonly float damageMarkerSizeMult = 1.25f;
@@ -59,11 +53,20 @@ public class CritStats
 
     public void DealCrit(HitData hitData)
     {
-        if(hitData.didCrit) return;
+        if (hitData.didCrit) return;
         hitData.finalDamage = CalculateDamage.MultIncrease(CritMult, hitData.finalDamage);
         hitData.colors.Add(color);
         hitData.damageMarkerPunchEffect = true;
         hitData.damageMarkerSizeMult *= damageMarkerSizeMult;
         hitData.didCrit = true;
+    }
+
+    public void CalculateBonus(SkillContext skillContext)
+    {
+        foreach (var mod in skillContext.GetSkillInstancesWith<ICritModifier>())
+        {
+            MultIncrease += mod.modifier.CritStats.MultIncrease;
+            ChanceIncrease += mod.modifier.CritStats.ChanceIncrease;
+        }
     }
 }

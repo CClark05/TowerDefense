@@ -13,6 +13,23 @@ MonoBehaviour:
   m_Name: WaveSeven
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 11400000, guid: 7626989f1d64c6746837866535bcca89, type: 2}
-  delayBetweenSpawns: 0
+  - data: {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
+    count: 3
+    delay: 0
+  - data: {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
+    count: 1
+    delay: 0
+  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+    count: 3
+    delay: 0
+  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+    count: 2
+    delay: 0
+  - data: {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
+    count: 2
+    delay: 0
+  - data: {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
+    count: 1
+    delay: 0
+  delayBetweenSpawns: 0.5
   movesAllowed: 0

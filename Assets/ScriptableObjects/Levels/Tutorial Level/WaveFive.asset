@@ -13,9 +13,23 @@ MonoBehaviour:
   m_Name: WaveFive
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
-  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
-  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
-  - {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
-  delayBetweenSpawns: 1
+  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+    count: 0
+    delay: 1
+  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+    count: 0
+    delay: 1
+  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+    count: 0
+    delay: 0.2
+  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+    count: 0
+    delay: 0.2
+  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+    count: 0
+    delay: 0.2
+  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
+    count: 0
+    delay: 0.2
+  delayBetweenSpawns: 0
   movesAllowed: 0

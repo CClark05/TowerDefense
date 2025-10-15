@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a948aa9bd7fb424eb63bd321f898c0d5, type: 3}
-  m_Name: Perfect Form Data
+  m_Script: {fileID: 11500000, guid: 402833cd78da438aa8226cd51ce984cd, type: 3}
+  m_Name: Execution Data
   m_EditorClassIdentifier: 
   price: 0
-  name: Perfect Form
+  name: Execution
   icon: {fileID: 0}
   rarity: 0
-  description: Your first hit each round will always deal Critical damage for +100%
-    damage.
+  description: Critical hits instantly kill enemies below 10% health.
   statusEffects: []
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
+  HealthThreshold: 0.1
+  DamageMarkerSizeMult: 1.5

@@ -28,8 +28,7 @@ public class PerfectFormSkillInstance : SkillInstance<PerfectFormSkillData>, IHi
             CritStats critStats = new CritStats();
             foreach (var mod in skillContext.GetSkillInstancesWith<ICritModifier>())
             {
-                for (int i = 0; i < mod.instance.PlayCount; i++)
-                    critStats.MultIncrease += mod.modifier.CritStats.MultIncrease;
+                critStats.MultIncrease += mod.modifier.CritStats.MultIncrease;
             }
             critStats.DealCrit(hitData);
             PlayCard();

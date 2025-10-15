@@ -24,6 +24,7 @@ public class TowerHoverable : MonoBehaviour, IHoverable
 
     public void OnClick()
     {
+        if (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Complete) return;
         OnClickTowerStatic?.Invoke(GetComponent<TowerDataHolder>());
         OnClickTower?.Invoke();
     }

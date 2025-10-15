@@ -53,6 +53,13 @@ public static class DamageService
         }
 
         hitData.finalDamage = Mathf.RoundToInt(hitData.finalDamage * finalMult);
+        foreach (var mod in skillContext.GetSkillInstancesWith<IAfterHitModifier>())
+        {
+            for(int i = 0; i < mod.instance.PlayCount; i++)
+            {
+                mod.modifier.Modify(hitData);
+            }
+        }
         bool isDead = damageable.TakeDamage(hitData.finalDamage);
         hitData.didKill = isDead;
         onDealDamage?.Invoke(hitData, damageable.Transform.position);
@@ -69,7 +76,6 @@ public static class DamageService
         hitData.RetriggerDamage = mult =>
         {
             CoroutineRunner.Instance.StartCoroutine(Retrigger());
-
             IEnumerator Retrigger()
             {
                 float delay = 0.4f;
@@ -79,7 +85,7 @@ public static class DamageService
             }
         };
     }
-
+    /**
     public static int CalculateDamage(
         HitData hitData,
         IDamageable damageable,
@@ -141,7 +147,7 @@ public static class DamageService
         didKill = isDead;
         return hitData.finalDamage;
     }
-
+    */
     public static IEnumerator ApplyDelayedDamage(
         HitData hitData,
         IDamageable damageable,
@@ -155,4 +161,5 @@ public static class DamageService
         if (damageable == null) yield break;
         ApplyDamage(hitData, damageable, statusEffects, skillContext, onDealDamage, multiplier);
     }
+    
 }

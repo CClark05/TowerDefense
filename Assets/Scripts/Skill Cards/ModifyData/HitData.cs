@@ -6,6 +6,7 @@ public class HitData : DamageData
     public int baseDamage;
     public TowerShooting tower;
     public IDamageable damageable;
+    public HealthSystem healthSystem => (damageable as IUsesHealth).HealthSystem;
     public IUsesStatusEffects statusEffects;
     public Dictionary<StatusEffectData, int> effectsApplied = new();
     public Action<float, float> DelayDamage; //delay, mult

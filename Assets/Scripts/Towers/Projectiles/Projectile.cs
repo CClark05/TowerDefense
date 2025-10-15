@@ -45,21 +45,24 @@ public class Projectile : MonoBehaviour
     private void Update()
     {
         if (homing && targetTransform != null)
-        {
             direction = (targetTransform.position - transform.position).normalized;
-        }
-            
+        
+        if(direction == Vector2.zero)
+            Destroy(gameObject);
         
         transform.position += (Vector3)direction * (data.speed * speedIncrease * Time.deltaTime);
-        if (targetTransform == null) return;
+        if (targetTransform == null)
+            return;
         var predictor = targetTransform.GetComponent<IPathPredictor>();
         if(TryPathIntercept(predictor, transform.position, data.speed * speedIncrease, preHitWindow, out var aim, out var tHit))
         {
+            /**
             if (!preHitTriggered && tHit <= preHitWindow) {
                 preHitTriggered = true;
                 var damage = CalculateHitDamage(target, out var didKill);
                 if(didKill) OnWillKill?.Invoke();
             }
+            */
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -111,6 +114,7 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    /**
     private int CalculateHitDamage(IDamageable damageable, out bool didKill)
     {
         var statusEffects = damageable.Transform.GetComponent<IUsesStatusEffects>();
@@ -134,6 +138,7 @@ public class Projectile : MonoBehaviour
         }
         return DamageService.CalculateDamage(hitData, damageable, statusEffects, towerData.SkillContext, out didKill);
     }
+    */
     private bool TryPathIntercept(IPathPredictor predictor, Vector2 shooterPos, float projSpeed, float tMax, out Vector2 aim, out float tHit)
     {
         float G(float t)
