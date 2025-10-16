@@ -5,10 +5,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class TowerDataHolder : MonoBehaviour, IBuffOverride
+public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
 {
     [SerializeField] private TowerData baseData;
     public TowerData Data => baseData;
+    public string ID { get; private set; }
     public TowerRuntimeData RuntimeData { get; private set; }
     public TowerWaveData WaveData;
     [SerializeField] private ProjectileData projectileData;
@@ -32,6 +33,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
         RuntimeData = baseData.ToRuntime();
         if (!ActiveTowerList.Contains(this)) 
             ActiveTowerList.Add(this);
+        ID = Guid.NewGuid().ToString("N").Substring(0, 6);
     }
     private void Start()
     {
@@ -53,6 +55,9 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
     }
     private void OnWaveComplete()
     {
+        TotalWaveDamage = 0;
+        RealWaveDPS = 0;
+        MaxWaveDPS = 0;
         TowerWaveData waveData = new TowerWaveData
         {
             borrowRequests = WaveData.borrowRequests
@@ -94,21 +99,24 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
             }, towerWaveData.stunnedDuration);
         }
     }
-    public float RealDPS { get; private set; }
-    public float MaxDPS { get; private set; } = 0;
+    public float RealWaveDPS { get; private set; }
+    public float MaxWaveDPS { get; private set; } 
+    public float AverageWaveDPS { get; private set; }
+    public float TotalWaveDamage { get; private set; }
     private float dpsTimer;
     private float damageThisSecond;
     private void Update()
     {
-        if (EnemyManager.Instance.WaveState == EnemyManager.WaveStates.Idle) return;
+        if (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Idle or EnemyManager.WaveStates.Complete) return;
         dpsTimer += Time.deltaTime;
         if (dpsTimer >= 1)
         {
-            RealDPS = damageThisSecond / dpsTimer;
-            if (RealDPS > MaxDPS)
-                MaxDPS = RealDPS;
+            RealWaveDPS = damageThisSecond / dpsTimer;
+            AverageWaveDPS = TotalWaveDamage / EnemyManager.Instance.WaveTimer;
+            if (RealWaveDPS > MaxWaveDPS)
+                MaxWaveDPS = RealWaveDPS;
             damageThisSecond = 0;
-            dpsTimer = 0;
+            dpsTimer--;
             OnUpdateStats?.Invoke();
         }
     }
@@ -143,6 +151,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride
     {
         damageThisSecond += damage;
         TotalDamage += damage;
+        TotalWaveDamage += damage;
         OnUpdateStats?.Invoke();
     }
     public void AddBuff(IBuff buff, int stacks) => SkillContext.AddBuff(buff, stacks);

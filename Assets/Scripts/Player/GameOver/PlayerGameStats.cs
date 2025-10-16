@@ -9,7 +9,7 @@ public class PlayerGameOverStats : MonoBehaviour
         foreach (var tower in TowerDataHolder.ActiveTowerList)
         {
             enemiesKilled += tower.EnemiesKilled;
-            if (tower.MaxDPS > maxDps) maxDps = tower.MaxDPS;
+            if (tower.MaxWaveDPS > maxDps) maxDps = tower.MaxWaveDPS;
         }
         int highestWave = EnemyManager.Instance.CurrentWave - 1;
         int coins = PlayerInventory.Instance.TotalCoinsEarned;

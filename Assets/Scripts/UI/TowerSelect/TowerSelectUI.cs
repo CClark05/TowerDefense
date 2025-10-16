@@ -81,7 +81,7 @@ public class TowerSelectUI : MonoBehaviour
         nameText.text = towerData.Data.buildableData.objectName;
         damageText.text = "Base Damage : " + (towerData.Data.damage + towerData.ProjectileData.damage);
         fireRateText.text = "Fire Rate : " + (1f / towerData.RuntimeData.timeBetweenShots).ToString("F2") + "/sec";
-        DPSText.text = "Real DPS : " + Math.Round(towerData.RealDPS, MidpointRounding.AwayFromZero).ToString();
+        DPSText.text = "Real DPS : " + Math.Round(towerData.RealWaveDPS, MidpointRounding.AwayFromZero).ToString();
         enemiesKilledText.text = "Enemies Killed : " + towerData.EnemiesKilled;
         totalDamageText.text = "Total Damage : " + towerData.TotalDamage;
         sellText.text = $"SELL : <color=#DE9E41>${towerData.GoldValue}</color>";

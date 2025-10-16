@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CodeMonkey.Utils;
 using UnityEngine;
 
 public class EnemyManager : Singleton<EnemyManager>
@@ -11,7 +12,7 @@ public class EnemyManager : Singleton<EnemyManager>
     public List<EnemyData> DeadEnemies { get; private set; } = new();
     private LevelData levelData;
     public int CurrentWave { get; private set; } = 1;
-
+    public float WaveTimer { get; private set; }
     public enum WaveStates
     {
         Idle,
@@ -45,6 +46,12 @@ public class EnemyManager : Singleton<EnemyManager>
             WaveState = WaveStates.Idle;
             OnIdle?.Invoke();
         };
+    }
+
+    private void Update()
+    {
+        if(WaveState is WaveStates.Spawning or WaveStates.DoneSpawning)
+            WaveTimer += Time.deltaTime;
     }
 
     private void SpawnEnemy(EnemyData enemyData) => SpawnEnemyAtPosition(enemyData, AStarPathfinding.Instance.GetPath()[0]);
@@ -105,12 +112,14 @@ public class EnemyManager : Singleton<EnemyManager>
             DeadEnemies.Clear();
             WaveState = WaveStates.Complete;
             OnWaveComplete?.Invoke();
+            WaveTimer = 0;
         }
     }
 
     private IEnumerator SpawnWave(WaveData data)
     {
         Debug.Log("Starting wave");
+        WaveTimer = 0;
         TowerService.BeginWave(TowerDataHolder.ActiveTowerList);
         OnWaveStarted?.Invoke();
         WaveState = WaveStates.Spawning;
