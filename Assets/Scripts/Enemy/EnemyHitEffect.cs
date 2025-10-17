@@ -23,9 +23,16 @@ public class EnemyHitEffect : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<EnemyHealth>().OnHit += HitEffect;
+        GetComponent<EnemyHealth>().OnHit += () => Flash(1);
+        EnemyHealth.OnDeathStatic += OnDeathStatic;
     }
 
+    private void OnDeathStatic(bool final)
+    {
+        if (final) Flash(7);
+    }
+
+    /**
     private void HitEffect()
     {
         flashSeq?.Kill();
@@ -42,5 +49,24 @@ public class EnemyHitEffect : MonoBehaviour
         flashSeq.Append(tweenTo(1, flashToDuration));
         flashSeq.AppendInterval(holdDuration);
         flashSeq.Append(tweenTo(0, flashBackDuration));
+    }
+    */
+    private void Flash(int times)
+    {
+        flashSeq?.Kill();
+        flashSeq = DOTween.Sequence(gameObject).SetLink(gameObject).SetUpdate(true);
+        float From() => material.GetFloat(FlashProp);
+        void Setter(float v) => material.SetFloat(FlashProp, v);
+        for (int i = 0; i < times; i++)
+        {
+            flashSeq.Append(DOTween.To(From, Setter, flashAmountOnHit, flashToDuration))
+                .AppendInterval(holdDuration)
+                .Append(DOTween.To(From, Setter, 0f, flashBackDuration));
+        }
+    }
+
+    private void OnDestroy()
+    {
+        EnemyHealth.OnDeathStatic -= OnDeathStatic;
     }
 }

@@ -4840,6 +4840,7 @@ MonoBehaviour:
   skillRegistry: {fileID: 11400000, guid: 5437b0564b2259044824ede22bb06552, type: 2}
   testingData:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
+  - {fileID: 11400000, guid: ab97cb7746490ff4e9e23cf5fdbc3aec, type: 2}
   - {fileID: 11400000, guid: 60e86dad96a8e2b4d961dbfb2f0f75c8, type: 2}
   - {fileID: 11400000, guid: d33b3f49069a49e4b86130c7b3244fd9, type: 2}
   - {fileID: 11400000, guid: e7011b9b3a4f63147b01fb52a0246d01, type: 2}

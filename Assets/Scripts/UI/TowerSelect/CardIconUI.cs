@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class CardIconUI : MonoBehaviour
 {
     [SerializeField] private Image image;
     [SerializeField] private Image selectionOutline;
+    [SerializeField] private Image disabledOverlay;
     [SerializeField] private Button_Scale_Hover button;
     [SerializeField] private Image redOutline;
     public Button_Scale_Hover Button { get; private set; }
@@ -28,13 +30,14 @@ public class CardIconUI : MonoBehaviour
 
     public void Init(SkillInstance instance, IUsesCards usesCards)
     {
-        Debug.Log($"INIT {instance.PlayCount} (inst={instance.GetHashCode()})");
         Button = button;
         SkillInstance = instance;
         this.usesCards = usesCards;
+        disabledOverlay.enabled = instance.IsDisabled;
         image.sprite = instance.Data.icon;
         skillContext = GetComponentInParent<TowerDataHolder>().SkillContext;
         SkillInstance.OnPlayCountUpdated += CardPlayCountUpdated;
+        SkillInstance.OnIsDisabledUpdated += OnIsDisabledUpdated;
         redOutline.gameObject.SetActive(instance.PlayCount > 1);
         if (ColorUtility.TryParseHtmlString("#75a743", out Color greenColor))
             GetComponent<CardIconDragDrop>().OnIsOverReceiverUpdated += isOver =>
@@ -48,9 +51,14 @@ public class CardIconUI : MonoBehaviour
                 selectionOutline.color = Color.white;
             };
     }
+
+    private void OnIsDisabledUpdated(bool disabled)
+    {
+        disabledOverlay.enabled = disabled;
+    }
+
     private void CardPlayCountUpdated(int playCount)
     {
-        Debug.Log("update " + playCount);
         redOutline.gameObject.SetActive(playCount > 1);
     }
     private void UpdateVisual()
@@ -63,5 +71,6 @@ public class CardIconUI : MonoBehaviour
     private void OnDestroy()
     {
         SkillInstance.OnPlayCountUpdated -= CardPlayCountUpdated;
+        SkillInstance.OnIsDisabledUpdated -= OnIsDisabledUpdated;
     }
 }

@@ -50,8 +50,11 @@ public class EnemyManager : Singleton<EnemyManager>
 
     private void Update()
     {
-        if(WaveState is WaveStates.Spawning or WaveStates.DoneSpawning)
+        if (WaveState is WaveStates.Spawning or WaveStates.DoneSpawning)
+        {
             WaveTimer += Time.deltaTime;
+        }
+            
     }
 
     private void SpawnEnemy(EnemyData enemyData) => SpawnEnemyAtPosition(enemyData, AStarPathfinding.Instance.GetPath()[0]);

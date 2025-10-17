@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-public class BirdMovement : MonoBehaviour, IPathPredictor, IMovementListener
+public class BirdMovement : MonoBehaviour, IPathPredictor, IMovementListener, IMovementOverride
 {
     private float baseSpeed;
+    private float speedMult = 1;
     public event Action OnReachedEnd;
     public float Progress { get; private set; }
     private Rigidbody2D rb;
@@ -39,7 +40,7 @@ public class BirdMovement : MonoBehaviour, IPathPredictor, IMovementListener
 
     private void FixedUpdate()
     {
-        rb.linearVelocity = velocity;
+        rb.linearVelocity = velocity * speedMult;
     }
 
     public bool TryPosVelAt(float t, out Vector2 pos, out Vector2 vel)
@@ -50,7 +51,15 @@ public class BirdMovement : MonoBehaviour, IPathPredictor, IMovementListener
         vel = unitDirection * baseSpeed;
         return true;
     }
-    
 
-    
+
+    public void SetSpeed(float speedMult, float duration = 0)
+    {
+        this.speedMult = speedMult;
+    }
+
+    public void ResetSpeed(float duration = 0)
+    {
+        speedMult = 1;
+    }
 }

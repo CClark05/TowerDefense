@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class TowerSelectUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI nameText, damageText, fireRateText, DPSText, enemiesKilledText, totalDamageText, sellText;
+    [SerializeField] private TextMeshProUGUI nameText, damageText, fireRateText, RealDPSText,AverageDPS,Uptime,enemiesKilledText, totalDamageText, sellText;
     [SerializeField] private Button_Base sellButton;
     [SerializeField] private GameObject UI;
     [SerializeField] private TowerDataHolder towerData;
@@ -25,9 +25,11 @@ public class TowerSelectUI : MonoBehaviour
     public static event Action<SkillData> OnSellCardStatic;
     public event Action<SkillData> OnSellCard;
     private EnemyManager enemyManager;
+    private CardSelectUI cardSelectUI;
     private void Start()
     {
         enemyManager = EnemyManager.Instance;
+        cardSelectUI = CardSelectUI.Instance;
         towerHoverable.OnHoverTower += () => { UI.SetActive(true); };
         towerHoverable.OnLeaveHoverTower += () =>
         {
@@ -73,7 +75,13 @@ public class TowerSelectUI : MonoBehaviour
         UpdateCards();
         UpdateEmptySlots(towerData.Data.cardSlots);
         towerData.RuntimeData.OnCardSlotsUpdated += UpdateEmptySlots;
+        cardSelectUI.OnShowCards += OnWaveComplete;
         UI.SetActive(false);
+    }
+
+    private void CardSelectUIOnOnShowCards()
+    {
+        throw new NotImplementedException();
     }
 
     private void UpdateUI()
@@ -81,7 +89,9 @@ public class TowerSelectUI : MonoBehaviour
         nameText.text = towerData.Data.buildableData.objectName;
         damageText.text = "Base Damage : " + (towerData.Data.damage + towerData.ProjectileData.damage);
         fireRateText.text = "Fire Rate : " + (1f / towerData.RuntimeData.timeBetweenShots).ToString("F2") + "/sec";
-        DPSText.text = "Real DPS : " + Math.Round(towerData.RealWaveDPS, MidpointRounding.AwayFromZero).ToString();
+        RealDPSText.text = "Realtime DPS : " + Math.Round(towerData.RealWaveDPS, MidpointRounding.AwayFromZero).ToString();
+        AverageDPS.text = "Average DPS : " + Math.Round(towerData.AverageOverallDps, MidpointRounding.AwayFromZero).ToString();
+        Uptime.text = $"Uptime : {towerData.UptimePercentage:P1}";
         enemiesKilledText.text = "Enemies Killed : " + towerData.EnemiesKilled;
         totalDamageText.text = "Total Damage : " + towerData.TotalDamage;
         sellText.text = $"SELL : <color=#DE9E41>${towerData.GoldValue}</color>";
@@ -103,7 +113,6 @@ public class TowerSelectUI : MonoBehaviour
     }
     private void UpdateCards()
     {
-        Debug.Log("Update cards");
         var toRemove = activeCards.Where(card => !towerData.SkillContext.ActiveSkills.Contains(card.instance)).ToList();
         foreach (var (instance, iconUI) in toRemove)
         {
@@ -177,5 +186,6 @@ public class TowerSelectUI : MonoBehaviour
     {
         enemyManager.OnWaveStarted -= OnWaveStarted;
         enemyManager.OnWaveComplete -= OnWaveComplete;
+        cardSelectUI.OnShowCards -= OnWaveComplete;
     }
 }

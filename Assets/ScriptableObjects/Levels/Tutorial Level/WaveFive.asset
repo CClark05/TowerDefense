@@ -25,11 +25,5 @@ MonoBehaviour:
   - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
     count: 0
     delay: 0.2
-  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
-    count: 0
-    delay: 0.2
-  - data: {fileID: 11400000, guid: e1caae2b7b91a014b89c46c5e0597d43, type: 2}
-    count: 0
-    delay: 0.2
   delayBetweenSpawns: 0
   movesAllowed: 0

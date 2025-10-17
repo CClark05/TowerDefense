@@ -26,7 +26,7 @@ public static class CameraShake
         float randomness = 90f,
         bool fadeOut = true,
         float rotStrengthDegrees = 0f,
-        bool unscaledTime = true)
+        bool unscaledTime = false)
     {
         if (cam == null || duration <= 0f || (posStrength <= 0f && rotStrengthDegrees <= 0f))
             return null;

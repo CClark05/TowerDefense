@@ -25,7 +25,6 @@ public class HuntersMarkSkillInstance : SkillInstance<HuntersMarkSkillData>, IHi
     {
         CritStats critStats = new CritStats();
         critStats.CalculateBonus(skillContext);
-        Debug.Log(critStats.CritChance);
         if (UnityEngine.Random.value < critStats.CritChance)
         {
             critStats.DealCrit(hitData);
@@ -41,8 +40,8 @@ public interface ICritModifier
 
 public class CritStats
 {
-    public static readonly float baseCritChance = 0.15f;
-    public static readonly float baseCritMult = 1f;
+    public static readonly float baseCritChance = 0.075f;
+    public static readonly float baseCritMult = 2f;
     public static readonly Color color = new Color(70 / 255f, 130 / 255f, 50 / 255f);
     public static readonly float damageMarkerSizeMult = 1.25f;
 

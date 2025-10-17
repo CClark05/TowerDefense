@@ -9,14 +9,17 @@ public class TowerVisual : MonoBehaviour
     private bool isSelected;
     private TowerDataHolder dataHolder;
     private EnemyManager enemyManager;
+    private CardSelectUI cardSelectUI;
     private void Start()
     {
         TowerHoverable.OnClickTowerStatic += OnClickTower;
         TowerHoverable.OnHoverTowerStatic += OnHover;
         TowerHoverable.OnLeaveTowerHoverStatic += OnLeaveHover;
         enemyManager = EnemyManager.Instance;
+        cardSelectUI = CardSelectUI.Instance;
         enemyManager.OnWaveStarted += DisableSelection;
-        enemyManager.OnWaveComplete += OnWaveComplete;
+        enemyManager.OnWaveComplete += DisableSelection;
+        cardSelectUI.OnShowCards += DisableSelection;
         dataHolder = GetComponent<TowerDataHolder>();
         dataHolder.RuntimeData.OnRangeUpdated += range =>
         {
@@ -25,12 +28,7 @@ public class TowerVisual : MonoBehaviour
         rangeVisual.transform.localScale = new Vector3(dataHolder.Data.range * 2f, dataHolder.Data.range * 2f, 1);
         rangeVisual.gameObject.SetActive(false);
     }
-
-    private void OnWaveComplete()
-    {
-        isSelected = false;
-        rangeVisual.SetActive(false);
-    }
+    
 
     private void DisableSelection()
     {
@@ -64,6 +62,7 @@ public class TowerVisual : MonoBehaviour
         TowerHoverable.OnHoverTowerStatic -= OnHover;
         TowerHoverable.OnLeaveTowerHoverStatic -= OnLeaveHover;
         enemyManager.OnWaveStarted -= DisableSelection;
-        enemyManager.OnWaveComplete -= OnWaveComplete;
+        enemyManager.OnWaveComplete -= DisableSelection;
+        cardSelectUI.OnShowCards -= DisableSelection;
     }
 }

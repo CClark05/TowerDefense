@@ -23,12 +23,6 @@ public class ExecutionSkillInstance : SkillInstance<ExecutionSkillData>, IAfterH
     public ExecutionSkillInstance(ExecutionSkillData data) : base(data)
     {
     }
-
-    public void OnHit(HitData hitData)
-    {
-       
-    }
-
     public void Modify(HitData hitData)
     {
         if ((float)hitData.healthSystem.Health / hitData.healthSystem.MaxHealth <= Data.HealthThreshold && hitData.didCrit)

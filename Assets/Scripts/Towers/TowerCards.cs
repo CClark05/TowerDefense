@@ -9,7 +9,6 @@ public class TowerCards : MonoBehaviour, IUsesCards
     public event Action<SkillData> OnRemovedCard;
     [SerializeField] private SkillRegistry skillRegistry;
     private TowerDataHolder towerDataHolder;
-    
     private void Start()
     {
         towerDataHolder = GetComponent<TowerDataHolder>();
@@ -26,5 +25,10 @@ public class TowerCards : MonoBehaviour, IUsesCards
     public void RemoveCard(SkillData skillData)
     {
         OnRemovedCard?.Invoke(skillData);
+    }
+
+    public bool CanAddCard(SkillData skillData)
+    {
+        return !(towerDataHolder.SkillInstanceList.Any(s => s.Data == skillData) || towerDataHolder.SkillInstanceList.Count >= towerDataHolder.RuntimeData.CardSlots);
     }
 }

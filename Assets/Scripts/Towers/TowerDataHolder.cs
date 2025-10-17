@@ -65,16 +65,6 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         TowerService.ModifyWaveEnd(waveData, SkillContext);
         PlayerService.ModifyWaveEnd(SkillContext);
         UpdateTowerData(waveData);
-        /**
-        foreach(var borrowRequest in waveData.borrowRequests)
-        {
-            if (borrowRequest.borrower == this && borrowRequest.fulfilled && TryRemoveCard(borrowRequest.card))
-            {
-                Debug.Log("returned card" + gameObject.GetInstanceID());
-                borrowRequest.lender.AddCard(borrowRequest.card);
-            }
-        }
-        */
         TowerService.MarkWaveEnd(this);
     }
     public void UpdateTowerData(TowerWaveData towerWaveData)
@@ -98,21 +88,42 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
                 RuntimeData.stunned = false;
             }, towerWaveData.stunnedDuration);
         }
+        int activeSlots = SkillInstanceList.FindAll(s => !s.IsDisabled).Count;
+        if (RuntimeData.CardSlots < activeSlots)
+        {
+            int cardsToDisable = activeSlots - RuntimeData.CardSlots;
+            for(int i = SkillInstanceList.Count - 1; i >= 0 && cardsToDisable > 0; i--)
+            {
+                var skill = SkillInstanceList[i];
+                if (!skill.IsDisabled)
+                {
+                    skill.IsDisabled = true;
+                    cardsToDisable--;
+                }
+            }
+        }
     }
+
+    private float TotalWaveTime;
     public float RealWaveDPS { get; private set; }
     public float MaxWaveDPS { get; private set; } 
     public float AverageWaveDPS { get; private set; }
+    public float AverageOverallDps { get; private set; }
+    public float UptimePercentage { get; private set; }
     public float TotalWaveDamage { get; private set; }
     private float dpsTimer;
     private float damageThisSecond;
     private void Update()
     {
         if (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Idle or EnemyManager.WaveStates.Complete) return;
+        TotalWaveTime += Time.deltaTime;   
         dpsTimer += Time.deltaTime;
         if (dpsTimer >= 1)
         {
             RealWaveDPS = damageThisSecond / dpsTimer;
             AverageWaveDPS = TotalWaveDamage / EnemyManager.Instance.WaveTimer;
+            AverageOverallDps = TotalDamage / TotalWaveTime;
+            UptimePercentage = towerShooting.TotalUptime / TotalWaveTime;
             if (RealWaveDPS > MaxWaveDPS)
                 MaxWaveDPS = RealWaveDPS;
             damageThisSecond = 0;

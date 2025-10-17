@@ -86,7 +86,7 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
             inventoryUI.SetActive(false);
             chestUI.gameObject.SetActive(false);
         };
-        EnemyManager.Instance.OnIdle += () =>
+        EnemyManager.Instance.OnWaveComplete += () =>
         {
             inventoryUI.SetActive(true);
             chestUI.gameObject.SetActive(true);
@@ -147,5 +147,8 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
         }
     }
 
-   
+    public bool CanAddCard(SkillData skillData)
+    {
+        return SkillCards.Count < settings.MaxCards;
+    }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Killing Focus Data
   m_EditorClassIdentifier: 
   price: 0
-  name: 
+  name: Killing Focus
   icon: {fileID: 0}
   rarity: 0
   description: Gain +5% Critical chance on kill. Resets after wave.

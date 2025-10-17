@@ -72,8 +72,8 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         {
             cardReceiver = hit.collider.GetComponent<IUsesCards>();
         }
-
-        IsOverReceiver = cardReceiver != null;
+    
+        IsOverReceiver = cardReceiver != null && cardReceiver.CanAddCard(iconUI.SkillInstance.Data);
     }
 
     public void OnEndDrag(PointerEventData eventData)

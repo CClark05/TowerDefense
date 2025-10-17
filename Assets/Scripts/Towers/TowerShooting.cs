@@ -14,11 +14,10 @@ public class TowerShooting : MonoBehaviour
     private ProjectileData projectileData;
     private TowerDataHolder towerDataHolder;
     private float shootTimer;
-
     public event Action<int> OnDealDamage;
     public static event Action<Vector2, DamageData> OnDealDamageStatic;
     public event Action OnKillEnemy;
-
+    public float TotalUptime { get; private set; }
     private Coroutine shootCoroutine;
     private float timeBetweenShots => towerDataHolder.RuntimeData.timeBetweenShots;
     private float range => towerDataHolder.RuntimeData.Range;
@@ -26,6 +25,7 @@ public class TowerShooting : MonoBehaviour
     public TargetingModes TargetingMode => targetingMode;
     public int ShotsThisRound { get; private set; }
     private EnemyManager enemyManager;
+    
     private void Awake()
     {
         towerDataHolder = GetComponent<TowerDataHolder>();
@@ -61,6 +61,9 @@ public class TowerShooting : MonoBehaviour
         if (towerDataHolder.RuntimeData.stunned) return;
         shootTimer += Time.deltaTime;
 
+        var closestEnemy = TargetEnemy();
+        if (closestEnemy != null)
+            TotalUptime += Time.deltaTime;  
         if (shootCoroutine != null && shootTimer >= timeBetweenShots)
         {
             shootTimer = timeBetweenShots;
@@ -69,12 +72,9 @@ public class TowerShooting : MonoBehaviour
 
         if (shootCoroutine == null && shootTimer >= timeBetweenShots)
         {
-            var closestEnemy = TargetEnemy();
-            if (closestEnemy != null)
-            {
-                shootCoroutine = StartCoroutine(ShootProjectile());
-                shootTimer = 0f;
-            }
+            if (closestEnemy == null) return;
+            shootCoroutine = StartCoroutine(ShootProjectile());
+            shootTimer = 0f;
         }
     }
 
