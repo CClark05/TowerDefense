@@ -53,18 +53,20 @@ public class CoinsUIAnimation : MonoBehaviour
 
     private IEnumerator DespawnPopup()
     {
-        while (true)
-        {
-            if (Time.unscaledTime >= despawnAt)
-                break;
-            yield return null;
-        }
-        OnPopupComplete?.Invoke(currentPopup.amount);
-        currentPopup.mesh.DOFade(0, 0.6f).OnComplete(() =>
-        {
-            Destroy(currentPopup.mesh.gameObject);
-        }).SetUpdate(true);
+        while (Time.unscaledTime < despawnAt) yield return null;
+        var popup   = currentPopup.mesh;
+        var amount  = currentPopup.amount;
+
+        OnPopupComplete?.Invoke(amount);
+
         currentPopup = (null, 0);
         despawnCoroutine = null;
+
+        if (popup != null)
+        {
+            popup.DOFade(0f, 0.6f)
+                .SetUpdate(true)               
+                .OnComplete(() => Destroy(popup.gameObject));
+        }
     }
 }
