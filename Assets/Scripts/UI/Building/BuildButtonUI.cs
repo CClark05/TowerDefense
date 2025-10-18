@@ -11,6 +11,7 @@ public class BuildButtonUI : MonoBehaviour
     private Color originalTextColor;
     public event Action<TowerData> OnBuildMode;
     public event Action OnExitBuildMode;
+    public static event Action OnNotEnoughCoins;
     private void Start()
     {
         originalTextColor = costText.color;
@@ -18,6 +19,10 @@ public class BuildButtonUI : MonoBehaviour
         button.OnClick.AddListener(TryEnterBuildMode);
         costText.color = PlayerInventory.Instance.Coins >= towerData.cost ? originalTextColor : ColorPicker.red;
         PlayerInventory.Instance.OnCoinsUpdated += coins => costText.color = coins >= towerData.cost ? originalTextColor : ColorPicker.red;
+        EnemyManager.Instance.OnWaveStarted += () => background.SetActive(false);
+        EnemyManager.Instance.OnWaveComplete += () => background.SetActive(true);
+        BuildingManager.Instance.OnPlacedBuild += data => background.SetActive(true);
+
     }
 
     private void Update()
@@ -36,7 +41,11 @@ public class BuildButtonUI : MonoBehaviour
     }
     private void TryEnterBuildMode()
     {
-        if (PlayerInventory.Instance.Coins < towerData.cost) return;
+        if (PlayerInventory.Instance.Coins < towerData.cost)
+        {
+            OnNotEnoughCoins?.Invoke();
+            return;
+        }
         OnBuildMode?.Invoke(towerData);
         background.SetActive(false);
     }

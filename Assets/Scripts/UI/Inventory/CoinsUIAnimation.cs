@@ -3,22 +3,31 @@ using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEditor;
+using UnityEditor.Rendering.BuiltIn.ShaderGraph;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CoinsUIAnimation : MonoBehaviour
 {
     [SerializeField] private GameObject popupPrefab;
     [SerializeField] private TextMeshProUGUI amountText;
+    [SerializeField] private Image coinImage;
     private (TextMeshProUGUI mesh, int amount) currentPopup;
     private Color originalColor;
     private float spacing = 40;
     public event Action<int> OnPopupComplete;
     private float despawnAt;
     private Coroutine despawnCoroutine;
+    private Tween shakeTween;
     private void Start()
     {
         PlayerInventory.Instance.OnCoinsAdded += ShowPopup;
         PlayerInventory.Instance.OnCoinsRemoved += (coins) => ShowPopup(-coins);
+        BuildButtonUI.OnNotEnoughCoins += () =>
+        {
+            shakeTween?.Kill();
+            shakeTween = coinImage.rectTransform.DOShakeAnchorPos(0.3f, 5f, 15).SetUpdate(true);
+        };
     }
 
     private void ShowPopup(int coins)
@@ -27,7 +36,7 @@ public class CoinsUIAnimation : MonoBehaviour
         
         float lifeDuration = 1f;
         amountText.ForceMeshUpdate();
-        float width = amountText.preferredWidth / amountText.canvas.rootCanvas.scaleFactor;
+        float width = amountText.preferredWidth;
         if (currentPopup.mesh == null){
             currentPopup.mesh = Instantiate(popupPrefab, transform).GetComponent<TextMeshProUGUI>();
             originalColor = currentPopup.mesh.color;
@@ -51,7 +60,7 @@ public class CoinsUIAnimation : MonoBehaviour
             yield return null;
         }
         OnPopupComplete?.Invoke(currentPopup.amount);
-        currentPopup.mesh.DOFade(0, 0.3f).OnComplete(() =>
+        currentPopup.mesh.DOFade(0, 0.6f).OnComplete(() =>
         {
             Destroy(currentPopup.mesh.gameObject);
         }).SetUpdate(true);

@@ -24,10 +24,20 @@ public class TowerHoverable : MonoBehaviour, IHoverable
 
     public void OnClick()
     {
-        if (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Spawning || EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning) return;
-        if (CardSelectUI.Instance.IsActive) return;
+        if (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Spawning || EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning)
+        {
+            Debug.Log("test");
+            return;
+        }
+
+        if (CardSelectUI.Instance.IsActive)
+        {
+            Debug.Log("test2");
+            return;
+        }
         OnClickTowerStatic?.Invoke(GetComponent<TowerDataHolder>());
         OnClickTower?.Invoke();
+        Debug.Log("test3");
     }
 
     

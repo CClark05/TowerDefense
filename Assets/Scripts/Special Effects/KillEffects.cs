@@ -29,13 +29,14 @@ public class KillEffects : MonoBehaviour
         var seq = DOTween.Sequence().SetUpdate(true);
         seq.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, to, toDuration)).SetEase(Ease.InCubic);
         seq.AppendInterval(holdTime);
-        seq.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1f, toDuration).SetEase(Ease.OutQuad));
+        seq.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1, toDuration).SetEase(Ease.OutQuad));
     }
 
     private IEnumerator FreezeFrame(float duration)
     {
+        float originalTimeScale = Time.timeScale;
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(duration);
-        Time.timeScale = 1;
+        Time.timeScale = originalTimeScale;
     }
 }

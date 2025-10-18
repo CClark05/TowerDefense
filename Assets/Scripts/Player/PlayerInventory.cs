@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class PlayerInventory : Singleton<PlayerInventory>
 {
+    [SerializeField] private int startingCoins;
     private int coins;
     public int Coins
     {
@@ -23,6 +24,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
     public event Action<int> OnCoinsRemoved;
     private void Start()
     {
+        AddCoins(startingCoins);
         BuildingManager.Instance.OnPlacedBuild += data => SubtractCoins(data.cost);
         TowerSellable.OnSellTower += AddCoins;
         SkillCardUI.OnSellCardStatic += AddCoins;

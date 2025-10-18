@@ -18,7 +18,7 @@ public class UIShake : MonoBehaviour
             float offsetY = Random.Range(-0.5f, 0.5f) * strength * 0.25f * damper; // subtle vertical
 
             rect.anchoredPosition = originalPos + new Vector3(offsetX, offsetY, 0f);
-            yield return new WaitForSeconds(duration / vibrato);
+            yield return new WaitForSecondsRealtime(duration / vibrato);
         }
 
         rect.anchoredPosition = originalPos; // reset
