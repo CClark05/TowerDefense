@@ -10,19 +10,8 @@ using UnityEngine.UI;
 
 public class InventoryUI : Singleton<InventoryUI>, IUsesCards
 {
-    [System.Serializable]
-    private class MaterialUIBinding
-    {
-        public ResourceData data;
-        public TextMeshProUGUI text;
-    }
-    
-    private Dictionary<ResourceData, TextMeshProUGUI> materialsDictionary = new();
     [SerializeField] private Button_Hover chestButton;
     [SerializeField] private GameObject inventoryUI;
-    [SerializeField] private GameObject materialsGridObject;
-    [SerializeField] private GameObject MaterialAmountPrefab;
-
     [SerializeField] private VerticalLayoutGroup cardLayoutGroup;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private SkillRegistry skillRegistry;
@@ -34,18 +23,8 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     private void Start()
     {
         InventoryChestUI chestUI = chestButton.GetComponent<InventoryChestUI>();
-        PlayerInventory.Instance.OnMaterialAmountUpdated += UpdateMaterial;
-        PlayerInventory.Instance.OnNewMaterialAdded += data =>
-        {
-            GameObject newMaterial = Instantiate(MaterialAmountPrefab, materialsGridObject.transform);
-            newMaterial.GetComponentInChildren<Image>().sprite = data.prefab.GetComponent<SpriteRenderer>().sprite;
-            newMaterial.GetComponentInChildren<Image>().color = data.prefab.GetComponent<SpriteRenderer>().color;
-            materialsDictionary[data] = newMaterial.GetComponentInChildren<TextMeshProUGUI>();
-        };
         BuildingManager.Instance.OnEnterBuildMode += EnterBuildMode;
         BuildingManager.Instance.OnExitBuildMode += ExitBuildMode;
-        BuildingUI.Instance.OnEnterBuildMode += EnterBuildMode;
-        BuildingUI.Instance.OnExitBuildMode += ExitBuildMode;
         void ExitBuildMode()
         {
             if (chestUI.RemainOpen) return;
@@ -60,13 +39,13 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
         }
         chestButton.OnHover += () =>
         {
-            if (chestUI.RemainOpen || BuildingManager.Instance.IsBuildMode) return;
+            if (chestUI.RemainOpen || BuildingManager.Instance.IsInBuildMode) return;
             chestUI.SetState(InventoryChestUI.States.Peeking);
             inventoryUI.SetActive(true);
         };
         chestButton.OnLeaveHover += () =>
         {
-            if (chestUI.RemainOpen || BuildingManager.Instance.IsBuildMode) return;
+            if (chestUI.RemainOpen || BuildingManager.Instance.IsInBuildMode) return;
             inventoryUI.SetActive(false);
             chestUI.SetState(InventoryChestUI.States.Closed);
         };
@@ -76,10 +55,6 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
             chestUI.SetState(chestUI.RemainOpen ? InventoryChestUI.States.Open : InventoryChestUI.States.Closed);
             inventoryUI.SetActive(chestUI.RemainOpen);
         });
-        foreach (var kvp in materialsDictionary)
-        {
-            UpdateMaterial(kvp.Key, PlayerInventory.Instance.GetAmount(kvp.Key));
-        }
 
         EnemyManager.Instance.OnWaveStarted += () =>
         {
@@ -102,14 +77,7 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
             test++;
         }
     }
-
-    private void UpdateMaterial(ResourceData data, int newAmount)
-    {
-        if (materialsDictionary.TryGetValue(data, out var textMesh))
-        {
-            textMesh.text = newAmount.ToString();
-        }
-    }
+    
     public bool TryAddCard(SkillData data)
     {
         int maxCards = settings.MaxCards;

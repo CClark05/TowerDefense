@@ -7,7 +7,6 @@ public class WaveData : ScriptableObject
 {
     public List<EnemyWaveData> enemies;
     public float delayBetweenSpawns;
-    public int movesAllowed;
 }
 [System.Serializable]
 public class EnemyWaveData

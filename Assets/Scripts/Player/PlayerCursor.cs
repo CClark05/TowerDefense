@@ -6,9 +6,7 @@ public class PlayerCursor : Singleton<PlayerCursor>
 {
     public IHoverable CurrentHoveredObject { get; private set; }
     private Camera mainCam;
-    [SerializeField] private int range = 3;
     [SerializeField] private LayerMask hoverLayer;
-    public int Range => range;
     private new void Awake()
     {
         base.Awake();
@@ -24,9 +22,6 @@ public class PlayerCursor : Singleton<PlayerCursor>
         if (hit.collider != null && hit.collider.GetComponent<IHoverable>() != null)
         {
             IHoverable hoverable = hit.collider.GetComponent<IHoverable>();
-            if (!hoverable.IgnoreRange && Vector2.Distance(hit.collider.transform.position, transform.position) > range)
-                return;
-            
             if (hoverable == CurrentHoveredObject) return;
             CurrentHoveredObject?.OnLeaveHover();
             hit.collider.GetComponent<IHoverable>().OnHover();

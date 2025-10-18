@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d16044eb0045e89f91a1a3b30215be, type: 3}
   m_Name: CrossbowData
   m_EditorClassIdentifier: 
+  objectName: Crossbow
+  id: 4
+  prefab: {fileID: 8668564674640786457, guid: 2abd676311fea2f4bbc7c23504361bad, type: 3}
   timeBetweenShots: 1
   range: 5
   damage: 5
   cardSlots: 3
-  buildableData: {fileID: 11400000, guid: 6f1b5c596b22002498589bea0ee9b0ca, type: 2}
+  cost: 50

@@ -20,8 +20,8 @@ public class CameraAnimations : MonoBehaviour
     {
         originalSize = camera.orthographicSize;
         originalX = camera.transform.localPosition.x;
-        BuildingUI.Instance.OnEnterBuildMode += () => ZoomOut(16);
-        BuildingUI.Instance.OnExitBuildMode += ZoomBack;
+        BuildingManager.Instance.OnEnterBuildMode += () => ZoomOut(13);
+        BuildingManager.Instance.OnExitBuildMode += ZoomBack;
         EnemyHealth.OnDeathStatic += (bool final) =>
         {
             float duration = final ? 1f : 0.1f;
@@ -40,13 +40,11 @@ public class CameraAnimations : MonoBehaviour
     private void ZoomOut(float newSize)
     {
         camera.DOOrthoSize(newSize, zoomDuration).SetEase(easeType);
-        camera.transform.DOMoveX(-5.3f, zoomDuration).SetEase(easeType);
     }
 
     private void ZoomBack()
     {
         camera.DOOrthoSize(originalSize, zoomDuration).SetEase(easeType);
-        camera.transform.DOMoveX(originalX, zoomDuration).SetEase(easeType);
     }
     
 }

@@ -78,15 +78,11 @@ public class TowerSelectUI : MonoBehaviour
         cardSelectUI.OnShowCards += OnWaveComplete;
         UI.SetActive(false);
     }
-
-    private void CardSelectUIOnOnShowCards()
-    {
-        throw new NotImplementedException();
-    }
+    
 
     private void UpdateUI()
     {
-        nameText.text = towerData.Data.buildableData.objectName;
+        nameText.text = towerData.Data.objectName;
         damageText.text = "Base Damage : " + (towerData.Data.damage + towerData.ProjectileData.damage);
         fireRateText.text = "Fire Rate : " + (1f / towerData.RuntimeData.timeBetweenShots).ToString("F2") + "/sec";
         RealDPSText.text = "Realtime DPS : " + Math.Round(towerData.RealWaveDPS, MidpointRounding.AwayFromZero).ToString();

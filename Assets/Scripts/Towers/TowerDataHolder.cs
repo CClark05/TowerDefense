@@ -28,7 +28,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
     private void Awake()
     {
         towerShooting = GetComponent<TowerShooting>();
-        GoldValue = baseData.buildableData.CalculateGoldValue();
+        GoldValue = baseData.cost;
         SkillContext = new SkillContext(this);
         RuntimeData = baseData.ToRuntime();
         if (!ActiveTowerList.Contains(this)) 

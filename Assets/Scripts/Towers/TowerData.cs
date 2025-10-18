@@ -2,14 +2,13 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TowerData")]
-public class TowerData : ScriptableObject
+public class TowerData : GridObjectData
 {
     public float timeBetweenShots;
     public float range;
     public int damage;
     public int cardSlots;
-    public BuildableObjectData buildableData;
-    
+    public int cost;
     public TowerRuntimeData ToRuntime() => new TowerRuntimeData {
         timeBetweenShots = timeBetweenShots,
         Range = range,

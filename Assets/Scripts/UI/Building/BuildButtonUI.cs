@@ -1,42 +1,50 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 public class BuildButtonUI : MonoBehaviour
 {
-    [SerializeField] private BuildableObjectData data;
-    [SerializeField] private GameObject materialsRequiredUI;
-    [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private GameObject materialAmountPrefab;
-    private Button_Hover button;
-    public BuildableObjectData Data => data;
-    
-    private void Awake()
-    {
-        button = GetComponent<Button_Hover>();
-    }
-
+    [SerializeField] private TextMeshProUGUI costText;
+    [SerializeField] private Button_Base button;
+    [SerializeField] private TowerData towerData;
+    [SerializeField] private GameObject background;
+    private Color originalTextColor;
+    public event Action<TowerData> OnBuildMode;
+    public event Action OnExitBuildMode;
     private void Start()
     {
-        button.OnHover += () =>
+        originalTextColor = costText.color;
+        costText.text = towerData.cost.ToString();
+        button.OnClick.AddListener(TryEnterBuildMode);
+        costText.color = PlayerInventory.Instance.Coins >= towerData.cost ? originalTextColor : ColorPicker.red;
+        PlayerInventory.Instance.OnCoinsUpdated += coins => costText.color = coins >= towerData.cost ? originalTextColor : ColorPicker.red;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
         {
-            materialsRequiredUI.SetActive(true);
-            nameText.gameObject.SetActive(false);
-        };
-        button.OnLeaveHover += () =>
-        {
-            materialsRequiredUI.SetActive(false);
-            nameText.gameObject.SetActive(true);
-        };
-        foreach (var (material, amount) in data.CostDictionary)
-        {
-            GameObject newMaterial = Instantiate(materialAmountPrefab, materialsRequiredUI.transform);
-            newMaterial.GetComponent<Image>().sprite = material.prefab.GetComponent<SpriteRenderer>().sprite;
-            newMaterial.GetComponent<Image>().color = material.prefab.GetComponent<SpriteRenderer>().color;
-            newMaterial.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = amount.ToString();
+            if (background.activeSelf)
+            {
+                TryEnterBuildMode();
+                return;
+            }
+            ExitBuildMode();
         }
+        if(Input.GetKeyDown(KeyCode.Escape) && !background.activeSelf)
+            ExitBuildMode();
+    }
+    private void TryEnterBuildMode()
+    {
+        if (PlayerInventory.Instance.Coins < towerData.cost) return;
+        OnBuildMode?.Invoke(towerData);
+        background.SetActive(false);
+    }
+
+    private void ExitBuildMode()
+    {
+        OnExitBuildMode?.Invoke();
+        background.SetActive(true);
     }
 }
 
