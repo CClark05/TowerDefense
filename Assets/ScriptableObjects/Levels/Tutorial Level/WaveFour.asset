@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: WaveFour
   m_EditorClassIdentifier: 
   enemies:
+  - data: {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
+    count: 0
+    delay: 0
   - data: {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
     count: 0
     delay: 0
@@ -22,8 +25,4 @@ MonoBehaviour:
   - data: {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
     count: 0
     delay: 0
-  - data: {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
-    count: 0
-    delay: 0
   delayBetweenSpawns: 0.75
-  movesAllowed: 0

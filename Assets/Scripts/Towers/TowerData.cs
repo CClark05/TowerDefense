@@ -12,6 +12,7 @@ public class TowerData : GridObjectData
     public TowerRuntimeData ToRuntime() => new TowerRuntimeData {
         timeBetweenShots = timeBetweenShots,
         Range = range,
+        baseDamage = damage,
         CardSlots = cardSlots,
     };
 }
@@ -20,6 +21,7 @@ public class TowerRuntimeData
 {
     public float timeBetweenShots;
     private float range;
+    public int baseDamage;
     private int cardSlots;
     public bool stunned;
     public float Range

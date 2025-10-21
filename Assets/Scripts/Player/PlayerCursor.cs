@@ -15,6 +15,11 @@ public class PlayerCursor : Singleton<PlayerCursor>
 
     private void Update()
     {
+        if(Input.GetMouseButtonDown(0) && CurrentHoveredObject != null)
+        {
+            CurrentHoveredObject.OnClick();
+        }
+        
         if (EventSystem.current.IsPointerOverGameObject())
             return;
         Vector2 mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
@@ -31,6 +36,8 @@ public class PlayerCursor : Singleton<PlayerCursor>
             CurrentHoveredObject.OnLeaveHover();
             CurrentHoveredObject = null;
         }
+        
+        
     }
     
 }

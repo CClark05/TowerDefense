@@ -19,4 +19,4 @@ MonoBehaviour:
   range: 5
   damage: 5
   cardSlots: 3
-  cost: 50
+  cost: 25

@@ -8,16 +8,11 @@ public class EnemyShields : MonoBehaviour, IUsesShields
     [SerializeField] private GameObject shieldPrefab;
     [SerializeField] private GridLayoutGroup shieldLayout;
     private EnemyData data;
-    public int ShieldCount { get; private set; }
     private List<GameObject> activeShields = new();
     private void Start()
     {
         data = GetComponent<EnemyDataHolder>().Data;
-        for (int i = 0; i < data.shields; i++)
-        {
-            activeShields.Add(Instantiate(shieldPrefab, shieldLayout.transform));
-        }
-        ShieldCount = data.shields;
+        AddShields(data.shields);
     }
 
    
@@ -36,8 +31,11 @@ public class EnemyShields : MonoBehaviour, IUsesShields
         return removed;
     }
 
-    public void AddShield(int amount)
+    public void AddShields(int amount)
     {
-        activeShields.Add(Instantiate(shieldPrefab, shieldLayout.transform));
+        for (int i = 0; i < data.shields; i++)
+        {
+            activeShields.Add(Instantiate(shieldPrefab, shieldLayout.transform));
+        }
     }
 }

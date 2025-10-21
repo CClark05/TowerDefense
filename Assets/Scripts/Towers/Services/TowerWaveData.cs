@@ -10,6 +10,7 @@ public class TowerWaveData
     public List<SkillInstance> startingSnapshot = new();
     public float increasedRange;
     public int increasedSlots;
+    public int increasedBaseDamage;
     public float increasedSpeed = 1;
     public float stunnedDuration;
 }

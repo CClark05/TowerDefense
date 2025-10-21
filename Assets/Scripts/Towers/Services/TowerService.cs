@@ -153,7 +153,7 @@ public static class TowerService
     {
         if (skillInstance is ITowerCardReceivedModifier modifier)
         {
-            for (int i = 0; i < skillInstance.PlayCount; i++)
+            for (int i = 0; i < Math.Max(skillInstance.PlayCount, 1); i++)
             {
                 modifier.Remove(data);
             }

@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 255007b03b7c4bd3ad6c5dc1f535a95a, type: 3}
-  m_Name: Blood Money Data
+  m_Script: {fileID: 11500000, guid: 51ef936e477d4b05b691a26589cbd548, type: 3}
+  m_Name: Payday Data
   m_EditorClassIdentifier: 
-  price: 10
-  name: Blood Money
-  icon: {fileID: -8798341035937057841, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  price: 0
+  name: Payday
+  icon: {fileID: 0}
   rarity: 0
-  description: Gives +$1 per kill.
+  description: Gain +$5 for each enemy killed. Self destructs after this wave.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  MoneyPerKill: 1
+  goldPerKill: 5

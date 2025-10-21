@@ -15,7 +15,7 @@ MonoBehaviour:
   price: 0
   name: Cursed Coin
   icon: {fileID: 0}
-  rarity: 1
+  rarity: 0
   description: Gain +$5 if the enemy dies while affected by at least 2 status effects.
   statusEffects: []
   buffs: []

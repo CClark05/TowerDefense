@@ -16,9 +16,9 @@ MonoBehaviour:
   name: Blood Pact
   icon: {fileID: 0}
   rarity: 0
-  description: Lose 2 lives on wave start but gain +$10.
+  description: Lose 5 lives on wave start but gain +$10.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  livesLost: 2
+  livesLost: 5
   plusGold: 10

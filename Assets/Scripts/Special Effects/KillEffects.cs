@@ -21,6 +21,10 @@ public class KillEffects : MonoBehaviour
                 SlowmoAnimation(0.2f, 0.2f, 0.5f);
             StartCoroutine(FreezeFrame(final ? finalFreezeFrameDuration : freezeFrameDuration));
         };
+        EnemyManager.Instance.OnIdle += () =>
+        {
+            Time.timeScale = 1;
+        };
     }
 
     private void SlowmoAnimation(float to, float toDuration, float holdTime)
@@ -34,7 +38,7 @@ public class KillEffects : MonoBehaviour
 
     private IEnumerator FreezeFrame(float duration)
     {
-        float originalTimeScale = Time.timeScale;
+        float originalTimeScale = Time.timeScale >= 1 ? Time.timeScale : 1f;
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = originalTimeScale;

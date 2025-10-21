@@ -2269,18 +2269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7279897336a49af974bb59e67116000, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  gridManager: {fileID: 0}
-  originalColor:
-    r: 0
-    g: 0
-    b: 0
-    a: 0
-  opacity: 0.5
-  sr: {fileID: 0}
-  <IsBuildMode>k__BackingField: 0
-  selectionTilePrefab: {fileID: 5896491920482968033, guid: 78699d1c306c0f7449af1ad6c01c5659, type: 3}
-  selectionTile: {fileID: 0}
 --- !u!1 &681558898
 GameObject:
   m_ObjectHideFlags: 0
@@ -3136,10 +3124,10 @@ MonoBehaviour:
   cardPrefab: {fileID: 6204308533141475000, guid: 7f78933451dfd624cb1bc0d1a2a137f2, type: 3}
   skillRegistry: {fileID: 11400000, guid: 5437b0564b2259044824ede22bb06552, type: 2}
   testingData:
-  - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
-  - {fileID: 11400000, guid: ab97cb7746490ff4e9e23cf5fdbc3aec, type: 2}
-  - {fileID: 11400000, guid: 60e86dad96a8e2b4d961dbfb2f0f75c8, type: 2}
+  - {fileID: 11400000, guid: efb1430c0b1e15b4bbd780ff48c80ba9, type: 2}
+  - {fileID: 11400000, guid: 025f086d2fc05a64fa3703d3480a35fd, type: 2}
   - {fileID: 11400000, guid: d33b3f49069a49e4b86130c7b3244fd9, type: 2}
+  - {fileID: 11400000, guid: ab97cb7746490ff4e9e23cf5fdbc3aec, type: 2}
   - {fileID: 11400000, guid: e7011b9b3a4f63147b01fb52a0246d01, type: 2}
   - {fileID: 11400000, guid: e25d42f2509e5a24aa60fd372523432c, type: 2}
   settings: {fileID: 11400000, guid: 3e51d1c9009932449b6d19df8edce600, type: 2}

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Overflow Data", menuName = "SkillData/Generic/Overflow")]
@@ -8,7 +7,7 @@ public class OverflowSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Gives +{extraSlots} card slots.";
+        description = $"Gives +{extraSlots} card slots on receiving this card.";
     }
 
     public override SkillInstance CreateInstance()
@@ -33,5 +32,4 @@ public class OverflowSkillInstance : SkillInstance<OverflowSkillData>, ITowerCar
     {
         towerWaveData.increasedSlots -= Data.extraSlots;
     }
-    
 }

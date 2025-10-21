@@ -20,11 +20,24 @@ public abstract class SkillInstance
         get => playCount;
         set
         {
-            if(value > 0)
+            if (value > 0)
                 originalPlayCount = value;
             if (playCount == value) return;
+            if (value > 0)
+            {
+                TowerWaveData waveData = new TowerWaveData();
+                if(TowerService.TryModifyOnCardReceived(waveData, this))
+                    OnUpdateTower?.Invoke(waveData);
+            }
+            else
+            {
+                TowerWaveData waveData = new TowerWaveData();
+                if(TowerService.TryModifyOnCardRemoved(waveData, this))
+                    OnUpdateTower?.Invoke(waveData);
+            }
             playCount = value;
             OnPlayCountUpdated?.Invoke(value);
+            
         }
     }
 
@@ -38,13 +51,13 @@ public abstract class SkillInstance
             isDisabled = value;
             OnIsDisabledUpdated?.Invoke(value);
             PlayCount = isDisabled ? 0 : originalPlayCount;
-            Debug.Log(PlayCount);
         }
     }
     public event Action <bool> OnIsDisabledUpdated;
     public void SetContext(SkillContext context) => skillContext = context;
     public event Action OnPlayCard;
     public event Action<int> OnPlayCountUpdated;
+    public event Action<TowerWaveData> OnUpdateTower;
     
     protected void PlayCard() => OnPlayCard?.Invoke();
     public virtual void Dispose()
@@ -52,6 +65,7 @@ public abstract class SkillInstance
         OnPlayCard = null;
         OnPlayCountUpdated = null;
         OnIsDisabledUpdated = null;
+        OnUpdateTower = null;
         skillContext = null;
     }
 }

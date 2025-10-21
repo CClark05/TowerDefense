@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19169956ffb1432087eb4672d2c21a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingCoins: 50
+  startingCoins: 25
 --- !u!114 &6695634804346954236
 MonoBehaviour:
   m_ObjectHideFlags: 0

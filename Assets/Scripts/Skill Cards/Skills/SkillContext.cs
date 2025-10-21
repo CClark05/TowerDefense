@@ -29,6 +29,7 @@ public class SkillContext
         if (TowerService.TryModifyOnCardReceived(towerWaveData, instance))
             OnTowerUpdated?.Invoke(towerWaveData);
         instance.OnPlayCard += () => OnCardPlayed?.Invoke(skillData);
+        instance.OnUpdateTower += (data) => OnTowerUpdated?.Invoke(data);
     }
     public bool TryRemoveSkill(SkillData skillData)
     {

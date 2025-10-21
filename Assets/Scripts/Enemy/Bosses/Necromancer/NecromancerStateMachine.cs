@@ -8,7 +8,7 @@ public class NecromancerStateMachine : BossStateMachine
     private void Start()
     {
         var defaultState = new NecromancerDefaultState(facade, 3, moveAnimation);
-        var summonState = new NecromancerSummonState(facade, 3f, defaultState.DeadEnemies, 6f, summonAnimation);
+        var summonState = new NecromancerSummonState(facade, 3f, defaultState.DeadEnemies, 6f, summonAnimation, 3);
         stateMachine.SetState(defaultState);
         stateMachine.AddTransition(defaultState, summonState, new FuncPredicate(() => defaultState.IsDone && summonState.IsReady));
         stateMachine.AddTransition(summonState, defaultState, new FuncPredicate(() => summonState.IsDone));
@@ -19,11 +19,13 @@ public class NecromancerSummonState : BaseState
     private float summonDuration;
     private List<EnemyData> deadEnemies;
     private AnimationClip summonAnimation;
-    public NecromancerSummonState(IAgent agent, float summonDuration, List<EnemyData> deadEnemies, float cooldown, AnimationClip summonAnimation) : base(agent, cooldown)
+    private int shields;
+    public NecromancerSummonState(IAgent agent, float summonDuration, List<EnemyData> deadEnemies, float cooldown, AnimationClip summonAnimation, int shields) : base(agent, cooldown)
     {
         this.summonDuration = summonDuration;
         this.deadEnemies = deadEnemies;
         this.summonAnimation = summonAnimation;
+        this.shields = shields;
     }
     public override void OnEnter()
     {
@@ -31,9 +33,10 @@ public class NecromancerSummonState : BaseState
         agent.Require<IAnimationPlayer>().Play(summonAnimation, agent.Transform);
         runner.Play(this, new ICommand[]
         {
+            new GainShields(shields),
             new StopMovementCommand(0.25f),
             new WaitCommand(0.5f),
-            new SpawnEnemyCommand(deadEnemies, agent.Transform.position),
+            new SpawnEnemiesCommand(deadEnemies, agent.Transform.position, 0.5f),
             new WaitCommand(summonDuration),
             new ResetSpeedCommand(0.25f),
         });

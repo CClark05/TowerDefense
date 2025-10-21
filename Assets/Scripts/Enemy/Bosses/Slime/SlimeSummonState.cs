@@ -20,9 +20,9 @@ public class SlimeSummonState : BaseState
         {
             new StopMovementCommand(0.25f),
             new WaitCommand(0.5f),
-            new SpawnEnemyCommand(summonData, summonsPerCluster, agent.Transform.position),
+            new SpawnEnemiesCommand(summonData, summonsPerCluster, agent.Transform.position, 0.5f),
             new WaitCommand(1),
-            new SpawnEnemyCommand(summonData, summonsPerCluster, agent.Transform.position),
+            new SpawnEnemiesCommand(summonData, summonsPerCluster, agent.Transform.position, 0.5f),
             new ResetSpeedCommand(0.25f),
         });
     }

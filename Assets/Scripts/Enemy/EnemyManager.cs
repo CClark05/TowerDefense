@@ -59,7 +59,7 @@ public class EnemyManager : Singleton<EnemyManager>
 
     private void SpawnEnemy(EnemyData enemyData) => SpawnEnemyAtPosition(enemyData, AStarPathfinding.Instance.GetPath()[0]);
 
-    private void SpawnEnemyAtPosition(EnemyData enemyData, Vector2 position)
+    public void SpawnEnemyAtPosition(EnemyData enemyData, Vector2 position)
     {
         var enemy = Instantiate(enemyData.prefab, position, Quaternion.identity);
         enemy.GetComponent<EnemyDataHolder>().Init(enemyData);
@@ -109,7 +109,10 @@ public class EnemyManager : Singleton<EnemyManager>
             if (CurrentWave - 1 >= levelData.waves.Length)
             {
                 Debug.LogError("No more waves left");
-                OnNoWavesLeft?.Invoke(PlayerGameOverStats.GetGameOverData());
+                FunctionTimer.Create(() =>
+                {
+                    OnNoWavesLeft?.Invoke(PlayerGameOverStats.GetGameOverData());
+                }, 2f);
                 return;
             }
             DeadEnemies.Clear();

@@ -83,7 +83,7 @@ public class TowerSelectUI : MonoBehaviour
     private void UpdateUI()
     {
         nameText.text = towerData.Data.objectName;
-        damageText.text = "Base Damage : " + (towerData.Data.damage + towerData.ProjectileData.damage);
+        damageText.text = "Base Damage : " + (towerData.RuntimeData.baseDamage + towerData.ProjectileData.damage);
         fireRateText.text = "Fire Rate : " + (1f / towerData.RuntimeData.timeBetweenShots).ToString("F2") + "/sec";
         RealDPSText.text = "Realtime DPS : " + Math.Round(towerData.RealWaveDPS, MidpointRounding.AwayFromZero).ToString();
         AverageDPS.text = "Average DPS : " + Math.Round(towerData.AverageOverallDps, MidpointRounding.AwayFromZero).ToString();
@@ -142,6 +142,7 @@ public class TowerSelectUI : MonoBehaviour
             };
             button.OnClick.AddListener(() =>
             {
+                if (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Spawning || EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning) return;
                 if (selectedCard == newCard)
                 {
                     newCard.Selected = false;

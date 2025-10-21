@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 402833cd78da438aa8226cd51ce984cd, type: 3}
-  m_Name: Execution Data
+  m_Script: {fileID: 11500000, guid: ada68c36c4854fe8bbed90e907a2ec4b, type: 3}
+  m_Name: Critical Momentum Data
   m_EditorClassIdentifier: 
   price: 0
-  name: Execution
+  name: Critical Momentum
   icon: {fileID: 0}
   rarity: 0
-  description: Critical hits instantly kill enemies below 20% health.
+  description: Gains +1 permanent base damage on Critical kill. Resets if card is
+    removed.
   statusEffects: []
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
-  HealthThreshold: 0.2
-  DamageMarkerSizeMult: 1.5
+  plusBaseDamage: 1

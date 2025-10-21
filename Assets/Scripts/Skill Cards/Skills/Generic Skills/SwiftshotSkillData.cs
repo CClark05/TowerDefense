@@ -1,10 +1,17 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Swiftshot Data", menuName = "SkillData/Generic/Swiftshot")]
 public class SwiftshotSkillData : SkillData
 {
-    public float speedIncrease = 1.1f;
+    public float speedIncrease = 1.25f;
+
+    private void OnValidate()
+    {
+        description = $"Increases projectile speed by {Math.Round((speedIncrease - 1) * 100)}%.";
+    }
+
     public override SkillInstance CreateInstance()
     {
         return new SwiftshotSkillInstance(this);
