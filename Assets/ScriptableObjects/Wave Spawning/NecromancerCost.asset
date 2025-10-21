@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
-  m_Name: SlimeBossData
+  m_Script: {fileID: 11500000, guid: 8250bcb3d0cd4068825bb0876bb72c52, type: 3}
+  m_Name: NecromancerCost
   m_EditorClassIdentifier: 
-  health: 200
-  speed: 2
-  livesCost: 10
-  shields: 2
-  coins: 1
-  prefab: {fileID: 4048362118106325107, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
-  summonable: 0
-  IsBoss: 1
+  EnemyData: {fileID: 11400000, guid: d95970f9e90610047af1cfc4ca4261c2, type: 2}
+  MinWave: 4

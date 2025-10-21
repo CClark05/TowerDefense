@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
-  m_Name: SlimeBossData
+  m_Name: MiniSlimeData
   m_EditorClassIdentifier: 
-  health: 200
-  speed: 2
-  livesCost: 10
-  shields: 2
+  health: 20
+  speed: 3
+  livesCost: 1
+  shields: 0
   coins: 1
-  prefab: {fileID: 4048362118106325107, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
-  summonable: 0
-  IsBoss: 1
+  prefab: {fileID: 9100206265802528946, guid: 56e6f066fc202b94dbb6670d14823ada, type: 3}

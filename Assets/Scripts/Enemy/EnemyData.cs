@@ -1,6 +1,7 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
-[CreateAssetMenu(fileName = "EnemyData")]
+[CreateAssetMenu(fileName = "Enemy/EnemyData")]
 public class EnemyData : ScriptableObject
 {
     public int health;
@@ -10,4 +11,5 @@ public class EnemyData : ScriptableObject
     public int coins;
     public GameObject prefab;
     public bool summonable = true;
+    public bool IsBoss;
 }

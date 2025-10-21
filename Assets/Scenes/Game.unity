@@ -380,6 +380,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2e6512ca664a1fa6bd72505a2e5ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveLibrary: {fileID: 11400000, guid: 177d607bf8b04a94994e2bf1a2e7af0e, type: 2}
 --- !u!4 &84492598
 Transform:
   m_ObjectHideFlags: 0

@@ -19,3 +19,4 @@ MonoBehaviour:
   coins: 1
   prefab: {fileID: 8226108817824266775, guid: f0881d77ffba51a49be9d168b50e7c7b, type: 3}
   summonable: 0
+  IsBoss: 1

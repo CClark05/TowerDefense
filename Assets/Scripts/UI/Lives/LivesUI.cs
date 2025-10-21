@@ -9,6 +9,7 @@ public class LivesUI : MonoBehaviour
     private void Start()
     {
         PlayerLife.Instance.OnLivesUpdated += OnLivesUpdated;
+        livesText .text = PlayerLife.Instance.CurrentLives.ToString();
     }
 
     private void OnLivesUpdated(int lives)

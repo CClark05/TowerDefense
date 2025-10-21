@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CodeMonkey.Utils;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class EnemyManager : Singleton<EnemyManager>
 {
@@ -30,8 +32,9 @@ public class EnemyManager : Singleton<EnemyManager>
     public event Action OnEnemiesUpdated;
     public event Action<int> OnEnemyReachedEnd;
     public event Action<int> OnEnemyKilled;
-    private WaveData waveData => levelData.waves[CurrentWave - 1];
-
+    //private WaveData waveData => levelData.waves[CurrentWave - 1];
+    [FormerlySerializedAs("waveLibrary")] [SerializeField] private WaveSettings waveSettings;
+    private WaveGenerator waveGenerator;
     private void Start()
     {
         levelData = LevelDataHolder.Instance.Data;
@@ -39,13 +42,14 @@ public class EnemyManager : Singleton<EnemyManager>
         PlayButtonUI.Instance.OnNextWave += () =>
         {
             if (WaveState != WaveStates.Idle) return;
-            StartCoroutine(SpawnWave(waveData));
+            StartCoroutine(SpawnWave());
         };
         CardSelectUI.Instance.OnSelectedCard += () =>
         {
             WaveState = WaveStates.Idle;
             OnIdle?.Invoke();
         };
+        waveGenerator = new WaveGenerator(waveSettings);
     }
 
     private void Update()
@@ -122,25 +126,19 @@ public class EnemyManager : Singleton<EnemyManager>
         }
     }
 
-    private IEnumerator SpawnWave(WaveData data)
+    private IEnumerator SpawnWave()
     {
         Debug.Log("Starting wave");
         WaveTimer = 0;
         TowerService.BeginWave(TowerDataHolder.ActiveTowerList);
         OnWaveStarted?.Invoke();
         WaveState = WaveStates.Spawning;
-        for (var i = 0; i < data.enemies.Count; i++)
+        var spawns = waveGenerator.Generate(CurrentWave).enemySpawns;
+        foreach (var e in spawns)
         {
-            var enemy = data.enemies[i];
-            if(i > 0)
-                yield return new WaitForSeconds(data.delayBetweenSpawns + enemy.delay);
-            if (enemy.count > 1)
-                SpawnEnemyBurst(enemy.data, enemy.count, AStarPathfinding.Instance.GetPath()[0]);
-            else
-                SpawnEnemy(enemy.data);
-            
+            SpawnEnemy(e.enemy.EnemyData);
+            yield return new WaitForSeconds(e.delay);
         }
-
         WaveState = WaveStates.DoneSpawning;
         CurrentWave++;
     }

@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
-  m_Name: SlimeData
+  m_Script: {fileID: 11500000, guid: 8250bcb3d0cd4068825bb0876bb72c52, type: 3}
+  m_Name: BirdCost
   m_EditorClassIdentifier: 
-  health: 20
-  speed: 3
-  livesCost: 1
-  shields: 0
-  coins: 1
-  prefab: {fileID: 9100206265802528946, guid: 56e6f066fc202b94dbb6670d14823ada, type: 3}
+  EnemyData: {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
+  MinWave: 2

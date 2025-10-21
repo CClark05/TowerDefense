@@ -16,10 +16,10 @@ MonoBehaviour:
   name: Overclock
   icon: {fileID: 0}
   rarity: 0
-  description: Gives +4 card slots on receiving this card. Has a 50% chance to self
+  description: Gives +4 card slots on receiving this card. Has a 15% chance to self
     destruct at the end of the wave.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   extraSlots: 4
-  destroyChance: 0.5
+  destroyChance: 0.15
