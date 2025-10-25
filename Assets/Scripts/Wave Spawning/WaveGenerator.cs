@@ -78,13 +78,13 @@ public class WaveGenerator
             var cost = CalculateCost(enemy, budgetTuning);
             budget -= cost;
             Debug.Log(" Selected enemy " + enemy.name + " cost : " + cost);
-            plan.enemySpawns.Add(new EnemySpawn { enemy = enemy, delay = 1f });
+            plan.enemySpawns.Add(new EnemySpawn { enemy = enemy, delay = UnityEngine.Random.Range(0.5f, 1f) });
         }
         return plan;
     }
 
     private int CalculateCost(EnemyCost enemyCost, BudgetTuning tuning)
     {
-        return EnemyBudget.Cost(enemyCost.EnemyData.health, enemyCost.EnemyData.shields, enemyCost.EnemyData.speed, tuning);
+        return EnemyBudget.Cost(enemyCost.EnemyData.health, enemyCost.EnemyData.shields, enemyCost.EnemyData.speed, tuning) + enemyCost.Weight;
     }
 }

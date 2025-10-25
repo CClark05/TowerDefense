@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 public class HitData : DamageData
 {
-    public int baseDamage;
+    private int baseDamage;
     public TowerShooting tower;
     public IDamageable damageable;
+    public TowerDataHolder dataHolder => tower.GetComponent<TowerDataHolder>();
     public HealthSystem healthSystem => (damageable as IUsesHealth).HealthSystem;
     public IUsesStatusEffects statusEffects;
     public Dictionary<StatusEffectData, int> effectsApplied = new();

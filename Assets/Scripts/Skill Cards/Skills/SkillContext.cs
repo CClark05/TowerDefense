@@ -2,14 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class SkillContext
 {
     public List<SkillInstance> ActiveSkills { get; private set; } = new();
     public Dictionary<IBuff, int> ActiveBuffs { get; private set; } = new();
     public TowerDataHolder Tower { get; private set; } = new();
-    //public Action<SkillInstance> OnCardInstanceCreated;
     public event Action<TowerWaveData> OnTowerUpdated;
     public event Action<IBuff, int> OnBuffAdded;
     public event Action<IBuff, int> OnBuffRemoved;
@@ -20,16 +18,41 @@ public class SkillContext
     }
     public void AddSkill(SkillData skillData, int playCount = 1)
     {
+        TowerWaveData towerWaveData = new TowerWaveData();
         var instance = skillData.CreateInstance();
         ActiveSkills.Add(instance);
         instance.PlayCount = playCount;
         instance.SetContext(this);
-        TowerWaveData towerWaveData = new TowerWaveData();
-        //OnCardInstanceCreated?.Invoke(instance);
-        if (TowerService.TryModifyOnCardReceived(towerWaveData, instance))
-            OnTowerUpdated?.Invoke(towerWaveData);
+        foreach(var mod in GetSkillInstancesWith<IOnNewCardAdded>())
+        {
+            if(mod.instance == instance) continue;
+            for(int i = 0; i< mod.instance.PlayCount; i++)
+                mod.modifier.Modify(instance, towerWaveData);
+        }
+        TowerService.TryModifyOnCardReceived(towerWaveData, instance);
+        OnTowerUpdated?.Invoke(towerWaveData);
         instance.OnPlayCard += () => OnCardPlayed?.Invoke(skillData);
         instance.OnUpdateTower += (data) => OnTowerUpdated?.Invoke(data);
+        if (instance is ISelfDestructs selfDestructs)
+        {
+            selfDestructs.OnSelfDestruct += OnSelfDestruct;
+            void OnSelfDestruct()
+            {
+                var towerWaveData = new TowerWaveData();
+                foreach (var mod in GetSkillInstancesWith<IOnCardSelfDestruct>())
+                {
+                    for (int i = 0; i < mod.instance.PlayCount; i++)
+                    {
+                        mod.modifier.Apply(towerWaveData);
+                    }
+                }
+                selfDestructs.OnSelfDestruct -= OnSelfDestruct;
+                OnTowerUpdated?.Invoke(towerWaveData);
+                Debug.Log("Self Destructed: " + skillData.name);
+            }
+            
+        }
+
     }
     public bool TryRemoveSkill(SkillData skillData)
     {

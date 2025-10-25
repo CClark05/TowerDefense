@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
   m_Name: SlimeBossData
   m_EditorClassIdentifier: 
-  health: 200
-  speed: 2
+  health: 300
+  speed: 3
   livesCost: 10
   shields: 2
   coins: 1

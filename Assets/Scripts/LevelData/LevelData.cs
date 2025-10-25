@@ -11,8 +11,6 @@ public class LevelData : ScriptableObject
     public Vector2 origin;
     public GridObjectData[] tiles;
     public GridObjectData emptyTile;
-    [Header("Wave Data")] 
-    public WaveData[] waves;
     [Header("Player Data")] 
     public int playerLives;
     public void InitializeGrid()

@@ -7,7 +7,7 @@ public class CriticalMomentumSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Gains +{plusBaseDamage} permanent base damage on Critical kill. Resets if card is removed.";
+        description = $"Gains +{plusBaseDamage} base damage on Critical kill. Resets if card is removed.";
     }
 
     public override SkillInstance CreateInstance()
@@ -16,16 +16,11 @@ public class CriticalMomentumSkillData : SkillData
     }
 }
 
-public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkillData>, IOnKill, IOnHit
+public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkillData>, IOnKill, IOnRemoval
 {
     private int accumulatedBonus;
     public CriticalMomentumSkillInstance(CriticalMomentumSkillData data) : base(data)
     {
-    }
-    public void OnHit(HitData hitData)
-    {
-        PlayCard();
-        hitData.finalDamage += accumulatedBonus;
     }
     public void OnKill(HitData hitData)
     {
@@ -33,7 +28,13 @@ public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkill
         {
             PlayCard();
             accumulatedBonus += Data.plusBaseDamage;
-            //Modify(skillContext.Tower.RuntimeData);
+            hitData.dataHolder.RuntimeData.BaseDamage += Data.plusBaseDamage;
         }
+    }
+
+    public void Remove(TowerWaveData towerWaveData)
+    {
+        towerWaveData.increasedBaseDamage -= accumulatedBonus;
+        accumulatedBonus = 0;
     }
 }

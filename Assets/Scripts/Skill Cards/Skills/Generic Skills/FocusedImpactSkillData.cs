@@ -7,7 +7,7 @@ public class FocusedImpactSkillData : SkillData
     
     private void OnValidate()
     {
-        description = $"Adds +{PlusDamage} base damage on hit.";
+        description = $"Adds +{PlusDamage} base damage.";
     }
 
     public override SkillInstance CreateInstance()
@@ -16,14 +16,8 @@ public class FocusedImpactSkillData : SkillData
     }
 }
 
-public class FocusedImpactSkillInstance : SkillInstance<FocusedImpactSkillData>, IOnHit, ITowerCardReceivedModifier
+public class FocusedImpactSkillInstance : SkillInstance<FocusedImpactSkillData>, ITowerCardReceivedModifier
 {
-    public void OnHit(HitData hitData)
-    {
-        PlayCard();
-        hitData.finalDamage += Data.PlusDamage;
-    }
-
     public FocusedImpactSkillInstance(FocusedImpactSkillData data) : base(data)
     {
     }

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
   m_Name: TankEnemyData
   m_EditorClassIdentifier: 
-  health: 125
-  speed: 1.5
+  health: 150
+  speed: 2.5
   livesCost: 1
   shields: 2
   coins: 1
   prefab: {fileID: 7311261166290416134, guid: 90d975a998d347d4b86e9de6a9b67020, type: 3}
   summonable: 1
+  IsBoss: 0

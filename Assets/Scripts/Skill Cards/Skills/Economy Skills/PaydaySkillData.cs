@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Payday Data", menuName = "SkillData/Economy/Payday")]
 public class PaydaySkillData : SkillData
 {
-    public int goldPerKill = 5;
+    public int goldPerKill = 3;
 
     private void OnValidate()
     {
@@ -15,8 +15,9 @@ public class PaydaySkillData : SkillData
         return new PaydaySkillInstance(this);
     }
 }
-public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEndModifier, IOnKill
+public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEndModifier, IOnKill, ISelfDestructs
 {
+    public Action OnSelfDestruct { get; set; }
     public PaydaySkillInstance(PaydaySkillData data) : base(data)
     {
     }
@@ -24,6 +25,7 @@ public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEnd
     public void Modify(TowerWaveData towerWaveData)
     {
         towerWaveData.removedCards.Add(Data);
+        OnSelfDestruct?.Invoke();
     }
 
     public void OnKill(HitData hitData)
@@ -31,4 +33,6 @@ public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEnd
         PlayerInventory.Instance.AddCoins(Data.goldPerKill);
         PlayCard();
     }
+
+    
 }

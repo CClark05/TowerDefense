@@ -15,8 +15,9 @@ public class OverclockSkillData : SkillData
         return new OverclockSkillInstance(this);
     }
 }
-public class OverclockSkillInstance : SkillInstance<OverclockSkillData>, ITowerCardReceivedModifier, ITowerWaveEndModifier
+public class OverclockSkillInstance : SkillInstance<OverclockSkillData>, ITowerCardReceivedModifier, ITowerWaveEndModifier, ISelfDestructs
 {
+    public Action OnSelfDestruct { get; set; }
     public OverclockSkillInstance(OverclockSkillData data) : base(data)
     {
     }
@@ -36,8 +37,10 @@ public class OverclockSkillInstance : SkillInstance<OverclockSkillData>, ITowerC
     {
         if(UnityEngine.Random.value < Data.destroyChance)
         {
-            Debug.Log("Overclock self destruct");
             towerWaveData.removedCards.Add(Data);
+            OnSelfDestruct?.Invoke();
         }
     }
+
+    
 }

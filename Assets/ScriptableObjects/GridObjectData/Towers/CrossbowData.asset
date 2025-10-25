@@ -20,3 +20,4 @@ MonoBehaviour:
   damage: 5
   cardSlots: 3
   cost: 25
+  growthRate: 1.28

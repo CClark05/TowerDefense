@@ -35,6 +35,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         if (!ActiveTowerList.Contains(this))
             ActiveTowerList.Add(this);
         ID = Guid.NewGuid().ToString("N").Substring(0, 6);
+        RuntimeData.OnStatsUpdated += () => OnUpdateStats?.Invoke();
     }
 
     private void Start()
@@ -48,6 +49,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         GetComponent<TowerCards>().OnAddedCard += (data) => AddCard(data);
         GetComponent<TowerCards>().OnRemovedCard += (data) => TryRemoveCard(data);
         SkillContext.OnTowerUpdated += UpdateTowerData;
+        
     }
 
     private void OnWaveStart()
@@ -66,10 +68,10 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         {
             borrowRequests = WaveData.borrowRequests
         };
+        TowerService.MarkWaveEnd(this);
         TowerService.ModifyWaveEnd(waveData, SkillContext);
         PlayerService.ModifyWaveEnd(SkillContext);
         UpdateTowerData(waveData);
-        TowerService.MarkWaveEnd(this);
     }
 
     public void UpdateTowerData(TowerWaveData towerWaveData)
@@ -86,15 +88,13 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
 
         RuntimeData.Range += towerWaveData.increasedRange;
         RuntimeData.CardSlots += towerWaveData.increasedSlots;
-        RuntimeData.timeBetweenShots /= towerWaveData.increasedSpeed;
-        RuntimeData.baseDamage += towerWaveData.increasedBaseDamage;
+        RuntimeData.TimeBetweenShots /= towerWaveData.increasedSpeed;
+        RuntimeData.BaseDamage += towerWaveData.increasedBaseDamage;
         if (towerWaveData.stunnedDuration > 0)
         {
             RuntimeData.stunned = true;
             FunctionTimer.Create(() => { RuntimeData.stunned = false; }, towerWaveData.stunnedDuration);
         }
-
-        OnUpdateStats?.Invoke();
         int activeSlots = SkillInstanceList.FindAll(s => !s.IsDisabled).Count;
         if (RuntimeData.CardSlots < activeSlots)
         {

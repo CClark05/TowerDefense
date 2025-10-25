@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7c0d0a082ad41bc9f076518acb518cb, type: 3}
   m_Name: Reroll Settings
   m_EditorClassIdentifier: 
-  BaseCost: 25
-  IncreasePerRoll: 5
+  BaseCost: 5
+  IncreasePerRoll: 3

@@ -16,8 +16,8 @@ MonoBehaviour:
   name: Swiftshot
   icon: {fileID: 0}
   rarity: 0
-  description: Increases projectile speed by 25%.
+  description: Increases projectile speed by 50%.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  speedIncrease: 1.25
+  speedIncrease: 1.5

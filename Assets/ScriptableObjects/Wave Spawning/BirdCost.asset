@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: BirdCost
   m_EditorClassIdentifier: 
   EnemyData: {fileID: 11400000, guid: 24a27cba67f0804459f4cab236f08648, type: 2}
-  MinWave: 2
+  MinWave: 4
+  Weight: 0

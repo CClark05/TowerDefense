@@ -1,14 +1,15 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Blood Money Data", menuName = "SkillData/Economy/Blood Money")]
 public class BloodMoneySkillData : SkillData
 {
-    public int MoneyPerKill = 5;
-
+    [FormerlySerializedAs("MoneyPerKill")] public int PlusMoney = 1;
+    public int killsNeeded = 2;
     private void OnValidate()
     {
-        description = $"Gives +${MoneyPerKill} per kill.";
+        description = $"Gives +${PlusMoney} per {killsNeeded} kills.";
     }
 
     public override SkillInstance CreateInstance()
@@ -19,9 +20,12 @@ public class BloodMoneySkillData : SkillData
 
 public class BloodMoneySkillInstance : SkillInstance<BloodMoneySkillData>, IOnKill
 {
+    private int killCounter;
     public void OnKill(HitData hitData)
     {
-        PlayerInventory.Instance.AddCoins(Data.MoneyPerKill);
+        killCounter++;
+        if(killCounter % Data.killsNeeded != 0) return;
+        PlayerInventory.Instance.AddCoins(Data.PlusMoney);
         PlayCard();
     }
 

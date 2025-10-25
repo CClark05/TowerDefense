@@ -16,9 +16,10 @@ MonoBehaviour:
   name: Blood Pact
   icon: {fileID: 0}
   rarity: 0
-  description: Lose 5 lives on wave start but gain +$10.
+  description: Lose 3 lives on wave start but gain +$8. Self destructs before it
+    kills you.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  livesLost: 5
-  plusGold: 10
+  livesLost: 3
+  plusGold: 8

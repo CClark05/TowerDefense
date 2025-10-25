@@ -86,7 +86,7 @@ public class Projectile : MonoBehaviour
                 }
             }
         }
-        int baseDamage = data.damage + towerData.Data.damage;
+        int baseDamage = data.damage + towerData.RuntimeData.BaseDamage;
         var hitData = new HitData(baseDamage, towerData.GetComponent<TowerShooting>(), damageable, statusEffects);
         bool delayed = false;
         hitData.DelayDamage = (float delay, float multiplier) =>

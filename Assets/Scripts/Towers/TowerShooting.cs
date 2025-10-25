@@ -19,7 +19,7 @@ public class TowerShooting : MonoBehaviour
     public event Action OnKillEnemy;
     public float TotalUptime { get; private set; }
     private Coroutine shootCoroutine;
-    private float timeBetweenShots => towerDataHolder.RuntimeData.timeBetweenShots;
+    private float timeBetweenShots => towerDataHolder.RuntimeData.TimeBetweenShots;
     private float range => towerDataHolder.RuntimeData.Range;
     [SerializeField] private TargetingModes targetingMode = TargetingModes.First;
     public TargetingModes TargetingMode => targetingMode;

@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
+using UnityEngine.Rendering;
 
 public static class DamageService
 {
@@ -60,7 +62,8 @@ public static class DamageService
                 mod.modifier.Modify(hitData);
             }
         }
-        bool isDead = damageable.TakeDamage(hitData.finalDamage);
+        //bool isDead = damageable.TakeDamage(hitData.finalDamage);
+        bool isDead = damageable.IsDeadFromDamage(hitData.finalDamage);
         hitData.didKill = isDead;
         onDealDamage?.Invoke(hitData, damageable.Transform.position);
         if (isDead)
@@ -73,6 +76,8 @@ public static class DamageService
                 }
             }
         }
+
+        damageable.TakeDamage(hitData.finalDamage);
         hitData.RetriggerDamage = mult =>
         {
             CoroutineRunner.Instance.StartCoroutine(Retrigger());

@@ -16,10 +16,10 @@ MonoBehaviour:
   name: Critical Momentum
   icon: {fileID: 0}
   rarity: 0
-  description: Gains +1 permanent base damage on Critical kill. Resets if card is
+  description: Gains +3 permanent base damage on Critical kill. Resets if card is
     removed.
   statusEffects: []
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
-  plusBaseDamage: 1
+  plusBaseDamage: 3

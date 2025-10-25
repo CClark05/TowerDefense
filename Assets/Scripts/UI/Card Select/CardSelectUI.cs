@@ -32,20 +32,16 @@ public class CardSelectUI : Singleton<CardSelectUI>
     private void Start()
     {
         rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
-        string originalColor = "#" + ColorUtility.ToHtmlStringRGB(rerollCostText.color);
-        string redColor = "#A53030";
-        SetPriceColor();
+        SetPriceText();
         GenerateRandomCards();
-
         rerollButton.OnClick.AddListener(() =>
         {
             if (PlayerInventory.Instance.Coins < rerollCost) return;
             OnReroll?.Invoke(rerollCost);
             rerollAmount++;
             rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
-            rerollCostText.text = $"${rerollCost}";
             GenerateRandomCards();
-            SetPriceColor();
+            SetPriceText();
         });
         skipButton.OnClick.AddListener(() =>
         {
@@ -61,20 +57,25 @@ public class CardSelectUI : Singleton<CardSelectUI>
         });
         PlayerInventory.Instance.OnCoinsUpdated += coins =>
         {
-            SetPriceColor();
+            SetPriceText();
         };
-        void SetPriceColor()
-        {
-            string priceColor = PlayerInventory.Instance.Coins >= rerollCost ? originalColor : redColor;
-            rerollCostText.text = $"<color={priceColor}>${rerollCost}</color>";
-        }
+        
 
         EnemyManager.Instance.OnWaveComplete += OnWaveComplete;
         background.SetActive(false);
     }
+    private void SetPriceText()
+    {
+        Color color = PlayerInventory.Instance.Coins >= rerollCost ? Color.white : ColorPicker.red;
+        rerollCostText.text = $"${rerollCost}";
+        rerollCostText.color = color;
+    }
     private int counter;
     private void OnWaveComplete()
     {
+        rerollAmount = 0;
+        rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
+        SetPriceText();
         var keys = cardCooldowns.Keys.ToList();
         foreach (var key in keys)
         {

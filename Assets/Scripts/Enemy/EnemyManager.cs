@@ -110,6 +110,7 @@ public class EnemyManager : Singleton<EnemyManager>
         if (currentEnemies.Count == 0 && WaveState == WaveStates.DoneSpawning && PlayerLife.Instance.CurrentLives > 0)
         {
             Debug.Log("Wave Complete");
+            /**
             if (CurrentWave - 1 >= levelData.waves.Length)
             {
                 Debug.LogError("No more waves left");
@@ -119,6 +120,7 @@ public class EnemyManager : Singleton<EnemyManager>
                 }, 2f);
                 return;
             }
+            */
             DeadEnemies.Clear();
             WaveState = WaveStates.Complete;
             OnWaveComplete?.Invoke();

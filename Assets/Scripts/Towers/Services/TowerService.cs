@@ -151,15 +151,27 @@ public static class TowerService
     
     public static bool TryModifyOnCardRemoved(TowerWaveData data, SkillInstance skillInstance)
     {
-        if (skillInstance is ITowerCardReceivedModifier modifier)
+        switch (skillInstance)
         {
-            for (int i = 0; i < Math.Max(skillInstance.PlayCount, 1); i++)
+            case ITowerCardReceivedModifier modifier:
             {
-                modifier.Remove(data);
+                for (int i = 0; i < Math.Max(skillInstance.PlayCount, 1); i++)
+                {
+                    modifier.Remove(data);
+                }
+                return true;
             }
-            return true;
+            case IOnRemoval removal:
+            {
+                for (int i = 0; i < Math.Max(skillInstance.PlayCount, 1); i++)
+                {
+                    removal.Remove(data);
+                }
+                return true;
+            }
+            default:
+                return false;
         }
-        return false;
     }
 
     public static void ApplyBuff(IBuff buff, TowerWaveData data, int stacks)

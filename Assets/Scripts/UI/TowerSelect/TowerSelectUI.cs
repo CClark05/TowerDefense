@@ -83,8 +83,8 @@ public class TowerSelectUI : MonoBehaviour
     private void UpdateUI()
     {
         nameText.text = towerData.Data.objectName;
-        damageText.text = "Base Damage : " + (towerData.RuntimeData.baseDamage + towerData.ProjectileData.damage);
-        fireRateText.text = "Fire Rate : " + (1f / towerData.RuntimeData.timeBetweenShots).ToString("F2") + "/sec";
+        damageText.text = "Base Damage : " + (towerData.RuntimeData.BaseDamage + towerData.ProjectileData.damage);
+        fireRateText.text = "Fire Rate : " + (1f / towerData.RuntimeData.TimeBetweenShots).ToString("F2") + "/sec";
         RealDPSText.text = "Realtime DPS : " + Math.Round(towerData.RealWaveDPS, MidpointRounding.AwayFromZero).ToString();
         AverageDPS.text = "Average DPS : " + Math.Round(towerData.AverageOverallDps, MidpointRounding.AwayFromZero).ToString();
         Uptime.text = $"Uptime : {towerData.UptimePercentage:P1}";

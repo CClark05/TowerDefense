@@ -1,7 +1,8 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Bandit's Secret Data", menuName = "SkillData/Generic/BanditsSecret")]
+[CreateAssetMenu(fileName = "Bandit's Secret Data", menuName = "SkillData/Utility/BanditsSecret")]
 public class BanditsSecretSkillData : SkillData
 {
     public override SkillInstance CreateInstance()
@@ -10,10 +11,11 @@ public class BanditsSecretSkillData : SkillData
     }
 }
 
-public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>, ITowerWaveStartModifier
+public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>, ITowerWaveStartModifier, ITowerWaveEndModifier
 {
     private SkillData randomCard;
     private TowerDataHolder closestTower;
+    private List<SkillData> stolenCards = new();
     public BanditsSecretSkillInstance(BanditsSecretSkillData data) : base(data)
     {
         
@@ -22,9 +24,10 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
     {
         closestTower = FindClosestTower();
         if (closestTower == null) return;
-        var pool = closestTower.WaveData.startingSnapshot;
+        var pool = closestTower.WaveData.startingSnapshot.Where(card => !stolenCards.Contains(card.Data)).ToList();
         if (pool.Count == 0) return;
         randomCard = pool[UnityEngine.Random.Range(0, pool.Count)].Data;
+        stolenCards.Add(randomCard);
         var request = new BorrowRequest
         {
             borrower = towerWaveData.owner,
@@ -50,5 +53,9 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
         }
         return closestTower.tower;
     }
-    
+
+    public void Modify(TowerWaveData towerWaveData)
+    {
+        stolenCards.Clear();
+    }
 }

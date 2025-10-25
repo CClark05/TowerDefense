@@ -9,8 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 759c941320334e2abc610d2424e6dabc, type: 3}
-  m_Name: Wave Rewards Settings
+  m_Script: {fileID: 11500000, guid: 258098dbda3f4db59477cb2d8ef10714, type: 3}
+  m_Name: Dividend Data
   m_EditorClassIdentifier: 
-  InterestRate: 0.1
-  coinsPerMove: 1
+  price: 0
+  name: Dividend
+  icon: {fileID: 0}
+  rarity: 0
+  description: At the end of each wave, gain +$4.
+  statusEffects: []
+  buffs: []
+  prerequisiteSkills: []
+  plusGold: 4

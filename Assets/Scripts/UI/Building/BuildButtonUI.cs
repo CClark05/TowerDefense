@@ -7,6 +7,7 @@ public class BuildButtonUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private Button_Base button;
     [SerializeField] private TowerData towerData;
+    private TowerData runtimeTowerData;
     [SerializeField] private GameObject background;
     private Color originalTextColor;
     public event Action<TowerData> OnBuildMode;
@@ -14,15 +15,20 @@ public class BuildButtonUI : MonoBehaviour
     public static event Action OnNotEnoughCoins;
     private void Start()
     {
+        runtimeTowerData = towerData.CloneRuntime();
         originalTextColor = costText.color;
         costText.text = towerData.cost.ToString();
         button.OnClick.AddListener(TryEnterBuildMode);
         costText.color = PlayerInventory.Instance.Coins >= towerData.cost ? originalTextColor : ColorPicker.red;
-        PlayerInventory.Instance.OnCoinsUpdated += coins => costText.color = coins >= towerData.cost ? originalTextColor : ColorPicker.red;
+        PlayerInventory.Instance.OnCoinsUpdated += coins => costText.color = coins >= runtimeTowerData.Cost ? originalTextColor : ColorPicker.red;
         EnemyManager.Instance.OnWaveStarted += () => background.SetActive(false);
         EnemyManager.Instance.OnWaveComplete += () => background.SetActive(true);
         BuildingManager.Instance.OnPlacedBuild += data => background.SetActive(true);
-
+        runtimeTowerData.OnCostIncreased += cost =>
+        {
+            costText.text = cost.ToString();
+            costText.color = PlayerInventory.Instance.Coins >= runtimeTowerData.Cost ? originalTextColor : ColorPicker.red;
+        };
     }
 
     private void Update()
@@ -46,7 +52,7 @@ public class BuildButtonUI : MonoBehaviour
             OnNotEnoughCoins?.Invoke();
             return;
         }
-        OnBuildMode?.Invoke(towerData);
+        OnBuildMode?.Invoke(runtimeTowerData);
         background.SetActive(false);
     }
 

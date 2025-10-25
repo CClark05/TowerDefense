@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b85dcd0dfc14d3aab6d81477e389a7a, type: 3}
-  m_Name: Bandit's Secret Data
+  m_Script: {fileID: 11500000, guid: 7b52d2e2a1ca4f9e88f0f0327f9feef5, type: 3}
+  m_Name: Catalyst Data
   m_EditorClassIdentifier: 
-  price: 10
-  name: Bandit's Secret
+  price: 0
+  name: Catalyst
   icon: {fileID: 0}
   rarity: 1
-  description: At the start of each wave, steal a random card from the nearest tower.
-    While stolen, the card always plays twice. Returns after the wave.
+  description: The next card added to this tower will always play an additional time.
+    Self destructs after use.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
