@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14c9181b60494393921180e41b0ea3b3, type: 3}
   m_Name: Relentless Exposure Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Relentless Exposure
   icon: {fileID: 0}
-  rarity: 0
+  rarity: 1
   description: Re-applying <color=#A23E8C>Weak</color> to an enemy grants additional
     stacks, increasing by +1 each re-apply.
   statusEffects:

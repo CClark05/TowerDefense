@@ -44,7 +44,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f58086cfd14725247888f5087be8b898, type: 2}
   - {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
   - {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
-  - {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
+  - {fileID: 11400000, guid: 8c9aa3f787e91ed46ba64538255d681c, type: 2}
   - {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
   - {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
   - {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
@@ -283,13 +283,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
   - {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
   emptyTile: {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
-  waves:
-  - {fileID: 11400000, guid: 992174e0e89df5947a87e8d85299c7f0, type: 2}
-  - {fileID: 11400000, guid: 77e139f242afd7a458cf143b44f89615, type: 2}
-  - {fileID: 11400000, guid: be51d91d540d2224e8aa17fd960d6f66, type: 2}
-  - {fileID: 11400000, guid: 11628bdf4cf238e4eb997ec33a227de4, type: 2}
-  - {fileID: 11400000, guid: 4ceeba21845e8734a983631579df2b53, type: 2}
-  - {fileID: 11400000, guid: fcebb69dd6698ab40a8565adc70805ad, type: 2}
-  - {fileID: 11400000, guid: 5d2758f279c6a97488efcc3a6f07d213, type: 2}
-  - {fileID: 11400000, guid: 0f8e819c3f0e0f545998d67d1042f08c, type: 2}
   playerLives: 25

@@ -1,3 +1,4 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,7 +17,23 @@ public class EffectEntry
 }
 public abstract class SkillData : ScriptableObject
 {
-    public int price;
+    public int price => GetPriceByRarity(rarity);
+
+    private int GetPriceByRarity(CardRarity cardRarity)
+    {
+        switch (cardRarity)
+        {
+            case CardRarity.Common:
+                return 25;
+            case CardRarity.Rare:
+                return 50;
+            case CardRarity.Legendary:
+                return 125;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(cardRarity), cardRarity, null);
+        }
+    }
+    
     public string name;
     public Sprite icon;
     public CardRarity rarity;

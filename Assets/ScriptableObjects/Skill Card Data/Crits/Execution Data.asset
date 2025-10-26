@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402833cd78da438aa8226cd51ce984cd, type: 3}
   m_Name: Execution Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Execution
   icon: {fileID: 0}
-  rarity: 0
+  rarity: 1
   description: Critical hits instantly kill enemies below 20% health.
   statusEffects: []
   buffs: []

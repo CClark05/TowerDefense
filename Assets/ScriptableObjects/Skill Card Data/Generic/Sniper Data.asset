@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5e99e318d94d42b0e34536f3d70989, type: 3}
   m_Name: Sniper Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Sniper
   icon: {fileID: 0}
   rarity: 0
-  description: Gain +3 base damage per 2 tile(s) between you and the target.
+  description: Gain +3 base damage per 1 tile(s) between you and the target.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   plusDamage: 3
-  tileInterval: 2
+  tileInterval: 1

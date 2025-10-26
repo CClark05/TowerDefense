@@ -12,12 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3a6c613afe455b9acf7087c5318069, type: 3}
   m_Name: Kinetic Shot Data
   m_EditorClassIdentifier: 
-  price: 10
   name: Kinetic Shot
   icon: {fileID: 0}
   rarity: 0
-  description: Projectiles gain +10 damage per second in the air.
+  description: Projectiles gain +15 base damage per second in the air.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  damagePerSecond: 10
+  damagePerSecond: 15

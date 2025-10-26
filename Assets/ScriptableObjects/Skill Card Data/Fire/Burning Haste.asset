@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a0cd10f283d4c98b2821942eb285d5c, type: 3}
   m_Name: Burning Haste
   m_EditorClassIdentifier: 
-  price: 0
   name: Burning Haste
   icon: {fileID: 0}
-  rarity: 0
+  rarity: 1
   description: Gain 1 <color=#DE9E41>Haste</color> for 3 seconds on killing a burning
     enemy.
   statusEffects:

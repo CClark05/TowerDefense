@@ -4,11 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Sacrifice Data", menuName = "SkillData/Generic/Sacrifice")]
 public class SacrificeSkillData : SkillData
 {
-    public int plusDamage = 6;
+    public int plusDamage = 4;
 
     private void OnValidate()
     {
-        description = $"Gains +{plusDamage} every time one of your cards self destructs. Resets if card is removed.";
+        description = $"Gains +{plusDamage} base damage every time one of your cards self destructs. Resets if card is removed.";
     }
 
     public override SkillInstance CreateInstance()

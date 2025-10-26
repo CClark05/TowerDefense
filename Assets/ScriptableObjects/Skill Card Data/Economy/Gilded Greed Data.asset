@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39bdeeadc38d4cc5b30353ac7b105d86, type: 3}
   m_Name: Gilded Greed Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Gilded Greed
   icon: {fileID: 0}
-  rarity: 0
+  rarity: 1
   description: Each 25 gold you have grants +5 base damage on hit.
   statusEffects: []
   buffs: []

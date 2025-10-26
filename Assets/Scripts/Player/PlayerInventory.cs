@@ -31,6 +31,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
         TowerSelectUI.OnSellCardStatic += SellCardStatic;
         CardSelectUI.Instance.OnReroll += SubtractCoins;
         EnemyManager.Instance.OnEnemyKilled += AddCoins;
+        ShopCardUI.OnBuyCardStatic += data => SubtractCoins(data.price);
     }
     private void SellCardStatic(SkillData data) => AddCoins(Mathf.FloorToInt(data.price * 0.5f));
     

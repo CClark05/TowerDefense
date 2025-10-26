@@ -9,13 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ce8b49486544e628f7b37031a524967, type: 3}
-  m_Name: Card Rarity Settings
+  m_Script: {fileID: 11500000, guid: 927e8766c4484df8967c1447e285ac91, type: 3}
+  m_Name: ShopSettings
   m_EditorClassIdentifier: 
-  rarityChances:
-  - rarity: 0
-    weight: 75
-  - rarity: 1
-    weight: 15
-  - rarity: 2
-    weight: 0
+  shopEveryXWaves: 4

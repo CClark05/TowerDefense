@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6418a458525b4cd38a0373b556383646, type: 3}
   m_Name: Sacrifice Data
   m_EditorClassIdentifier: 
-  price: 0
   name: 'Sacrifice '
   icon: {fileID: 0}
-  rarity: 0
-  description: Gains +6 every time one of your cards self destructs.
+  rarity: 1
+  description: Gains +4 base damage every time one of your cards self destructs.
+    Resets if card is removed.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  plusDamage: 6
+  plusDamage: 4

@@ -22,7 +22,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
     [SerializeField] private TextMeshProUGUI rerollCostText;
     [SerializeField] private GameObject background;
     private List<GameObject> currentCards = new();
-    private Dictionary<SkillData, int> cardCooldowns = new();
+    private CardCooldowns cardCooldowns = new(3);
     private int rerollAmount;
     private int rerollCost;
     public event Action<int> OnReroll;
@@ -76,13 +76,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
         rerollAmount = 0;
         rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
         SetPriceText();
-        var keys = cardCooldowns.Keys.ToList();
-        foreach (var key in keys)
-        {
-            cardCooldowns[key]--;
-            if (cardCooldowns[key] <= 0)
-                cardCooldowns.Remove(key);
-        }
+        cardCooldowns.DecreaseCooldowns();
         float delay = 2f;
         FunctionTimer.Create(() =>
         {
@@ -106,8 +100,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
         var filteredSkills = Enumerable.ToHashSet(availableSkills.Where(skill => !skillRegistry.CurrentSkills.Contains(skill) && !cardCooldowns.ContainsKey(skill)));
         var pool = filteredSkills.Count >= 3 ? filteredSkills : availableSkills;
         var cards = CardRarityPicker.PickCards(pool.ToList(), raritySettings, 3);
-        foreach (var c in cards)
-            cardCooldowns[c] = 3;
+        cardCooldowns.SetCooldowns(cards);
         foreach (var data in cards)
         {
             var newCard = Instantiate(cardPrefab, cardLayout.transform);

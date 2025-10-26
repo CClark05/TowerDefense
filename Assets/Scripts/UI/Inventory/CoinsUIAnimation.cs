@@ -14,7 +14,7 @@ public class CoinsUIAnimation : MonoBehaviour
     [SerializeField] private Image coinImage;
     private (TextMeshProUGUI mesh, int amount) currentPopup;
     private Color originalColor;
-    private float spacing = 40;
+    private float spacing = -20;
     public event Action<int> OnPopupComplete;
     private float despawnAt;
     private Coroutine despawnCoroutine;
@@ -23,11 +23,14 @@ public class CoinsUIAnimation : MonoBehaviour
     {
         PlayerInventory.Instance.OnCoinsAdded += ShowPopup;
         PlayerInventory.Instance.OnCoinsRemoved += (coins) => ShowPopup(-coins);
-        BuildButtonUI.OnNotEnoughCoins += () =>
-        {
-            shakeTween?.Kill();
-            shakeTween = coinImage.rectTransform.DOShakeAnchorPos(0.3f, 5f, 15).SetUpdate(true);
-        };
+        BuildButtonUI.OnNotEnoughCoins += OnNotEnoughCoins;
+        ShopCardUI.OnNotEnoughCoins += OnNotEnoughCoins;
+    }
+
+    private void OnNotEnoughCoins()
+    {
+        shakeTween?.Kill();
+        shakeTween = coinImage.rectTransform.DOShakeAnchorPos(0.3f, 5f, 15).SetUpdate(true);
     }
 
     private void ShowPopup(int coins)
@@ -38,7 +41,7 @@ public class CoinsUIAnimation : MonoBehaviour
         amountText.ForceMeshUpdate();
         float width = amountText.preferredWidth;
         if (currentPopup.mesh == null){
-            currentPopup.mesh = Instantiate(popupPrefab, transform).GetComponent<TextMeshProUGUI>();
+            currentPopup.mesh = Instantiate(popupPrefab, amountText.transform).GetComponent<TextMeshProUGUI>();
             originalColor = currentPopup.mesh.color;
         }
             

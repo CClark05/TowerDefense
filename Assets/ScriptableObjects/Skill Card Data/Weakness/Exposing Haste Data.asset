@@ -12,10 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e4683c586f4708aaf07f5280400214, type: 3}
   m_Name: Exposing Haste Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Exposing Haste
   icon: {fileID: 0}
-  rarity: 0
+  rarity: 1
   description: While every enemy is <color=#A23E8C>Weak</color> gain 3 <color=#DE9E41>Haste</color>
     per enemy.
   statusEffects:
