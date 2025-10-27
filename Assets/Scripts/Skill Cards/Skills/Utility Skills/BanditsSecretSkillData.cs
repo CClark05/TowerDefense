@@ -13,9 +13,9 @@ public class BanditsSecretSkillData : SkillData
 
 public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>, ITowerWaveStartModifier, ITowerWaveEndModifier
 {
-    private SkillData randomCard;
+    private SkillInstance randomCard;
     private TowerDataHolder closestTower;
-    private List<SkillData> stolenCards = new();
+    private List<SkillInstance> stolenCards = new();
     public BanditsSecretSkillInstance(BanditsSecretSkillData data) : base(data)
     {
         
@@ -24,16 +24,11 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
     {
         closestTower = FindClosestTower();
         if (closestTower == null) return;
-        var pool = closestTower.WaveData.startingSnapshot.Where(card => !stolenCards.Contains(card.Data)).ToList();
+        var pool = closestTower.WaveData.startingSnapshot.Where(card => !stolenCards.Contains(card)).ToList();
         if (pool.Count == 0) return;
-        randomCard = pool[UnityEngine.Random.Range(0, pool.Count)].Data;
+        randomCard = pool[UnityEngine.Random.Range(0, pool.Count)];
         stolenCards.Add(randomCard);
-        var request = new BorrowRequest
-        {
-            borrower = towerWaveData.owner,
-            lender = closestTower,
-            card = randomCard,
-        };
+        var request = new BorrowRequest(towerWaveData.owner, closestTower, randomCard);
         request.playCount++;
         towerWaveData.borrowRequests.Add(request);
         PlayCard();

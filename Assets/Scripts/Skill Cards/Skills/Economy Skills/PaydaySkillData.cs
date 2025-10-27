@@ -24,7 +24,7 @@ public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEnd
     
     public void Modify(TowerWaveData towerWaveData)
     {
-        towerWaveData.removedCards.Add(Data);
+        towerWaveData.removedCards.Add(this);
         OnSelfDestruct?.Invoke();
     }
 

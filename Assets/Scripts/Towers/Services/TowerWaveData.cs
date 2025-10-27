@@ -4,8 +4,8 @@ using UnityEngine;
 public class TowerWaveData
 {
     public TowerDataHolder owner;
-    public List<SkillData> addedCards = new();
-    public List<SkillData> removedCards = new();
+    public List<SkillInstance> addedCards = new();
+    public List<SkillInstance> removedCards = new();
     public List<BorrowRequest> borrowRequests = new();
     public List<SkillInstance> startingSnapshot = new();
     public float increasedRange;

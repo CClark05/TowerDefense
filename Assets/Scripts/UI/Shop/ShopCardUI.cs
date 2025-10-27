@@ -17,7 +17,7 @@ public class ShopCardUI : MonoBehaviour
     public event Action OnBuyCard;
     private void Start()
     {
-        cardData = GetComponent<SetCardData>().SkillData;
+        cardData = GetComponent<SetCardData>().SkillInstance.Data;
         costText.text = cardData.price.ToString();
         PlayerInventory.Instance.OnCoinsUpdated += coins => SetCostText();
         SetCostText();
@@ -42,12 +42,8 @@ public class ShopCardUI : MonoBehaviour
             button.ScaleBackToNormal();
             button.enabled = false;
             costText.transform.parent.gameObject.SetActive(false);
-            if (InventoryUI.Instance.TryAddCard(cardData))
-            {
-                Debug.Log("Bought card: " + cardData.name);
-                return;
-            }
-            Debug.LogError("Failed to add card, something went very wrong.");
+            InventoryUI.Instance.AddCard(cardData.CreateInstance());
+            Debug.Log("Bought card: " + cardData.name);
         });
     }
 

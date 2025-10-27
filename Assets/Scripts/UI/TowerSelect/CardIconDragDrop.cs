@@ -12,9 +12,10 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
     private CanvasGroup canvasGroup;
     private Vector3 originalPosition;
     private CardIconUI iconUI;
-    public event Action<SkillData> OnRemoveCard;
+    public event Action OnRemoveCard;
     public event Action<bool> OnIsOverReceiverUpdated;
     private bool isOverReceiver;
+
     public bool IsOverReceiver
     {
         get => isOverReceiver;
@@ -27,6 +28,7 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
     }
 
     private IUsesCards cardReceiver;
+
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
@@ -60,6 +62,7 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         {
             rect.position = world;
         }
+
         bool IsOverChest = RectTransformUtility.RectangleContainsScreenPoint(
             chestRect,
             eventData.position,
@@ -72,7 +75,7 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         {
             cardReceiver = hit.collider.GetComponent<IUsesCards>();
         }
-    
+
         IsOverReceiver = cardReceiver != null && cardReceiver.CanAddCard(iconUI.SkillInstance.Data);
     }
 
@@ -83,10 +86,11 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         canvasGroup.alpha = 1;
         if (isOverReceiver)
         {
-            if (cardReceiver.TryAddCard(iconUI.SkillInstance.Data))
+            if (cardReceiver.CanAddCard(iconUI.SkillInstance.Data))
             {
-                iconUI.usesCards.RemoveCard(iconUI.SkillInstance.Data);
-                OnRemoveCard?.Invoke(iconUI.SkillInstance.Data);
+                cardReceiver.AddCard(iconUI.SkillInstance);
+                iconUI.usesCards.RemoveCard(iconUI.SkillInstance);
+                OnRemoveCard?.Invoke();
                 Destroy(gameObject);
                 return;
             }

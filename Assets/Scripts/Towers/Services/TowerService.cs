@@ -33,7 +33,7 @@ public static class TowerService
         if (finishedTowers == expectedTowers)
         {
             var requests = waveData.Values.SelectMany(wd => wd.borrowRequests)
-                .Where(r => r.borrower != null && r.lender != null && r.card != null)
+                .Where(r => r.borrower != null && r.lender != null && r.instance != null)
                 .ToList();
             //Requests between the same two towers 
             var pairs = requests.GroupBy(r =>
@@ -54,16 +54,16 @@ public static class TowerService
                 {
                     var AB = AtoBRequests[i]; // A -> B
                     var BA = BtoARequests[i]; // B -> A
-                    BA.fulfilled = B.TryRemoveCard(BA.card);
-                    AB.fulfilled = A.TryRemoveCard(AB.card);
+                    BA.fulfilled = B.TryRemoveCard(BA.instance);
+                    AB.fulfilled = A.TryRemoveCard(AB.instance);
                     if (AB.fulfilled)
                     {
-                        B.AddCard(AB.card, AB.playCount);
+                        B.AddCard(AB.instance, AB.playCount);
                         fulfilledRequests.Add(AB);
                     }
                     if (BA.fulfilled)
                     {
-                        A.AddCard(BA.card, BA.playCount);
+                        A.AddCard(BA.instance, BA.playCount);
                         fulfilledRequests.Add(BA);
                     }
                     
@@ -71,10 +71,10 @@ public static class TowerService
                 for(int i = n; i<AtoBRequests.Count; i++)
                 {
                     var AB = AtoBRequests[i];
-                    AB.fulfilled = A.TryRemoveCard(AB.card);
+                    AB.fulfilled = A.TryRemoveCard(AB.instance);
                     if (AB.fulfilled)
                     {
-                        B.AddCard(AB.card, AB.playCount);
+                        B.AddCard(AB.instance, AB.playCount);
                         fulfilledRequests.Add(AB);
                     }
                         
@@ -82,10 +82,10 @@ public static class TowerService
                 for(int i = n; i<BtoARequests.Count; i++)
                 {
                     var BA = BtoARequests[i];
-                    BA.fulfilled = B.TryRemoveCard(BA.card);
+                    BA.fulfilled = B.TryRemoveCard(BA.instance);
                     if (BA.fulfilled)
                     {
-                        A.AddCard(BA.card, BA.playCount);
+                        A.AddCard(BA.instance, BA.playCount);
                         fulfilledRequests.Add(BA);
                     }
                         
@@ -104,12 +104,12 @@ public static class TowerService
         {
             foreach (var request in fulfilledRequests)
             {
-                if(!request.borrower.TryRemoveCard(request.card))
+                if(!request.borrower.TryRemoveCard(request.instance))
                     Debug.LogError("Failed to remove borrowed card at wave end");
             }
             foreach(var request in fulfilledRequests)
             {
-                request.lender.AddCard(request.card);
+                request.lender.AddCard(request.instance, request.originalPlayCount);
             }
         }
     }

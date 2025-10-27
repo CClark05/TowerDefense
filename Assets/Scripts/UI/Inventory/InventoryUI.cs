@@ -73,16 +73,16 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TryAddCard(testingData[test]);
+            AddCard(testingData[test].CreateInstance());
             test++;
         }
     }
     
-    public bool TryAddCard(SkillData data)
+    public void AddCard(SkillInstance skillInstance)
     {
-        int maxCards = settings.MaxCards;
-        if (SkillCards.Count >= maxCards) return false;
         SkillCardUI skillCard = Instantiate(cardPrefab, cardLayoutGroup.transform).GetComponent<SkillCardUI>();
+        skillCard.GetComponent<SetCardData>().SetData(skillInstance.Data);
+        skillCard.GetComponent<SetCardData>().SetInstance(skillInstance);
         skillCard.transform.SetAsLastSibling();
         var canvas = skillCard.GetComponent<Canvas>();
         int maxOrder = 0;
@@ -92,21 +92,19 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
             if (c && c.overrideSorting) maxOrder = Mathf.Max(maxOrder, c.sortingOrder);
         }
         canvas.sortingOrder = maxOrder + 1; 
-        skillCard.GetComponent<SetCardData>().SetData(data);
         SkillCards.Add(skillCard);
-        skillRegistry.AddNewSkill(data);
+        skillRegistry.AddNewSkill(skillInstance.Data);
         skillCard.OnRemoveCard += cardUI =>
         {
             SkillCards.Remove(cardUI);
             Destroy(skillCard.gameObject);
             OnRemovedCard?.Invoke();
         };
-        return true;
     }
 
-    public void RemoveCard(SkillData skillData)
+    public void RemoveCard(SkillInstance skillData)
     {
-        var card = SkillCards.FirstOrDefault(c => c.SkillData == skillData);
+        var card = SkillCards.FirstOrDefault(c => c.SkillInstance == skillData);
         if (card != null)
         {
             SkillCards.Remove(card);

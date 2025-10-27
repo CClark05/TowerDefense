@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
-using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class TowerCards : MonoBehaviour, IUsesCards
-{
-    public event Action<SkillData> OnAddedCard;
-    public event Action<SkillData> OnRemovedCard;
+{ 
+    public event Action<SkillInstance> OnAddedCard;
+    public event Action<SkillInstance> OnRemovedCard;
     [SerializeField] private SkillRegistry skillRegistry;
     private TowerDataHolder towerDataHolder;
     private void Start()
@@ -14,15 +13,14 @@ public class TowerCards : MonoBehaviour, IUsesCards
         towerDataHolder = GetComponent<TowerDataHolder>();
     }
 
-    public bool TryAddCard(SkillData skillData)
+    public void AddCard(SkillInstance skillInstance)
     {
-        if (towerDataHolder.SkillInstanceList.Any(s => s.Data == skillData) || towerDataHolder.SkillInstanceList.Count >= towerDataHolder.RuntimeData.CardSlots) return false;
-        OnAddedCard?.Invoke(skillData);
-        skillRegistry.AddNewSkill(skillData);
-        return true;
+        OnAddedCard?.Invoke(skillInstance);
+        skillRegistry.AddNewSkill(skillInstance.Data);
     }
 
-    public void RemoveCard(SkillData skillData)
+
+    public void RemoveCard(SkillInstance skillData)
     {
         OnRemovedCard?.Invoke(skillData);
     }

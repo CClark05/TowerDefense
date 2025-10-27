@@ -1,15 +1,16 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SetCardData : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText, descriptionText, sellPriceText;
     [SerializeField] private VerticalLayoutGroup statusEffectGroup;
-    [SerializeField] private SkillData skillData;
     [SerializeField] private GameObject statusEffectPrefab;
-    public SkillData SkillData => skillData;
+    [SerializeField] private SkillData skillData;
+    public SkillInstance SkillInstance { get; private set; }
     public int SellPrice { get; private set; }
     private List<GameObject> currentStatusEffects = new();
     private void Awake()
@@ -50,5 +51,9 @@ public class SetCardData : MonoBehaviour
     {
         skillData = data;
         UpdateVisual();
+    }
+    public void SetInstance(SkillInstance instance)
+    {
+        SkillInstance = instance;
     }
 }

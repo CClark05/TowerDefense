@@ -37,7 +37,7 @@ public class OverclockSkillInstance : SkillInstance<OverclockSkillData>, ITowerC
     {
         if(UnityEngine.Random.value < Data.destroyChance)
         {
-            towerWaveData.removedCards.Add(Data);
+            towerWaveData.removedCards.Add(this);
             OnSelfDestruct?.Invoke();
         }
     }

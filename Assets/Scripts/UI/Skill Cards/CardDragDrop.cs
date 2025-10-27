@@ -59,7 +59,11 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
         if (hit.collider != null && hit.collider.GetComponent<IUsesCards>() != null)
         {
-            return hit.collider.GetComponent<IUsesCards>().TryAddCard(cardUI.SkillData);
+            if (hit.collider.GetComponent<IUsesCards>().CanAddCard(cardUI.SkillInstance.Data))
+            {
+                hit.collider.GetComponent<IUsesCards>().AddCard(cardUI.SkillInstance);
+                return true;
+            }
         }
         return false;
     }

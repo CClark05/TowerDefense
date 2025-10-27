@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IUsesCards
 {
-    public bool TryAddCard(SkillData skillData);
-    public void RemoveCard(SkillData skillData);
+    public void AddCard(SkillInstance skillInstance);
+    public void RemoveCard(SkillInstance skillData);
     public bool CanAddCard(SkillData skillData);
 }

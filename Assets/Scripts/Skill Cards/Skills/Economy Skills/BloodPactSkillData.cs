@@ -26,7 +26,7 @@ public class BloodPactSkillInstance : SkillInstance<BloodPactSkillData>, IPlayer
     public void Modify(TowerWaveData towerWaveData)
     {
         if (PlayerLife.Instance.CurrentLives <= Data.livesLost)
-            towerWaveData.removedCards.Add(Data);
+            towerWaveData.removedCards.Add(this);
     }
     public void WaveStart()
     {

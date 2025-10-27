@@ -9,7 +9,7 @@ using Image = UnityEngine.UI.Image;
 
 public class SkillCardUI : MonoBehaviour
 {
-    public SkillData SkillData { get; private set; }
+    public SkillInstance SkillInstance { get; private set; }
     [SerializeField] private Button_Hover button;
     [SerializeField] private Button_Base sellButton;
     public event Action<bool> OnClickCard;
@@ -30,7 +30,7 @@ public class SkillCardUI : MonoBehaviour
         var canvas = GetComponent<Canvas>();
         originalSortingOrder = canvas.sortingOrder;
         originalScale = button.GetComponent<RectTransform>().localScale;
-        SkillData = GetComponent<SetCardData>().SkillData;
+        SkillInstance = GetComponent<SetCardData>().SkillInstance;
         sellButton.gameObject.SetActive(false);
 
         button.OnClick.AddListener(() =>
@@ -90,17 +90,14 @@ public class SkillCardUI : MonoBehaviour
             selectedCard = null;
             OnSellCardStatic?.Invoke(GetComponent<SetCardData>().SellPrice);
             OnSellCard?.Invoke();
+            SkillInstance.Dispose();
         });
     }
 
     private bool disableOnClick;
     public event Action OnDisableButton;
     public event Action<SkillCardUI> OnRemoveCard;
-
-    private void OnDestroy()
-    { 
-    }
-
+    
     public void RemoveCard(SkillCardUI card)
     {
         OnRemoveCard?.Invoke(card);

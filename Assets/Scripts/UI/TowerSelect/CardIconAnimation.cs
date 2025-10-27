@@ -19,11 +19,11 @@ public class CardIconAnimation : MonoBehaviour
         originalScale = GetComponent<RectTransform>().localScale;
     }
 
-    private void OnCardPlayed(SkillData data)
+    private void OnCardPlayed(SkillInstance data)
     {
         float scaleFactor = 0.25f;
         float duration = 0.3f;
-        if (data != iconUI.SkillInstance.Data) return;
+        if (data != iconUI.SkillInstance) return;
         transform.DOKill();
         transform.localScale = originalScale;
         transform.DOPunchScale(Vector3.one * scaleFactor, duration, 10, 1f)

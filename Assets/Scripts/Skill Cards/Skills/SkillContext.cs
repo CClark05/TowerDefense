@@ -11,18 +11,18 @@ public class SkillContext
     public event Action<TowerWaveData> OnTowerUpdated;
     public event Action<IBuff, int> OnBuffAdded;
     public event Action<IBuff, int> OnBuffRemoved;
-    public event Action<SkillData> OnCardPlayed;
+    public event Action<SkillInstance> OnCardPlayed;
     public SkillContext(TowerDataHolder tower)
     {
         Tower = tower;
     }
-    public void AddSkill(SkillData skillData, int playCount = 1)
+    public void AddSkill(SkillInstance instance, int? playCount)
     {
         TowerWaveData towerWaveData = new TowerWaveData();
-        var instance = skillData.CreateInstance();
         ActiveSkills.Add(instance);
-        instance.PlayCount = playCount;
         instance.SetContext(this);
+        if (playCount.HasValue)
+            instance.PlayCount = playCount.Value;
         foreach(var mod in GetSkillInstancesWith<IOnNewCardAdded>())
         {
             if(mod.instance == instance) continue;
@@ -31,8 +31,12 @@ public class SkillContext
         }
         TowerService.TryModifyOnCardReceived(towerWaveData, instance);
         OnTowerUpdated?.Invoke(towerWaveData);
-        instance.OnPlayCard += () => OnCardPlayed?.Invoke(skillData);
-        instance.OnUpdateTower += (data) => OnTowerUpdated?.Invoke(data);
+        instance.OnPlayCard += () => OnCardPlayed?.Invoke(instance);
+        instance.OnUpdateTower += (data) =>
+        {
+            if (instance.skillContext != this) return;
+            OnTowerUpdated?.Invoke(data);
+        };
         if (instance is ISelfDestructs selfDestructs)
         {
             selfDestructs.OnSelfDestruct += OnSelfDestruct;
@@ -48,21 +52,25 @@ public class SkillContext
                 }
                 selfDestructs.OnSelfDestruct -= OnSelfDestruct;
                 OnTowerUpdated?.Invoke(towerWaveData);
-                Debug.Log("Self Destructed: " + skillData.name);
+                Debug.Log("Self Destructed: " + instance.Data.name);
             }
             
         }
 
     }
-    public bool TryRemoveSkill(SkillData skillData)
+    public bool TryRemoveSkill(SkillInstance instance)
     {
-        var instance = ActiveSkills.LastOrDefault(s => s.Data == skillData);
-        if (instance == null) return false;
-        instance.Dispose();
-        ActiveSkills.Remove(instance);
+        bool activeInstance = ActiveSkills.Any(s => s == instance);
+        if (!activeInstance) return false;
         var towerWaveData = new TowerWaveData();
         if (TowerService.TryModifyOnCardRemoved(towerWaveData, instance))
+        {
             OnTowerUpdated?.Invoke(towerWaveData);
+            Debug.Log("Removed card effects applied: " + instance.Data.name);
+        }
+            
+        //instance.Dispose();
+        ActiveSkills.Remove(instance);
         return true;
     }
     public IEnumerable<T> GetSkillsOfType<T>()

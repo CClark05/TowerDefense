@@ -23,7 +23,7 @@ public class TowerSelectUI : MonoBehaviour
     private List<(SkillInstance instance, CardIconUI iconUI)> activeCards = new();
     private CardIconUI selectedCard;
     public static event Action<SkillData> OnSellCardStatic;
-    public event Action<SkillData> OnSellCard;
+    public event Action<SkillInstance> OnSellCard;
     private EnemyManager enemyManager;
     private CardSelectUI cardSelectUI;
     private void Start()
@@ -59,7 +59,8 @@ public class TowerSelectUI : MonoBehaviour
 
             var card = activeCards.FirstOrDefault(c => c.iconUI == selectedCard);
             OnSellCardStatic?.Invoke(card.instance.Data);
-            OnSellCard?.Invoke(card.instance.Data);
+            OnSellCard?.Invoke(card.instance);
+            card.instance.Dispose();
             activeCards.Remove(card);
             Destroy(selectedCard.gameObject);
             selectedCard = null;
@@ -124,7 +125,7 @@ public class TowerSelectUI : MonoBehaviour
             newCard.Init(instance, towerData.GetComponent<IUsesCards>());
             var button = newCard.Button;
             activeCards.Add((instance, newCard));
-            newCard.GetComponent<CardIconDragDrop>().OnRemoveCard += skillData =>
+            newCard.GetComponent<CardIconDragDrop>().OnRemoveCard += () =>
             {
                 activeCards.Remove((instance, newCard));
                 fullCardPreview.SetActive(false);

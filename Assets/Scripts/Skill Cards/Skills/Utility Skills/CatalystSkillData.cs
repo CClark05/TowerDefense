@@ -25,7 +25,7 @@ public class CatalystSkillInstance : SkillInstance<CatalystSkillData>, IOnNewCar
     {
         PlayCard();
         cardInstance.PlayCount++;
-        towerWaveData.removedCards.Add(Data);
+        towerWaveData.removedCards.Add(this);
         OnSelfDestruct?.Invoke();
     }
 

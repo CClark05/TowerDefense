@@ -46,8 +46,8 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         enemyManager = EnemyManager.Instance;
         enemyManager.OnWaveStarted += OnWaveStart;
         enemyManager.OnWaveComplete += OnWaveComplete;
-        GetComponent<TowerCards>().OnAddedCard += (data) => AddCard(data);
-        GetComponent<TowerCards>().OnRemovedCard += (data) => TryRemoveCard(data);
+        GetComponent<TowerCards>().OnAddedCard += (instance) => AddCard(instance);
+        GetComponent<TowerCards>().OnRemovedCard += (instance) => TryRemoveCard(instance);
         SkillContext.OnTowerUpdated += UpdateTowerData;
         
     }
@@ -64,10 +64,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         TotalWaveDamage = 0;
         RealWaveDPS = 0;
         MaxWaveDPS = 0;
-        TowerWaveData waveData = new TowerWaveData
-        {
-            borrowRequests = WaveData.borrowRequests
-        };
+        TowerWaveData waveData = new TowerWaveData();
         TowerService.MarkWaveEnd(this);
         TowerService.ModifyWaveEnd(waveData, SkillContext);
         PlayerService.ModifyWaveEnd(SkillContext);
@@ -76,14 +73,15 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
 
     public void UpdateTowerData(TowerWaveData towerWaveData)
     {
-        foreach (var card in towerWaveData.addedCards)
+        Debug.Log("increase of : " + towerWaveData.increasedBaseDamage + "initial base damage : " + RuntimeData.BaseDamage + " " + ID);
+        foreach (var instance in towerWaveData.addedCards)
         {
-            AddCard(card);
+            AddCard(instance);
         }
 
-        foreach (var card in towerWaveData.removedCards)
+        foreach (var instance in towerWaveData.removedCards)
         {
-            TryRemoveCard(card);
+            TryRemoveCard(instance);
         }
 
         RuntimeData.Range += towerWaveData.increasedRange;
@@ -155,11 +153,11 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         }
     }
 
-    public bool TryRemoveCard(SkillData data)
+    public bool TryRemoveCard(SkillInstance instance)
     {
-        if (SkillContext.TryRemoveSkill(data))
+        if (SkillContext.TryRemoveSkill(instance))
         {
-            GoldValue -= Mathf.FloorToInt(data.price * 0.5f);
+            GoldValue -= Mathf.FloorToInt(instance.Data.price * 0.5f);
             OnUpdateCards?.Invoke();
             return true;
         }
@@ -167,12 +165,13 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         return false;
     }
 
-    public void AddCard(SkillData data, int playCount = 1)
+    public void AddCard(SkillInstance instance, int? playCount = null)
     {
-        SkillContext.AddSkill(data, playCount);
-        GoldValue += Mathf.FloorToInt(data.price * 0.5f);
+        SkillContext.AddSkill(instance, playCount);
+        GoldValue += Mathf.FloorToInt(instance.Data.price * 0.5f);
         OnUpdateCards?.Invoke();
     }
+
 
     private void OnKillEnemy()
     {

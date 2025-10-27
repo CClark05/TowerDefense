@@ -29,6 +29,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
     public event Action OnSelectedCard;
     public bool IsActive => background.activeSelf;
     public event Action OnShowCards;
+
     private void Start()
     {
         rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
@@ -53,24 +54,24 @@ public class CardSelectUI : Singleton<CardSelectUI>
         peekButton.OnClick.AddListener(() =>
         {
             background.SetActive(!background.activeSelf);
-            if(IsActive) OnShowCards?.Invoke();
+            if (IsActive) OnShowCards?.Invoke();
         });
-        PlayerInventory.Instance.OnCoinsUpdated += coins =>
-        {
-            SetPriceText();
-        };
-        
+        PlayerInventory.Instance.OnCoinsUpdated += coins => { SetPriceText(); };
+
 
         EnemyManager.Instance.OnWaveComplete += OnWaveComplete;
         background.SetActive(false);
     }
+
     private void SetPriceText()
     {
         Color color = PlayerInventory.Instance.Coins >= rerollCost ? Color.white : ColorPicker.red;
         rerollCostText.text = $"${rerollCost}";
         rerollCostText.color = color;
     }
+
     private int counter;
+
     private void OnWaveComplete()
     {
         rerollAmount = 0;
@@ -85,15 +86,14 @@ public class CardSelectUI : Singleton<CardSelectUI>
             GenerateRandomCards();
             OnShowCards?.Invoke();
         }, delay);
-
     }
 
-    
+
     private void GenerateRandomCards()
     {
         foreach (var card in currentCards)
             Destroy(card);
-        
+
         currentCards.Clear();
         var availableSkills = Enumerable.ToHashSet(skillRegistry.Skills.Where(skill =>
             skill.prerequisiteSkills.Length == 0 || skill.prerequisiteSkills.Any(pr => skillRegistry.CurrentSkills.Contains(pr))));
@@ -108,22 +108,20 @@ public class CardSelectUI : Singleton<CardSelectUI>
             currentCards.Add(newCard);
             newCard.GetComponentInChildren<Button_Base>().OnClick.AddListener(() =>
             {
-                if (InventoryUI.Instance.TryAddCard(data))
+                if (InventoryUI.Instance.CanAddCard(data))
                 {
+                    var skillInstance = data.CreateInstance();
+                    InventoryUI.Instance.AddCard(skillInstance);
                     background.SetActive(false);
                     peekButton.gameObject.SetActive(false);
                     OnSelectedCard?.Invoke();
                     return;
                 }
+
                 newCard.GetComponent<UIShake>().TriggerShake();
                 InventoryChestUI.Instance.GetComponent<UIScaleLoop>().Play();
-                InventoryUI.Instance.OnRemovedCard += () =>
-                {
-                    InventoryChestUI.Instance.GetComponent<UIScaleLoop>().Stop();
-                };
+                InventoryUI.Instance.OnRemovedCard += () => { InventoryChestUI.Instance.GetComponent<UIScaleLoop>().Stop(); };
             });
         }
     }
-
-
 }
