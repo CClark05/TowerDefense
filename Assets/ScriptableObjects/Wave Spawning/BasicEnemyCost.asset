@@ -14,3 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyData: {fileID: 11400000, guid: 52bb1e67e3c002d42adf3d892b47fdf2, type: 2}
   MinWave: 1
+  MaxWave: 4
+  Weight: 0

@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7ee994ea5e48d5a56b0c45d4d47fe1, type: 3}
   m_Name: Killing Focus Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Killing Focus
-  icon: {fileID: 0}
+  icon: {fileID: 3018084078287827727, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
   description: Gain +5% Critical chance on kill. Resets after wave.
   statusEffects: []

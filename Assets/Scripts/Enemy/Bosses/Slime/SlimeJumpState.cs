@@ -29,7 +29,7 @@ public class SlimeJumpState : BaseState
         runner.Play(this,new ICommand[]
         {
             new JumpCommand(duration, jumpHeight),
-            new GetTowersCommand(stunRadius, nearbyTowers)
+            new GetNearbyTowersCommand(nearbyTowers, null, stunRadius)
         });
     }
 
@@ -43,7 +43,7 @@ public class SlimeJumpState : BaseState
         CameraShake.Shake(Camera.main.transform, 0.2f, 0.4f);
         runner.Play(this, new ICommand[]
         {
-            new StunCommand(stunDebuff, stunStacks, nearbyTowers)
+            new ApplyBuffToTowersCommand(stunDebuff, stunStacks, nearbyTowers)
         });
     }
     

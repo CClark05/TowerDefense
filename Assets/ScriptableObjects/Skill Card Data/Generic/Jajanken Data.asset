@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 014b3a66b5fd40de9cce6c719f98020b, type: 3}
   m_Name: Jajanken Data
   m_EditorClassIdentifier: 
-  price: 10
   name: Jajanken
-  icon: {fileID: 0}
+  icon: {fileID: -4723933754391882230, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
-  description: Shots charge up for 2 seconds before releasing for +50% damage.
+  description: Shots charge up for 1 seconds before releasing for +50% damage.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  ChargeTime: 2
-  DamageIncrease: 0.5
+  ChargeTime: 1
+  DamageMult: 0.5
   Color: {r: 0.87058824, g: 0.61960787, b: 0.25490198, a: 1}

@@ -8,6 +8,7 @@ public class ShopManager : Singleton<ShopManager>
     public event Action OnCreateShop;
     private void Start()
     {
+        shopVisual.SetActive(false);
         EnemyManager.Instance.OnWaveComplete += () =>
         {
             if ((EnemyManager.Instance.CurrentWave - 1) % settings.shopEveryXWaves == 0)

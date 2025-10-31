@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 258098dbda3f4db59477cb2d8ef10714, type: 3}
   m_Name: Dividend Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Dividend
-  icon: {fileID: 0}
+  icon: {fileID: -7918751953511787492, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
-  description: At the end of each wave, gain +$4.
+  description: At the end of each wave, gain +$6.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  plusGold: 4
+  isExcluded: 0
+  plusGold: 6

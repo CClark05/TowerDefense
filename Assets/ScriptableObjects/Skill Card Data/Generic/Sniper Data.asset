@@ -19,5 +19,6 @@ MonoBehaviour:
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
+  isExcluded: 1
   plusDamage: 3
   tileInterval: 1

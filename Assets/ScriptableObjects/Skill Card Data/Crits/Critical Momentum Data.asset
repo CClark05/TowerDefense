@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Critical Momentum Data
   m_EditorClassIdentifier: 
   name: Critical Momentum
-  icon: {fileID: 0}
+  icon: {fileID: -6253703114618212389, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 1
   description: Gains +3 base damage on Critical kill. Resets if card is removed.
   statusEffects: []

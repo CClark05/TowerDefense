@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f062c21716694f449206e7ffff8a06b1, type: 3}
   m_Name: Cursed Coin Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Cursed Coin
   icon: {fileID: 0}
   rarity: 1
-  description: Gain +$5 if the enemy dies while affected by at least 2 status effects.
+  description: Gain +$10 if the enemy dies while affected by at least 2 status effects.
   statusEffects: []
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 03d3d4cdd9236f54a9cf8b9b51ea1c3a, type: 2}
   - {fileID: 11400000, guid: 3f4fa63c1aa112a4aa74dbb9665043f6, type: 2}
+  isExcluded: 1
   effectRequirement: 2
-  plusGold: 5
+  plusGold: 10

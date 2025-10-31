@@ -11,7 +11,8 @@ public class EnemyManager : Singleton<EnemyManager>
 {
     private List<GameObject> currentEnemies = new();
     public List<GameObject> CurrentEnemies => currentEnemies;
-    public List<EnemyData> DeadEnemies { get; private set; } = new();
+    public List<EnemyData> DeadEnemiesThisWave { get; private set; } = new();
+    public HashSet<EnemyData> DeadEnemies { get; private set; } = new();
     private LevelData levelData;
     public int CurrentWave { get; private set; } = 1;
     public float WaveTimer { get; private set; }
@@ -35,6 +36,8 @@ public class EnemyManager : Singleton<EnemyManager>
     //private WaveData waveData => levelData.waves[CurrentWave - 1];
     [FormerlySerializedAs("waveLibrary")] [SerializeField] private WaveSettings waveSettings;
     private WaveGenerator waveGenerator;
+    [Header("TESTING DATA")]
+    [SerializeField] private List<EnemyData> testEnemies = new();
     private void Start()
     {
         levelData = LevelDataHolder.Instance.Data;
@@ -51,14 +54,13 @@ public class EnemyManager : Singleton<EnemyManager>
         };
         waveGenerator = new WaveGenerator(waveSettings);
     }
-
     private void Update()
     {
         if (WaveState is WaveStates.Spawning or WaveStates.DoneSpawning)
         {
             WaveTimer += Time.deltaTime;
         }
-            
+
     }
 
     private void SpawnEnemy(EnemyData enemyData) => SpawnEnemyAtPosition(enemyData, AStarPathfinding.Instance.GetPath()[0]);
@@ -70,6 +72,7 @@ public class EnemyManager : Singleton<EnemyManager>
         enemy.GetComponent<EnemyHealth>().OnDeath += () =>
         {
             OnEnemyKilled?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.coins);
+            DeadEnemiesThisWave.Add(enemyData);
             DeadEnemies.Add(enemyData);
             RemoveEnemy(enemy);
         };
@@ -121,7 +124,7 @@ public class EnemyManager : Singleton<EnemyManager>
                 return;
             }
             */
-            DeadEnemies.Clear();
+            DeadEnemiesThisWave.Clear();
             WaveState = WaveStates.Complete;
             OnWaveComplete?.Invoke();
             WaveTimer = 0;
@@ -135,6 +138,17 @@ public class EnemyManager : Singleton<EnemyManager>
         TowerService.BeginWave(TowerDataHolder.ActiveTowerList);
         OnWaveStarted?.Invoke();
         WaveState = WaveStates.Spawning;
+        if(testEnemies.Count > 0)
+        {
+            foreach (var e in testEnemies)
+            {
+                SpawnEnemy(e);
+                yield return new WaitForSeconds(1f);
+            }
+            WaveState = WaveStates.DoneSpawning;
+            CurrentWave++;
+            yield break;
+        }
         var spawns = waveGenerator.Generate(CurrentWave).enemySpawns;
         foreach (var e in spawns)
         {

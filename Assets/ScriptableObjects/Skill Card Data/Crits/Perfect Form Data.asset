@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a948aa9bd7fb424eb63bd321f898c0d5, type: 3}
   m_Name: Perfect Form Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Perfect Form
-  icon: {fileID: 0}
+  icon: {fileID: -2203860875385243341, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
-  description: Your first hit each round will always deal Critical damage for +100%
+  description: Your first hit each round will always deal Critical damage for +200%
     damage.
   statusEffects: []
   buffs: []

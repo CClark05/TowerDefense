@@ -597,6 +597,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health:
     underlyingValue: {fileID: 3572673247418768669}
+  shields:
+    underlyingValue: {fileID: 8779664000096357501}
   healthBar: {fileID: 2027936898492433100}
 --- !u!1 &8527842103717371723
 GameObject:

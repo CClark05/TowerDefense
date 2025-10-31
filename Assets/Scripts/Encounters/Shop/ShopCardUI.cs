@@ -17,7 +17,7 @@ public class ShopCardUI : MonoBehaviour
     public event Action OnBuyCard;
     private void Start()
     {
-        cardData = GetComponent<SetCardData>().SkillInstance.Data;
+        cardData = GetComponent<SetCardData>().SkillData;
         costText.text = cardData.price.ToString();
         PlayerInventory.Instance.OnCoinsUpdated += coins => SetCostText();
         SetCostText();

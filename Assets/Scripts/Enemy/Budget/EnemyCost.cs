@@ -4,5 +4,6 @@ public class EnemyCost : ScriptableObject
 {
     public EnemyData EnemyData;
     public int MinWave = 1;
+    public int MaxWave;
     public int Weight = 0;
 }

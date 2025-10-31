@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class EnemyShields : MonoBehaviour, IUsesShields
     [SerializeField] private GridLayoutGroup shieldLayout;
     private EnemyData data;
     private List<GameObject> activeShields = new();
+    public event Action<int> OnShieldCountChanged;
     private void Start()
     {
         data = GetComponent<EnemyDataHolder>().Data;
@@ -27,15 +29,16 @@ public class EnemyShields : MonoBehaviour, IUsesShields
             Destroy(shield);
             removed = true;
         }
-
+        OnShieldCountChanged?.Invoke(activeShields.Count);
         return removed;
     }
 
     public void AddShields(int amount)
     {
-        for (int i = 0; i < data.shields; i++)
+        for (int i = 0; i < amount; i++)
         {
             activeShields.Add(Instantiate(shieldPrefab, shieldLayout.transform));
         }
+        OnShieldCountChanged?.Invoke(activeShields.Count);
     }
 }

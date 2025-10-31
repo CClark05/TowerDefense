@@ -10,6 +10,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private HorizontalLayoutGroup cardLayout;
     [SerializeField] private SkillRegistry skillRegistry;
     [SerializeField] private CardRaritySettings raritySettings;
+    [SerializeField] private GridObjectButton shopButton;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Button_Scale leaveButton;
     [SerializeField] private Transform chestLocation;
@@ -23,7 +24,7 @@ public class ShopUI : MonoBehaviour
         {
             canvas.gameObject.SetActive(false);
         });
-        ShopButton.Instance.OnShowShop += () =>
+        shopButton.OnClickObject += () =>
         {
             canvas.gameObject.SetActive(true);
         };

@@ -2,13 +2,12 @@ using System;
 using System.Linq;
 using UnityEngine;
 
-public class ShopButton : Singleton<ShopButton>, IHoverable
+public class GridObjectButton : MonoBehaviour, IHoverable
 {
-    public event Action OnShowShop;
+    public event Action OnClickObject;
     public SpriteRenderer[] Sprites { get; private set; }
-    private new void Awake()
+    private void Awake()
     {
-        base.Awake();
         Sprites = GetComponentsInChildren<SpriteRenderer>().OrderBy(sr => sr.transform.GetSiblingIndex()).ToArray();
     }
 
@@ -24,7 +23,7 @@ public class ShopButton : Singleton<ShopButton>, IHoverable
     }
     public void OnClick()
     {
-        OnShowShop?.Invoke();
+        OnClickObject?.Invoke();
     }
     
 }

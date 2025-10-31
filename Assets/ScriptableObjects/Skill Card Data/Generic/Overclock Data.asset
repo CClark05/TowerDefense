@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7029881332b47a2951a5f6b853f103b, type: 3}
   m_Name: Overclock Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Overclock
   icon: {fileID: 0}
   rarity: 0
-  description: Gives +4 card slots on receiving this card. Has a 15% chance to self
+  description: Gives +4 card slots on receiving this card. Has a 20% chance to self
     destruct at the end of the wave.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
+  isExcluded: 0
   extraSlots: 4
-  destroyChance: 0.15
+  destroyChance: 0.2

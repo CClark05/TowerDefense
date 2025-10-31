@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2b6a5e4da884b419c072ffa23f723ad, type: 3}
   m_Name: Blood Pact Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Blood Pact
   icon: {fileID: 0}
   rarity: 0
-  description: Lose 3 lives on wave start but gain +$8. Self destructs before it
-    kills you.
+  description: Lose 3 lives on wave start but gain +$8. Self destructs before if
+    it would reduce your lives to 0.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
+  isExcluded: 1
   livesLost: 3
   plusGold: 8

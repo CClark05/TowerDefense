@@ -10,6 +10,7 @@ public class SetCardData : MonoBehaviour
     [SerializeField] private VerticalLayoutGroup statusEffectGroup;
     [SerializeField] private GameObject statusEffectPrefab;
     [SerializeField] private SkillData skillData;
+    public SkillData SkillData => skillData;
     public SkillInstance SkillInstance { get; private set; }
     public int SellPrice { get; private set; }
     private List<GameObject> currentStatusEffects = new();

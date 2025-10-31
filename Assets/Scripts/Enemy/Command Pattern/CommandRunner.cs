@@ -24,7 +24,6 @@ public class CommandRunner : MonoBehaviour
             routines.Remove(state);
         }
     }
-
     IEnumerator Run(IEnumerable<ICommand> commands, BaseState owner)
     {
         foreach (var command in commands)

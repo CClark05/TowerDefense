@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 603f2f61d03046e28ab3d8ad21f94827, type: 3}
   m_Name: Hunter's Mark Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Hunter's Mark
-  icon: {fileID: 0}
+  icon: {fileID: 8760948067332155847, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
-  description: Gain a 50% chance for hits to deal Critical damage for +100% damage.
+  description: Gain a 7.5% chance for hits to deal Critical damage for +200% damage.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []

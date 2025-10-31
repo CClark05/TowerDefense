@@ -73,7 +73,6 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
 
     public void UpdateTowerData(TowerWaveData towerWaveData)
     {
-        Debug.Log("increase of : " + towerWaveData.increasedBaseDamage + "initial base damage : " + RuntimeData.BaseDamage + " " + ID);
         foreach (var instance in towerWaveData.addedCards)
         {
             AddCard(instance);

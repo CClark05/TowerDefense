@@ -8,7 +8,7 @@ public class ResetSpeedCommand : EnemyCommand
         agent.Require<IMovementOverride>().ResetSpeed(fadeOut);
         yield break;
     }
-    public ResetSpeedCommand(float fadeOut)
+    public ResetSpeedCommand(float fadeOut = 0.25f)
     {
         this.fadeOut = fadeOut;
     }

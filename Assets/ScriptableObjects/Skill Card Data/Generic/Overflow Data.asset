@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a32f33da7e0249b7ad895900b34721a0, type: 3}
   m_Name: Overflow Data
   m_EditorClassIdentifier: 
-  price: 10
   name: Overflow
-  icon: {fileID: 0}
+  icon: {fileID: 276797312215898987, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
-  description: Gives +2 card slots.
+  description: Gives +2 card slots on receiving this card.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []

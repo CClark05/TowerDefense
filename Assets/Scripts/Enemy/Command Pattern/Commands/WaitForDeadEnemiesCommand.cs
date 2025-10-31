@@ -19,7 +19,7 @@ public class WaitForDeadEnemiesCommand : EnemyCommand
         while (true)
         {
             deadEnemies.Clear();
-            deadEnemies.AddRange(EnemyManager.Instance.DeadEnemies.Where(e => e.summonable));
+            deadEnemies.AddRange(EnemyManager.Instance.DeadEnemiesThisWave.Where(e => e.summonable));
             if(deadEnemies.Count >= enemyCount)
                 yield break;
             yield return new WaitForSeconds(pollingInterval);

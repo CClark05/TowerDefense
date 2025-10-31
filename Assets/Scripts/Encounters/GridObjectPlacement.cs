@@ -4,16 +4,16 @@ using System.Linq;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
 
-public class ShopPlacement : MonoBehaviour
+public class GridObjectPlacement : MonoBehaviour
 {
     private Vector2[] preferredPositions = new Vector2[2];
     private Vector2Int[] preferredGridPositions = new Vector2Int[2];
     private GridManager gridManager;
-    private ShopButton shopButton;
+    private GridObjectButton gridObjectButton;
     private void Awake()
     {
         gridManager = GridManager.Instance;
-        shopButton = GetComponent<ShopButton>();
+        gridObjectButton = GetComponent<GridObjectButton>();
     }
 
     private void OnEnable()
@@ -24,7 +24,7 @@ public class ShopPlacement : MonoBehaviour
 
     private Vector2 FindDesiredPosition()
     {
-        preferredPositions = shopButton.Sprites.Select(s => (Vector2)s.transform.position).ToArray();
+        preferredPositions = gridObjectButton.Sprites.Select(s => (Vector2)s.transform.position).ToArray();
         for (var i = 0; i < preferredPositions.Length; i++)
         {
             gridManager.Grid.GetXY(preferredPositions[i], out int x, out int y);
@@ -61,8 +61,6 @@ public class ShopPlacement : MonoBehaviour
                 {
                     (Vector2 left, Vector2 right) desiredWorldPositions = (gridManager.Grid.GetWorldPosition(pair.left.x, pair.left.y),
                         gridManager.Grid.GetWorldPosition(pair.right.x, pair.right.y));
-                    Debug.Log(pair.left.x + " | " + pair.left.y + " --- " + pair.right.x + " | " + pair.right.y);
-                    Debug.Log(desiredWorldPositions.left);
                     return ((desiredWorldPositions.left + desiredWorldPositions.right) / 2) + new
                         Vector2(gridManager.Grid.CellSize * 0.5f, gridManager.Grid.CellSize * 0.5f);
                 }

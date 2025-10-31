@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51ef936e477d4b05b691a26589cbd548, type: 3}
   m_Name: Payday Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Payday
-  icon: {fileID: 0}
+  icon: {fileID: -1980605786275603940, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
-  description: Gain +$3 for each enemy killed. Self destructs after this wave.
+  description: Gain +$5 for each enemy killed. Self destructs after this wave.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  goldPerKill: 3
+  isExcluded: 0
+  goldPerKill: 5

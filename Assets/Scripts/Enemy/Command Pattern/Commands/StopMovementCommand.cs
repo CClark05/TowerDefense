@@ -9,7 +9,7 @@ public class StopMovementCommand : EnemyCommand
         agent.Require<IMovementOverride>().SetSpeed(0, easeTime);
         yield break;
     }
-    public StopMovementCommand(float easeTime)
+    public StopMovementCommand(float easeTime = 0.25f)
     {
         this.easeTime = easeTime;
     }

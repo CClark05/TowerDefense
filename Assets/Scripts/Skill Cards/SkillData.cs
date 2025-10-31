@@ -24,11 +24,11 @@ public abstract class SkillData : ScriptableObject
         switch (cardRarity)
         {
             case CardRarity.Common:
-                return 25;
+                return 20;
             case CardRarity.Rare:
-                return 50;
+                return 35;
             case CardRarity.Legendary:
-                return 125;
+                return 50;
             default:
                 throw new ArgumentOutOfRangeException(nameof(cardRarity), cardRarity, null);
         }
@@ -41,6 +41,7 @@ public abstract class SkillData : ScriptableObject
     public EffectEntry[] statusEffects;
     public EffectEntry[] buffs;
     public SkillData[] prerequisiteSkills;
+    public bool isExcluded;
     public abstract SkillInstance CreateInstance();
 }
 

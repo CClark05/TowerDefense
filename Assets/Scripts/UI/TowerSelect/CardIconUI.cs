@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class CardIconUI : MonoBehaviour
     [SerializeField] private Image disabledOverlay;
     [SerializeField] private Button_Scale_Hover button;
     [SerializeField] private Image redOutline;
+    [SerializeField] private TextMeshProUGUI playCountText;
     public Button_Scale_Hover Button { get; private set; }
     public SkillInstance SkillInstance { get; private set; }
     public IUsesCards usesCards { get; private set; }
@@ -39,6 +41,7 @@ public class CardIconUI : MonoBehaviour
         SkillInstance.OnPlayCountUpdated += CardPlayCountUpdated;
         SkillInstance.OnIsDisabledUpdated += OnIsDisabledUpdated;
         redOutline.gameObject.SetActive(instance.PlayCount > 1);
+        playCountText.text = instance.PlayCount > 1 ? instance.PlayCount.ToString() : "";
         if (ColorUtility.TryParseHtmlString("#75a743", out Color greenColor))
             GetComponent<CardIconDragDrop>().OnIsOverReceiverUpdated += isOver =>
             {
@@ -60,6 +63,7 @@ public class CardIconUI : MonoBehaviour
     private void CardPlayCountUpdated(int playCount)
     {
         redOutline.gameObject.SetActive(playCount > 1);
+        playCountText.text = playCount > 1 ? playCount.ToString() : "";
     }
     private void UpdateVisual()
     {

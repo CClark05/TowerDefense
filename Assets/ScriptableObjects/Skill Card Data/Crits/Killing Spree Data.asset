@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecbfb87fb5f940399d55f8a3d3fe9b9a, type: 3}
   m_Name: Killing Spree Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Killing Spree
-  icon: {fileID: 0}
+  icon: {fileID: -3707474146643974298, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
   description: Gain +10% Critical damage on kill. Resets after wave.
   statusEffects: []

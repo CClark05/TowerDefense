@@ -9,7 +9,7 @@ public class BloodMoneySkillData : SkillData
     public int killsNeeded = 2;
     private void OnValidate()
     {
-        description = $"Gives +${PlusMoney} per {killsNeeded} kills.";
+        description = $"Gives +${PlusMoney} per {killsNeeded} kill(s).";
     }
 
     public override SkillInstance CreateInstance()

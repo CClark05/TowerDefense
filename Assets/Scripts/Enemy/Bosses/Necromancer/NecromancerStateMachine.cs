@@ -5,63 +5,105 @@ using UnityEngine;
 public class NecromancerStateMachine : BossStateMachine
 {
     [SerializeField] private AnimationClip summonAnimation, moveAnimation;
+    [SerializeField] private BuffData stunDebuff;
+
     private void Start()
     {
-        var defaultState = new NecromancerDefaultState(facade, 3, moveAnimation);
-        var summonState = new NecromancerSummonState(facade, 3f, defaultState.DeadEnemies, 6f, summonAnimation, 3);
+        var healthPredicate = new HealthPercentagePredicate(facade.GetComponent<IUsesHealth>());
+        var defaultState = new NecromancerDefaultState(facade, 2, moveAnimation);
+        var summonState = new NecromancerSummonState(facade, 1f, 4, 5f, summonAnimation, 3);
+        var attackState = new NecromancerAttackState(facade, 3, 0, 3, 3, stunDebuff);
         stateMachine.SetState(defaultState);
         stateMachine.AddTransition(defaultState, summonState, new FuncPredicate(() => defaultState.IsDone && summonState.IsReady));
         stateMachine.AddTransition(summonState, defaultState, new FuncPredicate(() => summonState.IsDone));
+        stateMachine.AddTransition(defaultState, attackState, new CompositePredicate(new FuncPredicate(() => defaultState.IsDone && attackState.IsReady), healthPredicate));
+        stateMachine.AddTransition(attackState, defaultState, new FuncPredicate(() => attackState.IsDone));
     }
 }
-public class NecromancerSummonState : BaseState
+
+public class NecromancerAttackState : BaseState
 {
-    private float summonDuration;
-    private List<EnemyData> deadEnemies;
-    private AnimationClip summonAnimation;
+    private float duration;
+    List<TowerDataHolder> nearbyTowers = new();
+    private BuffData stunDebuff;
+    private int stunStacks;
     private int shields;
-    public NecromancerSummonState(IAgent agent, float summonDuration, List<EnemyData> deadEnemies, float cooldown, AnimationClip summonAnimation, int shields) : base(agent, cooldown)
+
+    public NecromancerAttackState(IAgent agent, float cooldown, float duration, int stunStacks, int shields, BuffData stunDebuff) : base(agent, cooldown)
     {
-        this.summonDuration = summonDuration;
-        this.deadEnemies = deadEnemies;
-        this.summonAnimation = summonAnimation;
+        this.duration = duration;
+        this.stunDebuff = stunDebuff;
+        this.stunStacks = stunStacks;
         this.shields = shields;
     }
+
     public override void OnEnter()
     {
-        Debug.Log("Enter summon");
-        agent.Require<IAnimationPlayer>().Play(summonAnimation, agent.Transform);
+        Debug.Log("Necromancer attack state entered");
         runner.Play(this, new ICommand[]
         {
             new GainShields(shields),
-            new StopMovementCommand(0.25f),
+            new StopMovementCommand(0.1f),
+            new GetNearbyTowersCommand(nearbyTowers, 1),
+            new ApplyBuffToTowersCommand(stunDebuff, stunStacks, nearbyTowers),
+            new WaitCommand(duration),
+            new ResetSpeedCommand(0.1f)
+        });
+    }
+}
+
+public class NecromancerSummonState : BaseState
+{
+    private int summonCount;
+    private float summonDuration;
+    private AnimationClip summonAnimation;
+    private int shields;
+    private List<EnemyData> summons = new();
+
+    public NecromancerSummonState(IAgent agent, float summonDuration, int summonCount, float cooldown, AnimationClip summonAnimation, int shields) : base(agent, cooldown)
+    {
+        this.summonDuration = summonDuration;
+        this.summonCount = summonCount;
+        this.summonAnimation = summonAnimation;
+        this.shields = shields;
+    }
+
+    public override void OnEnter()
+    {
+        Debug.Log("Necromancer summon state entered");
+        agent.Require<IAnimationPlayer>().Play(summonAnimation, agent.Transform);
+
+        runner.Play(this, new ICommand[]
+        {
+            new GainShields(shields),
+            new StopMovementCommand(),
             new WaitCommand(0.5f),
-            new SpawnEnemiesCommand(deadEnemies, agent.Transform.position, 0.5f),
+            new GetDeadEnemiesCommand(summons, summonCount),
+            new SpawnEnemiesCommand(summons, agent.Transform.position, 1f),
             new WaitCommand(summonDuration),
-            new ResetSpeedCommand(0.25f),
+            new ResetSpeedCommand(),
         });
     }
 }
 
 public class NecromancerDefaultState : BaseState
 {
-    private int minEnemiesKilled;
-    public List<EnemyData> DeadEnemies { get; private set; } = new();
+    private float duration;
     private AnimationClip idleClip;
-    public NecromancerDefaultState(IAgent agent, int minEnemiesKilled, AnimationClip idleClip) : base(agent)
+
+    public NecromancerDefaultState(IAgent agent, float duration, AnimationClip idleClip) : base(agent)
     {
-        this.minEnemiesKilled = minEnemiesKilled;
+        this.duration = duration;
         this.idleClip = idleClip;
     }
+
     public override void OnEnter()
     {
-        Debug.Log("Enter default");
+        Debug.Log("Necromancer default state entered");
         agent.Require<IAnimationPlayer>().Play(idleClip, agent.Transform);
         runner.Play(this, new ICommand[]
         {
-            new WaitForDeadEnemiesCommand(minEnemiesKilled, DeadEnemies),
+            new WaitCommand(duration),
         });
     }
-    
-    
 }

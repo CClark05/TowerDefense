@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 255007b03b7c4bd3ad6c5dc1f535a95a, type: 3}
   m_Name: Blood Money Data
   m_EditorClassIdentifier: 
-  price: 10
   name: Blood Money
   icon: {fileID: -8798341035937057841, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
-  description: Gives +$1 per kill.
+  description: Gives +$1 per 2 kill(s).
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  MoneyPerKill: 1
+  PlusMoney: 1
+  killsNeeded: 2

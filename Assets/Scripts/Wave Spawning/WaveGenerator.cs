@@ -38,7 +38,7 @@ public class WaveGenerator
         if (isBoss) budget *= waveSettings.BossMultiplier;
         if(isSpike) budget *= waveSettings.SpikeAfterBoss;
         Debug.Log("Budget : " + budget);
-        var pool = waveSettings.Enemies.Where(e => e.MinWave <= wave && (isBoss ? (e.EnemyData.IsBoss || !e.EnemyData.IsBoss) : !e.EnemyData.IsBoss)).
+        var pool = waveSettings.Enemies.Where(e => e.MinWave <= wave && (e.MaxWave == 0 || wave <= e.MaxWave) && (isBoss ? (e.EnemyData.IsBoss || !e.EnemyData.IsBoss) : !e.EnemyData.IsBoss)).
             Where(e => CalculateCost(e, budgetTuning) <= budget).OrderBy(e => UnityEngine.Random.value).ToArray();
         var plan = new WavePlan
         {
@@ -57,7 +57,7 @@ public class WaveGenerator
         }
         
         int attempts = 0;
-        while (budget > 0)
+        while (budget > 0 && !isBoss)
         {
             var enemiesNeeded = Mathf.Max(waveSettings.minEnemies - plan.enemySpawns.Count, 1);
             var budgetPerEnemy = budget / enemiesNeeded;

@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Gilded Greed Data
   m_EditorClassIdentifier: 
   name: Gilded Greed
-  icon: {fileID: 0}
+  icon: {fileID: 16426933056760645, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 1
   description: Each 25 gold you have grants +5 base damage on hit.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
+  isExcluded: 0
   PlusDamage: 5
   GoldPerIncrement: 25

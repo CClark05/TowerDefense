@@ -19,4 +19,5 @@ MonoBehaviour:
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
+  isExcluded: 1
   damagePerSecond: 15
