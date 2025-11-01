@@ -1,7 +1,5 @@
 using UnityEngine;
 [CreateAssetMenu(fileName = "ShopSettings", menuName = "Settings/ShopSettings")]
-public class ShopSettings : ScriptableObject
+public class ShopSettings : EncounterSettings
 {
-    public int shopEveryXWaves = 4;
-    
 }

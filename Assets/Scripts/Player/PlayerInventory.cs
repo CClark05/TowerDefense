@@ -32,6 +32,8 @@ public class PlayerInventory : Singleton<PlayerInventory>
         CardSelectUI.Instance.OnReroll += SubtractCoins;
         EnemyManager.Instance.OnEnemyKilled += AddCoins;
         ShopCardUI.OnBuyCardStatic += data => SubtractCoins(data.price);
+        SpinToWinUI.Instance.OnPlacedWager += SubtractCoins;
+        SpinToWinUI.Instance.OnWagerComplete += AddCoins;
     }
     private void SellCardStatic(SkillData data) => AddCoins(Mathf.FloorToInt(data.price * 0.5f));
     

@@ -10,16 +10,22 @@ public class GridObjectPlacement : MonoBehaviour
     private Vector2Int[] preferredGridPositions = new Vector2Int[2];
     private GridManager gridManager;
     private GridObjectButton gridObjectButton;
+    [SerializeField] private EncounterManager encounterManager;
     private void Awake()
     {
         gridManager = GridManager.Instance;
         gridObjectButton = GetComponent<GridObjectButton>();
+        
     }
-
-    private void OnEnable()
+    private void Start()
     {
-        var desiredPosition = FindDesiredPosition();
-        transform.position = desiredPosition;
+        encounterManager.OnShowVisual.OnRaised += (object sender) =>
+        {
+            gameObject.SetActive(true);
+            var desiredPosition = FindDesiredPosition();
+            transform.position = desiredPosition;
+        };
+        gameObject.SetActive(false);
     }
 
     private Vector2 FindDesiredPosition()

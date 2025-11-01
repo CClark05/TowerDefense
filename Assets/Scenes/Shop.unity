@@ -653,6 +653,8 @@ MonoBehaviour:
   cardLayout: {fileID: 1980680431}
   skillRegistry: {fileID: 11400000, guid: 5437b0564b2259044824ede22bb06552, type: 2}
   raritySettings: {fileID: 11400000, guid: d67cea1d0b1b1f44091bfaa995765fd7, type: 2}
+  onShowShopUI: {fileID: 11400000, guid: 43d7f9733a22d0e4181696f941ce5973, type: 2}
+  onShowShopVisual: {fileID: 11400000, guid: baea8adeed482e049b63602e120ec1d5, type: 2}
   cardPrefab: {fileID: 2632781708225007360, guid: 92c4ae6ed9834e34ca5949255035cf1e, type: 3}
   leaveButton: {fileID: 1233053268}
   chestLocation: {fileID: 1472722009}
@@ -766,6 +768,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRelease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInitialPress:
     m_PersistentCalls:
       m_Calls: []
   rectTransform: {fileID: 0}

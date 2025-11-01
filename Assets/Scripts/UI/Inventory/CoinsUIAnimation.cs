@@ -25,6 +25,7 @@ public class CoinsUIAnimation : MonoBehaviour
         PlayerInventory.Instance.OnCoinsRemoved += (coins) => ShowPopup(-coins);
         BuildButtonUI.OnNotEnoughCoins += OnNotEnoughCoins;
         ShopCardUI.OnNotEnoughCoins += OnNotEnoughCoins;
+        SpinToWinAnimation.Instance.OnNotEnoughCoins += OnNotEnoughCoins;
     }
 
     private void OnNotEnoughCoins()

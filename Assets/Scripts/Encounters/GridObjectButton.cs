@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GridObjectButton : MonoBehaviour, IHoverable
 {
-    public event Action OnClickObject;
+    public SOEvent OnClickObject;
     public SpriteRenderer[] Sprites { get; private set; }
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class GridObjectButton : MonoBehaviour, IHoverable
     }
     public void OnClick()
     {
-        OnClickObject?.Invoke();
+        OnClickObject.Raise(this);
     }
     
 }
