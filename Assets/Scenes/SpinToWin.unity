@@ -1361,6 +1361,7 @@ MonoBehaviour:
   wheelUI: {fileID: 191197430}
   canvas: {fileID: 1040348797}
   onShowUI: {fileID: 11400000, guid: c35f8308d8ae8754684c8c76f7e703c9, type: 2}
+  onShowVisual: {fileID: 11400000, guid: d5013c63a3c329c4799f32a61e211fdf, type: 2}
   spinsLeft: 3
 --- !u!114 &1221964862
 MonoBehaviour:

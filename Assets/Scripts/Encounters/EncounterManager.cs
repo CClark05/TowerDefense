@@ -10,11 +10,9 @@ public class EncounterManager : MonoBehaviour
     {
         EnemyManager.Instance.OnWaveComplete += () =>
         {
-            int currentWave = EnemyManager.Instance.CurrentWave;
-            if (currentWave >= settings.firstWave && (currentWave - settings.firstWave) % settings.showEveryXWaves == 0)
-            {
+            var encounter = EncounterGenerator.Instance.GetEncounter(EnemyManager.Instance.CurrentWave - 1);
+            if(encounter == settings)
                 OnShowVisual.Raise(this);
-            }
         };
         EnemyManager.Instance.OnWaveStarted += () =>
         {

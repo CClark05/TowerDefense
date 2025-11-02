@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927e8766c4484df8967c1447e285ac91, type: 3}
   m_Name: ShopSettings
   m_EditorClassIdentifier: 
-  showEveryXWaves: 2
-  firstWave: 0
+  targetRate: 0.15
+  firstWave: 3
+  icon: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
