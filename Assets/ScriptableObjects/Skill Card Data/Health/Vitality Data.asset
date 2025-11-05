@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6418a458525b4cd38a0373b556383646, type: 3}
-  m_Name: Sacrifice Data
+  m_Script: {fileID: 11500000, guid: 7195a5e645a647c0a074555c5cd2ec90, type: 3}
+  m_Name: Vitality Data
   m_EditorClassIdentifier: 
-  name: 'Sacrifice '
-  icon: {fileID: -7375000822327799320, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
-  rarity: 1
-  description: Card gains +3 base damage every time one of your cards self destructs.
+  name: Vitality
+  icon: {fileID: 0}
+  rarity: 0
+  description: Grants +3 lives upon using this card. Self destructs after use.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  plusDamage: 3
+  livesGranted: 3

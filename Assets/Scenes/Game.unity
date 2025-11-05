@@ -542,7 +542,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 15, y: 15}
+  m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &138949442
 MonoBehaviour:
@@ -557,14 +557,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a0e35f6b808bb7447826cc6c69ffe448, type: 3}
+  m_Sprite: {fileID: 1507450895693738636, guid: 5d7f59a1aec679b46bbd263f1f582663, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2757,7 +2757,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 15, y: 15}
+  m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &740664957
 MonoBehaviour:
@@ -2772,7 +2772,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2832,7 +2832,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 15, y: 15}
+  m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &761524007
 MonoBehaviour:
@@ -2847,14 +2847,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.50980395}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a0e35f6b808bb7447826cc6c69ffe448, type: 3}
+  m_Sprite: {fileID: -5599827733488901632, guid: 5d7f59a1aec679b46bbd263f1f582663, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3537,13 +3537,15 @@ MonoBehaviour:
   cardPrefab: {fileID: 6204308533141475000, guid: 7f78933451dfd624cb1bc0d1a2a137f2, type: 3}
   skillRegistry: {fileID: 11400000, guid: 5437b0564b2259044824ede22bb06552, type: 2}
   testingData:
+  - {fileID: 11400000, guid: 1915c256f8514c34f98997d7ebc90cb4, type: 2}
+  - {fileID: 11400000, guid: efb1430c0b1e15b4bbd780ff48c80ba9, type: 2}
+  - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
+  - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
+  - {fileID: 11400000, guid: 72cbbdcc560fb3844b055e23e0bef023, type: 2}
+  - {fileID: 11400000, guid: 558c2f8a679efd846a3c7903b2a17e57, type: 2}
+  - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
+  - {fileID: 11400000, guid: 9fc48baf418dadd488afbbd3b0bc28fc, type: 2}
   - {fileID: 11400000, guid: d33b3f49069a49e4b86130c7b3244fd9, type: 2}
-  - {fileID: 11400000, guid: a1d67d12ecacf4047bc72326c7db5e20, type: 2}
-  - {fileID: 11400000, guid: 566221b2f7b74a84a96a24b6bda72a95, type: 2}
-  - {fileID: 11400000, guid: a5f7e3f1fac49d64d95679d572809c1a, type: 2}
-  - {fileID: 11400000, guid: 270e4b4df3898ed48bb2222923acd4af, type: 2}
-  - {fileID: 11400000, guid: ab97cb7746490ff4e9e23cf5fdbc3aec, type: 2}
-  - {fileID: 11400000, guid: 025f086d2fc05a64fa3703d3480a35fd, type: 2}
   settings: {fileID: 11400000, guid: 3e51d1c9009932449b6d19df8edce600, type: 2}
 --- !u!1 &1050833401
 GameObject:
@@ -4335,7 +4337,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9a00c7121e941579f69d58ed831897e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emptyIcon: {fileID: 21300000, guid: a0e35f6b808bb7447826cc6c69ffe448, type: 3}
+  emptyIcon: {fileID: 7878720383957732616, guid: 5d7f59a1aec679b46bbd263f1f582663, type: 3}
+  bossIcon: {fileID: 7796308927688350061, guid: 5d7f59a1aec679b46bbd263f1f582663, type: 3}
   layoutGroup: {fileID: 1961785419}
 --- !u!1 &1267765385
 GameObject:
@@ -6182,7 +6185,7 @@ MonoBehaviour:
   encounterSettingsList:
   - {fileID: 11400000, guid: 143c4a0f94b9f324c91dbd9b2b9ab8f7, type: 2}
   - {fileID: 11400000, guid: 4458e56046f21d546a00bdf4a995fdd3, type: 2}
-  waveTarget: 20
+  waveTarget: 40
 --- !u!4 &1691867113
 Transform:
   m_ObjectHideFlags: 0
@@ -6970,7 +6973,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 15, y: 15}
+  m_SizeDelta: {x: 16, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1979260661
 MonoBehaviour:
@@ -6992,9 +6995,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: a0e35f6b808bb7447826cc6c69ffe448, type: 3}
+  m_Sprite: {fileID: 7796308927688350061, guid: 5d7f59a1aec679b46bbd263f1f582663, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1

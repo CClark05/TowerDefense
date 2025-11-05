@@ -16,6 +16,17 @@ public class PlayerInventory : Singleton<PlayerInventory>
             if (Equals(value, coins)) return;
             coins = value;
             OnCoinsUpdated?.Invoke(value);
+            foreach (var tower in TowerDataHolder.ActiveTowerList)
+            {
+                var context = tower.SkillContext;
+                foreach (var mod in context.GetSkillInstancesWith<IOnCoinsUpdated>())
+                {
+                    for (int i = 0; i < (mod.modifier.alwaysPlayOnce ? 1 : mod.instance.PlayCount); i++)
+                    {
+                        mod.modifier.OnCoinsUpdated();
+                    }
+                }
+            }
         }
     }
     public int TotalCoinsEarned { get; private set; }

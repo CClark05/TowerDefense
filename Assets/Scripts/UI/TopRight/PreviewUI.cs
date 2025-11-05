@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PreviewUI : MonoBehaviour
 {
     [SerializeField] private Sprite emptyIcon;
+    [SerializeField] private Sprite bossIcon;
     [SerializeField] private HorizontalLayoutGroup layoutGroup;
     private EncounterGenerator encounterGenerator;
     private void Start()
@@ -24,8 +25,12 @@ public class PreviewUI : MonoBehaviour
         for (int i = currentWave; i < currentWave + layoutGroup.transform.childCount; i++)
         {
             var icon = encounterGenerator.GetEncounter(i - 1)?.icon;
+            if (EnemyManager.Instance.IsBossWave(i - 1))
+                icon = bossIcon;
+            
             layoutGroup.transform.GetChild(i - currentWave).GetComponent<Image>().sprite = icon == null ? emptyIcon : icon;
             
+                
         }
     }
 }

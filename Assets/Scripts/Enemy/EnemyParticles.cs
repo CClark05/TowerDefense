@@ -11,7 +11,8 @@ public class EnemyParticles : MonoBehaviour
         var baseColor = SpriteColorUtils.AverageColor(GetComponent<SpriteRenderer>().sprite);
         GetComponent<EnemyHealth>().OnDeath += () =>
         {
-            if (EnemyManager.Instance.CurrentEnemies.Count != 0 || EnemyManager.Instance.WaveState is not EnemyManager.WaveStates.Complete) return;
+            if (EnemyManager.Instance.CurrentEnemies.Count != 0 || 
+                (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Spawning)) return;
             var particles = Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
             var main = particles.main;
 

@@ -62,6 +62,7 @@ public class CardIconUI : MonoBehaviour
 
     private void CardPlayCountUpdated(int playCount)
     {
+        if(redOutline == null) return;
         redOutline.gameObject.SetActive(playCount > 1);
         playCountText.text = playCount > 1 ? playCount.ToString() : "";
     }

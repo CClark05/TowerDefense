@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WaveSettings
   m_EditorClassIdentifier: 
   BaseBudget: 5
-  GrowthRate: 1.2
+  GrowthRate: 1.1
   AdditivePerWave: 0.75
   Variance: 0.08
   BossEvery: 8

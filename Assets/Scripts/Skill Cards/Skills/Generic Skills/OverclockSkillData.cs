@@ -33,10 +33,11 @@ public class OverclockSkillInstance : SkillInstance<OverclockSkillData>, ITowerC
         towerWaveData.increasedSlots -= Data.extraSlots;
     }
 
+    public bool alwaysPlayOnce { get; }
+
     public void Modify(TowerWaveData towerWaveData)
     {
         var rand = UnityEngine.Random.value;
-        Debug.Log(rand);
         if(rand < Data.destroyChance)
         {
             towerWaveData.removedCards.Add(this);

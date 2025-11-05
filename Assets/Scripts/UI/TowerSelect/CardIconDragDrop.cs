@@ -88,9 +88,9 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         {
             if (cardReceiver.CanAddCard(iconUI.SkillInstance.Data))
             {
-                cardReceiver.AddCard(iconUI.SkillInstance);
                 iconUI.usesCards.RemoveCard(iconUI.SkillInstance);
                 OnRemoveCard?.Invoke();
+                cardReceiver.AddCard(iconUI.SkillInstance);
                 Destroy(gameObject);
                 return;
             }

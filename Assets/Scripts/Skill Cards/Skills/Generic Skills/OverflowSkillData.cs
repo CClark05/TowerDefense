@@ -32,4 +32,6 @@ public class OverflowSkillInstance : SkillInstance<OverflowSkillData>, ITowerCar
     {
         towerWaveData.increasedSlots -= Data.extraSlots;
     }
+
+    public bool alwaysPlayOnce { get; }
 }

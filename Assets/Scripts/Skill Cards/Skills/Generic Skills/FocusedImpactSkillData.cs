@@ -31,5 +31,7 @@ public class FocusedImpactSkillInstance : SkillInstance<FocusedImpactSkillData>,
     {
         towerWaveData.increasedBaseDamage -= Data.PlusDamage;
     }
+
+    public bool alwaysPlayOnce { get; }
 }
 

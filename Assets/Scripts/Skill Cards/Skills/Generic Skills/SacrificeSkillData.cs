@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Sacrifice Data", menuName = "SkillData/Generic/Sacrifice")]
@@ -8,7 +7,7 @@ public class SacrificeSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Gains +{plusDamage} base damage every time one of your cards self destructs. Resets if card is removed.";
+        description = $"Card gains +{plusDamage} base damage every time one of your cards self destructs.";
     }
 
     public override SkillInstance CreateInstance()
@@ -16,22 +15,42 @@ public class SacrificeSkillData : SkillData
         return new SacrificeSkillInstance(this);
     }
 }
-public class SacrificeSkillInstance : SkillInstance<SacrificeSkillData>, IOnCardSelfDestruct, IOnRemoval
+
+public class SacrificeSkillInstance : SkillInstance<SacrificeSkillData>, IOnCardSelfDestruct, ITowerCardReceivedModifier
 {
-    private int accumulatedBonus;
+    private int _accumulatedBonus;
+    private int totalAccumulatedBonus;
+    private bool appliedInitialBonus;
     public SacrificeSkillInstance(SacrificeSkillData data) : base(data)
     {
     }
-    public void Apply(TowerWaveData towerWaveData)
+    void ITowerCardReceivedModifier.Apply(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedBaseDamage += Data.plusDamage;
-        accumulatedBonus += Data.plusDamage;
+        towerWaveData.increasedBaseDamage += totalAccumulatedBonus;
+        PlayCard();
+        appliedInitialBonus = true;
+    }
+
+    public void OnComplete()
+    {
+        skillContext.Tower.RuntimeData.BaseDamage += _accumulatedBonus;
+        _accumulatedBonus = 0;
+    }
+    void IOnCardSelfDestruct.Apply(TowerWaveData towerWaveData)
+    {
+        Debug.Log("Sacrifice triggered");
+        if (!appliedInitialBonus) return;
+        totalAccumulatedBonus += Data.plusDamage;
+        _accumulatedBonus += Data.plusDamage;
+        appliedInitialBonus = true;
         PlayCard();
     }
 
     public void Remove(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedBaseDamage -= accumulatedBonus;
-        accumulatedBonus = 0;
+        towerWaveData.increasedBaseDamage -= totalAccumulatedBonus;
+        appliedInitialBonus = false;
     }
+
+    public bool alwaysPlayOnce { get; } = true;
 }

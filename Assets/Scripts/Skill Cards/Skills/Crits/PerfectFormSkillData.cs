@@ -4,9 +4,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Perfect Form Data", menuName = "SkillData/Crits/PerfectForm")]
 public class PerfectFormSkillData : SkillData
 {
+    public int hits = 2;
     private void OnValidate()
     {
-        description = $"Your first hit each round will always deal Critical damage for +{CritStats.baseCritMult * 100}% damage.";
+        description = $"Your first {hits} hits each round will always deal Critical damage for +{CritStats.baseCritMult * 100}% damage.";
     }
 
     public override SkillInstance CreateInstance()
@@ -15,15 +16,16 @@ public class PerfectFormSkillData : SkillData
     }
 }
 
-public class PerfectFormSkillInstance : SkillInstance<PerfectFormSkillData>, IHitModifier
+public class PerfectFormSkillInstance : SkillInstance<PerfectFormSkillData>, IHitModifier, ITowerCardReceivedModifier
 {
+    private int hits;
     public PerfectFormSkillInstance(PerfectFormSkillData data) : base(data)
     {
     }
 
     public void Modify(HitData hitData, IDamageable target)
     {
-        if (hitData.tower.ShotsThisRound == 1)
+        if (hitData.tower.ShotsThisRound <= hits)
         {
             CritStats critStats = new CritStats();
             foreach (var mod in skillContext.GetSkillInstancesWith<ICritModifier>())
@@ -34,4 +36,15 @@ public class PerfectFormSkillInstance : SkillInstance<PerfectFormSkillData>, IHi
             PlayCard();
         }
     }
+    public void Apply(TowerWaveData towerWaveData)
+    {
+        hits += Data.hits;
+    }
+
+    public void Remove(TowerWaveData towerWaveData)
+    {
+        hits -= Data.hits;
+    }
+
+    public bool alwaysPlayOnce { get; }
 }

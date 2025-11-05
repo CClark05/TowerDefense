@@ -15,9 +15,11 @@ MonoBehaviour:
   name: Perfect Form
   icon: {fileID: -2203860875385243341, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
-  description: Your first hit each round will always deal Critical damage for +200%
-    damage.
+  description: Your first 2 hits each round will always deal Critical damage for
+    +200% damage.
   statusEffects: []
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
+  isExcluded: 0
+  hits: 2

@@ -32,5 +32,6 @@ public class FarSightSkillInstance : SkillInstance<FarSightSkillData>, ITowerCar
     {
         towerWaveData.increasedRange -= Data.increasedRange;
     }
-    
+
+    public bool alwaysPlayOnce { get; }
 }

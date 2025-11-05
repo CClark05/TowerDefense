@@ -74,6 +74,8 @@ public class CardSelectUI : Singleton<CardSelectUI>
 
     private void OnWaveComplete()
     {
+        var encounter = EncounterGenerator.Instance.GetEncounter(EnemyManager.Instance.CurrentWave - 1);
+        if (encounter != null) return;
         rerollAmount = 0;
         rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
         SetPriceText();

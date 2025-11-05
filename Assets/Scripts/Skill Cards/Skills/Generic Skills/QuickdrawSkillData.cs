@@ -27,6 +27,9 @@ public class QuickdrawSkillInstance : SkillInstance<QuickdrawSkillData>, ITowerC
     {
         towerWaveData.increasedSpeed /= Data.speedIncrease;
     }
+
+    public bool alwaysPlayOnce { get; }
+
     public void Apply(TowerWaveData towerWaveData)
     {
         PlayCard();

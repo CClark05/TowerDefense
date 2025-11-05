@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8514e3bdf75a4736b238525c6993b1d4, type: 3}
   m_Name: Far Sight Data
   m_EditorClassIdentifier: 
-  price: 10
   name: Far Sight
-  icon: {fileID: 0}
+  icon: {fileID: 8586090813562367716, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
   rarity: 0
   description: Gives +5 range.
   statusEffects: []
+  buffs: []
   prerequisiteSkills: []
+  isExcluded: 0
   increasedRange: 5

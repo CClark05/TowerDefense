@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CodeMonkey.Utils;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -92,6 +93,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
             RuntimeData.stunned = true;
             FunctionTimer.Create(() => { RuntimeData.stunned = false; }, towerWaveData.stunnedDuration);
         }
+
         int activeSlots = SkillInstanceList.FindAll(s => !s.IsDisabled).Count;
         if (RuntimeData.CardSlots < activeSlots)
         {
@@ -121,6 +123,42 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
                 }
             }
         }
+
+        
+        /**
+        int total = SkillInstanceList.Count;
+        int desiredEnabled = Mathf.Clamp(RuntimeData.CardSlots, 0, total);
+        int currentEnabled = SkillInstanceList.Count(s => !s.IsDisabled);
+
+        if (currentEnabled > desiredEnabled)
+        {
+            int toDisable = currentEnabled - desiredEnabled;
+            // Disable from the end (LIFO – most recently added goes off first)
+            for (int i = SkillInstanceList.Count - 1; i >= 0 && toDisable > 0; i--)
+            {
+                var s = SkillInstanceList[i];
+                if (!s.IsDisabled)
+                {
+                    s.IsDisabled = true;
+                    toDisable--;
+                }
+            }
+        }
+        else if (currentEnabled < desiredEnabled)
+        {
+            int toEnable = desiredEnabled - currentEnabled;
+            // Enable in list order (FIFO – oldest disabled comes back first)
+            for (int i = 0; i < SkillInstanceList.Count && toEnable > 0; i++)
+            {
+                var s = SkillInstanceList[i];
+                if (s.IsDisabled)
+                {
+                    s.IsDisabled = false;
+                    toEnable--;
+                }
+            }
+        }
+        */
     }
 
     private float TotalWaveTime;

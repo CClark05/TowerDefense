@@ -32,6 +32,7 @@ public class CardIconAnimation : MonoBehaviour
 
     private void OnDestroy()
     {
-        towerDataHolder.SkillContext.OnCardPlayed -= OnCardPlayed;
+        if(towerDataHolder != null)
+            towerDataHolder.SkillContext.OnCardPlayed -= OnCardPlayed;
     }
 }

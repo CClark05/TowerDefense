@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ShopSettings
   m_EditorClassIdentifier: 
   targetRate: 0.15
-  firstWave: 3
-  icon: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
+  firstWave: 6
+  icon: {fileID: -5599827733488901632, guid: 5d7f59a1aec679b46bbd263f1f582663, type: 3}

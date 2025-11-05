@@ -45,7 +45,7 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
             rect.anchoredPosition = originalPosition;
             return;
         }
-        OnDropCard?.Invoke();
+        
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -61,6 +61,7 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         {
             if (hit.collider.GetComponent<IUsesCards>().CanAddCard(cardUI.SkillInstance.Data))
             {
+                OnDropCard?.Invoke();
                 hit.collider.GetComponent<IUsesCards>().AddCard(cardUI.SkillInstance);
                 return true;
             }

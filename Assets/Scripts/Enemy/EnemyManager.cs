@@ -35,6 +35,7 @@ public class EnemyManager : Singleton<EnemyManager>
     public event Action<int> OnEnemyKilled;
     //private WaveData waveData => levelData.waves[CurrentWave - 1];
     [FormerlySerializedAs("waveLibrary")] [SerializeField] private WaveSettings waveSettings;
+    public bool IsBossWave(int wave) => wave > 0 && wave % waveSettings.BossEvery == 0;
     private WaveGenerator waveGenerator;
     [Header("TESTING DATA")]
     [SerializeField] private List<EnemyData> testEnemies = new();
@@ -127,6 +128,12 @@ public class EnemyManager : Singleton<EnemyManager>
             DeadEnemiesThisWave.Clear();
             WaveState = WaveStates.Complete;
             OnWaveComplete?.Invoke();
+            if (EncounterGenerator.Instance.GetEncounter(CurrentWave - 1) != null)
+            {
+                WaveState = WaveStates.Idle;
+                OnIdle?.Invoke();
+            }
+                
             WaveTimer = 0;
         }
     }

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Gilded Greed Data", menuName = "SkillData/Economy/GildedGreed")]
@@ -8,7 +7,7 @@ public class GildedGreedSkillData : SkillData
     public int GoldPerIncrement = 25;
     private void OnValidate()
     {
-        description = $"Each {GoldPerIncrement} gold you have grants +{PlusDamage} base damage on hit.";
+        description = $"Each {GoldPerIncrement} gold you have grants +{PlusDamage} base damage.";
     }
 
     public override SkillInstance CreateInstance()
@@ -17,17 +16,28 @@ public class GildedGreedSkillData : SkillData
     }
 }
 
-public class GildedGreedSkillInstance : SkillInstance<GildedGreedSkillData>, IOnHit
+public class GildedGreedSkillInstance : SkillInstance<GildedGreedSkillData>, IOnCoinsUpdated, ITowerCardReceivedModifier
 {
+    private int currentBonus;
     public GildedGreedSkillInstance(GildedGreedSkillData data) : base(data)
     {
     }
-
-    public void OnHit(HitData hitData)
+    public void Apply(TowerWaveData towerWaveDataa)
     {
-        int increments = PlayerInventory.Instance.Coins / Data.GoldPerIncrement;
-        if(increments <= 0) return;
-        hitData.finalDamage += increments * Data.PlusDamage;
+        CalculateBonus();
+        skillContext.Tower.RuntimeData.BaseDamage += currentBonus;
         PlayCard();
     }
+    public void Remove(TowerWaveData towerWaveData) => skillContext.Tower.RuntimeData.BaseDamage -= currentBonus;
+
+    private int CalculateBonus()
+    {
+        int newBonus = PlayerInventory.Instance.Coins / Data.GoldPerIncrement * Data.PlusDamage * PlayCount; 
+        int bonusDelta = (newBonus - currentBonus); 
+        currentBonus = newBonus; 
+        return bonusDelta;
+    }
+    public void OnCoinsUpdated() => skillContext.Tower.RuntimeData.BaseDamage += CalculateBonus();
+    public bool alwaysPlayOnce { get; } = true;
+
 }

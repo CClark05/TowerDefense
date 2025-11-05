@@ -7,7 +7,7 @@ using UnityEngine;
 public class EncounterGenerator : Singleton<EncounterGenerator>
 {
     [SerializeField] private List<EncounterSettings> encounterSettingsList;
-    [SerializeField] private int waveTarget = 20;
+    [SerializeField] private int waveTarget = 40;
     private int cooldownLength = 3;
     public Dictionary<int, EncounterSettings> EncounterDictionary { get; private set; }
 
