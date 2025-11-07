@@ -55,7 +55,12 @@ public class SkillContext
         instance.OnPlayCard += () => OnCardPlayed?.Invoke(instance);
         instance.OnUpdateTower += (data) =>
         {
-            if (instance.skillContext != this) return;
+            if (instance.skillContext != this)
+            {
+                Debug.LogError("SkillInstance's context does not match SkillContext in OnUpdateTower");
+                return;
+            }
+            Debug.Log("test " + instance.Data.name);
             OnTowerUpdated?.Invoke(data);
         };
         
@@ -66,13 +71,11 @@ public class SkillContext
         bool activeInstance = ActiveSkills.Any(s => s == instance);
         if (!activeInstance) return false;
         var towerWaveData = new TowerWaveData();
-        if (TowerService.TryModifyOnCardRemoved(towerWaveData, instance))
-        {
-            OnTowerUpdated?.Invoke(towerWaveData);
-        }
-            
-        //instance.Dispose();
         ActiveSkills.Remove(instance);
+        if(TowerService.TryModifyOnCardRemoved(towerWaveData, instance))
+            OnTowerUpdated?.Invoke(towerWaveData);
+        instance.IsDisabled = false;
+        //instance.Dispose();
         return true;
     }
     public IEnumerable<T> GetSkillsOfType<T>()

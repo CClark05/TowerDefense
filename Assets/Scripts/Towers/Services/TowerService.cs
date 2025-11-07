@@ -155,7 +155,7 @@ public static class TowerService
         {
             case ITowerCardReceivedModifier modifier:
             {
-                for (int i = 0; i < (modifier.alwaysPlayOnce ? 1 : Math.Max(skillInstance.PlayCount, 1)); i++)
+                for (int i = 0; i < (modifier.alwaysPlayOnce ? 1 : skillInstance.PlayCount); i++)
                 {
                     modifier.Remove(data);
                 }
@@ -163,7 +163,7 @@ public static class TowerService
             }
             case IOnRemoval removal:
             {
-                for (int i = 0; i < Math.Max(skillInstance.PlayCount, 1); i++)
+                for (int i = 0; i < skillInstance.PlayCount; i++)
                 {
                     removal.Remove(data);
                 }

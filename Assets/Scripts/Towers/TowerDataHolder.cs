@@ -94,10 +94,21 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
             FunctionTimer.Create(() => { RuntimeData.stunned = false; }, towerWaveData.stunnedDuration);
         }
 
+        if (towerWaveData.increasedSlots != 0)
+        {
+            UpdateCardSlots();
+        }
+    }
+
+    private void UpdateCardSlots()
+    {
         int activeSlots = SkillInstanceList.FindAll(s => !s.IsDisabled).Count;
+        Debug.Log($"Updating tower data. Card Slots: {RuntimeData.CardSlots}, Active Slots: {activeSlots}");
         if (RuntimeData.CardSlots < activeSlots)
         {
-            int cardsToDisable = activeSlots - RuntimeData.CardSlots;
+            int cardsToDisable = (activeSlots - RuntimeData.CardSlots); 
+            Debug.Log(cardsToDisable);
+            Debug.Log("Total skills : " + SkillInstanceList.Count);
             for (int i = SkillInstanceList.Count - 1; i >= 0 && cardsToDisable > 0; i--)
             {
                 var skill = SkillInstanceList[i];
@@ -105,62 +116,30 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
                 {
                     skill.IsDisabled = true;
                     cardsToDisable--;
+                    Debug.Log("disabled " + skill.Data.name);
                 }
             }
             return;
         }
         var disabledCards = SkillInstanceList.FindAll(s => s.IsDisabled);
+        Debug.Log("Disabled Cards Count: " + disabledCards.Count);
         if (RuntimeData.CardSlots >= activeSlots && disabledCards.Count > 0)
         {
+            Debug.Log("Enabling cards...");
             int enabledCards = 0;
             for (int i = 0; i < RuntimeData.CardSlots && enabledCards <= disabledCards.Count; i++)
             {
                 var skill = SkillInstanceList[i];
+                Debug.Log(skill.Data.name + " " + skill.IsDisabled);
                 if (skill.IsDisabled)
                 {
+                    Debug.Log("Enabling " + skill.Data.name);
                     skill.IsDisabled = false;
                     enabledCards++;
                 }
             }
         }
-
-        
-        /**
-        int total = SkillInstanceList.Count;
-        int desiredEnabled = Mathf.Clamp(RuntimeData.CardSlots, 0, total);
-        int currentEnabled = SkillInstanceList.Count(s => !s.IsDisabled);
-
-        if (currentEnabled > desiredEnabled)
-        {
-            int toDisable = currentEnabled - desiredEnabled;
-            // Disable from the end (LIFO – most recently added goes off first)
-            for (int i = SkillInstanceList.Count - 1; i >= 0 && toDisable > 0; i--)
-            {
-                var s = SkillInstanceList[i];
-                if (!s.IsDisabled)
-                {
-                    s.IsDisabled = true;
-                    toDisable--;
-                }
-            }
-        }
-        else if (currentEnabled < desiredEnabled)
-        {
-            int toEnable = desiredEnabled - currentEnabled;
-            // Enable in list order (FIFO – oldest disabled comes back first)
-            for (int i = 0; i < SkillInstanceList.Count && toEnable > 0; i++)
-            {
-                var s = SkillInstanceList[i];
-                if (s.IsDisabled)
-                {
-                    s.IsDisabled = false;
-                    toEnable--;
-                }
-            }
-        }
-        */
     }
-
     private float TotalWaveTime;
     public float RealWaveDPS { get; private set; }
     public float MaxWaveDPS { get; private set; }
@@ -194,6 +173,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
     {
         if (SkillContext.TryRemoveSkill(instance))
         {
+            Debug.Log("Removed card: " + instance.Data.name);
             GoldValue -= Mathf.FloorToInt(instance.Data.price * 0.5f);
             OnUpdateCards?.Invoke();
             return true;

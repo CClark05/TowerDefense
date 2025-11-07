@@ -25,6 +25,7 @@ public abstract class SkillInstance
             if (playCount == value) return;
             if (value > 0 && playCount == 0)
             {
+                playCount = value;
                 TowerWaveData waveData = new TowerWaveData();
                 if (TowerService.TryModifyOnCardReceived(waveData, this))
                 {
@@ -33,7 +34,7 @@ public abstract class SkillInstance
                 }
                     
             }
-            else if(value < 0 && playCount > 0)
+            else if(value <= 0 && playCount > 0)
             {
                 TowerWaveData waveData = new TowerWaveData();
                 if (TowerService.TryModifyOnCardRemoved(waveData, this))
@@ -41,9 +42,8 @@ public abstract class SkillInstance
                     OnUpdateTower?.Invoke(waveData);
                     Debug.Log("Invoked OnUpdateTower for removal of " + Data.name);
                 }
-                    
+                playCount = value;
             }
-            playCount = value;
             OnPlayCountUpdated?.Invoke(value);
             
         }
