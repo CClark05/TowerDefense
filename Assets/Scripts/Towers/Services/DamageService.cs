@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
-using System.Xml;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
-using UnityEngine.Rendering;
 
 public static class DamageService
 {
@@ -24,20 +21,24 @@ public static class DamageService
                 ((OnHitStatusEffect)kvp.Key).OnPersistentHit(hitData, kvp.Value);
             }
         }
-
+        /**
         foreach (var mod in skillContext.GetSkillInstancesWith<IHitModifier>())
         {
             for(int i = 0; i < mod.instance.PlayCount; i++)
             {
+                if(mod.instance.IsDisabled) continue;
                 mod.modifier.Modify(hitData, damageable);
             }
         }
-
+        */
+        CallModifier.Call<IHitModifier>(skillContext, (mod,_) =>
+        {
+            mod.Modify(hitData, damageable);
+        });
         foreach (var status in hitData.effectsApplied.OfType<IHitModifier>())
         {
             status.Modify(hitData, damageable);
         }
-
         foreach (var kvp in hitData.effectsApplied)
         {
             if (kvp.Key is not PersistentStatusEffect persistentEffect) continue;
@@ -45,6 +46,7 @@ public static class DamageService
             var effectData = new ModifyEffectData();
             foreach (var mod in onEffects)
             {
+                if(mod.instance.IsDisabled) continue;
                 for(int i = 0; i < mod.instance.PlayCount; i++)
                 {
                     mod.modifier.Modify(effectData, hitData);
@@ -55,29 +57,23 @@ public static class DamageService
         }
 
         hitData.finalDamage = Mathf.RoundToInt(hitData.finalDamage * finalMult);
-        foreach (var mod in skillContext.GetSkillInstancesWith<IAfterHitModifier>())
+        CallModifier.Call<IAfterHitModifier>(skillContext, (mod,_) =>
         {
-            for(int i = 0; i < mod.instance.PlayCount; i++)
-            {
-                mod.modifier.Modify(hitData);
-            }
-        }
-        //bool isDead = damageable.TakeDamage(hitData.finalDamage);
+            mod.Modify(hitData);
+        });
         bool isDead = damageable.IsDeadFromDamage(hitData.finalDamage);
         hitData.didKill = isDead;
         onDealDamage?.Invoke(hitData, damageable.Transform.position);
         if (isDead)
         {
-            foreach (var onKill in skillContext.GetSkillInstancesWith<IOnKill>())
+            CallModifier.Call<IOnKill>(skillContext, (mod,_) =>
             {
-                for(int i = 0; i < onKill.instance.PlayCount; i++)
-                {
-                    onKill.modifier.OnKill(hitData);
-                }
-            }
+                mod.OnKill(hitData);
+            });
         }
 
         damageable.TakeDamage(hitData.finalDamage);
+        /**
         hitData.RetriggerDamage = mult =>
         {
             CoroutineRunner.Instance.StartCoroutine(Retrigger());
@@ -89,6 +85,7 @@ public static class DamageService
                 DamageService.ApplyDamage(clone, damageable, statusEffects, skillContext, onDealDamage, mult);
             }
         };
+        */
     }
     /**
     public static int CalculateDamage(

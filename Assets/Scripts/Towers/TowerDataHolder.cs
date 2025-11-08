@@ -56,7 +56,6 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
     private void OnWaveStart()
     {
         TowerService.ModifyWaveStart(WaveData, SkillContext);
-        PlayerService.ModifyWaveStart(SkillContext);
         TowerService.MarkWaveStartDone(this);
     }
 
@@ -68,7 +67,6 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         TowerWaveData waveData = new TowerWaveData();
         TowerService.MarkWaveEnd(this);
         TowerService.ModifyWaveEnd(waveData, SkillContext);
-        PlayerService.ModifyWaveEnd(SkillContext);
         UpdateTowerData(waveData);
     }
 
@@ -106,7 +104,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         Debug.Log($"Updating tower data. Card Slots: {RuntimeData.CardSlots}, Active Slots: {activeSlots}");
         if (RuntimeData.CardSlots < activeSlots)
         {
-            int cardsToDisable = (activeSlots - RuntimeData.CardSlots); 
+            int cardsToDisable = (activeSlots - RuntimeData.CardSlots) - 1; 
             Debug.Log(cardsToDisable);
             Debug.Log("Total skills : " + SkillInstanceList.Count);
             for (int i = SkillInstanceList.Count - 1; i >= 0 && cardsToDisable > 0; i--)

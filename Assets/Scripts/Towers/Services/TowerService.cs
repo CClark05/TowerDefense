@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public static class TowerService
@@ -116,6 +117,11 @@ public static class TowerService
     
     public static void ModifyWaveStart(TowerWaveData data, SkillContext context)
     {
+        CallModifier.Call<ITowerWaveStartModifier>(context, (mod, _) =>
+        {
+            mod.Modify(data);
+        });
+        /**
         foreach (var mod in context.GetSkillInstancesWith<ITowerWaveStartModifier>())
         {
             for (int i = 0; i < mod.instance.PlayCount; i++)
@@ -123,10 +129,16 @@ public static class TowerService
                 mod.modifier.Modify(data);
             }
         }
+        */
     }
 
     public static void ModifyWaveEnd(TowerWaveData data, SkillContext context)
     {
+        CallModifier.Call<ITowerWaveEndModifier>(context, (mod, _) =>
+        {
+            mod.Modify(data);
+        });
+        /**
         foreach (var mod in context.GetSkillInstancesWith<ITowerWaveEndModifier>())
         {
             for (int i = 0; i < mod.instance.PlayCount; i++)
@@ -134,10 +146,16 @@ public static class TowerService
                 mod.modifier.Modify(data);
             }
         }
+        */
     }
 
-    public static bool TryModifyOnCardReceived(TowerWaveData data, SkillInstance skillInstance)
+    public static void TryModifyOnCardReceived(TowerWaveData data, SkillInstance skillInstance)
     {
+        CallModifier.TryCall<ITowerCardReceivedModifier>(skillInstance, (mod, _) =>
+        {
+            mod.Apply(data);
+        });
+        /**
         if (skillInstance is ITowerCardReceivedModifier modifier)
         {
             for (int i = 0; i < (modifier.alwaysPlayOnce ? 1 : skillInstance.PlayCount); i++)
@@ -147,27 +165,40 @@ public static class TowerService
             return true;
         }
         return false;
+        */
     }
     
-    public static bool TryModifyOnCardRemoved(TowerWaveData data, SkillInstance skillInstance)
+    public static bool TryModifyOnCardRemoved(TowerWaveData data, SkillInstance skillInstance, bool ignoreDisabled = false)
     {
         switch (skillInstance)
         {
             case ITowerCardReceivedModifier modifier:
             {
+                return CallModifier.TryCall<ITowerCardReceivedModifier>(skillInstance, (mod, _) =>
+                {
+                    mod.Remove(data);
+                }, ignoreDisabled);
+                /**
                 for (int i = 0; i < (modifier.alwaysPlayOnce ? 1 : skillInstance.PlayCount); i++)
                 {
                     modifier.Remove(data);
                 }
                 return true;
+                */
             }
             case IOnRemoval removal:
             {
+                return CallModifier.TryCall<IOnRemoval>(skillInstance, (mod, _) =>
+                {
+                    mod.Remove(data);
+                }, ignoreDisabled);
+                /**
                 for (int i = 0; i < skillInstance.PlayCount; i++)
                 {
                     removal.Remove(data);
                 }
                 return true;
+                */
             }
             default:
                 return false;

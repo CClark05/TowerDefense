@@ -16,7 +16,7 @@ public class GildedGreedSkillData : SkillData
     }
 }
 
-public class GildedGreedSkillInstance : SkillInstance<GildedGreedSkillData>, IOnCoinsUpdated, ITowerCardReceivedModifier
+public class GildedGreedSkillInstance : SkillInstance<GildedGreedSkillData>, IOnCoinsUpdated, ITowerCardReceivedModifier, IPlayCountPolicy<IOnCoinsUpdated>, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
     private int currentBonus;
     public GildedGreedSkillInstance(GildedGreedSkillData data) : base(data)
@@ -38,6 +38,5 @@ public class GildedGreedSkillInstance : SkillInstance<GildedGreedSkillData>, IOn
         return bonusDelta;
     }
     public void OnCoinsUpdated() => skillContext.Tower.RuntimeData.BaseDamage += CalculateBonus();
-    public bool alwaysPlayOnce { get; } = true;
-
+    public int SetPlayCount() => 1;
 }

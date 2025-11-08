@@ -30,13 +30,20 @@ public class ScorchingDeathSkillInstance : SkillInstance<ScorchingDeathSkillData
         var enemies = EnemyManager.Instance.CurrentEnemies.Select(e => e.GetComponent<IUsesStatusEffects>()).ToList();
         foreach (var enemy in enemies)
         {
-            var onEffects = skillContext.GetSkillInstancesWith<IOnEffectApplied>().Where(e => e.modifier.Effect == Data.statusEffects[0].data);
+            //var onEffects = skillContext.GetSkillInstancesWith<IOnEffectApplied>().Where(e => e.modifier.Effect == Data.statusEffects[0].data);
             var effectData = new ModifyEffectData();
+            CallModifier.Call<IOnEffectApplied>(skillContext, (mod, instance) =>
+            {
+                if(mod.Effect != Data.statusEffects[0].data) return;
+                mod.Modify(effectData, hitData);
+            });
+            /**
             foreach (var mod in onEffects)
             {
                 for(int i = 0; i < mod.instance.PlayCount; i++)
                     mod.modifier.Modify(effectData, hitData);
             }
+            */
             enemy.AddPersistentEffect(Data.statusEffects[0].data as PersistentStatusEffect, hitData, Data.fireOnKill, effectData, hitData.ghost);
             PlayCard();
         }

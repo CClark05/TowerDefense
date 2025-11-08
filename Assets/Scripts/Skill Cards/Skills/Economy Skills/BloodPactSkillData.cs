@@ -17,7 +17,7 @@ public class BloodPactSkillData : SkillData
     }
 }
 
-public class BloodPactSkillInstance : SkillInstance<BloodPactSkillData>, IPlayerWaveStartModifier, ITowerWaveStartModifier
+public class BloodPactSkillInstance : SkillInstance<BloodPactSkillData>, ITowerWaveStartModifier, ISelfDestructs
 {
     public BloodPactSkillInstance(BloodPactSkillData data) : base(data)
     {
@@ -26,20 +26,15 @@ public class BloodPactSkillInstance : SkillInstance<BloodPactSkillData>, IPlayer
     public void Modify(TowerWaveData towerWaveData)
     {
         if (PlayerLife.Instance.CurrentLives <= Data.livesLost)
+        {
             towerWaveData.removedCards.Add(this);
-    }
-    public void WaveStart()
-    {
-        if (PlayerLife.Instance.CurrentLives <= Data.livesLost) return;
+            OnSelfDestruct?.Invoke();
+            return;
+        }
         PlayCard();
         PlayerLife.Instance.AddLives(-Data.livesLost);
         PlayerInventory.Instance.AddCoins(Data.plusGold);
     }
-
-    public void WaveEnd()
-    {
-        
-    }
-
     
+    public Action OnSelfDestruct { get; set; }
 }

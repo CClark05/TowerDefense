@@ -8,7 +8,7 @@ public class DividendSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"At the end of each wave, gain +${plusGold}.";
+        description = $"At the start of each wave, gain +${plusGold}.";
     }
 
     public override SkillInstance CreateInstance()
@@ -16,20 +16,14 @@ public class DividendSkillData : SkillData
         return new DividendSkillInstance(this);
     }
 }
-public class DividendSkillInstance : SkillInstance<DividendSkillData>, IPlayerWaveStartModifier
+public class DividendSkillInstance : SkillInstance<DividendSkillData>, ITowerWaveStartModifier
 {
     public DividendSkillInstance(DividendSkillData data) : base(data)
     {
     }
-    public void WaveEnd()
+    public void Modify(TowerWaveData towerWaveData)
     {
         PlayerInventory.Instance.AddCoins(Data.plusGold);
         PlayCard();
     }
-
-    public void WaveStart()
-    {
-    }
-
-    
 }

@@ -96,6 +96,11 @@ public class Projectile : MonoBehaviour
                 DamageService.ApplyDelayedDamage(hitData, damageable, statusEffects, towerData.SkillContext, delay, multiplier, OnDealDamage));
         };
         var list = towerData.SkillContext.GetSkillInstancesWith<IOnHit>();
+        CallModifier.Call<IOnHit>(towerData.SkillContext, (mod, _) =>
+        {
+            mod.OnHit(hitData);
+        });
+        /**
         foreach (var mod in towerData.SkillContext.GetSkillInstancesWith<IOnHit>().OrderBy(p => p.modifier.Priority)) 
         {
             for(int i = 0; i < mod.instance.PlayCount; i++)
@@ -103,6 +108,7 @@ public class Projectile : MonoBehaviour
                 mod.modifier.OnHit(hitData);
             }
         }
+        */
         if (delayed)
         {
             Destroy(gameObject);

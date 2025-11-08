@@ -18,6 +18,8 @@ public class PlayerInventory : Singleton<PlayerInventory>
             OnCoinsUpdated?.Invoke(value);
             foreach (var tower in TowerDataHolder.ActiveTowerList)
             {
+                CallModifier.Call<IOnCoinsUpdated>(tower.SkillContext, (mod,instance) => mod.OnCoinsUpdated());
+                /**
                 var context = tower.SkillContext;
                 foreach (var mod in context.GetSkillInstancesWith<IOnCoinsUpdated>())
                 {
@@ -26,6 +28,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
                         mod.modifier.OnCoinsUpdated();
                     }
                 }
+                */
             }
         }
     }

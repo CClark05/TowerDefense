@@ -15,11 +15,17 @@ public abstract class OnTickStatusEffect : PersistentStatusEffect
         data.didKill = tickData.damageable.TakeDamage(data.finalDamage);
         if (data.didKill)
         {
+            CallModifier.Call<IOnKill>(tickData.hitData.tower.GetComponent<TowerDataHolder>().SkillContext, (mod,_) =>
+            {
+                mod.OnKill(tickData.hitData);
+            });
+            /**
             foreach (var onKill in tickData.hitData.tower.GetComponent<TowerDataHolder>().SkillContext.GetSkillInstancesWith<IOnKill>())
             {
                 for(int i = 0; i < onKill.instance.PlayCount; i++)
                     onKill.modifier.OnKill(tickData.hitData);
             }
+            */
         }
         tickData.statusEffects.OnTakeDamage?.Invoke(data, tickData.hitData.tower);
     }
