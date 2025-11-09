@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -101,7 +102,22 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
             OnRemovedCard?.Invoke();
         };
     }
-
+    public void AddCards(List<SkillInstance> skillInstances)
+    {
+        StartCoroutine(routine());
+        IEnumerator routine()
+        {
+            const float delay = 0.5f;
+            
+            foreach (var instance in skillInstances)
+            {
+                if (SkillCards.Count >= settings.MaxCards)
+                    continue;
+                yield return new WaitForSeconds(delay);
+                AddCard(instance);
+            }
+        }
+    }
     public void RemoveCard(SkillInstance skillData)
     {
         var card = SkillCards.FirstOrDefault(c => c.SkillInstance == skillData);
@@ -117,4 +133,6 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     {
         return SkillCards.Count < settings.MaxCards;
     }
+
+    
 }

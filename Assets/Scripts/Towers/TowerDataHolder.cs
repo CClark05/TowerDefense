@@ -93,9 +93,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         }
 
         if (towerWaveData.increasedSlots != 0)
-        {
             UpdateCardSlots();
-        }
     }
 
     private void UpdateCardSlots()
