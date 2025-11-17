@@ -1,0 +1,664 @@
+fileFormatVersion: 2
+guid: 96d9b4ee307d2ce418c55885a8ecabfa
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8648032925365490086
+    second: CardIcons_0
+  - first:
+      213: 287649832177700510
+    second: CardIcons_1
+  - first:
+      213: 351554976137735218
+    second: CardIcons_2
+  - first:
+      213: -492782416430950139
+    second: CardIcons_3
+  - first:
+      213: 92611940212284077
+    second: CardIcons_4
+  - first:
+      213: -5445075862127298849
+    second: CardIcons_5
+  - first:
+      213: -3598647898564959137
+    second: CardIcons_6
+  - first:
+      213: 1145404442578332096
+    second: CardIcons_7
+  - first:
+      213: 1858116976572667410
+    second: CardIcons_8
+  - first:
+      213: -7013116369423637763
+    second: CardIcons_9
+  - first:
+      213: 5476671250807671832
+    second: CardIcons_10
+  - first:
+      213: -3413648882919510996
+    second: CardIcons_11
+  - first:
+      213: 2535411246737045790
+    second: CardIcons_12
+  - first:
+      213: -903315029327368214
+    second: CardIcons_13
+  - first:
+      213: -5632352613104609792
+    second: CardIcons_14
+  - first:
+      213: -3131443974699964910
+    second: CardIcons_15
+  - first:
+      213: 2864700677688057526
+    second: CardIcons_16
+  - first:
+      213: 1207296231234192340
+    second: CardIcons_17
+  - first:
+      213: 4017673532660534875
+    second: CardIcons_18
+  - first:
+      213: -4575220665565685519
+    second: CardIcons_19
+  - first:
+      213: -5456733981038111024
+    second: CardIcons_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 0
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 0
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FocusedImpact_Icon
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5e25b5afd30cf780800000000000000
+      internalID: -8648032925365490086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BloodMoney_Icon
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9e07a29fffedf300800000000000000
+      internalID: 287649832177700510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Payday_Icon
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 509131dc0094929f0800000000000000
+      internalID: -492782416430950139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Dividend_Icon
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: daa1056a116094100800000000000000
+      internalID: 92611940212284077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GildedGreed_Icon
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd639d64a543f64b0800000000000000
+      internalID: -5445075862127298849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FarSight_Icon
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f54645e7dc80f0ec0800000000000000
+      internalID: -3598647898564959137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Jajanken_Icon
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c9290c954b45ef00800000000000000
+      internalID: 1145404442578332096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BanditsSecret_Icon
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2169cb3ab8b59c910800000000000000
+      internalID: 1858116976572667410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Catalyst_Icon
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df2e600b1d76cae90800000000000000
+      internalID: -7013116369423637763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sacrifice_Icon
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81c4cf76c7b010c40800000000000000
+      internalID: 5476671250807671832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CardIcons_11
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2c6ca16d6840a0d0800000000000000
+      internalID: -3413648882919510996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quickdraw_Icon
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e19ba4188179f2320800000000000000
+      internalID: 2535411246737045790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Overflow_Icon
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 121
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aefabac44c7c673f0800000000000000
+      internalID: -903315029327368214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HuntersMark_Icon
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 121
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 006182ec32dd5d1b0800000000000000
+      internalID: -5632352613104609792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CriticalMomentum_Icon
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 121
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 216a8fdcb40ea84d0800000000000000
+      internalID: -3131443974699964910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Execution_Icon
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 121
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6beda69a61671c720800000000000000
+      internalID: 2864700677688057526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KillingFocus_Icon
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 121
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d3c169968d21c010800000000000000
+      internalID: 1207296231234192340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: KillingSpree_Icon
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 121
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b5e48b99ac4a1c730800000000000000
+      internalID: 4017673532660534875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PerfectForm_Icon
+      rect:
+        serializedVersion: 2
+        x: 136
+        y: 121
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f85ee39b0d8180c0800000000000000
+      internalID: -4575220665565685519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ExposingShot_Icon
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 101
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d69b62fa59c544b0800000000000000
+      internalID: -5456733981038111024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Draft_Icon
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b57db0280891d54caa5ecdca17e6539
+      internalID: -1610581713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: d5b628527c869604ea6d10d81d4e4720
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BanditsSecret_Icon: 1858116976572667410
+      BloodMoney_Icon: 287649832177700510
+      CardIcons_11: -3413648882919510996
+      CardIcons_2: 351554976137735218
+      Catalyst_Icon: -7013116369423637763
+      CriticalMomentum_Icon: -3131443974699964910
+      Dividend_Icon: 92611940212284077
+      Draft_Icon: -1610581713
+      Execution_Icon: 2864700677688057526
+      ExposingShot_Icon: -5456733981038111024
+      FarSight_Icon: -3598647898564959137
+      FocusedImpact_Icon: -8648032925365490086
+      GildedGreed_Icon: -5445075862127298849
+      HuntersMark_Icon: -5632352613104609792
+      Jajanken_Icon: 1145404442578332096
+      KillingFocus_Icon: 1207296231234192340
+      KillingSpree_Icon: 4017673532660534875
+      Overflow_Icon: -903315029327368214
+      Payday_Icon: -492782416430950139
+      PerfectForm_Icon: -4575220665565685519
+      Quickdraw_Icon: 2535411246737045790
+      Sacrifice_Icon: 5476671250807671832
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

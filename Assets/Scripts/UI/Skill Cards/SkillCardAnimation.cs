@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -5,60 +6,89 @@ using UnityEngine.UI;
 
 public class SkillCardAnimation : MonoBehaviour
 {
-    [SerializeField] RectTransform content;
-    private Vector2 originalPos;
-    private Vector3 originalScale;
     private SkillCardUI cardUI;
+    private CardDragDrop dragDrop;
     private Tweener t;
-
+    private RectTransform rt;
+    private float originalY;
+    private Vector3 originalScale;
+    private Canvas cardCanvas;
+    [SerializeField] private Sprite selectedSprite;
+    [SerializeField] private Image cardImage;
+    private Sprite originalSprite;
     private void Awake()
     {
         cardUI = GetComponent<SkillCardUI>();
+        dragDrop = GetComponent<CardDragDrop>();
+        rt = GetComponent<RectTransform>();
+        cardCanvas = GetComponent<Canvas>();
     }
-
+    Tweener moveTween;
+    Tweener scaleTween;
     private void Start()
     {
-        StartCoroutine(DelayedSetup());
-        cardUI.OnSellCard += RemoveCard;
+        originalSprite = cardImage.sprite;
+        //cardUI.OnSellCard += RemoveCard;
+        originalY = rt.anchoredPosition.y;
+        originalScale = transform.localScale;
         GetComponent<CardDragDrop>().OnDropCard += RemoveCard;
-        originalScale = content.localScale;
-        cardUI.OnHoverCard += () => { content.DOScale(new Vector3(1.2f, 1.2f, 1.2f), 0.1f); };
-        cardUI.OnLeaveHoverCard += () => {content.DOScale(originalScale, 0.1f); };
-    }
-
-    private IEnumerator DelayedSetup()
-    {
-        yield return new WaitForEndOfFrame();
-        originalPos = content.anchoredPosition;
-
+        const float moveDuration = 0.25f;
+        cardUI.OnHoverCard += () =>
+        {
+            cardCanvas.sortingOrder = 1;
+            moveTween?.Kill();
+            scaleTween?.Kill();
+            moveTween = rt.DOAnchorPosY(originalY + 50f, moveDuration).SetEase(Ease.OutBack).SetUpdate(true);
+            scaleTween = transform.DOScale(originalScale * 1.5f, moveDuration).SetEase(Ease.OutBack).SetUpdate(true);
+        };
+        cardUI.OnLeaveHoverCard += () =>
+        {
+            cardCanvas.sortingOrder = 0;
+            moveTween?.Kill();
+            scaleTween?.Kill();
+            moveTween = rt.DOAnchorPosY(originalY, moveDuration * 0.75f).SetEase(Ease.OutSine).SetUpdate(true);
+            scaleTween = transform.DOScale(originalScale, moveDuration * 0.75f).SetEase(Ease.OutSine).SetUpdate(true);
+        };
+        
         cardUI.OnClickCard += selected =>
         {
             t?.Kill();
             if (selected)
-                t = content.DOAnchorPosX(originalPos.x - 20f, 0.25f).SetEase(Ease.OutQuad);
-            else
-                t = content.DOAnchorPosX(originalPos.x, 0.25f).SetEase(Ease.OutQuad);
+            {
+                cardImage.sprite = selectedSprite;
+                return;
+            }
+            cardImage.sprite = originalSprite;
+
         };
+
+        transform.localScale = Vector3.zero;
+        transform.DOScale(originalScale, 0.3f).SetEase(Ease.OutBack).SetDelay(0.1f).SetUpdate(true);
+    }
+    
+
+    private void Update()
+    {
+        if (dragDrop.TargetPosition.HasValue)
+        {
+            float speed = dragDrop.IsDragging ? 300 : 15;
+            rt.anchoredPosition = Vector2.Lerp(rt.anchoredPosition, dragDrop.TargetPosition.Value, speed * Time.deltaTime);
+
+            if ((rt.anchoredPosition - dragDrop.TargetPosition.Value).sqrMagnitude <= 0.25f)
+            {
+                rt.anchoredPosition = dragDrop.TargetPosition.Value;
+                dragDrop.ClearTarget();
+            }
+        }
     }
 
     private void RemoveCard()
     {
         transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack).SetDelay(0.25f)
-            .OnComplete(() => { CoroutineRunner.Instance.StartCoroutine(RecalculateAfterDestroy()); });
-    }
-
-    private IEnumerator RecalculateAfterDestroy()
-    {
-        cardUI.RemoveCard(cardUI);
-        Destroy(gameObject);
-        yield return null;
-        foreach (var card in InventoryUI.Instance.SkillCards)
-            if (card != null)
-                card.GetComponent<SkillCardAnimation>().RecalculatePosition();
-    }
-
-    private void RecalculatePosition()
-    {
-        originalPos = content.anchoredPosition;
+            .OnComplete(() =>
+            {
+                cardUI.RemoveCard(cardUI);
+                Destroy(gameObject);
+            }).SetUpdate(true);
     }
 }

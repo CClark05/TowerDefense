@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Far Sight Data
   m_EditorClassIdentifier: 
   name: Far Sight
-  icon: {fileID: 8586090813562367716, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  icon: {fileID: -3598647898564959137, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Gives +5 range.
   statusEffects: []

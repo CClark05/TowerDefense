@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84ac073cc0934031a1937471418a162e, type: 3}
   m_Name: Exposing Shot Data
   m_EditorClassIdentifier: 
-  price: 10
   name: Exposing Shot
-  icon: {fileID: 0}
+  icon: {fileID: -5456733981038111024, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Applies 1 <color=#A23E8C>Weak</color> on hit if target has zero <color=#A23E8C>Weak</color>
     stacks.
@@ -27,3 +26,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 03e3051401fd2c44ea2e4a731fd7e366, type: 2}
   - {fileID: 11400000, guid: c43815f674c7f0843b06bdc998822493, type: 2}
   - {fileID: 11400000, guid: 558c2f8a679efd846a3c7903b2a17e57, type: 2}
+  isExcluded: 0

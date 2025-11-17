@@ -144,7 +144,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: CardUI_Top
+  - name: CardUI
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -152,53 +152,74 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 36
-      y: 50
-      width: 80
-      height: 57
-    spriteID: 53965ea8e00d3134dbcd5f04164634a3
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: CardUI_SellButton
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 58
-      width: 32
-      height: 33
-    spriteID: e95ed29e7552fba449407aa44f36a5f7
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: CardUI_Bottom
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 144
+      x: 164
       y: 4
       width: 80
-      height: 71
-    spriteID: 8a70da2cb4e14ad44b13ba2eda78c866
+      height: 130
+    spriteID: e4c5c8e8ab96be54891ff01c61c858ac
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: CardUI_Selected
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 57
+      y: 4
+      width: 80
+      height: 130
+    spriteID: 047ce183793385641993f513d13eaf5b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: CardUI_Tab
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 247
+      y: 81
+      width: 65
+      height: 46
+    spriteID: c6e940e51ab7a8c4b8684ea8049835ff
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: CardUI_Placeholder
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 329
+      y: 7
+      width: 80
+      height: 128
+    spriteID: 1b916271d4421b944a8678e0035b0335
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,10 +240,10 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 48
-        y: 33
-        width: 220
-        height: 103
+        x: 27
+        y: 6
+        width: 405
+        height: 131
       spriteId: 1a62bb7bfe7e4dc4581534dd87a54ed5
     linkedCells: []
     parentIndex: -1
@@ -266,4 +287,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 307, y: 152}
+  canvasSize: {x: 541, y: 152}

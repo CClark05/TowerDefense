@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sacrifice Data
   m_EditorClassIdentifier: 
   name: 'Sacrifice '
-  icon: {fileID: -7375000822327799320, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  icon: {fileID: 5476671250807671832, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
   description: Card gains +3 base damage every time one of your cards self destructs.
   statusEffects: []

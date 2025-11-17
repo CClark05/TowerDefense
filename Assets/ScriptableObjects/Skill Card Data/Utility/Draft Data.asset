@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Draft Data
   m_EditorClassIdentifier: 
   name: Draft
-  icon: {fileID: 0}
+  icon: {fileID: -1610581713, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
-  description: Draw 3 random cards into your hand if you have room. Self destructs
+  description: Draw 2 random cards into your hand if you have room. Self destructs
     after use.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  cardsDrawn: 3
+  cardsDrawn: 2
   skillRegistry: {fileID: 11400000, guid: 5437b0564b2259044824ede22bb06552, type: 2}
   cardRaritySettings: {fileID: 11400000, guid: d67cea1d0b1b1f44091bfaa995765fd7, type: 2}

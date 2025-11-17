@@ -25,6 +25,8 @@ public class TowerShooting : MonoBehaviour
     public TargetingModes TargetingMode => targetingMode;
     public int ShotsThisRound { get; private set; }
     private EnemyManager enemyManager;
+    public Vector2? Direction { get; private set; }
+    private GameObject target;
     
     private void Awake()
     {
@@ -76,13 +78,15 @@ public class TowerShooting : MonoBehaviour
             shootCoroutine = StartCoroutine(ShootProjectile());
             shootTimer = 0f;
         }
+        
+        Direction = target != null ? (target.transform.position - transform.position) : null;
     }
 
     private IEnumerator ShootProjectile()
     {
         var shotData = new ProjectileShotData(Time.time);
         yield return ProjectileService.ModifyProjectile(shotData, towerDataHolder.SkillContext);
-        var target = TargetEnemy();
+        target = TargetEnemy();
         if (target != null && target.TryGetComponent<IDamageable>(out var damageable))
         {
             var projectile = Projectile.CreateProjectile(projectileData, shotData, transform.position, damageable, towerDataHolder);

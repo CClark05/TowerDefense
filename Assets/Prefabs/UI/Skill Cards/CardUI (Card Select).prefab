@@ -268,6 +268,12 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls: []
+  OnRelease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInitialPress:
+    m_PersistentCalls:
+      m_Calls: []
   rectTransform: {fileID: 2502920415499893036}
   clickDelay: 0
   scaleFactor: 1.1
@@ -285,6 +291,7 @@ GameObject:
   - component: {fileID: 2071948414845406028}
   - component: {fileID: 2705993855356914478}
   - component: {fileID: 357203813586018304}
+  - component: {fileID: 5419857140128647590}
   m_Layer: 5
   m_Name: CardUI (Card Select)
   m_TagString: Untagged
@@ -334,10 +341,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 6278620050054772269}
   descriptionText: {fileID: 7239348729266101224}
-  sellPriceText: {fileID: 2368556232111720875}
-  statusEffectGroup: {fileID: 3104835346240107212}
+  sideTabPrefab: {fileID: 0}
   skillData: {fileID: 11400000, guid: a5f7e3f1fac49d64d95679d572809c1a, type: 2}
-  statusEffectPrefab: {fileID: 6002282899356458343, guid: 907df6e5aca053545a7e17300412eb37, type: 3}
+  cardUI:
+    underlyingValue: {fileID: 5419857140128647590}
 --- !u!114 &357203813586018304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -353,6 +360,19 @@ MonoBehaviour:
   duration: 0.25
   strength: 10
   vibrato: 9
+--- !u!114 &5419857140128647590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632781708225007360}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c7265e17d00410f9da0a77a4542a752, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: {fileID: 0}
 --- !u!1 &3180634891563602011
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,6 +1009,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+  OnRelease:
+    m_PersistentCalls:
+      m_Calls: []
+  OnInitialPress:
     m_PersistentCalls:
       m_Calls: []
   rectTransform: {fileID: 0}

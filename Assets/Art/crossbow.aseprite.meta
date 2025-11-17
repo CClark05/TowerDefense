@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638945022500169815
+  platformSettingsDirtyTick: 638984016756403318
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -144,7 +144,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: crossbow_0
+  - name: crossbow
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -152,11 +152,32 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
+      x: 2
       y: 1
       width: 32
       height: 32
     spriteID: 0912393b687fff94abb311ec7b85fb45
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: crossbow_base
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 2
+      y: 32
+      width: 32
+      height: 31
+    spriteID: ce25f08fcb56c66449145be065ca032e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -177,10 +198,10 @@ ScriptedImporter:
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 3
-        width: 32
-        height: 26
+        x: 62
+        y: 42
+        width: 29
+        height: 47
       spriteId: 7284cda5c4d9d6741b14250ecfc20f3e
     linkedCells: []
     parentIndex: -1
@@ -203,7 +224,7 @@ ScriptedImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     forceMaximumCompressionQuality_BC6H_BC7: 0
     crunchedCompression: 0
@@ -224,4 +245,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 32, y: 32}
+  canvasSize: {x: 100, y: 100}

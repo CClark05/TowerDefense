@@ -47,7 +47,7 @@ public class CardSlotUI : MonoBehaviour
         {
             selected = !selected;
             fullCard.GetComponent<CanvasGroup>().enabled = !selected;
-            fullCard.ToggleSellButton(selected);
+           // fullCard.ToggleSellButton(selected);
             fullCard.ToggleButtonOnClick(!selected);
             button.enabled = !selected;
             fullCard.OnDisableButton += () =>
@@ -55,11 +55,13 @@ public class CardSlotUI : MonoBehaviour
                 disableButton = true;
                 button.enabled = true;
             };
+            /**
             fullCard.OnSellCard += () =>
             {
                 OnSellCard?.Invoke();
                 Destroy(gameObject);
             };
+            */
         });
     }
 

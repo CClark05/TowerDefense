@@ -2,20 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.UI;
 
 
 public class InventoryUI : Singleton<InventoryUI>, IUsesCards
 {
     [SerializeField] private Button_Hover chestButton;
     [SerializeField] private GameObject inventoryUI;
-    [SerializeField] private VerticalLayoutGroup cardLayoutGroup;
+    //[SerializeField] private VerticalLayoutGroup cardLayoutGroup;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private SkillRegistry skillRegistry;
+    [SerializeField] private InventoryCardSlot[] cardSlots;
     public List<SkillCardUI> SkillCards { get; private set; } = new();
     public event Action OnRemovedCard;
     
@@ -23,6 +20,7 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     [SerializeField] private InventorySettings settings;
     private void Start()
     {
+        
         InventoryChestUI chestUI = chestButton.GetComponent<InventoryChestUI>();
         BuildingManager.Instance.OnEnterBuildMode += EnterBuildMode;
         BuildingManager.Instance.OnExitBuildMode += ExitBuildMode;
@@ -81,18 +79,15 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     
     public void AddCard(SkillInstance skillInstance)
     {
-        SkillCardUI skillCard = Instantiate(cardPrefab, cardLayoutGroup.transform).GetComponent<SkillCardUI>();
+        Transform slotTransform = cardSlots.FirstOrDefault(s => !s.IsOccupied)?.transform;
+        if (slotTransform == null)
+        {
+            Debug.LogError("No available card slots!");
+            return;
+        }
+        SkillCardUI skillCard = Instantiate(cardPrefab, slotTransform).GetComponent<SkillCardUI>();
         skillCard.GetComponent<SetCardData>().SetData(skillInstance.Data);
         skillCard.GetComponent<SetCardData>().SetInstance(skillInstance);
-        skillCard.transform.SetAsLastSibling();
-        var canvas = skillCard.GetComponent<Canvas>();
-        int maxOrder = 0;
-        foreach (Transform t in cardLayoutGroup.transform)
-        {
-            var c = t.GetComponent<Canvas>();
-            if (c && c.overrideSorting) maxOrder = Mathf.Max(maxOrder, c.sortingOrder);
-        }
-        canvas.sortingOrder = maxOrder + 1; 
         SkillCards.Add(skillCard);
         skillRegistry.AddNewSkill(skillInstance.Data);
         skillCard.OnRemoveCard += cardUI =>
@@ -100,6 +95,13 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
             SkillCards.Remove(cardUI);
             Destroy(skillCard.gameObject);
             OnRemovedCard?.Invoke();
+            for(int i = 0; i<SkillCards.Count; i++)
+            {
+                var parent = cardSlots[i];
+                if(SkillCards[i].transform.parent == parent.transform) continue;
+                SkillCards[i].transform.SetParent(parent.transform);
+                SkillCards[i].transform.localPosition = Vector3.zero;
+            }
         };
     }
     public void AddCards(List<SkillInstance> skillInstances)
@@ -126,7 +128,14 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
             SkillCards.Remove(card);
             Destroy(card.gameObject);
             OnRemovedCard?.Invoke();
+            for(int i = 0; i<SkillCards.Count; i++)
+            {
+                var parent = cardSlots[i];
+                if(SkillCards[i].transform.parent == parent.transform) continue;
+                SkillCards[i].transform.SetParent(parent.transform);
+            }
         }
+        
     }
 
     public bool CanAddCard(SkillData skillData)

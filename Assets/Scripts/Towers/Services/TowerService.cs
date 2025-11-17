@@ -11,6 +11,7 @@ public static class TowerService
     private static int expectedTowers;
     private static int finishedTowers;
     private static List<BorrowRequest> fulfilledRequests = new();
+    public static event Action OnMarkedWaveDone;
     public static void BeginWave(IReadOnlyList<TowerDataHolder> towers)
     {
         waveData.Clear();
@@ -112,6 +113,7 @@ public static class TowerService
             {
                 request.lender.AddCard(request.instance, request.originalPlayCount);
             }
+            OnMarkedWaveDone?.Invoke();
         }
     }
     

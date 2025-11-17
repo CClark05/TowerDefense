@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c989bdb60e441a9977d51994ca63e77, type: 3}
   m_Name: Focused Impact Data
   m_EditorClassIdentifier: 
-  price: 10
   name: Focused Impact
-  icon: {fileID: 2584138411059364241, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  icon: {fileID: -8648032925365490086, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Adds +8 base damage on hit.
+  description: Adds +8 base damage.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
+  isExcluded: 0
   PlusDamage: 8

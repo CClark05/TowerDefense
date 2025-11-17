@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Perfect Form Data
   m_EditorClassIdentifier: 
   name: Perfect Form
-  icon: {fileID: -2203860875385243341, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  icon: {fileID: -4575220665565685519, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Your first 2 hits each round will always deal Critical damage for
     +200% damage.

@@ -5,11 +5,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopCardUI : MonoBehaviour
+public interface ICardUI
+{
+    public event Action OnHoverCard;
+    public event Action OnLeaveHoverCard;
+}
+public class ShopCardUI : MonoBehaviour, ICardUI
 {
     [SerializeField] private TextMeshProUGUI costText;
     private SkillData cardData;
-    [SerializeField] private Button_Scale button;
+    [SerializeField] private Button_Hover button;
     [SerializeField] private Image overlay;
     [SerializeField] private GameObject soldCardVisualPrefab;
     public static event Action<SkillData> OnBuyCardStatic;
@@ -21,6 +26,8 @@ public class ShopCardUI : MonoBehaviour
         costText.text = cardData.price.ToString();
         PlayerInventory.Instance.OnCoinsUpdated += coins => SetCostText();
         SetCostText();
+        button.OnHover += () => OnHoverCard?.Invoke();
+        button.OnLeaveHover += () => OnLeaveHoverCard?.Invoke();
         button.OnClick.AddListener(() =>
         {
             if (PlayerInventory.Instance.Coins < cardData.price)
@@ -39,7 +46,7 @@ public class ShopCardUI : MonoBehaviour
             OnBuyCardStatic?.Invoke(cardData);
             OnBuyCard?.Invoke();
             overlay.color = new Color(0, 0, 0, 0.85f);
-            button.ScaleBackToNormal();
+            //button.ScaleBackToNormal();
             button.enabled = false;
             costText.transform.parent.gameObject.SetActive(false);
             InventoryUI.Instance.AddCard(cardData.CreateInstance());
@@ -48,4 +55,6 @@ public class ShopCardUI : MonoBehaviour
     }
 
     private void SetCostText() => costText.color = PlayerInventory.Instance.Coins >= cardData.price ? Color.white : ColorPicker.red;
+    public event Action OnHoverCard;
+    public event Action OnLeaveHoverCard;
 }

@@ -50,7 +50,6 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         GetComponent<TowerCards>().OnAddedCard += (instance) => AddCard(instance);
         GetComponent<TowerCards>().OnRemovedCard += (instance) => TryRemoveCard(instance);
         SkillContext.OnTowerUpdated += UpdateTowerData;
-        
     }
 
     private void OnWaveStart()
@@ -65,9 +64,9 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         RealWaveDPS = 0;
         MaxWaveDPS = 0;
         TowerWaveData waveData = new TowerWaveData();
-        TowerService.MarkWaveEnd(this);
         TowerService.ModifyWaveEnd(waveData, SkillContext);
         UpdateTowerData(waveData);
+        TowerService.MarkWaveEnd(this);
     }
 
     public void UpdateTowerData(TowerWaveData towerWaveData)

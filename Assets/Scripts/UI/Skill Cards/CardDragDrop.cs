@@ -12,6 +12,8 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     private Vector2 originalPosition;
     private UIRaycastBlocker raycastBlocker;
     public event Action OnDropCard;
+    public Vector2? TargetPosition { get; private set; } = null;
+    public bool IsDragging { get; private set; }
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
@@ -32,6 +34,7 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         canvasGroup.alpha = 0.8f;
         originalPosition = rect.anchoredPosition;
         raycastBlocker.GetComponent<Image>().raycastTarget = true;
+        IsDragging = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -40,18 +43,20 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1;
         raycastBlocker.GetComponent<Image>().raycastTarget = false;
+        IsDragging = false;
         if (!TryDropOnTower())
         {
-            rect.anchoredPosition = originalPosition;
+            //rect.anchoredPosition = originalPosition;
+            TargetPosition = originalPosition;
             return;
         }
-        
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (!cardUI.Selected) return;
-        rect.anchoredPosition += eventData.delta / canvas.scaleFactor;
+        TargetPosition = rect.anchoredPosition + eventData.delta / canvas.scaleFactor;
+        //rect.anchoredPosition += eventData.delta / canvas.scaleFactor;
     }
     private bool TryDropOnTower()
     {
@@ -68,5 +73,9 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         }
         return false;
     }
-    
+
+    public void ClearTarget()
+    {
+        TargetPosition = null;
+    }
 }

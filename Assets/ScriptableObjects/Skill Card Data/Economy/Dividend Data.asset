@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dividend Data
   m_EditorClassIdentifier: 
   name: Dividend
-  icon: {fileID: -7918751953511787492, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  icon: {fileID: 92611940212284077, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: At the end of each wave, gain +$6.
   statusEffects: []

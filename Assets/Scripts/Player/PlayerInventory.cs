@@ -42,14 +42,15 @@ public class PlayerInventory : Singleton<PlayerInventory>
         BuildingManager.Instance.OnPlacedBuild += data => SubtractCoins(data.cost);
         TowerSellable.OnSellTower += AddCoins;
         SkillCardUI.OnSellCardStatic += AddCoins;
-        TowerSelectUI.OnSellCardStatic += SellCardStatic;
+        //TowerSelectUI.OnSellCardStatic += SellCardStatic;
         CardSelectUI.Instance.OnReroll += SubtractCoins;
         EnemyManager.Instance.OnEnemyKilled += AddCoins;
         ShopCardUI.OnBuyCardStatic += data => SubtractCoins(data.price);
         SpinToWinUI.Instance.OnPlacedWager += SubtractCoins;
         SpinToWinUI.Instance.OnWagerComplete += AddCoins;
+        ShopSellPanel.Instance.OnSellCard += SellCard;
     }
-    private void SellCardStatic(SkillData data) => AddCoins(Mathf.FloorToInt(data.price * 0.5f));
+    private void SellCard(SkillInstance instance) => AddCoins(Mathf.RoundToInt(instance.Data.price * 0.5f));
     
     private void Update()
     {

@@ -12,8 +12,9 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private CardRaritySettings raritySettings;
     [SerializeField] private SOEvent onShowShopUI, onShowShopVisual;
     [SerializeField] private GameObject cardPrefab;
-    [SerializeField] private Button_Scale leaveButton;
+    [SerializeField] private Button_Scale leaveButton, sellButton;
     [SerializeField] private Transform chestLocation;
+    [SerializeField] private ShopSellPanel sellPanel;
     public Transform ChestLocation => chestLocation;
     private int cardCount = 4;
     private CardCooldowns cardCooldowns = new(3);
@@ -41,6 +42,10 @@ public class ShopUI : MonoBehaviour
                 newCard.GetComponent<SetCardData>().SetData(data);
             }
         };
+        sellButton.OnClick.AddListener(() =>
+        {
+            sellPanel.gameObject.SetActive(true);
+        });
     }
 
     private List<SkillData> GenerateCards()

@@ -5,11 +5,12 @@ using UnityEngine.Serialization;
 
 public class TowerVisual : MonoBehaviour
 {
-    [SerializeField] private GameObject rangeVisual;
+    [SerializeField] private GameObject rangeVisual, crossbowVisual;
     private bool isSelected;
     private TowerDataHolder dataHolder;
     private EnemyManager enemyManager;
     private CardSelectUI cardSelectUI;
+    private TowerShooting towerShooting;
     private void Start()
     {
         TowerHoverable.OnClickTowerStatic += OnClickTower;
@@ -21,6 +22,7 @@ public class TowerVisual : MonoBehaviour
         enemyManager.OnWaveComplete += DisableSelection;
         cardSelectUI.OnShowCards += DisableSelection;
         dataHolder = GetComponent<TowerDataHolder>();
+        towerShooting = GetComponent<TowerShooting>();
         dataHolder.RuntimeData.OnRangeUpdated += range =>
         {
             rangeVisual.transform.localScale = new Vector3(range * 2f, range * 2f, 1);
@@ -54,6 +56,21 @@ public class TowerVisual : MonoBehaviour
     {
         if (isSelected) return;
         rangeVisual.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (!towerShooting.Direction.HasValue) return;
+        Vector2 dir = towerShooting.Direction.Value;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        float currentAngle = crossbowVisual.transform.rotation.eulerAngles.z;
+        float angleDifference = Mathf.Abs(Mathf.DeltaAngle(currentAngle, angle));
+
+        if (angleDifference > 0.5f) 
+        {
+            float speed = 25f;
+            crossbowVisual.transform.rotation = Quaternion.Lerp(crossbowVisual.transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * speed);
+        }
     }
 
     private void OnDisable()

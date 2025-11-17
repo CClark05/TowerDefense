@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Execution Data
   m_EditorClassIdentifier: 
   name: Execution
-  icon: {fileID: -3699158828925680439, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  icon: {fileID: 2864700677688057526, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
   description: Critical hits instantly kill enemies below 20% health.
   statusEffects: []
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
+  isExcluded: 0
   HealthThreshold: 0.2
   DamageMarkerSizeMult: 1.5

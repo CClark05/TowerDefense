@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1120d093abee40409aed73aa8033bf74, type: 3}
   m_Name: Quickdraw Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Quickdraw
-  icon: {fileID: 0}
+  icon: {fileID: 2535411246737045790, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Increases fire rate by 25%.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
+  isExcluded: 0
   speedIncrease: 1.25

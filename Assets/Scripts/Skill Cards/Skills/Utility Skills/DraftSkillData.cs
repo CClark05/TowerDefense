@@ -12,17 +12,17 @@ public class DraftSkillData : SkillData
     public CardRaritySettings cardRaritySettings;
     private void OnValidate()
     {
-        description = $"Draw 3 random cards into your hand if you have room. Self destructs after use.";
+        description = $"Draw {cardsDrawn} random cards into your hand if you have room. Self destructs after use.";
     }
 
     public override SkillInstance CreateInstance()
     {
-        return new TripleDraftSkillInstance(this);
+        return new DraftSkillInstance(this);
     }
 }
-public class TripleDraftSkillInstance : SkillInstance<DraftSkillData>, ISelfDestructs, ITowerCardReceivedModifier
+public class DraftSkillInstance : SkillInstance<DraftSkillData>, ISelfDestructs, ITowerCardReceivedModifier
 {
-    public TripleDraftSkillInstance(DraftSkillData data) : base(data)
+    public DraftSkillInstance(DraftSkillData data) : base(data)
     {
     }
 

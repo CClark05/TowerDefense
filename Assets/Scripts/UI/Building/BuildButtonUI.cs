@@ -47,7 +47,7 @@ public class BuildButtonUI : MonoBehaviour
     }
     private void TryEnterBuildMode()
     {
-        if (PlayerInventory.Instance.Coins < towerData.cost)
+        if (PlayerInventory.Instance.Coins < runtimeTowerData.cost)
         {
             OnNotEnoughCoins?.Invoke();
             return;

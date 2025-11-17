@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Blood Money Data
   m_EditorClassIdentifier: 
   name: Blood Money
-  icon: {fileID: -8798341035937057841, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  icon: {fileID: 287649832177700510, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Gives +$1 per 2 kill(s).
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
+  isExcluded: 0
   PlusMoney: 1
   killsNeeded: 2

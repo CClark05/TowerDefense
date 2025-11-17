@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Killing Focus Data
   m_EditorClassIdentifier: 
   name: Killing Focus
-  icon: {fileID: 3018084078287827727, guid: 7fe17c97b0a9a9646ab22af9fdc5aa66, type: 3}
+  icon: {fileID: 1207296231234192340, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Gain +5% Critical chance on kill. Resets after wave.
   statusEffects: []
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
+  isExcluded: 0
   CritGainOnKill: 0.05

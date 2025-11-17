@@ -12,7 +12,7 @@ public class NecromancerStateMachine : BossStateMachine
         var healthPredicate = new HealthPercentagePredicate(facade.GetComponent<IUsesHealth>());
         var defaultState = new NecromancerDefaultState(facade, 2, moveAnimation);
         var summonState = new NecromancerSummonState(facade, 1f, 4, 5f, summonAnimation, 3);
-        var attackState = new NecromancerAttackState(facade, 3, 0, 3, 3, stunDebuff);
+        var attackState = new NecromancerAttackState(facade, 3, 3, 3, stunDebuff);
         stateMachine.SetState(defaultState);
         stateMachine.AddTransition(defaultState, summonState, new FuncPredicate(() => defaultState.IsDone && summonState.IsReady));
         stateMachine.AddTransition(summonState, defaultState, new FuncPredicate(() => summonState.IsDone));
@@ -23,15 +23,13 @@ public class NecromancerStateMachine : BossStateMachine
 
 public class NecromancerAttackState : BaseState
 {
-    private float duration;
     List<TowerDataHolder> nearbyTowers = new();
     private BuffData stunDebuff;
     private int stunStacks;
     private int shields;
 
-    public NecromancerAttackState(IAgent agent, float cooldown, float duration, int stunStacks, int shields, BuffData stunDebuff) : base(agent, cooldown)
+    public NecromancerAttackState(IAgent agent, float cooldown, int stunStacks, int shields, BuffData stunDebuff) : base(agent, cooldown)
     {
-        this.duration = duration;
         this.stunDebuff = stunDebuff;
         this.stunStacks = stunStacks;
         this.shields = shields;
@@ -46,8 +44,7 @@ public class NecromancerAttackState : BaseState
             new StopMovementCommand(0.1f),
             new GetNearbyTowersCommand(nearbyTowers, 1),
             new ApplyBuffToTowersCommand(stunDebuff, stunStacks, nearbyTowers),
-            new WaitCommand(duration),
-            new ResetSpeedCommand(0.1f)
+            new ResetSpeedCommand(0)
         });
     }
 }
