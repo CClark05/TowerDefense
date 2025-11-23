@@ -11,6 +11,8 @@ public class SetCardData : MonoBehaviour
     //[SerializeField] private GameObject statusEffectPrefab;
     [SerializeField] private GameObject sideTabPrefab;
     [SerializeField] private SkillData skillData;
+    [SerializeField] private Image skillIconImage;
+    [SerializeField] private VerticalLayoutGroup tabGroup;
     public SkillData SkillData => skillData;
     public SkillInstance SkillInstance { get; private set; }
     //private List<GameObject> currentStatusEffects = new();
@@ -18,7 +20,9 @@ public class SetCardData : MonoBehaviour
     public InterfaceReference<ICardUI> cardUI;
     private void Start()
     {
-        UpdateVisual();
+        //UpdateVisual();
+        if(skillData.icon != null)
+            skillIconImage.sprite = skillData.icon;
         cardUI.Value.OnHoverCard += () =>
         {
             foreach (var tab in currentTabs)
@@ -38,7 +42,6 @@ public class SetCardData : MonoBehaviour
         {
             if(!effect.showInUI) continue;
             AddTab(effect);
-            
         }
         foreach (var buff in skillData.buffs)
         {
@@ -48,7 +51,7 @@ public class SetCardData : MonoBehaviour
 
         void AddTab(EffectEntry effect)
         {
-            var tab = Instantiate(sideTabPrefab, transform.GetChild(0));
+            var tab = Instantiate(sideTabPrefab, tabGroup.transform);
             var name = tab.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
             name.text = effect.data.name;
             name.color = effect.data.color;

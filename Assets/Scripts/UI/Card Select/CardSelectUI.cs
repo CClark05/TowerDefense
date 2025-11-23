@@ -5,6 +5,7 @@ using CodeMonkey.Utils;
 using NUnit.Framework.Constraints;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Analytics;
 using UnityEngine;
 using UnityEngine.UI;
 using ColorUtility = UnityEngine.ColorUtility;
@@ -19,7 +20,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
     [SerializeField] private Button_Base rerollButton;
     [SerializeField] private Button_Base skipButton;
     [SerializeField] private Button_Base peekButton;
-    [SerializeField] private TextMeshProUGUI rerollCostText;
+    [SerializeField] private TextMeshProUGUI rerollCostText, rerollText;
     [SerializeField] private GameObject background;
     private List<GameObject> currentCards = new();
     private CardCooldowns cardCooldowns = new(3);
@@ -37,7 +38,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
         GenerateRandomCards();
         rerollButton.OnClick.AddListener(() =>
         {
-            if (PlayerInventory.Instance.Coins < rerollCost) return;
+            if (PlayerInventory.Instance.Coins < rerollCost || rerollAmount >= rerollSettings.MaxRerolls) return;
             OnReroll?.Invoke(rerollCost);
             rerollAmount++;
             rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
@@ -65,9 +66,12 @@ public class CardSelectUI : Singleton<CardSelectUI>
 
     private void SetPriceText()
     {
+        rerollButton.gameObject.SetActive(true);
         Color color = PlayerInventory.Instance.Coins >= rerollCost ? Color.white : ColorPicker.red;
         rerollCostText.text = $"${rerollCost}";
         rerollCostText.color = color;
+        if (rerollAmount < rerollSettings.MaxRerolls) return;
+        rerollButton.gameObject.SetActive(false);
     }
 
     private int counter;
@@ -99,7 +103,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
         currentCards.Clear();
         var availableSkills = Enumerable.ToHashSet(skillRegistry.Skills.Where(skill =>
             skill.prerequisiteSkills.Length == 0 || skill.prerequisiteSkills.Any(pr => skillRegistry.CurrentSkills.Contains(pr))));
-        var filteredSkills = Enumerable.ToHashSet(availableSkills.Where(skill => !skillRegistry.CurrentSkills.Contains(skill) && !cardCooldowns.ContainsKey(skill)));
+        var filteredSkills = Enumerable.ToHashSet(availableSkills.Where(skill => !cardCooldowns.ContainsKey(skill)));
         var pool = filteredSkills.Count >= 3 ? filteredSkills : availableSkills;
         var cards = CardRarityPicker.PickCards(pool.ToList(), raritySettings, 3);
         cardCooldowns.SetCooldowns(cards);

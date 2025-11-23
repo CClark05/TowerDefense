@@ -46,7 +46,7 @@ public class SkillContext
                 CallModifier.Call<IOnCardSelfDestruct>(this, (mod, _) =>
                 {
                     mod.Apply(towerWaveData);
-                }, (mod) => mod.OnComplete());
+                });
                 /**
                 foreach (var mod in GetSkillInstancesWith<IOnCardSelfDestruct>())
                 {

@@ -18,11 +18,12 @@ MonoBehaviour:
   description: While every enemy is <color=#A23E8C>Weak</color> gain 3 <color=#DE9E41>Haste</color>
     per enemy.
   statusEffects:
-  - showInUI: 0
+  - showInUI: 1
     data: {fileID: 11400000, guid: bbc4e7296f4b7db49a7dda77c757b7f0, type: 2}
   buffs:
   - showInUI: 1
     data: {fileID: 11400000, guid: cd6844518b81a7148b069ae01942a042, type: 2}
   prerequisiteSkills:
   - {fileID: 11400000, guid: 03d3d4cdd9236f54a9cf8b9b51ea1c3a, type: 2}
+  isExcluded: 0
   hasteStacksPerEnemy: 3

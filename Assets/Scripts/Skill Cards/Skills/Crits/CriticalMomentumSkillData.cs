@@ -42,6 +42,5 @@ public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkill
     {
         towerWaveData.increasedBaseDamage -= accumulatedBonus;
     }
-
-    public bool alwaysPlayOnce { get; } = true;
+    
 }

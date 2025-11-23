@@ -16,41 +16,40 @@ public class SacrificeSkillData : SkillData
     }
 }
 
-public class SacrificeSkillInstance : SkillInstance<SacrificeSkillData>, IOnCardSelfDestruct, ITowerCardReceivedModifier
+public class SacrificeSkillInstance : SkillInstance<SacrificeSkillData>, IOnCardSelfDestruct, ITowerCardReceivedModifier, IPlayCountPolicy<IOnCardSelfDestruct>, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
-    private int _accumulatedBonus;
-    private int totalAccumulatedBonus;
-    private bool appliedInitialBonus;
+    private int accumulatedBonus;
+    private int appliedBonus;
     public SacrificeSkillInstance(SacrificeSkillData data) : base(data)
     {
     }
     void ITowerCardReceivedModifier.Apply(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedBaseDamage += totalAccumulatedBonus;
+        SyncBonus(towerWaveData);
         PlayCard();
-        appliedInitialBonus = true;
     }
 
-    public void OnComplete()
-    {
-        skillContext.Tower.RuntimeData.BaseDamage += _accumulatedBonus;
-        _accumulatedBonus = 0;
-    }
     void IOnCardSelfDestruct.Apply(TowerWaveData towerWaveData)
     {
         Debug.Log("Sacrifice triggered");
-        if (!appliedInitialBonus) return;
-        totalAccumulatedBonus += Data.plusDamage;
-        _accumulatedBonus += Data.plusDamage;
-        appliedInitialBonus = true;
+        accumulatedBonus += Data.plusDamage * PlayCount;
+        SyncBonus(towerWaveData);
         PlayCard();
     }
 
     public void Remove(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedBaseDamage -= totalAccumulatedBonus;
-        appliedInitialBonus = false;
+        towerWaveData.increasedBaseDamage -= appliedBonus;
+        appliedBonus = 0;
     }
 
-    public bool alwaysPlayOnce { get; } = true;
+    public int SetPlayCount() => 1;
+    private void SyncBonus(TowerWaveData towerWaveData)
+    {
+        int delta = accumulatedBonus - appliedBonus;
+        if (delta == 0) return;
+
+        towerWaveData.increasedBaseDamage += delta;
+        appliedBonus = accumulatedBonus;
+    }
 }

@@ -15,7 +15,6 @@ public class TowerSelectUI : MonoBehaviour
     [SerializeField] private GameObject cardIconPrefab;
     [SerializeField] private GridLayoutGroup cardLayoutGroup;
     [SerializeField] private GameObject fullCardPreview;
-    [SerializeField] private VerticalLayoutGroup statusEffectGroup;
     [SerializeField] private GridLayoutGroup emptySlotsLayoutGroup;
     [SerializeField] private GameObject emptySlotPrefab;
     private List<GameObject> emptySlots = new();

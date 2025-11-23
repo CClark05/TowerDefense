@@ -286,6 +286,7 @@ RectTransform:
   - {fileID: 4998920568908755659}
   - {fileID: 2699006772665453117}
   - {fileID: 4956426798851527488}
+  - {fileID: 1333097231689469159}
   m_Father: {fileID: 3265465190982314034}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -727,6 +728,68 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &6094734923052403989
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1333097231689469159}
+  - component: {fileID: 8306363829578929916}
+  m_Layer: 5
+  m_Name: Tabs Layout
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1333097231689469159
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094734923052403989}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4163103347867882709}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -297, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 1}
+--- !u!114 &8306363829578929916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6094734923052403989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 30
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &6150181468245665579
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,6 +917,8 @@ MonoBehaviour:
   descriptionText: {fileID: 5676707237571682654}
   sideTabPrefab: {fileID: 642262339446544309, guid: d972b84aebdeee44992f9ab37903f4e0, type: 3}
   skillData: {fileID: 11400000, guid: a5f7e3f1fac49d64d95679d572809c1a, type: 2}
+  skillIconImage: {fileID: 259904171688400682}
+  tabGroup: {fileID: 8306363829578929916}
   cardUI:
     underlyingValue: {fileID: 5829388234532927853}
 --- !u!114 &5829388234532927853
@@ -871,6 +936,7 @@ MonoBehaviour:
   button: {fileID: 539280865713616428}
   costText: {fileID: 5580573351841657900}
   soldCardPlaceholder: {fileID: 7780156281752721041, guid: 8849596a1a2ff904783d2d98230b2a3a, type: 3}
+  canvasGroup: {fileID: 6732326572494306178}
 --- !u!114 &810790632157410269
 MonoBehaviour:
   m_ObjectHideFlags: 0

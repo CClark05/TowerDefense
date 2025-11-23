@@ -380,7 +380,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CardIcons_11
+      name: Recall_Icon
       rect:
         serializedVersion: 2
         x: 116
@@ -621,6 +621,94 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: MysteryDraw_Icon
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c90fb1ddac7b334788bababfb13fb0a
+      internalID: 466084926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Devour_Icon
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59865df809dca934ca601b8f3e0906bb
+      internalID: 1942748494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Overclock_Icon
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a690cadbe27870941b66085d72902b0e
+      internalID: -1129501906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PiercingShot_Icon
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d52a48a2148437d4ba1c08b0843ca68f
+      internalID: -1819482657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -637,10 +725,10 @@ TextureImporter:
     nameFileIdTable:
       BanditsSecret_Icon: 1858116976572667410
       BloodMoney_Icon: 287649832177700510
-      CardIcons_11: -3413648882919510996
       CardIcons_2: 351554976137735218
       Catalyst_Icon: -7013116369423637763
       CriticalMomentum_Icon: -3131443974699964910
+      Devour_Icon: 1942748494
       Dividend_Icon: 92611940212284077
       Draft_Icon: -1610581713
       Execution_Icon: 2864700677688057526
@@ -652,10 +740,14 @@ TextureImporter:
       Jajanken_Icon: 1145404442578332096
       KillingFocus_Icon: 1207296231234192340
       KillingSpree_Icon: 4017673532660534875
+      MysteryDraw_Icon: 466084926
+      Overclock_Icon: -1129501906
       Overflow_Icon: -903315029327368214
       Payday_Icon: -492782416430950139
       PerfectForm_Icon: -4575220665565685519
+      PiercingShot_Icon: -1819482657
       Quickdraw_Icon: 2535411246737045790
+      Recall_Icon: -3413648882919510996
       Sacrifice_Icon: 5476671250807671832
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

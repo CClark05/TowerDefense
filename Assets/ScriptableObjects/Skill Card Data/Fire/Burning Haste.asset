@@ -25,5 +25,6 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: cd6844518b81a7148b069ae01942a042, type: 2}
   prerequisiteSkills:
   - {fileID: 11400000, guid: 3f4fa63c1aa112a4aa74dbb9665043f6, type: 2}
+  isExcluded: 0
   duration: 3
   hasteStacks: 1

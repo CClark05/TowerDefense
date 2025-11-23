@@ -133,6 +133,7 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
                 var parent = cardSlots[i];
                 if(SkillCards[i].transform.parent == parent.transform) continue;
                 SkillCards[i].transform.SetParent(parent.transform);
+                SkillCards[i].transform.localPosition = Vector3.zero;
             }
         }
         

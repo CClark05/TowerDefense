@@ -50,23 +50,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784637425888943160, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
       propertyPath: m_Name
-      value: Elite Enemy
+      value: Basic_Elite Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 3198148408304115504, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
       propertyPath: data
       value: 
-      objectReference: {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+      objectReference: {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
+    - target: {fileID: 3198148408304115504, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
+      propertyPath: isElite
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076988599805704464, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4354910775190113675, guid: 2109bcf2ee50e9b4f80e83c05b9caf2d, type: 3}
     - target: {fileID: 9076988599805704464, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9076988599805704464, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
       propertyPath: m_Color.g
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9076988599805704464, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
       propertyPath: m_Color.r
-      value: 0.16037738
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9076988599805704464, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

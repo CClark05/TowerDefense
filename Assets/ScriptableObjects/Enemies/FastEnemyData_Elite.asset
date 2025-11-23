@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
+  m_Name: FastEnemyData_Elite
+  m_EditorClassIdentifier: 
+  health: 40
+  speed: 10
+  livesCost: 1
+  shields: 0
+  coins: 1
+  prefab: {fileID: 4935836106486947188, guid: 6c8c9054f9591c54aaffa58a31ce7928, type: 3}
+  summonable: 1
+  IsBoss: 0
+  IsElite: 1

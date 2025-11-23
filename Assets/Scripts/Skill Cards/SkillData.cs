@@ -24,11 +24,11 @@ public abstract class SkillData : ScriptableObject
         switch (cardRarity)
         {
             case CardRarity.Common:
-                return 20;
+                return 40;
             case CardRarity.Rare:
-                return 35;
+                return 70;
             case CardRarity.Legendary:
-                return 50;
+                return 100;
             default:
                 throw new ArgumentOutOfRangeException(nameof(cardRarity), cardRarity, null);
         }

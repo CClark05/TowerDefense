@@ -8,6 +8,7 @@ public class SellCardUI : MonoBehaviour, ICardUI
     [SerializeField] private Button_Hover button;
     [SerializeField] private TextMeshProUGUI costText;
     [SerializeField] private GameObject soldCardPlaceholder;
+    [SerializeField] private CanvasGroup canvasGroup;
     private float sellRate = 0.5f;
     public event Action OnHoverCard;
     public event Action OnLeaveHoverCard;
@@ -27,5 +28,11 @@ public class SellCardUI : MonoBehaviour, ICardUI
             costText.gameObject.SetActive(false);
             costText.transform.parent.gameObject.SetActive(false);
         });
+    }
+
+    public void ToggleButton(bool enable)
+    {
+        button.enabled = enable;
+        canvasGroup.alpha = enable ? 1 : 0.5f;
     }
 }

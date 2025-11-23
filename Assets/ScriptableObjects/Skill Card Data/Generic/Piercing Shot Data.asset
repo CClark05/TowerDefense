@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbcfa906f1c460193ede3b55efd4347, type: 3}
   m_Name: Piercing Shot Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Piercing Shot
-  icon: {fileID: 0}
+  icon: {fileID: -1819482657, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Allows projectiles to pierce through +1 additional enemies.
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
+  isExcluded: 0
   maxEnemiesPierced: 2

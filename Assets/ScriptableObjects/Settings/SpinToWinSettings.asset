@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c334fb0943e431a8449f14ce8d8f7f8, type: 3}
   m_Name: SpinToWinSettings
   m_EditorClassIdentifier: 
-  targetRate: 0.15
-  firstWave: 3
+  targetRate: 0.1
+  firstWave: 4
   icon: {fileID: 1507450895693738636, guid: 5d7f59a1aec679b46bbd263f1f582663, type: 3}

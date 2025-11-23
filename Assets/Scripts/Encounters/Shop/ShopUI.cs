@@ -41,6 +41,7 @@ public class ShopUI : MonoBehaviour
                 GameObject newCard = Instantiate(cardPrefab, cardLayout.transform);
                 newCard.GetComponent<SetCardData>().SetData(data);
             }
+            sellPanel.ToggleCardButtons(true);
         };
         sellButton.OnClick.AddListener(() =>
         {
@@ -54,9 +55,9 @@ public class ShopUI : MonoBehaviour
         float ShopWeightMod(CardRarity r) => r switch
         {
             //48.8% / 40.7% / 10.5%
-            CardRarity.Common     => 0.6f, 
-            CardRarity.Rare       => 1.4f, 
-            CardRarity.Legendary  => 1.8f, 
+            CardRarity.Common     => 0.4f, 
+            CardRarity.Rare       => 1.6f, 
+            CardRarity.Legendary  => 1.9f, 
             _ => throw new ArgumentOutOfRangeException(nameof(r), r, null)
         };
         HashSet<SkillData> filteredSkills = skillRegistry.Skills.Where(skill => !cardCooldowns.ContainsKey(skill)).ToHashSet();

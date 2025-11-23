@@ -10,7 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8250bcb3d0cd4068825bb0876bb72c52, type: 3}
-  m_Name: EliteBasicEnemyCost
+  m_Name: BasicEnemyCost_Elite
   m_EditorClassIdentifier: 
-  EnemyData: {fileID: 11400000, guid: 4552e5bea5d33694786eb1c798cf55ed, type: 2}
+  EnemyData: {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
   MinWave: 2
+  MaxWave: 0
+  Weight: 0

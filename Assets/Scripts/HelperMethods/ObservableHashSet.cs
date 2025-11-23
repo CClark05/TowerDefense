@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class ObservableHashSet<T> : ICollection<T>, IReadOnlyCollection<T>
 {
     private readonly HashSet<T> _set;
-
+    
     public event Action<T> OnItemAdded;
     public event Action<T> OnItemRemoved;
     public event Action OnCleared;

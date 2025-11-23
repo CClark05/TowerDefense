@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Catalyst
   icon: {fileID: -7013116369423637763, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
-  rarity: 1
+  rarity: 2
   description: The next card added to this tower will always play an additional time.
     Self destructs after use.
   statusEffects: []

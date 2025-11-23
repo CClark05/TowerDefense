@@ -12,4 +12,17 @@ public class EnemyData : ScriptableObject
     public GameObject prefab;
     public bool summonable = true;
     public bool IsBoss;
+    public bool IsElite;
+
+    public EliteBonus EliteBonus = new EliteBonus
+    {
+        healthMultiplier = 2f,
+        speedMultiplier = 1.3f
+    };
+}
+
+public struct EliteBonus
+{
+    public float healthMultiplier;
+    public float speedMultiplier;
 }

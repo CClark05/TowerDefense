@@ -39,7 +39,7 @@ public class SpinToWinUI : Singleton<SpinToWinUI>
         }
     }
     private Coroutine currentHoldRoutine;
-    private void Start()
+    private void OnEnable()
     {
         originalSpinsLeft = spinsLeft;
         onShowVisual.OnRaised += (object sender) => SpinsLeft = originalSpinsLeft;

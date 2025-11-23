@@ -22,7 +22,7 @@ public class GildedGreedSkillInstance : SkillInstance<GildedGreedSkillData>, IOn
     public GildedGreedSkillInstance(GildedGreedSkillData data) : base(data)
     {
     }
-    public void Apply(TowerWaveData towerWaveDataa)
+    public void Apply(TowerWaveData towerWaveData)
     {
         CalculateBonus();
         skillContext.Tower.RuntimeData.BaseDamage += currentBonus;

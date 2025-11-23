@@ -85,6 +85,6 @@ public class WaveGenerator
 
     private int CalculateCost(EnemyCost enemyCost, BudgetTuning tuning)
     {
-        return EnemyBudget.Cost(enemyCost.EnemyData.health, enemyCost.EnemyData.shields, enemyCost.EnemyData.speed, tuning) + enemyCost.Weight;
+        return EnemyBudget.Cost(enemyCost.EnemyData.health, enemyCost.EnemyData.shields, enemyCost.EnemyData.speed, tuning, enemyCost.EnemyData.IsElite) + enemyCost.Weight;
     }
 }

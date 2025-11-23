@@ -48,6 +48,7 @@ public abstract class SkillInstance
         }
     }
     public event Action <bool> OnIsDisabledUpdated;
+    public event Action OnDispose;
     public void SetContext(SkillContext context) => skillContext = context;
     public event Action OnPlayCard;
     public event Action<int> OnPlayCountUpdated;
@@ -57,11 +58,13 @@ public abstract class SkillInstance
     public virtual void Dispose()
     {
         Debug.Log("dispose called on " + Data.name);
+        OnDispose?.Invoke();
         OnPlayCard = null;
         OnPlayCountUpdated = null;
         OnIsDisabledUpdated = null;
         OnUpdateTower = null;
         skillContext = null;
+        OnDispose = null;
     }
 }
 public abstract class SkillInstance<TData> : SkillInstance where TData : SkillData
