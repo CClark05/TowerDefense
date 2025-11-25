@@ -7,9 +7,12 @@ public class SellCardAnimation : MonoBehaviour
     private SellCardUI sellCardUI;
     private Tweener scaleTween;
     [SerializeField] private CanvasGroup canvasGroup;
+    private Canvas canvas;
+    private int originalSortingOrder;
     private void Awake()
     {
         sellCardUI = GetComponent<SellCardUI>();
+        canvas = GetComponent<Canvas>();
     }
 
     private void Start()
@@ -21,11 +24,16 @@ public class SellCardAnimation : MonoBehaviour
         {
             scaleTween?.Kill();
             scaleTween = transform.DOScale(transform.localScale * 1.3f, hoverAnimationDuration).SetEase(Ease.OutBack);
+            canvas.overrideSorting = true;
+            originalSortingOrder = canvas.sortingOrder;
+            canvas.sortingOrder = originalSortingOrder + 1;
         };
         sellCardUI.OnLeaveHoverCard += () =>
         {
             scaleTween?.Kill();
             scaleTween = transform.DOScale(originalScale, hoverAnimationDuration * 0.75f).SetEase(Ease.OutSine);
+            canvas.sortingOrder = originalSortingOrder;
+            canvas.overrideSorting = false;
         };
     }
 
