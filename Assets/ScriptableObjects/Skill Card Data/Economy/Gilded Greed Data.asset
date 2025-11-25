@@ -16,6 +16,8 @@ MonoBehaviour:
   icon: {fileID: -5445075862127298849, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
   description: Each 25 gold you have grants +5 base damage.
+  hasRuntimeValue: 1
+  runtimeStatsFormat: +x
   statusEffects: []
   buffs: []
   prerequisiteSkills: []

@@ -4,9 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Hunter's Mark Data", menuName = "SkillData/Crits/HuntersMark")]
 public class HuntersMarkSkillData : SkillData
 {
+    public float CritChance = 0.075f;
     private void OnValidate()
     {
-        description = $"Gain a {CritStats.baseCritChance * 100}% chance for hits to deal Critical damage for +{CritStats.baseCritMult * 100}% damage.";
+        string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
+        description = $"Gain a {CritChance * 100}% chance for hits to be <color=#{hex}>Critical</color>";
     }
 
     public override SkillInstance CreateInstance()
@@ -17,6 +19,7 @@ public class HuntersMarkSkillData : SkillData
 
 public class HuntersMarkSkillInstance : SkillInstance<HuntersMarkSkillData>, IHitModifier
 {
+
     public HuntersMarkSkillInstance(HuntersMarkSkillData data) : base(data)
     {
     }
@@ -25,12 +28,15 @@ public class HuntersMarkSkillInstance : SkillInstance<HuntersMarkSkillData>, IHi
     {
         CritStats critStats = new CritStats();
         critStats.CalculateBonus(skillContext);
-        if (UnityEngine.Random.value < critStats.CritChance)
+        Debug.Log("Current Crit Chance: " + (Data.CritChance));
+        if (UnityEngine.Random.value < Data.CritChance)
         {
             critStats.DealCrit(hitData);
             PlayCard();
         }
     }
+
+    
 }
 
 public interface ICritModifier
@@ -40,14 +46,13 @@ public interface ICritModifier
 
 public class CritStats
 {
-    public static readonly float baseCritChance = 0.075f;
     public static readonly float baseCritMult = 2f;
     public static readonly Color color = new Color(70 / 255f, 130 / 255f, 50 / 255f);
     public static readonly float damageMarkerSizeMult = 1.25f;
 
     public float ChanceIncrease;
     public float MultIncrease;
-    public float CritChance => Mathf.Clamp01(baseCritChance + ChanceIncrease);
+    public float CritChance => Mathf.Clamp01(ChanceIncrease);
     public float CritMult => baseCritMult + MultIncrease;
 
     public void DealCrit(HitData hitData)
@@ -65,7 +70,7 @@ public class CritStats
         foreach (var mod in skillContext.GetSkillInstancesWith<ICritModifier>())
         {
             MultIncrease += mod.modifier.CritStats.MultIncrease;
-            ChanceIncrease += mod.modifier.CritStats.ChanceIncrease;
+            //ChanceIncrease += mod.modifier.CritStats.ChanceIncrease;
         }
     }
 }

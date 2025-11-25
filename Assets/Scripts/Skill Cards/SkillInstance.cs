@@ -10,6 +10,19 @@ public abstract class SkillInstance
     }
     public SkillContext skillContext { get; protected set; }
     public SkillData Data { get; }
+
+    private int? runtimeStat;
+    public int? RuntimeStat
+    {
+        get => runtimeStat;
+        protected set
+        {
+            if (runtimeStat == value || !value.HasValue) return;
+            runtimeStat = value.Value;
+            OnRuntimeStatUpdated?.Invoke(value.Value);
+        }
+    }
+    public event Action<int> OnRuntimeStatUpdated;
     private int playCount = 1;
     public int PlayCount
     {
@@ -19,14 +32,6 @@ public abstract class SkillInstance
             if (playCount == value) return;
             playCount = value;
             OnPlayCountUpdated?.Invoke(value);
-            /**
-            TowerWaveData waveData = new TowerWaveData();
-                if (TowerService.TryModifyOnCardReceived(waveData, this))
-                {
-                    OnUpdateTower?.Invoke(waveData);
-                    Debug.Log("Invoked OnUpdateTower for " + Data.name);
-                }
-                */
         }
     }
 
@@ -52,7 +57,6 @@ public abstract class SkillInstance
     public void SetContext(SkillContext context) => skillContext = context;
     public event Action OnPlayCard;
     public event Action<int> OnPlayCountUpdated;
-    public event Action<TowerWaveData> OnUpdateTower;
     
     protected void PlayCard() => OnPlayCard?.Invoke();
     public virtual void Dispose()
@@ -62,9 +66,9 @@ public abstract class SkillInstance
         OnPlayCard = null;
         OnPlayCountUpdated = null;
         OnIsDisabledUpdated = null;
-        OnUpdateTower = null;
         skillContext = null;
         OnDispose = null;
+        OnRuntimeStatUpdated = null;
     }
 }
 public abstract class SkillInstance<TData> : SkillInstance where TData : SkillData

@@ -7,7 +7,8 @@ public class CriticalMomentumSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Card gains +{plusBaseDamage} base damage on Critical kill.";
+        string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
+        description = $"Card gains +{plusBaseDamage} base damage on <color=#{hex}>Critical</color> kill.";
     }
 
     public override SkillInstance CreateInstance()
@@ -16,7 +17,7 @@ public class CriticalMomentumSkillData : SkillData
     }
 }
 
-public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkillData>, IOnKill, ITowerCardReceivedModifier
+public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkillData>, IOnKill, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
     private int accumulatedBonus;
     public CriticalMomentumSkillInstance(CriticalMomentumSkillData data) : base(data)
@@ -29,6 +30,7 @@ public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkill
             PlayCard();
             accumulatedBonus += Data.plusBaseDamage;
             hitData.dataHolder.RuntimeData.BaseDamage += Data.plusBaseDamage;
+            RuntimeStat = accumulatedBonus;
         }
     }
 
@@ -42,5 +44,6 @@ public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkill
     {
         towerWaveData.increasedBaseDamage -= accumulatedBonus;
     }
-    
+
+    int IPlayCountPolicy<ITowerCardReceivedModifier>.SetPlayCount() => 1;
 }

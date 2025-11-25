@@ -37,9 +37,43 @@ public static class CardRarityPicker
         for (int i = 0; i < count && pool.Count > 0; i++)
         {
             var rarity = RollRarity(weighted);
-            
+
             var candidates = pool.Where(s => s.rarity == rarity).ToList();
             if (candidates.Count == 0) candidates = pool;
+
+            var choice = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+            picks.Add(choice);
+            pool.Remove(choice);
+        }
+
+        return picks;
+    }
+
+    public static List<SkillData> PickCards(List<SkillData> pool, IEnumerable<CardRarity> allowedRarities, CardRaritySettings settings, int count)
+    {
+        var allowed = allowedRarities?.ToHashSet()
+                      ?? throw new ArgumentNullException(nameof(allowedRarities));
+
+        var filteredChances = settings.rarityChances
+            .Where(rc => allowed.Contains(rc.rarity))
+            .Select(rc => new RarityChance { rarity = rc.rarity, weight = rc.weight })
+            .ToList();
+
+        if (filteredChances.Count == 0)
+            throw new InvalidOperationException("No valid rarities in allowedRarities.");
+
+        var picks = new List<SkillData>(count);
+
+        for (int i = 0; i < count && pool.Count > 0; i++)
+        {
+            var rarity = RollRarity(filteredChances);
+
+            var candidates = pool.Where(s => s.rarity == rarity).ToList();
+            if (candidates.Count == 0)
+                candidates = pool.Where(s => allowed.Contains(s.rarity)).ToList();
+
+            if (candidates.Count == 0)
+                break;
 
             var choice = candidates[UnityEngine.Random.Range(0, candidates.Count)];
             picks.Add(choice);

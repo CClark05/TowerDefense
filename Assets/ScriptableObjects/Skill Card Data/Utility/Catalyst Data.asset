@@ -17,6 +17,8 @@ MonoBehaviour:
   rarity: 2
   description: The next card added to this tower will always play an additional time.
     Self destructs after use.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: +x
   statusEffects: []
   buffs: []
   prerequisiteSkills: []

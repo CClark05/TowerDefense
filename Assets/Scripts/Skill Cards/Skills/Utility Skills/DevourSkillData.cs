@@ -31,6 +31,7 @@ public class DevourSkillInstance : SkillInstance<DevourSkillData>, ITowerCardRec
         accumulatedBonus += cards.Count * Data.plusDamage * PlayCount;
         towerWaveData.increasedBaseDamage += accumulatedBonus;
         towerWaveData.removedCards.AddRange(cards);
+        RuntimeStat = accumulatedBonus;
     }
 
     public void Remove(TowerWaveData towerWaveData)

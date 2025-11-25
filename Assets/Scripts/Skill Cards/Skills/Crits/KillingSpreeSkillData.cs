@@ -7,7 +7,8 @@ public class KillingSpreeSkillData : SkillData
     public float CritDamageGainOnKill = 0.1f;
     private void OnValidate()
     {
-        description = $"Gain +{CritDamageGainOnKill * 100}% Critical damage on kill. Resets after wave.";
+        string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
+        description = $"Gain +{CritDamageGainOnKill * 100}% <color=#{hex}>Critical</color> damage on kill. Resets after wave.";
     }
 
     public override SkillInstance CreateInstance()
@@ -25,17 +26,22 @@ public class KillingSpreeSkillInstance : SkillInstance<KillingSpreeSkillData>, I
         EnemyManager.Instance.OnWaveComplete += OnWaveComplete;
     }
 
-    private void OnWaveComplete() => CritStats.MultIncrease = 0;
+    private void OnWaveComplete()
+    {
+        CritStats.MultIncrease = 0;
+        RuntimeStat = Mathf.FloorToInt(CritStats.MultIncrease * 100);
+    }
 
     public void OnKill(HitData hitData)
     {
         CritStats.MultIncrease += Data.CritDamageGainOnKill;
+        RuntimeStat = Mathf.FloorToInt(CritStats.MultIncrease * 100);
         PlayCard();
     }
-
     public override void Dispose()
     {
         base.Dispose();
         EnemyManager.Instance.OnWaveComplete -= OnWaveComplete;
     }
+    
 }

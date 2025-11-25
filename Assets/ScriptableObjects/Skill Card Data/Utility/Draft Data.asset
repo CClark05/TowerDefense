@@ -17,6 +17,8 @@ MonoBehaviour:
   rarity: 1
   description: Draw 2 random cards into your hand if you have room. Self destructs
     after use.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: +x
   statusEffects: []
   buffs: []
   prerequisiteSkills: []

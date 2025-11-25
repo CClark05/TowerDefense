@@ -17,6 +17,8 @@ MonoBehaviour:
   rarity: 1
   description: Creates a copy of the next card added to this tower and adds it to
     your hand. Self destructs after use.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []

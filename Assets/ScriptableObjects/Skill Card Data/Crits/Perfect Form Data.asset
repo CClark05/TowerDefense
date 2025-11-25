@@ -17,7 +17,11 @@ MonoBehaviour:
   rarity: 0
   description: Your first 2 hits each round will always deal Critical damage for
     +200% damage.
-  statusEffects: []
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
+  statusEffects:
+  - showInUI: 1
+    data: {fileID: 11400000, guid: dd7902253e35d6344be3b9d2cab4d4c2, type: 2}
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}

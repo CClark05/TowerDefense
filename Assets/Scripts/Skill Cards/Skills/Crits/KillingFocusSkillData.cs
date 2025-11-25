@@ -6,7 +6,8 @@ public class KillingFocusSkillData : SkillData
     public float CritGainOnKill = 0.05f;
     private void OnValidate()
     {
-        description = $"Gain +{CritGainOnKill * 100}% Critical chance on kill. Resets after wave.";
+        string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
+        description = $"Gain +{CritGainOnKill * 100}% chance on <color=#{hex}>Critical</color> kill. Resets after wave.";
     }
 
     public override SkillInstance CreateInstance()
@@ -15,7 +16,7 @@ public class KillingFocusSkillData : SkillData
     }
 }
 
-public class KillingFocusSkillInstance : SkillInstance<KillingFocusSkillData>, IOnKill, ICritModifier
+public class KillingFocusSkillInstance : SkillInstance<KillingFocusSkillData>, IOnKill, IHitModifier, IPlayCountPolicy<IHitModifier>
 {
     public CritStats CritStats { get; }
     public KillingFocusSkillInstance(KillingFocusSkillData data) : base(data)
@@ -24,17 +25,31 @@ public class KillingFocusSkillInstance : SkillInstance<KillingFocusSkillData>, I
         EnemyManager.Instance.OnWaveComplete += OnWaveComplete;
     }
 
-    private void OnWaveComplete() => CritStats.ChanceIncrease = 0;
+    private void OnWaveComplete()
+    {
+        CritStats.ChanceIncrease = 0;
+        RuntimeStat = Mathf.FloorToInt(CritStats.ChanceIncrease * 100);
+    }
 
     public void OnKill(HitData hitData)
     {
         CritStats.ChanceIncrease += Data.CritGainOnKill;
+        RuntimeStat = Mathf.FloorToInt(CritStats.ChanceIncrease * 100);
         PlayCard();
     }
-
+    public void Modify(HitData hitData, IDamageable target)
+    {
+        CritStats critStats = new CritStats();
+        critStats.CalculateBonus(skillContext);
+        Debug.Log("Current Crit Chance: " + CritStats.CritChance);
+        if (UnityEngine.Random.value < CritStats.CritChance)
+            critStats.DealCrit(hitData);
+        
+    }
     public override void Dispose()
     {
         base.Dispose();
         EnemyManager.Instance.OnWaveComplete -= OnWaveComplete;
     }
+    int IPlayCountPolicy<IHitModifier>.SetPlayCount() => 1;
 }

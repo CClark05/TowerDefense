@@ -132,7 +132,7 @@ public class TowerSelectUI : MonoBehaviour
             button.OnHover += () =>
             {
                 if (selectedCard != null) return;
-                fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance.Data);
+                fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance);
                 fullCardPreview.SetActive(true);
             };
             button.OnLeaveHover += () =>
@@ -156,7 +156,7 @@ public class TowerSelectUI : MonoBehaviour
 
                 newCard.Selected = true;
                 selectedCard = newCard;
-                fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance.Data);
+                fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance);
                 sellText.text = $"SELL : <color=#DE9E41>${Mathf.FloorToInt(instance.Data.price * 0.5f)}</color>";
             });
         }

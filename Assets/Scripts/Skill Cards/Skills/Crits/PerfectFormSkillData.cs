@@ -7,7 +7,8 @@ public class PerfectFormSkillData : SkillData
     public int hits = 2;
     private void OnValidate()
     {
-        description = $"Your first {hits} hits each round will always deal Critical damage for +{CritStats.baseCritMult * 100}% damage.";
+        string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
+        description = $"Your first {hits} hits each round will always deal <color=#{hex}>Critical</color> damage for +{CritStats.baseCritMult * 100}% damage.";
     }
 
     public override SkillInstance CreateInstance()

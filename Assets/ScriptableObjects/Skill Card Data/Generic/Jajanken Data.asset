@@ -16,10 +16,12 @@ MonoBehaviour:
   icon: {fileID: 1145404442578332096, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Shots charge up for 1 seconds before releasing for +50% damage.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: +x
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  isExcluded: 0
+  isExcluded: 1
   ChargeTime: 1
   DamageMult: 0.5
   Color: {r: 0.87058824, g: 0.61960787, b: 0.25490198, a: 1}

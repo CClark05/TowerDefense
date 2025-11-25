@@ -38,10 +38,19 @@ public abstract class SkillData : ScriptableObject
     public Sprite icon;
     public CardRarity rarity;
     [TextArea] public string description;
+    public bool hasRuntimeValue;
+    public string runtimeStatsFormat;
     public EffectEntry[] statusEffects;
     public EffectEntry[] buffs;
     public SkillData[] prerequisiteSkills;
     public bool isExcluded;
     public abstract SkillInstance CreateInstance();
+    public string FormatRuntimeStat(int value)
+    {
+        if (string.IsNullOrEmpty(runtimeStatsFormat))
+            return string.Empty;
+    
+        return runtimeStatsFormat.Replace("x", value.ToString());
+    }
 }
 

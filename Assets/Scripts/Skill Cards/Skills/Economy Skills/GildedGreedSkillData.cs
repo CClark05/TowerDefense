@@ -34,7 +34,8 @@ public class GildedGreedSkillInstance : SkillInstance<GildedGreedSkillData>, IOn
     {
         int newBonus = PlayerInventory.Instance.Coins / Data.GoldPerIncrement * Data.PlusDamage * PlayCount; 
         int bonusDelta = (newBonus - currentBonus); 
-        currentBonus = newBonus; 
+        currentBonus = newBonus;
+        RuntimeStat = currentBonus;
         return bonusDelta;
     }
     public void OnCoinsUpdated() => skillContext.Tower.RuntimeData.BaseDamage += CalculateBonus();

@@ -9,7 +9,8 @@ public class ExecutionSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Critical hits instantly kill enemies below {HealthThreshold * 100}% health.";
+        string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
+        description = $"<color=#{hex}>Critical</color> hits instantly kill enemies below {HealthThreshold * 100}% health.";
     }
 
     public override SkillInstance CreateInstance()

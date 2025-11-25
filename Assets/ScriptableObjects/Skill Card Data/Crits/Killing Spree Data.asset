@@ -16,7 +16,11 @@ MonoBehaviour:
   icon: {fileID: 4017673532660534875, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Gain +10% Critical damage on kill. Resets after wave.
-  statusEffects: []
+  hasRuntimeValue: 1
+  runtimeStatsFormat: +x%
+  statusEffects:
+  - showInUI: 1
+    data: {fileID: 11400000, guid: dd7902253e35d6344be3b9d2cab4d4c2, type: 2}
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}

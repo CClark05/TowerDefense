@@ -17,6 +17,8 @@ MonoBehaviour:
   rarity: 1
   description: Destroys all cards on this tower and gains +2 base damage for each
     card destroyed.
+  hasRuntimeValue: 1
+  runtimeStatsFormat: +x
   statusEffects: []
   buffs: []
   prerequisiteSkills: []

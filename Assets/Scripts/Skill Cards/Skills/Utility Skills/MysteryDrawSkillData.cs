@@ -9,7 +9,7 @@ public class MysteryDrawSkillData : SkillData
 
     private void OnValidate()
     {
-        description = "On wave end draw a random card into your hand if you have room.";
+        description = "On wave end draw a random common card into your hand if you have room.";
     }
 
     public override SkillInstance CreateInstance()
@@ -27,7 +27,7 @@ public class MysteryDrawSkillInstance : SkillInstance<MysteryDrawSkillData>, ITo
     public void Modify(TowerWaveData towerWaveData)
     {
         PlayCard();
-        var card = CardRarityPicker.PickCards(Data.skillRegistry.Skills, Data.cardRaritySettings, 1);
+        var card = CardRarityPicker.PickCards(Data.skillRegistry.Skills, new[] { CardRarity.Common }, Data.cardRaritySettings, 1);
         InventoryUI.Instance.AddCard(card[0].CreateInstance());
     }
 }

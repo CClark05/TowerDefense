@@ -7,20 +7,17 @@ using UnityEngine.UI;
 public class SetCardData : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText, descriptionText;
-    //[SerializeField] private VerticalLayoutGroup statusEffectGroup;
-    //[SerializeField] private GameObject statusEffectPrefab;
     [SerializeField] private GameObject sideTabPrefab;
+    [SerializeField] private TextMeshProUGUI runtimeStatText;
     [SerializeField] private SkillData skillData;
     [SerializeField] private Image skillIconImage;
     [SerializeField] private VerticalLayoutGroup tabGroup;
     public SkillData SkillData => skillData;
     public SkillInstance SkillInstance { get; private set; }
-    //private List<GameObject> currentStatusEffects = new();
     private List<GameObject> currentTabs = new();
     public InterfaceReference<ICardUI> cardUI;
     private void Start()
     {
-        //UpdateVisual();
         if(skillData.icon != null)
             skillIconImage.sprite = skillData.icon;
         cardUI.Value.OnHoverCard += () =>
@@ -38,6 +35,7 @@ public class SetCardData : MonoBehaviour
     {
         nameText.text = skillData.name;
         descriptionText.text = skillData.description;
+        
         foreach (var effect in skillData.statusEffects)
         {
             if(!effect.showInUI) continue;
@@ -68,6 +66,13 @@ public class SetCardData : MonoBehaviour
     public void SetInstance(SkillInstance instance)
     {
         SkillInstance = instance;
+        if (SkillInstance.RuntimeStat.HasValue)
+            runtimeStatText.text = $"({SkillInstance.Data.FormatRuntimeStat(SkillInstance.RuntimeStat.Value)})";
+        
+        SkillInstance.OnRuntimeStatUpdated += value =>
+        {
+            runtimeStatText.text = $"({SkillInstance.Data.FormatRuntimeStat(value)})";
+        };
     }
 
     public void DisableTabs()

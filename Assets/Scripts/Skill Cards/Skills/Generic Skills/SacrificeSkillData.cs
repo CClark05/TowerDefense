@@ -51,5 +51,6 @@ public class SacrificeSkillInstance : SkillInstance<SacrificeSkillData>, IOnCard
 
         towerWaveData.increasedBaseDamage += delta;
         appliedBonus = accumulatedBonus;
+        RuntimeStat = accumulatedBonus;
     }
 }
