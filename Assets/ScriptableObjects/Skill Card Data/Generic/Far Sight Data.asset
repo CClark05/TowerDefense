@@ -15,9 +15,11 @@ MonoBehaviour:
   name: Far Sight
   icon: {fileID: -3598647898564959137, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Gives +5 range.
+  description: Gives +50% range.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  increasedRange: 5
+  increasedRange: 1.5

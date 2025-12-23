@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -48,6 +49,17 @@ public class BuildingManager : Singleton<BuildingManager>
             OnPlacedBuild?.Invoke(currentBuild.data);
             currentBuild.data.Cost += currentBuild.data.costIncreasePerPurchase;
             ExitBuildMode();
+            StartCoroutine(UpdateTowers());
+            IEnumerator UpdateTowers()
+            {
+                yield return null;
+                foreach (var tower in TowerDataHolder.ActiveTowerList)
+                {
+                    if(tower == newBuilding.GetComponent<TowerDataHolder>()) continue;
+                    CallModifier.Call<IOnNewTowerAdded>(tower.SkillContext, (mod, instance) => mod.OnNewTowerAdded(newBuilding.GetComponent<TowerDataHolder>()));
+                }
+            }
+            
         }
     }
     private void ExitBuildMode()

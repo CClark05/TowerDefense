@@ -14,7 +14,7 @@ public class CatalystSkillData : SkillData
         return new CatalystSkillInstance(this);
     }
 }
-public class CatalystSkillInstance : SkillInstance<CatalystSkillData>, IOnNewCardAdded, ISelfDestructs
+public class CatalystSkillInstance : SkillInstance<CatalystSkillData>, IOnNewCardAdded, ISelfDestructs, IPlayCountPolicy<IOnNewCardAdded>
 {
     private int accumulatedBonus;
     public CatalystSkillInstance(CatalystSkillData data) : base(data)
@@ -24,10 +24,10 @@ public class CatalystSkillInstance : SkillInstance<CatalystSkillData>, IOnNewCar
     public void Modify(SkillInstance cardInstance, TowerWaveData towerWaveData)
     {
         PlayCard();
-        cardInstance.PlayCount++;
-        towerWaveData.removedCards.Add(this);
+        cardInstance.PlayCount += PlayCount;
         OnSelfDestruct?.Invoke();
     }
 
     public Action OnSelfDestruct { get; set; }
+    public int SetPlayCount() => 1;
 }

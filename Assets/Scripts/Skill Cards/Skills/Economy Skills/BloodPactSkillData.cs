@@ -27,7 +27,6 @@ public class BloodPactSkillInstance : SkillInstance<BloodPactSkillData>, ITowerW
     {
         if (PlayerLife.Instance.CurrentLives <= Data.livesLost)
         {
-            towerWaveData.removedCards.Add(this);
             OnSelfDestruct?.Invoke();
             return;
         }

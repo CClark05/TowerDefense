@@ -50,6 +50,14 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
         GetComponent<TowerCards>().OnAddedCard += (instance) => AddCard(instance);
         GetComponent<TowerCards>().OnRemovedCard += (instance) => TryRemoveCard(instance);
         SkillContext.OnTowerUpdated += UpdateTowerData;
+        RuntimeData.OnRangeUpdated += range =>
+        {
+            CallModifier.Call<IOnRangeUpdated>(SkillContext, (mod, instance) =>
+            {
+                mod.OnRangeUpdated();
+            });
+        };
+            
     }
 
     private void OnWaveStart()
@@ -81,7 +89,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
             TryRemoveCard(instance);
         }
 
-        RuntimeData.Range += towerWaveData.increasedRange;
+        RuntimeData.Range *= towerWaveData.increasedRange;
         RuntimeData.CardSlots += towerWaveData.increasedSlots;
         RuntimeData.TimeBetweenShots /= towerWaveData.increasedSpeed;
         RuntimeData.BaseDamage += towerWaveData.increasedBaseDamage;
@@ -211,6 +219,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
 
     private void OnDestroy()
     {
+        Debug.Log("balls");
         ActiveTowerList.Remove(this);
     }
 }

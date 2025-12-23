@@ -70,13 +70,11 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     private int test = 0;
     private void Update()
     {
-        /**
         if (Input.GetKeyDown(KeyCode.Space))
         {
             AddCard(testingData[test].CreateInstance());
             test++;
         }
-        */
     }
     
     public void AddCard(SkillInstance skillInstance)

@@ -13,11 +13,13 @@ MonoBehaviour:
   m_Name: Vitality Data
   m_EditorClassIdentifier: 
   name: Vitality
-  icon: {fileID: 0}
+  icon: {fileID: -2079561314, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Grants +3 lives upon using this card. Self destructs after use.
+  description: Grants +5 lives upon using this card. Self destructs after use.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  livesGranted: 3
+  livesGranted: 5

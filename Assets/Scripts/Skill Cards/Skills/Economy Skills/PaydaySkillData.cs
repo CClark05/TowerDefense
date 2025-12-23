@@ -15,7 +15,7 @@ public class PaydaySkillData : SkillData
         return new PaydaySkillInstance(this);
     }
 }
-public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEndModifier, IOnKill, ISelfDestructs
+public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEndModifier, IOnKill, ISelfDestructs, IPlayCountPolicy<ITowerWaveEndModifier>
 {
     public Action OnSelfDestruct { get; set; }
     public PaydaySkillInstance(PaydaySkillData data) : base(data)
@@ -24,7 +24,6 @@ public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEnd
     
     public void Modify(TowerWaveData towerWaveData)
     {
-        towerWaveData.removedCards.Add(this);
         OnSelfDestruct?.Invoke();
     }
 
@@ -34,5 +33,6 @@ public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEnd
         PlayCard();
     }
 
-    
+
+    public int SetPlayCount() => 1;
 }

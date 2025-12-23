@@ -1,19 +1,17 @@
-
-using System;
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "Jajanken Data", menuName = "SkillData/Generic/Jajanken")]
 public class JajankenSkillData : SkillData
 {
-    public int ChargeTime = 2;
-    [FormerlySerializedAs("DamageIncrease")] public float DamageMult = 0.5f;
-    public Color Color;
+    public float FireRateMult = 0.5f;
+    [FormerlySerializedAs("Color")] public Color ProjectileColor;
+    public int PlusDamage = 5;
     private void OnValidate()
     {
-        description = $"Shots charge up for {ChargeTime} seconds before releasing for +{DamageMult * 100}% damage.";
+        string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
+        description = $"Reduces fire rate by -{FireRateMult * 100}% but apply +1 <color=#{hex}>Stun</color> and +{PlusDamage} base damage on hit.";
     }
 
     public override SkillInstance CreateInstance()
@@ -24,21 +22,35 @@ public class JajankenSkillData : SkillData
     
 }
 
-public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, IProjectileModifier, IHitModifier
+public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCardReceivedModifier, IProjectileModifier, IHitModifier, IPlayCountPolicy<IHitModifier>
 {
-    public bool DelayShot => true;
     public JajankenSkillInstance(JajankenSkillData data) : base(data)
     {
     }
     public IEnumerator Modify(ProjectileShotData shotData)
     {
-        PlayCard();
-        shotData.projectileColor = Data.Color;
-        yield return new WaitForSeconds(Data.ChargeTime);
+        shotData.projectileColor = Data.ProjectileColor;
+        yield return null;
     }
+    public bool DelayShot { get; }
+    
+    public void Apply(TowerWaveData towerWaveData)
+    {
+        towerWaveData.increasedSpeed *= Data.FireRateMult;
+        towerWaveData.increasedBaseDamage += Data.PlusDamage;
+    }
+
+    public void Remove(TowerWaveData towerWaveData)
+    {
+        towerWaveData.increasedSpeed /= Data.FireRateMult;
+        towerWaveData.increasedBaseDamage -= Data.PlusDamage;
+    }
+
     public void Modify(HitData hitData, IDamageable target)
     {
         PlayCard();
-        hitData.finalDamage = CalculateDamage.MultIncrease(Data.DamageMult, hitData.finalDamage);
+        (Data.statusEffects[0].data as StunStatusEffect).AddStacks(hitData, PlayCount);
     }
+
+    public int SetPlayCount() => 1;
 }

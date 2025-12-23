@@ -8,7 +8,7 @@ public class FireStatusEffect : OnTickStatusEffect
 
     private void OnValidate()
     {
-        description = $"Deals {damagePerTick} damage per second for each stack.";
+        description = $"Deals {damagePerTick} damage per second per stack.";
     }
 
     public override void Execute(HitData hitData)
@@ -16,8 +16,21 @@ public class FireStatusEffect : OnTickStatusEffect
         hitData.effectsApplied[this] = hitData.effectsApplied.GetValueOrDefault(this) + 1;
     }
     
-    public override void OnTick(TickData tickData, int stacks)
+    public override void OnTick(TickData tickData)
     {
-        SetDamageData(tickData, damagePerTick * stacks);
+        foreach (var kvp in tickData.stacks)
+        {
+            var skillContext = kvp.Key;
+            int tickDamage = damagePerTick;
+            List<Color> colors = new();
+            foreach (var mod in skillContext.GetSkillInstancesWith<IFireModifier>())
+            {
+                tickDamage = CalculateDamage.MultIncrease(mod.modifier.PlusMult, tickDamage);
+                if(mod.modifier.Color != default)
+                    colors.Add(mod.modifier.Color);
+            }
+            SetDamageData(tickData, kvp.Key, tickDamage * kvp.Value.Count, colors);
+        }
     }
+    
 }

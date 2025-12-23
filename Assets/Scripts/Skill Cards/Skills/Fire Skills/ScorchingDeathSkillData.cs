@@ -10,7 +10,7 @@ public class ScorchingDeathSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Applies {fireOnKill} <color=#{hex}>Fire</color> on kill to all enemies.";
+        description = $"Applies +{fireOnKill} <color=#{hex}>Fire</color> on kill to all enemies.";
     }
 
     public override SkillInstance CreateInstance()
@@ -31,6 +31,7 @@ public class ScorchingDeathSkillInstance : SkillInstance<ScorchingDeathSkillData
         foreach (var enemy in enemies)
         {
             //var onEffects = skillContext.GetSkillInstancesWith<IOnEffectApplied>().Where(e => e.modifier.Effect == Data.statusEffects[0].data);
+            /**
             var effectData = new ModifyEffectData();
             CallModifier.Call<IOnEffectApplied>(skillContext, (mod, instance) =>
             {
@@ -44,7 +45,8 @@ public class ScorchingDeathSkillInstance : SkillInstance<ScorchingDeathSkillData
                     mod.modifier.Modify(effectData, hitData);
             }
             */
-            enemy.AddPersistentEffect(Data.statusEffects[0].data as PersistentStatusEffect, hitData, Data.fireOnKill, effectData, hitData.ghost);
+            //enemy.AddPersistentEffect(Data.statusEffects[0].data as PersistentStatusEffect, hitData, Data.fireOnKill, effectData);
+            PersistentStatusEffect.AddPersistentEffect(Data.statusEffects[0].data as PersistentStatusEffect, skillContext, enemy, hitData, Data.fireOnKill);
             PlayCard();
         }
     }

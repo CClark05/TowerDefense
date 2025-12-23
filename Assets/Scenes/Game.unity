@@ -387,7 +387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveSettings: {fileID: 11400000, guid: 177d607bf8b04a94994e2bf1a2e7af0e, type: 2}
-  testEnemies: []
+  testEnemies:
+  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
 --- !u!4 &84492598
 Transform:
   m_ObjectHideFlags: 0
@@ -6065,11 +6066,11 @@ MonoBehaviour:
   - {fileID: 449712532}
   - {fileID: 134421251}
   testingData:
-  - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
-  - {fileID: 11400000, guid: 60e86dad96a8e2b4d961dbfb2f0f75c8, type: 2}
-  - {fileID: 11400000, guid: e7011b9b3a4f63147b01fb52a0246d01, type: 2}
-  - {fileID: 11400000, guid: 16401bbca628494449e0f27eb00bfd7b, type: 2}
-  - {fileID: 11400000, guid: efb1430c0b1e15b4bbd780ff48c80ba9, type: 2}
+  - {fileID: 11400000, guid: 84033bee1b2283245a2855f3b7beadde, type: 2}
+  - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
+  - {fileID: 11400000, guid: 8ee0b0440d8eb1742a8d4c3a477c9f0e, type: 2}
+  - {fileID: 11400000, guid: d33b3f49069a49e4b86130c7b3244fd9, type: 2}
+  - {fileID: 11400000, guid: 3d089c0547258a74ab99f26f0a740ec9, type: 2}
   - {fileID: 11400000, guid: c6bbf277615bbb742a2e6c829d2452ab, type: 2}
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
   - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}

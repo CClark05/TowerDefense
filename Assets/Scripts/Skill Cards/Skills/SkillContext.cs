@@ -41,7 +41,6 @@ public class SkillContext
             selfDestructs.OnSelfDestruct += OnSelfDestruct;
             void OnSelfDestruct()
             {
-                Debug.Log("Applying OnCardSelfDestruct modifier");
                 var towerWaveData = new TowerWaveData();
                 CallModifier.Call<IOnCardSelfDestruct>(this, (mod, _) =>
                 {
@@ -60,6 +59,7 @@ public class SkillContext
                 instance.Dispose();
                 selfDestructs.OnSelfDestruct = null;
                 OnTowerUpdated?.Invoke(towerWaveData);
+                Tower.TryRemoveCard(instance);
             }
             
         }

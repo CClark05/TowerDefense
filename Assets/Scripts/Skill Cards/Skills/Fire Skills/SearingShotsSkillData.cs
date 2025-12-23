@@ -9,7 +9,7 @@ public class SearingShotsSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Applies {stacksPerHit} <color=#{hex}>Fire</color> per hit.";
+        description = $"Applies +{stacksPerHit} <color=#{hex}>Fire</color> per hit.";
     }
 
     public override SkillInstance CreateInstance()

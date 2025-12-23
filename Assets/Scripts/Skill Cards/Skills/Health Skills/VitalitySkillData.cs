@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Vitality Data", menuName = "SkillData/Health/Vitality")]
 public class VitalitySkillData : SkillData
 {
-    public int livesGranted = 3;
+    public int livesGranted = 5;
     private void OnValidate()
     {
         description = $"Grants +{livesGranted} lives upon using this card. Self destructs after use.";
@@ -14,7 +14,7 @@ public class VitalitySkillData : SkillData
         return new VitalitySkillInstance(this);
     }
 }
-public class VitalitySkillInstance : SkillInstance<VitalitySkillData>, ITowerCardReceivedModifier, ISelfDestructs
+public class VitalitySkillInstance : SkillInstance<VitalitySkillData>, ITowerCardReceivedModifier, ISelfDestructs, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
     public VitalitySkillInstance(VitalitySkillData data) : base(data)
     {
@@ -24,13 +24,12 @@ public class VitalitySkillInstance : SkillInstance<VitalitySkillData>, ITowerCar
     {
         PlayCard();
         PlayerLife.Instance.AddLives(Data.livesGranted * PlayCount);
-        towerWaveData.removedCards.Add(this);
         OnSelfDestruct?.Invoke();
     }
     public void Remove(TowerWaveData towerWaveData)
     {
     }
-    public bool alwaysPlayOnce { get; } = true;
 
     public Action OnSelfDestruct { get; set; }
+    public int SetPlayCount() => 1;
 }

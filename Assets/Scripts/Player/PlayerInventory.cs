@@ -54,10 +54,8 @@ public class PlayerInventory : Singleton<PlayerInventory>
     
     private void Update()
     {
-        /**
         if (Input.GetKeyDown(KeyCode.C))
             AddCoins(10);
-            */
     }
     public void AddCoins(int amount)
     {
@@ -66,7 +64,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
         TotalCoinsEarned += amount;
     }
 
-    private void SubtractCoins(int amount)
+    public void SubtractCoins(int amount)
     {
         OnCoinsRemoved?.Invoke(amount);
         Coins -= amount;

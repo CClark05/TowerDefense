@@ -12,12 +12,13 @@ public class PlayerLife : Singleton<PlayerLife>
         {
             if (Equals(value, currentLives)) return;
             currentLives = value;
-            OnLivesUpdated?.Invoke(value);
-            if (value <= 0)
+            Debug.Log("Lives Updated: " + currentLives);
+            foreach (var tower in TowerDataHolder.ActiveTowerList)
             {
-                Debug.Log("GAME OVER");
-                OnGameOver?.Invoke( PlayerGameOverStats.GetGameOverData());
+                CallModifier.Call<IOnLivesUpdated>(tower.SkillContext, (mod,instance) => mod.OnLivesUpdated(currentLives));
             }
+            if (currentLives == value)
+                OnLivesUpdated?.Invoke(currentLives);
         }
     }
     public event Action<int> OnLivesUpdated;
@@ -25,8 +26,15 @@ public class PlayerLife : Singleton<PlayerLife>
     private void Start()
     {
         CurrentLives = LevelDataHolder.Instance.Data.playerLives;
-        Debug.Log(CurrentLives);
         EnemyManager.Instance.OnEnemyReachedEnd += OnEnemyReachedEndStatic;
+        EnemyManager.Instance.OnWaveComplete += () =>
+        {
+            if (currentLives <= 0)
+            {
+                Debug.Log("GAME OVER");
+                OnGameOver?.Invoke( PlayerGameOverStats.GetGameOverData());
+            }
+        };
     }
     private void OnEnemyReachedEndStatic(int lives)
     {

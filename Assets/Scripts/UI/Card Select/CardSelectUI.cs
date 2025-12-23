@@ -78,6 +78,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
 
     private void OnWaveComplete()
     {
+        if(PlayerLife.Instance.CurrentLives <= 0) return;
         var encounter = EncounterGenerator.Instance.GetEncounter(EnemyManager.Instance.CurrentWave - 1);
         if (encounter != null) return;
         rerollAmount = 0;

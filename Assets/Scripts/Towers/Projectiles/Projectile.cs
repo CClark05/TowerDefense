@@ -7,60 +7,53 @@ public class Projectile : MonoBehaviour
     [SerializeField] private ProjectileData data;
     [SerializeField] private float maxLeadSeconds = 0.3f;
     [SerializeField] private float steerGain = 12;
-    private float preHitWindow = 0.075f;
     private IDamageable target;
     private TowerDataHolder towerData;
 
-    private Vector2 direction;
+    private Vector2? direction;
+    public Vector2 Origin { get; private set; }
     private Transform targetTransform;
     public event Action<HitData, Vector2> OnDealDamage;
     private int maxEnemiesPierced;
     private float speedIncrease = 1;
     private HashSet<IDamageable> enemiesHit = new();
     private bool homing;
-    public static event Action OnWillKill;
+    private ProjectileShotData shotData;
+    public float EffectiveSpeed => data.speed * speedIncrease;
+    
     private void Init(IDamageable target, ProjectileShotData shotData)
     {
         this.target = target;
+        this.shotData = shotData;
+        if(shotData.projectileSprite != null) 
+            GetComponent<SpriteRenderer>().sprite = shotData.projectileSprite;
+        shotData.projectile = this;
         homing = shotData.homing;
         GetComponent<ProjectileVisual>().SetColor(shotData.projectileColor);
         maxEnemiesPierced = shotData.maxEnemiesPierced;
         targetTransform = target.Transform;
         speedIncrease *= shotData.speedIncrease;
-        CalculateAim(transform.position, data.speed * speedIncrease);
-        
+        CalculateAim(transform.position, EffectiveSpeed);
+
     }
 
     public static Projectile CreateProjectile(ProjectileData data, ProjectileShotData shotData, Vector2 position, IDamageable target, TowerDataHolder tower)
     {
         var projectile = Instantiate(data.prefab, position, Quaternion.identity).GetComponent<Projectile>();
+        projectile.Origin = position;
         projectile.towerData = tower;
         projectile.Init(target, shotData);
         return projectile;
     }
-    private bool preHitTriggered;
+
+    private bool shotDestroyed;
     private void Update()
     {
         if (homing && targetTransform != null)
             direction = (targetTransform.position - transform.position).normalized;
         
-        if(direction == Vector2.zero)
-            Destroy(gameObject);
-        
-        transform.position += (Vector3)direction * (data.speed * speedIncrease * Time.deltaTime);
-        if (targetTransform == null)
-            return;
-        var predictor = targetTransform.GetComponent<IPathPredictor>();
-        if(TryPathIntercept(predictor, transform.position, data.speed * speedIncrease, preHitWindow, out var aim, out var tHit))
-        {
-            /**
-            if (!preHitTriggered && tHit <= preHitWindow) {
-                preHitTriggered = true;
-                var damage = CalculateHitDamage(target, out var didKill);
-                if(didKill) OnWillKill?.Invoke();
-            }
-            */
-        }
+        if(direction != null)
+            transform.position += (Vector3)direction * (EffectiveSpeed * Time.deltaTime);
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -78,70 +71,27 @@ public class Projectile : MonoBehaviour
             {
                 if (enemiesHit.Count >= maxEnemiesPierced)
                 {
-                    Destroy(gameObject);
+                    shotData.ShotDestroyed();
+                    direction = null;
                     return;
                 }
             }
         }
         int baseDamage = data.damage + towerData.RuntimeData.BaseDamage;
         var hitData = new HitData(baseDamage, towerData.GetComponent<TowerShooting>(), damageable, statusEffects);
-        bool delayed = false;
-        hitData.DelayDamage = (float delay, float multiplier) =>
-        {
-            delayed = true;
-            CoroutineRunner.Instance.StartCoroutine(
-                DamageService.ApplyDelayedDamage(hitData, damageable, statusEffects, towerData.SkillContext, delay, multiplier, OnDealDamage));
-        };
-        var list = towerData.SkillContext.GetSkillInstancesWith<IOnHit>();
+
         CallModifier.Call<IOnHit>(towerData.SkillContext, (mod, _) =>
         {
             mod.OnHit(hitData);
         });
-        /**
-        foreach (var mod in towerData.SkillContext.GetSkillInstancesWith<IOnHit>().OrderBy(p => p.modifier.Priority)) 
-        {
-            for(int i = 0; i < mod.instance.PlayCount; i++)
-            {
-                mod.modifier.OnHit(hitData);
-            }
-        }
-        */
-        if (delayed)
-        {
-            Destroy(gameObject);
-            return;
-        }
+
         DamageService.ApplyDamage(hitData, damageable, statusEffects, towerData.SkillContext, OnDealDamage);
         if (enemiesHit.Count >= maxEnemiesPierced)
         {
-            Destroy(gameObject);
+            shotData.ShotDestroyed();
+            direction = null;
         }
     }
-    /**
-    private int CalculateHitDamage(IDamageable damageable, out bool didKill)
-    {
-        var statusEffects = damageable.Transform.GetComponent<IUsesStatusEffects>();
-        if (damageable.Transform.GetComponent<IUsesShields>() != null)
-        {
-            if (damageable.Transform.GetComponent<IUsesShields>().ShieldCount > 0)
-            {
-                didKill = false;
-                return 0;
-            }
-        }
-        int baseDamage = data.damage + towerData.Data.damage;
-        var hitData = new HitData(baseDamage, towerData.GetComponent<TowerShooting>(), damageable, statusEffects);
-        var list = towerData.SkillContext.GetSkillInstancesWith<IOnHit>();
-        foreach (var mod in towerData.SkillContext.GetSkillInstancesWith<IOnHit>().OrderBy(p => p.modifier.Priority)) 
-        {
-            for(int i = 0; i < mod.instance.PlayCount; i++)
-            {
-                mod.modifier.OnHit(hitData);
-            }
-        }
-        return DamageService.CalculateDamage(hitData, damageable, statusEffects, towerData.SkillContext, out didKill);
-    }
-    */
     private bool TryPathIntercept(IPathPredictor predictor, Vector2 shooterPos, float projSpeed, float tMax, out Vector2 aim, out float tHit)
     {
         float G(float t)
@@ -190,6 +140,7 @@ public class Projectile : MonoBehaviour
         TryPathIntercept(predictor, shooterPos, projSpeed, maxLeadSeconds, out var aim, out var tHit);
         Vector2 desired = (aim - shooterPos).normalized;
         float a = 1f - Mathf.Exp(-steerGain * Time.deltaTime);
-        direction = Vector2.Lerp(direction, desired, a).normalized;
+        direction ??= Vector2.zero;
+        direction = Vector2.Lerp(direction.Value, desired, a).normalized;
     }
 }

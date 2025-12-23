@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 913b1bf565bd4614a8fa41fc46f19c92, type: 3}
+  m_Name: Hot Spot Data
+  m_EditorClassIdentifier: 
+  name: Hot Spot
+  icon: {fileID: -1973547398, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
+  rarity: 0
+  description: Towers in range gain +1 card slot(s).
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
+  statusEffects: []
+  buffs: []
+  prerequisiteSkills: []
+  isExcluded: 0
+  AdditionalSlots: 1

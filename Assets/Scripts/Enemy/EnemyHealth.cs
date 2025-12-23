@@ -18,6 +18,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
     public bool TakeDamage(int amount)
     {
         if (deathTimer != null) return false;
+        if(HealthSystem.Health <= 0) return false;
         bool isDead = HealthSystem.Damage(amount);
         OnHit?.Invoke();
         if (isDead)

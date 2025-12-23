@@ -6,18 +6,22 @@ public class OverclockSkillData : SkillData
 {
     public int extraSlots;
     public float destroyChance;
+
     private void OnValidate()
     {
         description = $"Gives +{extraSlots} card slots on receiving this card. Has a {destroyChance * 100}% chance to self destruct at the end of the wave.";
     }
+
     public override SkillInstance CreateInstance()
     {
         return new OverclockSkillInstance(this);
     }
 }
-public class OverclockSkillInstance : SkillInstance<OverclockSkillData>, ITowerCardReceivedModifier, ITowerWaveEndModifier, ISelfDestructs
+
+public class OverclockSkillInstance : SkillInstance<OverclockSkillData>, ITowerCardReceivedModifier, ITowerWaveEndModifier, ISelfDestructs, IPlayCountPolicy<ITowerWaveEndModifier>
 {
     public Action OnSelfDestruct { get; set; }
+
     public OverclockSkillInstance(OverclockSkillData data) : base(data)
     {
     }
@@ -32,18 +36,17 @@ public class OverclockSkillInstance : SkillInstance<OverclockSkillData>, ITowerC
     {
         towerWaveData.increasedSlots -= Data.extraSlots;
     }
-
-    public bool alwaysPlayOnce { get; }
+    
 
     public void Modify(TowerWaveData towerWaveData)
     {
         var rand = UnityEngine.Random.value;
-        if(rand < Data.destroyChance)
+        if (rand < Data.destroyChance * PlayCount)
         {
-            towerWaveData.removedCards.Add(this);
             OnSelfDestruct?.Invoke();
         }
     }
 
-    
+
+    public int SetPlayCount() => 1;
 }

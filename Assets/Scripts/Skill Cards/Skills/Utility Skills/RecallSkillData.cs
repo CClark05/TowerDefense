@@ -14,7 +14,7 @@ public class RecallSkillData : SkillData
         return new RecallSkillInstance(this);
     }
 }
-public class RecallSkillInstance : SkillInstance<RecallSkillData>, ISelfDestructs, IOnNewCardAdded
+public class RecallSkillInstance : SkillInstance<RecallSkillData>, ISelfDestructs, IOnNewCardAdded, IPlayCountPolicy<IOnNewCardAdded>
 {
     public RecallSkillInstance(RecallSkillData data) : base(data)
     {
@@ -23,10 +23,15 @@ public class RecallSkillInstance : SkillInstance<RecallSkillData>, ISelfDestruct
     public Action OnSelfDestruct { get; set; }
     public void Modify(SkillInstance cardInstance, TowerWaveData towerWaveData)
     {
-        PlayCard();
-        var newInstance = cardInstance.Data.CreateInstance();
-        InventoryUI.Instance.AddCard(newInstance);
-        towerWaveData.removedCards.Add(this);
+        for (int i = 0; i < PlayCount; i++)
+        {
+            PlayCard();
+            var newInstance = cardInstance.Data.CreateInstance();
+            InventoryUI.Instance.AddCard(newInstance);
+        }
+
         OnSelfDestruct?.Invoke();
     }
+
+    public int SetPlayCount() => 1;
 }

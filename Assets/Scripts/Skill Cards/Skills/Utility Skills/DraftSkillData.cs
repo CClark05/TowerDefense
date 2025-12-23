@@ -20,7 +20,7 @@ public class DraftSkillData : SkillData
         return new DraftSkillInstance(this);
     }
 }
-public class DraftSkillInstance : SkillInstance<DraftSkillData>, ISelfDestructs, ITowerCardReceivedModifier
+public class DraftSkillInstance : SkillInstance<DraftSkillData>, ISelfDestructs, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
     public DraftSkillInstance(DraftSkillData data) : base(data)
     {
@@ -29,15 +29,20 @@ public class DraftSkillInstance : SkillInstance<DraftSkillData>, ISelfDestructs,
     public Action OnSelfDestruct { get; set; }
     public void Apply(TowerWaveData towerWaveData)
     {
-        PlayCard();
-        List<SkillData> drawnCards = CardRarityPicker.PickCards(Data.skillRegistry.Skills, Data.cardRaritySettings, Data.cardsDrawn);
-        var instances = drawnCards.Select(c => c.CreateInstance()).ToList();
-        InventoryUI.Instance.AddCards(instances);
-        towerWaveData.removedCards.Add(this);
+        for (int i = 0; i < PlayCount; i++)
+        {
+            PlayCard();
+            List<SkillData> drawnCards = CardRarityPicker.PickCards(Data.skillRegistry.Skills, Data.cardRaritySettings, Data.cardsDrawn);
+            var instances = drawnCards.Select(c => c.CreateInstance()).ToList();
+            InventoryUI.Instance.AddCards(instances);
+        }
+
         OnSelfDestruct?.Invoke();
     }
     public void Remove(TowerWaveData towerWaveData)
     {
         
     }
+
+    public int SetPlayCount() => 1;
 }

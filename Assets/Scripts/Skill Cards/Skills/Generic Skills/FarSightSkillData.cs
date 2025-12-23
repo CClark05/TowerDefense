@@ -4,11 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Far Sight Data", menuName = "SkillData/Generic/FarSight")]
 public class FarSightSkillData : SkillData
 {
-    public int increasedRange;
+    public float increasedRange = 1.25f;
 
     private void OnValidate()
     {
-        description = $"Gives +{increasedRange} range.";
+        description = $"Gives +{(increasedRange - 1) * 100}% range.";
     }
 
     public override SkillInstance CreateInstance()
@@ -24,14 +24,13 @@ public class FarSightSkillInstance : SkillInstance<FarSightSkillData>, ITowerCar
     }
     public void Apply(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedRange += Data.increasedRange;
+        towerWaveData.increasedRange *= Data.increasedRange;
         PlayCard();
     }
 
     public void Remove(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedRange -= Data.increasedRange;
+        towerWaveData.increasedRange /= Data.increasedRange;
     }
 
-    public bool alwaysPlayOnce { get; }
 }

@@ -25,6 +25,8 @@ public class RelentlessExposureSkillInstance : SkillInstance<RelentlessExposureS
     {
     }
     public EffectData Effect => Data.statusEffects[0].data;
+    public bool PlayOnce { get; }
+
     public void Modify(ModifyEffectData effectData, HitData hitData)
     {
         if(hitData.statusEffects.PersistentEffectTotalApplications.TryGetValue(Data.statusEffects[0].data as PersistentStatusEffect, out var applications))

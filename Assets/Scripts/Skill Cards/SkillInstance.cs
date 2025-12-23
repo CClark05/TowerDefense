@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -70,6 +72,12 @@ public abstract class SkillInstance
         OnDispose = null;
         OnRuntimeStatUpdated = null;
     }
+    protected List<TowerDataHolder> GetTowersInRange()
+    {
+        return TowerDataHolder.ActiveTowerList.Where(
+            t => t.SkillContext != skillContext && 
+                 Vector2.Distance(t.transform.position, skillContext.Tower.transform.position) <= skillContext.Tower.RuntimeData.Range).ToList();
+    }
 }
 public abstract class SkillInstance<TData> : SkillInstance where TData : SkillData
 {
@@ -78,4 +86,67 @@ public abstract class SkillInstance<TData> : SkillInstance where TData : SkillDa
     {
         Data = data;
     }
+}
+
+public class SupportSkillInstance<TData> : SkillInstance<TData>, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>, IOnNewTowerAdded, IPlayCountPolicy<IOnNewTowerAdded>, IOnRangeUpdated, IPlayCountPolicy<IOnRangeUpdated> where TData : SkillData
+{
+    protected readonly HashSet<TowerDataHolder> affectedTowers = new();
+    public event Action<TowerDataHolder> OnApply;
+    public event Action<TowerDataHolder> OnRemove;
+    protected SupportSkillInstance(TData data) : base(data)
+    {
+    }
+
+    private List<TowerDataHolder> GetTowers()
+    {
+        return TowerDataHolder.ActiveTowerList.Where(
+            t => t.SkillContext != skillContext && Vector2.Distance(t.transform.position, skillContext.Tower.transform.position) <= skillContext.Tower.RuntimeData.Range).ToList();
+    }
+    
+    public void Apply(TowerWaveData towerWaveData)
+    {
+        var towers = GetTowers();
+        foreach (var tower in towers)
+        {
+            OnApply?.Invoke(tower);
+            affectedTowers.Add(tower);
+        }
+    }
+
+    public void Remove(TowerWaveData towerWaveData)
+    {
+        foreach (var tower in affectedTowers)
+            OnRemove?.Invoke(tower);
+        affectedTowers.Clear();
+    }
+    
+    public void OnNewTowerAdded(TowerDataHolder towerDataHolder)
+    {
+        if (Vector2.Distance(towerDataHolder.transform.position, skillContext.Tower.transform.position) <= skillContext.Tower.RuntimeData.Range)
+        {
+            OnApply?.Invoke(towerDataHolder);
+            affectedTowers.Add(towerDataHolder);
+        }
+    }
+    
+    public void OnRangeUpdated()
+    {
+        var towers = TowerDataHolder.ActiveTowerList.Where(
+            t => t.SkillContext != skillContext && Vector2.Distance(t.transform.position, skillContext.Tower.transform.position) <= skillContext.Tower.RuntimeData.Range);
+        foreach (var tower in towers.Except(affectedTowers).ToList())
+        {
+            OnApply?.Invoke(tower);
+            affectedTowers.Add(tower);
+        }
+
+        foreach (var tower in affectedTowers.Except(towers).ToList())
+        {
+            OnRemove?.Invoke(tower);
+            affectedTowers.Remove(tower);
+        }
+    }
+
+    public virtual int SetPlayCount() => 1;
+    
+    
 }
