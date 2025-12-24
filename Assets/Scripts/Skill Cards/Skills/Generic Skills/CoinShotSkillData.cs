@@ -9,7 +9,7 @@ public class CoinShotSkillData : SkillData
     public Sprite coinSprite;
     private void OnValidate()
     {
-        description = $"When you have coins, use them as projectiles for +{damageMult * 100}% damage.";
+        description = $"If possible, use coins as projectiles for +{damageMult * 100}% damage.";
     }
 
     public override SkillInstance CreateInstance()
@@ -17,7 +17,7 @@ public class CoinShotSkillData : SkillData
         return new CoinShotSkillInstance(this);
     }
 }
-public class CoinShotSkillInstance : SkillInstance<CoinShotSkillData>, IProjectileModifier, IHitModifier, IPlayCountPolicy<IProjectileModifier>
+public class CoinShotSkillInstance : SkillInstance<CoinShotSkillData>, IProjectileModifier, IHitModifier, IPlayCountPolicy<IProjectileModifier>, IPlayCountPolicy<IHitModifier>
 {
     public CoinShotSkillInstance(CoinShotSkillData data) : base(data)
     {
@@ -42,8 +42,8 @@ public class CoinShotSkillInstance : SkillInstance<CoinShotSkillData>, IProjecti
     {
         if (shotCoin)
         {
-            hitData.finalDamage = CalculateDamage.MultIncrease(Data.damageMult, hitData.finalDamage);
-            hitData.damageMarkerPunchEffect = true;
+            hitData.finalDamage = CalculateDamage.MultIncrease(Data.damageMult, hitData.finalDamage, PlayCount);
+            PlayCard();
         }
     }
 

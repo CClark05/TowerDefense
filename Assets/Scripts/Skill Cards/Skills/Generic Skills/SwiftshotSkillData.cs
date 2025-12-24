@@ -9,7 +9,7 @@ public class SwiftshotSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Increases projectile speed by {Math.Round((speedIncrease - 1) * 100)}%.";
+        description = $"Increases projectile speed by +{speedIncrease * 100}%.";
     }
 
     public override SkillInstance CreateInstance()
@@ -18,7 +18,7 @@ public class SwiftshotSkillData : SkillData
     }
 }
 
-public class SwiftshotSkillInstance : SkillInstance<SwiftshotSkillData>, IProjectileModifier
+public class SwiftshotSkillInstance : SkillInstance<SwiftshotSkillData>, IProjectileModifier, IPlayCountPolicy<IProjectileModifier>
 {
     public SwiftshotSkillInstance(SwiftshotSkillData data) : base(data)
     {
@@ -26,10 +26,11 @@ public class SwiftshotSkillInstance : SkillInstance<SwiftshotSkillData>, IProjec
 
     public IEnumerator Modify(ProjectileShotData shotData)
     {
-        shotData.speedIncrease *= Data.speedIncrease;
+        shotData.speedIncrease *= 1 + Data.speedIncrease * PlayCount;
         PlayCard();
         yield return null;
     }
 
     public bool DelayShot { get; }
+    public int SetPlayCount() => 1;
 }

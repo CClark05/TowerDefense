@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Jajanken
   icon: {fileID: 1145404442578332096, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
-  rarity: 0
-  description: Reduces fire rate by -50% but apply +1 <color=#BE772B>Stun</color>
+  rarity: 1
+  description: Reduces fire rate by 50% but apply +1 <color=#BE772B>Stun</color>
     and +5 base damage on hit.
   hasRuntimeValue: 0
   runtimeStatsFormat: +x

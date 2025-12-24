@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TMPro;
+using Unity.VisualScripting.FullSerializer.Internal;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SetCardData : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI nameText, descriptionText;
+    private string originalDescription;
     [SerializeField] private GameObject sideTabPrefab;
     [SerializeField] private TextMeshProUGUI runtimeStatText;
     [SerializeField] private SkillData skillData;
@@ -16,9 +19,10 @@ public class SetCardData : MonoBehaviour
     public SkillInstance SkillInstance { get; private set; }
     private List<GameObject> currentTabs = new();
     public InterfaceReference<ICardUI> cardUI;
+
     private void Start()
     {
-        if(skillData.icon != null)
+        if (skillData.icon != null)
             skillIconImage.sprite = skillData.icon;
         cardUI.Value.OnHoverCard += () =>
         {
@@ -31,19 +35,21 @@ public class SetCardData : MonoBehaviour
                 tab.SetActive(false);
         };
     }
+
     private void UpdateVisual()
     {
         nameText.text = skillData.name;
         descriptionText.text = skillData.description;
-        
+        originalDescription = skillData.description;
         foreach (var effect in skillData.statusEffects)
         {
-            if(!effect.showInUI) continue;
+            if (!effect.showInUI) continue;
             AddTab(effect);
         }
+
         foreach (var buff in skillData.buffs)
         {
-            if(!buff.showInUI) continue;
+            if (!buff.showInUI) continue;
             AddTab(buff);
         }
 
@@ -58,21 +64,39 @@ public class SetCardData : MonoBehaviour
             tab.SetActive(false);
         }
     }
+
     public void SetData(SkillData data)
     {
         skillData = data;
         UpdateVisual();
     }
+
     public void SetInstance(SkillInstance instance)
     {
         SkillInstance = instance;
         if (SkillInstance.RuntimeStat.HasValue)
             runtimeStatText.text = $"({SkillInstance.Data.FormatRuntimeStat(SkillInstance.RuntimeStat.Value)})";
+        UpdateDescription(instance.PlayCount);
+        SkillInstance.OnRuntimeStatUpdated += value => { runtimeStatText.text = $"({SkillInstance.Data.FormatRuntimeStat(value)})"; };
+        SkillInstance.OnPlayCountUpdated += UpdateDescription;
         
-        SkillInstance.OnRuntimeStatUpdated += value =>
+        void UpdateDescription(int playCount)
         {
-            runtimeStatText.text = $"({SkillInstance.Data.FormatRuntimeStat(value)})";
-        };
+            string updated = Regex.Replace(
+                originalDescription,
+                @"\+(\d+)",
+                match =>
+                {
+                    int baseValue = int.Parse(match.Groups[1].Value);
+                    int newValue = baseValue * playCount;
+                    return $"+{newValue}";
+                },
+                RegexOptions.CultureInvariant
+            );
+
+            descriptionText.text = updated;
+        }
+        
     }
 
     public void DisableTabs()

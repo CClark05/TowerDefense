@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -44,11 +45,28 @@ public class CardPreviewUI : MonoBehaviour
         }
 
         instance.OnRuntimeStatUpdated += OnRuntimeStatUpdated;
-
+        instance.OnPlayCountUpdated += UpdateDescription;
+        UpdateDescription(instance.PlayCount);
         if (instance.RuntimeStat.HasValue)
         {
             OnRuntimeStatUpdated(instance.RuntimeStat.Value);
             return;
+        }
+        void UpdateDescription(int playCount)
+        {
+            string updated = Regex.Replace(
+                descriptionText.text,
+                @"\+(\d+)",
+                match =>
+                {
+                    int currentValue = int.Parse(match.Groups[1].Value);
+                    int newValue = currentValue * playCount;
+                    return $"+{newValue}";
+                },
+                RegexOptions.CultureInvariant
+            );
+
+            descriptionText.text = updated;
         }
         runtimeStatText.gameObject.SetActive(false);
     }

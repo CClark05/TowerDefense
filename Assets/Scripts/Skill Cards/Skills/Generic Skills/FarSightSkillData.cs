@@ -8,7 +8,7 @@ public class FarSightSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Gives +{(increasedRange - 1) * 100}% range.";
+        description = $"Gives +{(increasedRange* 100)}% range.";
     }
 
     public override SkillInstance CreateInstance()
@@ -17,20 +17,21 @@ public class FarSightSkillData : SkillData
     }
 }
 
-public class FarSightSkillInstance : SkillInstance<FarSightSkillData>, ITowerCardReceivedModifier
+public class FarSightSkillInstance : SkillInstance<FarSightSkillData>, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
     public FarSightSkillInstance(FarSightSkillData data) : base(data)
     {
     }
     public void Apply(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedRange *= Data.increasedRange;
+        towerWaveData.increasedRange *= 1f + Data.increasedRange * PlayCount;
         PlayCard();
     }
 
     public void Remove(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedRange /= Data.increasedRange;
+        towerWaveData.increasedRange /= 1f + Data.increasedRange * PlayCount;
     }
 
+    public int SetPlayCount() => 1;
 }

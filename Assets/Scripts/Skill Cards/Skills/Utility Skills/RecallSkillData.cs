@@ -6,7 +6,7 @@ public class RecallSkillData : SkillData
 {
     private void OnValidate()
     {
-        description = "Creates a copy of the next card added to this tower and adds it to your hand. Self destructs after use.";
+        description = "Creates +1 copy(s) of the next card added to this tower and adds it to your hand. Self destructs after use.";
     }
 
     public override SkillInstance CreateInstance()

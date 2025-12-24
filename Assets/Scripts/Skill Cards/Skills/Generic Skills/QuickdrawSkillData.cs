@@ -8,7 +8,7 @@ public class QuickdrawSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Increases fire rate by {(speedIncrease - 1) * 100}%.";
+        description = $"Increases fire rate by +{speedIncrease * 100}%.";
     }
 
     public override SkillInstance CreateInstance()
@@ -17,7 +17,7 @@ public class QuickdrawSkillData : SkillData
     }
 }
 
-public class QuickdrawSkillInstance : SkillInstance<QuickdrawSkillData>, ITowerCardReceivedModifier
+public class QuickdrawSkillInstance : SkillInstance<QuickdrawSkillData>, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
     public QuickdrawSkillInstance(QuickdrawSkillData data) : base(data)
     {
@@ -25,14 +25,14 @@ public class QuickdrawSkillInstance : SkillInstance<QuickdrawSkillData>, ITowerC
 
     public void Remove(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedSpeed /= Data.speedIncrease;
+        towerWaveData.increasedSpeed /= 1 + Data.speedIncrease * PlayCount;
     }
-
-    public bool alwaysPlayOnce { get; }
-
+    
     public void Apply(TowerWaveData towerWaveData)
     {
         PlayCard();
-        towerWaveData.increasedSpeed *= Data.speedIncrease;
+        towerWaveData.increasedSpeed *= 1 + Data.speedIncrease * PlayCount;
     }
+
+    public int SetPlayCount() => 1;
 }

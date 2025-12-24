@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Hot Spot
   icon: {fileID: -1973547398, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
-  rarity: 0
+  rarity: 1
   description: Towers in range gain +1 card slot(s).
   hasRuntimeValue: 0
   runtimeStatsFormat: 

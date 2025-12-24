@@ -9,7 +9,7 @@ public class ExposingHasteSkillData : SkillData
     {
         string weak = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
         string haste =  ColorUtility.ToHtmlStringRGB(buffs[0].data.color);
-        description = $"While every enemy is <color=#{weak}>Weak</color> gain {hasteStacksPerEnemy} <color=#{haste}>Haste</color> per enemy.";
+        description = $"While every enemy is <color=#{weak}>Weak</color> gain +{hasteStacksPerEnemy} <color=#{haste}>Haste</color> per enemy.";
     }
 
     public override SkillInstance CreateInstance()

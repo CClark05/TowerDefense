@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8514e3bdf75a4736b238525c6993b1d4, type: 3}
-  m_Name: Far Sight Data
+  m_Script: {fileID: 11500000, guid: d9d6beabfd6c4e9082db7bf4ccd4f5e7, type: 3}
+  m_Name: Cross Shooter Data
   m_EditorClassIdentifier: 
-  name: Far Sight
-  icon: {fileID: -3598647898564959137, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
+  name: Cross Shooter
+  icon: {fileID: -1468192599, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Gives +50% range.
+  description: Fires 3 additional projectiles in a cross pattern relative to the
+    original projectile.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  increasedRange: 0.5

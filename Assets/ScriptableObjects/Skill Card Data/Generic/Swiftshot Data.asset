@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398e6ddda0184932bf46911fdf78b772, type: 3}
   m_Name: Swiftshot Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Swiftshot
   icon: {fileID: 0}
   rarity: 0
-  description: Increases projectile speed by 50%.
+  description: Increases projectile speed by +50%.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  speedIncrease: 1.5
+  isExcluded: 0
+  speedIncrease: 0.5

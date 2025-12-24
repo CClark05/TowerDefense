@@ -25,7 +25,7 @@ public class FireStatusEffect : OnTickStatusEffect
             List<Color> colors = new();
             foreach (var mod in skillContext.GetSkillInstancesWith<IFireModifier>())
             {
-                tickDamage = CalculateDamage.MultIncrease(mod.modifier.PlusMult, tickDamage);
+                tickDamage = CalculateDamage.MultIncrease(mod.modifier.PlusMult, tickDamage, 1);
                 if(mod.modifier.Color != default)
                     colors.Add(mod.modifier.Color);
             }

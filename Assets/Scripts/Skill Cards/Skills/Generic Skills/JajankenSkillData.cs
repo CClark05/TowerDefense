@@ -11,7 +11,7 @@ public class JajankenSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Reduces fire rate by -{FireRateMult * 100}% but apply +1 <color=#{hex}>Stun</color> and +{PlusDamage} base damage on hit.";
+        description = $"Reduces fire rate by {FireRateMult * 100}% but apply +1 <color=#{hex}>Stun</color> and +{PlusDamage} base damage on hit.";
     }
 
     public override SkillInstance CreateInstance()
@@ -22,7 +22,7 @@ public class JajankenSkillData : SkillData
     
 }
 
-public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCardReceivedModifier, IProjectileModifier, IHitModifier, IPlayCountPolicy<IHitModifier>
+public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCardReceivedModifier, IProjectileModifier, IHitModifier, IPlayCountPolicy<IHitModifier>, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
     public JajankenSkillInstance(JajankenSkillData data) : base(data)
     {
@@ -36,14 +36,14 @@ public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCar
     
     public void Apply(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedSpeed *= Data.FireRateMult;
-        towerWaveData.increasedBaseDamage += Data.PlusDamage;
+        towerWaveData.increasedSpeed *= 1f - Data.FireRateMult;
+        towerWaveData.increasedBaseDamage += Data.PlusDamage * PlayCount;
     }
 
     public void Remove(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedSpeed /= Data.FireRateMult;
-        towerWaveData.increasedBaseDamage -= Data.PlusDamage;
+        towerWaveData.increasedSpeed /= 1 - Data.FireRateMult;
+        towerWaveData.increasedBaseDamage -= Data.PlusDamage * PlayCount;
     }
 
     public void Modify(HitData hitData, IDamageable target)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileShotData
@@ -12,19 +13,21 @@ public class ProjectileShotData
     private float releaseTime;
     public float AirTime => Time.time - releaseTime;
     public Projectile projectile;
+    public Vector2 originalDirection;
+    public readonly List<Vector2> directionOverrides;
     public ProjectileShotData(float releaseTime)
     {
         this.releaseTime = releaseTime;
+        directionOverrides = new();
     }
 
-    public event Action OnShotDestroyed;
-
-
-    public void ShotDestroyed()
+    public event Action<Projectile> OnShotDestroyed;
+    
+    public void ShotDestroyed(Projectile projectile)
     {
         if (OnShotDestroyed != null)
         {
-            OnShotDestroyed.Invoke();
+            OnShotDestroyed.Invoke(projectile);
             return;
         }
         UnityEngine.Object.Destroy(projectile.gameObject);

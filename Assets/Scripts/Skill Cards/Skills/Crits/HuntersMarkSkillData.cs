@@ -8,7 +8,7 @@ public class HuntersMarkSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Gain a {CritChance * 100}% chance for hits to be <color=#{hex}>Critical</color>";
+        description = $"Gain a +{CritChance * 100}% chance for hits to be <color=#{hex}>Critical</color>";
     }
 
     public override SkillInstance CreateInstance()
@@ -58,7 +58,7 @@ public class CritStats
     public void DealCrit(HitData hitData)
     {
         if (hitData.didCrit) return;
-        hitData.finalDamage = CalculateDamage.MultIncrease(CritMult, hitData.finalDamage);
+        hitData.finalDamage = CalculateDamage.MultIncrease(CritMult, hitData.finalDamage, 1);
         hitData.colors.Add(color);
         hitData.damageMarkerPunchEffect = true;
         hitData.damageMarkerSizeMult *= damageMarkerSizeMult;

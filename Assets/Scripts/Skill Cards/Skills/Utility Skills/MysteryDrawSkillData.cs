@@ -9,7 +9,7 @@ public class MysteryDrawSkillData : SkillData
 
     private void OnValidate()
     {
-        description = "On wave end draw a random common card into your hand if you have room.";
+        description = "On wave end draw a +1 random common card into your hand if you have room.";
     }
 
     public override SkillInstance CreateInstance()

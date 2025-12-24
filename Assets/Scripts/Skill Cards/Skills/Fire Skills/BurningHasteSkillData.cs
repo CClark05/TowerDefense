@@ -12,7 +12,7 @@ public class BurningHasteSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(buffs[0].data.color);
-        description = $"Gain {hasteStacks} <color=#{hex}>{buffs[0].data.name}</color> for {duration} seconds on killing a burning enemy.";
+        description = $"Gain +{hasteStacks} <color=#{hex}>{buffs[0].data.name}</color> for {duration} seconds on killing a burning enemy.";
     }
 
     public override SkillInstance CreateInstance()

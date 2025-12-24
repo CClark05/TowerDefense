@@ -219,7 +219,6 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
 
     private void OnDestroy()
     {
-        Debug.Log("balls");
         ActiveTowerList.Remove(this);
     }
 }

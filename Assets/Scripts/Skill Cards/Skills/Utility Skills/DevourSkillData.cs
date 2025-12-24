@@ -8,7 +8,7 @@ public class DevourSkillData : SkillData
     public int plusDamage = 2;
     private void OnValidate()
     {
-        description = $"Destroys all cards on this tower and gains +{plusDamage} base damage for each card destroyed.";
+        description = $"Tries to destroy a random card on tower when added and gains +{plusDamage} base damage if successful.";
     }
 
     public override SkillInstance CreateInstance()
@@ -26,12 +26,13 @@ public class DevourSkillInstance : SkillInstance<DevourSkillData>, ITowerCardRec
 
     public void Apply(TowerWaveData towerWaveData)
     {
-        PlayCard();
         var cards = skillContext.Tower.SkillInstanceList.Where(c => c != this).ToList();
-        accumulatedBonus += cards.Count * Data.plusDamage * PlayCount;
+        if(cards.Count == 0) return;
+        accumulatedBonus += Data.plusDamage * PlayCount;
         towerWaveData.increasedBaseDamage += accumulatedBonus;
-        towerWaveData.removedCards.AddRange(cards);
+        towerWaveData.removedCards.Add(cards[Random.Range(0, cards.Count)]);
         RuntimeStat = accumulatedBonus;
+        PlayCard();
     }
 
     public void Remove(TowerWaveData towerWaveData)

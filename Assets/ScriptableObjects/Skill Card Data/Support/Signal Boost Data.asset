@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Signal Boost
   icon: {fileID: -1664386169, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
-  rarity: 0
+  rarity: 1
   description: Towers in range gain +25% range.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
@@ -22,4 +22,4 @@ MonoBehaviour:
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  IncreasedRange: 1.25
+  IncreasedRange: 0.25

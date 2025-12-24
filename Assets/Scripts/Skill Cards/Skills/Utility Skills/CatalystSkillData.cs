@@ -6,7 +6,7 @@ public class CatalystSkillData : SkillData
 {
     private void OnValidate()
     {
-        description = "The next card added to this tower will always play an additional time. Self destructs after use.";
+        description = "The next card added to this tower will always play +1 additional time(s). Self destructs after use.";
     }
 
     public override SkillInstance CreateInstance()

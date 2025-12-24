@@ -5,10 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Signal Boost Data", menuName = "SkillData/Support/Signal Boost")]
 public class SignalBoostSkillData : SkillData
 {
-    public float IncreasedRange = 1.25f;
+    public float IncreasedRange = 0.25f;
     private void OnValidate()
     {
-        description = $"Towers in range gain +{(IncreasedRange - 1) * 100}% range.";
+        description = $"Towers in range gain +{IncreasedRange * 100}% range.";
     }
 
     public override SkillInstance CreateInstance()
@@ -22,13 +22,11 @@ public class SignalBoostSkillInstance : SupportSkillInstance<SignalBoostSkillDat
     {
         OnApply += tower =>
         {
-            tower.RuntimeData.Range *= Data.IncreasedRange;
+            tower.RuntimeData.Range *= 1 + Data.IncreasedRange * PlayCount;
         };
         OnRemove += tower =>
         {
-            tower.RuntimeData.Range /= Data.IncreasedRange;
+            tower.RuntimeData.Range /= 1 + Data.IncreasedRange * PlayCount;
         };
     }
-
-    public override int SetPlayCount() => PlayCount;
 }

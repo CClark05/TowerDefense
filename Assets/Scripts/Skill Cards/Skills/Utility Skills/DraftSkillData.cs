@@ -12,7 +12,7 @@ public class DraftSkillData : SkillData
     public CardRaritySettings cardRaritySettings;
     private void OnValidate()
     {
-        description = $"Draw {cardsDrawn} random cards into your hand if you have room. Self destructs after use.";
+        description = $"Draw +{cardsDrawn} random cards into your hand if you have room. Self destructs after use.";
     }
 
     public override SkillInstance CreateInstance()

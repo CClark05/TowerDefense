@@ -850,7 +850,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -859,6 +859,72 @@ TextureImporter:
       bones: []
       spriteID: cbc4e0cfe4bfd3b469186c49b591c576
       internalID: -1664386169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CrossShooter_Icon
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 81
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01d5cfa9b54abfc48abae6c92dbe324b
+      internalID: -1468192599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleBarrel_Icon
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 81
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d968ed3c8dd4854096cb5593c156e33
+      internalID: -1936568852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Siphon_Icon
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 81
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39a49072e963c1a4ea645dabc4f0e538
+      internalID: 1477287667
       vertices: []
       indices: 
       edges: []
@@ -885,8 +951,10 @@ TextureImporter:
       Catalyst_Icon: -7013116369423637763
       CoinShot_Icon: 1837379312
       CriticalMomentum_Icon: -3131443974699964910
+      CrossShooter_Icon: -1468192599
       Devour_Icon: 1942748494
       Dividend_Icon: 92611940212284077
+      DoubleBarrel_Icon: -1936568852
       Draft_Icon: -1610581713
       Execution_Icon: 2864700677688057526
       ExposingShot_Icon: -5456733981038111024
@@ -908,6 +976,7 @@ TextureImporter:
       Recall_Icon: -3413648882919510996
       Sacrifice_Icon: 5476671250807671832
       SignalBoost_Icon: -1664386169
+      Siphon_Icon: 1477287667
       Support_Icon: -1973547398
       Vitality_Icon: -2079561314
   mipmapLimitGroupName: 

@@ -34,9 +34,19 @@ public class Projectile : MonoBehaviour
         targetTransform = target.Transform;
         speedIncrease *= shotData.speedIncrease;
         CalculateAim(transform.position, EffectiveSpeed);
-
     }
-
+    private void Init(Vector2 direction, ProjectileShotData shotData)
+    {
+        target = null;
+        this.shotData = shotData;
+        if(shotData.projectileSprite != null) 
+            GetComponent<SpriteRenderer>().sprite = shotData.projectileSprite;
+        homing = shotData.homing;
+        GetComponent<ProjectileVisual>().SetColor(shotData.projectileColor);
+        maxEnemiesPierced = shotData.maxEnemiesPierced;
+        speedIncrease *= shotData.speedIncrease;
+        this.direction = direction;
+    }
     public static Projectile CreateProjectile(ProjectileData data, ProjectileShotData shotData, Vector2 position, IDamageable target, TowerDataHolder tower)
     {
         var projectile = Instantiate(data.prefab, position, Quaternion.identity).GetComponent<Projectile>();
@@ -45,11 +55,18 @@ public class Projectile : MonoBehaviour
         projectile.Init(target, shotData);
         return projectile;
     }
+    public static Projectile CreateProjectile(ProjectileData data, ProjectileShotData shotData, Vector2 position, Vector2 direction, TowerDataHolder tower)
+    {
+        var projectile = Instantiate(data.prefab, position, Quaternion.identity).GetComponent<Projectile>();
+        projectile.Origin = position;
+        projectile.towerData = tower;
+        projectile.Init(direction, shotData);
+        return projectile;
+    }
 
-    private bool shotDestroyed;
     private void Update()
     {
-        if (homing && targetTransform != null)
+        if (homing && targetTransform != null && direction != null)
             direction = (targetTransform.position - transform.position).normalized;
         
         if(direction != null)
@@ -57,6 +74,11 @@ public class Projectile : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.GetComponent<Border>() != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         if (other.GetComponent<IDamageable>() == null) return;
         ApplyDamage(other.GetComponent<IDamageable>());
     }
@@ -71,7 +93,7 @@ public class Projectile : MonoBehaviour
             {
                 if (enemiesHit.Count >= maxEnemiesPierced)
                 {
-                    shotData.ShotDestroyed();
+                    shotData.ShotDestroyed(this);
                     direction = null;
                     return;
                 }
@@ -88,7 +110,7 @@ public class Projectile : MonoBehaviour
         DamageService.ApplyDamage(hitData, damageable, statusEffects, towerData.SkillContext, OnDealDamage);
         if (enemiesHit.Count >= maxEnemiesPierced)
         {
-            shotData.ShotDestroyed();
+            shotData.ShotDestroyed(this);
             direction = null;
         }
     }

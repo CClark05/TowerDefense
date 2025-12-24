@@ -9,16 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d9d6beabfd6c4e9082db7bf4ccd4f5e7, type: 3}
-  m_Name: Cross Shooter Data
+  m_Script: {fileID: 11500000, guid: c655eb7ac21b411f81cca009cc456e83, type: 3}
+  m_Name: Double Barrel Data
   m_EditorClassIdentifier: 
-  name: Cross Shooter
-  icon: {fileID: 0}
+  name: Double Barrel
+  icon: {fileID: -1936568852, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: 
+  description: Fires 2 additional projectiles to the right and left of the original
+    projectile.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
+  SpreadDegrees: 18

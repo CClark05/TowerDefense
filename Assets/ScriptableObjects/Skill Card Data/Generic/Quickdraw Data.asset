@@ -15,9 +15,11 @@ MonoBehaviour:
   name: Quickdraw
   icon: {fileID: 2535411246737045790, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Increases fire rate by 25%.
+  description: Increases fire rate by +25%.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  speedIncrease: 1.25
+  speedIncrease: 0.25

@@ -15,10 +15,12 @@ MonoBehaviour:
   name: Perfect Form
   icon: {fileID: -4575220665565685519, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Your first 2 hits each round will always deal Critical damage for
-    +200% damage.
+  description: Your first +2 hits each round will always deal <color=#468232>Critical</color>
+    damage.
   hasRuntimeValue: 0
-  runtimeStatsFormat: 
+  descriptionRuntimeValue: +2
+  additive: 1
+  runtimeStatsFormat: +x
   statusEffects:
   - showInUI: 1
     data: {fileID: 11400000, guid: dd7902253e35d6344be3b9d2cab4d4c2, type: 2}
