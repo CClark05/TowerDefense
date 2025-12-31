@@ -28,7 +28,7 @@ public class TowerShooting : MonoBehaviour
     private EnemyManager enemyManager;
     public Vector2? Direction { get; private set; }
     private GameObject target;
-
+    private bool disableShooting;
     private void Awake()
     {
         towerDataHolder = GetComponent<TowerDataHolder>();
@@ -59,7 +59,7 @@ public class TowerShooting : MonoBehaviour
 
     private void Update()
     {
-        if (towerDataHolder.RuntimeData.stunned) return;
+        if (towerDataHolder.RuntimeData.stunned || disableShooting) return;
         shootTimer += Time.deltaTime;
 
         var closestEnemy = TargetEnemy();
@@ -105,6 +105,7 @@ public class TowerShooting : MonoBehaviour
             
             void Hook(Projectile p)
             {
+                shotData.RegisterProjectile(p);
                 p.OnDealDamage += (HitData hitData, Vector2 pos) =>
                 {
                     HitsThisRound++;
@@ -118,6 +119,16 @@ public class TowerShooting : MonoBehaviour
         shootCoroutine = null;
     }
 
+    public void ToggleShooting(bool disable)
+    {
+        disableShooting = disable;
+    }
+    public void DealtDamage(HitData hitData, Vector2 pos)
+    {
+        OnDealDamage?.Invoke(hitData.finalDamage);
+        OnDealDamageStatic?.Invoke(pos, hitData);
+        if (hitData.didKill) OnKillEnemy?.Invoke();
+    }
     private GameObject TargetEnemy()
     {
         var enemies = EnemyManager.Instance.CurrentEnemies;

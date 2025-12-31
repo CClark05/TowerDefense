@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 260d44a54b7c4bc5b460dec263f8099e, type: 3}
   m_Name: Azure Flame Data
   m_EditorClassIdentifier: 
-  name: Azure Flame
+  name: Divine Flame
   icon: {fileID: -881937668, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: <color=#A53030>Fire</color> burns hotter, dealing +100% damage. However
@@ -23,7 +23,8 @@ MonoBehaviour:
   - showInUI: 1
     data: {fileID: 11400000, guid: e27d48209898baa4da32440daf087efd, type: 2}
   buffs: []
-  prerequisiteSkills: []
+  prerequisiteSkills:
+  - {fileID: 11400000, guid: 3f4fa63c1aa112a4aa74dbb9665043f6, type: 2}
   isExcluded: 0
   burnDamageMult: 1
   color: {r: 0.30980393, g: 0.56078434, b: 0.7294118, a: 1}

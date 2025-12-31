@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, IJumpable, IMovementListener
@@ -17,6 +18,7 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
     private Rigidbody2D rb;
     private Vector2 velocity;
     public event Action<float> OnJump;
+    private bool stopMovement;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,13 +27,39 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
     private void Start()
     {
         baseSpeed = GetComponent<EnemyDataHolder>().Data.speed;
-        centerPath = AStarPathfinding.Instance.GetPath();
+        CalculatePath();
+    }
+    private void CalculatePath()
+    {
+        /**
+        
         if(centerPath == null) Debug.LogError("No path found");
         var segment = AStarPathfinding.GetSegment(centerPath, transform.position);
         projectedPath = AStarPathfinding.BuildOffsetPath(centerPath, segment.signedOffset);
         currentIndex =  Mathf.Clamp(segment.seg + (segment.t > 0.5f ? 1 : 0), 0, projectedPath.Count - 1);
+        */
+        centerPath = AStarPathfinding.Instance.GetPath();
+        if(centerPath == null) Debug.LogError("No path found");
+        var seg = AStarPathfinding.GetSegment(centerPath, transform.position);
+        projectedPath = AStarPathfinding.BuildOffsetPath(centerPath, seg.signedOffset);
+
+        Vector2 pos = transform.position;
+        int start = Mathf.Clamp(currentIndex, 0, projectedPath.Count - 1);
+
+        int best = start;
+        float bestDist2 = float.PositiveInfinity;
+
+        for (int i = start; i < projectedPath.Count; i++)
+        {
+            float d2 = ((Vector2)projectedPath[i] - pos).sqrMagnitude;
+            if (d2 < bestDist2)
+            {
+                bestDist2 = d2;
+                best = i;
+            }
+        }
+        currentIndex = Mathf.Clamp(best + 1, 0, projectedPath.Count - 1);
     }
-    
     private void Update()
     {
         if (currentIndex >= projectedPath.Count) 
@@ -40,10 +68,12 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
             Destroy(gameObject);
             return;
         }
+
+        if (stopMovement) return;
         Vector2 target = projectedPath[currentIndex];
         Vector2 direction = (target - (Vector2)transform.position).normalized;
         velocity = direction * effectiveSpeed;
-        if (Vector2.Distance(transform.position, target) < 0.1f)
+        if (Vector2.Distance(transform.position, target) < 0.01f)
             currentIndex++;
     }
 
@@ -52,7 +82,24 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
     {
         rb.linearVelocity = velocity;
     }
-    
+
+
+    public void MoveTo(Vector2 position, float duration)
+    {
+        if (stopMovement) return;
+        stopMovement = true;
+        velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
+        Tween moveTween = rb.DOMove(position, duration)
+            .SetEase(Ease.OutQuad)        
+            .SetUpdate(UpdateType.Fixed)
+            .SetTarget(gameObject)
+            .OnComplete(() =>
+            {
+                CalculatePath();
+                stopMovement = false;
+            });
+    }
     public bool TryPosVelAt(float t, out Vector2 pos, out Vector2 vel)
     {
         if (centerPath == null || centerPath.Count == 0) { pos = transform.position; vel = Vector2.zero; return false; }
@@ -97,6 +144,13 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
         speedRoutine = StartCoroutine(SmoothMultiplier(targetMult, duration));
     }
     public void ResetSpeed(float duration = 0f) => SetSpeed(1f, duration);
+    public void AddSpeed(float percentIncrease)
+    {
+        speedMult += percentIncrease;
+    }
+
+    
+
     public void Jump(float height, float duration)
     {
         StartCoroutine(JumpCoroutine(height, duration));

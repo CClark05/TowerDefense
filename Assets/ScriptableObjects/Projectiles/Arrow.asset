@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: da6f86e14a014f34a9f43f292e27017c, type: 3}
-  m_Name: ArrowData
+  m_Name: Arrow
   m_EditorClassIdentifier: 
   projectileName: Arrow
-  speed: 20
-  damage: 5
-  prefab: {fileID: 3491773788284949458, guid: 0bff09df62afde84291ce9afd845cdf7, type: 3}
+  speed: 10
+  damage: 8
+  prefab: {fileID: 123712303137431414, guid: bb89e56abcb448c489edfec292ab9571, type: 3}

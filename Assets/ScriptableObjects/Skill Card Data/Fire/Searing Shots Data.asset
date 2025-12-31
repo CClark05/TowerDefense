@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe33ee62ea141cca87e7ff5b1123733, type: 3}
   m_Name: Searing Shots Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Searing Shots
-  icon: {fileID: 0}
+  icon: {fileID: 1707775066, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Applies 1 <color=#A53030>Fire</color> per hit.
+  description: Applies +1 <color=#A53030>Fire</color> per hit.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects:
   - showInUI: 1
     data: {fileID: 11400000, guid: e27d48209898baa4da32440daf087efd, type: 2}
@@ -26,4 +27,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 03e3051401fd2c44ea2e4a731fd7e366, type: 2}
   - {fileID: 11400000, guid: c43815f674c7f0843b06bdc998822493, type: 2}
   - {fileID: 11400000, guid: 558c2f8a679efd846a3c7903b2a17e57, type: 2}
+  isExcluded: 0
   stacksPerHit: 1

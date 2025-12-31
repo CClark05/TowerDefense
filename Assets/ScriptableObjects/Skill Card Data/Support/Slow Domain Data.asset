@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7164376bfa2649fcaef4ae93149be6d4, type: 3}
+  m_Name: Slow Domain Data
+  m_EditorClassIdentifier: 
+  name: Slow Field
+  icon: {fileID: 674952182, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
+  rarity: 1
+  description: Enemies inside your range move +15% slower.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
+  statusEffects: []
+  buffs: []
+  prerequisiteSkills: []
+  isExcluded: 0
+  SlowBonus: 0.15

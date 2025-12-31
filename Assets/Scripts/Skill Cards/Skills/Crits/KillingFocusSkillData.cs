@@ -7,7 +7,7 @@ public class KillingFocusSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Gain +{CritGainOnKill * 100}% chance on <color=#{hex}>Critical</color> kill. Resets after wave.";
+        description = $"Gain +{CritGainOnKill * 100}% crit chance on <color=#{hex}>Critical</color> kill. Resets after wave.";
     }
 
     public override SkillInstance CreateInstance()

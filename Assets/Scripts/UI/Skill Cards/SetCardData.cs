@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using TMPro;
 using Unity.VisualScripting.FullSerializer.Internal;
@@ -79,24 +80,21 @@ public class SetCardData : MonoBehaviour
         UpdateDescription(instance.PlayCount);
         SkillInstance.OnRuntimeStatUpdated += value => { runtimeStatText.text = $"({SkillInstance.Data.FormatRuntimeStat(value)})"; };
         SkillInstance.OnPlayCountUpdated += UpdateDescription;
-        
+
         void UpdateDescription(int playCount)
         {
-            string updated = Regex.Replace(
+            descriptionText.text = Regex.Replace(
                 originalDescription,
-                @"\+(\d+)",
+                @"\+(\d+(?:\.\d+)?)",
                 match =>
                 {
-                    int baseValue = int.Parse(match.Groups[1].Value);
-                    int newValue = baseValue * playCount;
-                    return $"+{newValue}";
+                    float baseValue = float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
+                    float newValue = baseValue * playCount;
+                    return $"+{newValue:0.##}";
                 },
                 RegexOptions.CultureInvariant
             );
-
-            descriptionText.text = updated;
         }
-        
     }
 
     public void DisableTabs()

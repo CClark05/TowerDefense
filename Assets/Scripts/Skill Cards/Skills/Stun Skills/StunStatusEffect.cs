@@ -19,10 +19,12 @@ public class StunStatusEffect : OnHitStatusEffect
     }
     public void AddStacks(HitData hitData, int stacks)
     {
+        if(hitData.damageable == null) return;
         hitData.effectsApplied[this] = hitData.effectsApplied.GetValueOrDefault(this) + stacks;
         hitData.damageable.Transform.GetComponent<IMovementOverride>().SetSpeed(0);
         FunctionTimer.Create(() =>
         {
+            if(hitData.damageable.Transform == null ) return;
             hitData.damageable.Transform.GetComponent<IMovementOverride>().ResetSpeed();
             RemoveStacks(hitData, stacks);
         }, StunDuration * stacks);

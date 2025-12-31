@@ -24,27 +24,26 @@ public class BoomerangSkillInstance : SkillInstance<BoomerangSkillData>, IProjec
 
     public IEnumerator Modify(ProjectileShotData shotData)
     {
-        Transform transform = null;
-        Projectile projectile = null;
-        shotData.OnShotDestroyed += (_projectile) =>
+        shotData.OnShotDestroyed += p =>
         {
-            transform = _projectile.transform;
-            projectile = _projectile;
+            CoroutineRunner.Instance.StartCoroutine(ReturnProjectile(p));
         };
-        CoroutineRunner.Instance.StartCoroutine(Return());
         yield return null;
-        
-        IEnumerator Return()
+    }
+    
+    private IEnumerator ReturnProjectile(Projectile projectile)
+    {
+        var transform = projectile.transform;
+
+        while (transform != null && Vector2.Distance(transform.position, projectile.Origin) > 0.1f)
         {
-            yield return new WaitUntil(() => transform != null);
-            while (transform != null && Vector2.Distance(transform.position, projectile.Origin) > 0.1f)
-            {
-                Vector2 direction = (projectile.Origin - (Vector2)transform.position).normalized;
-                transform.position += (Vector3)direction * (projectile.EffectiveSpeed * Time.deltaTime);
-                yield return null;
-            }
-            UnityEngine.Object.Destroy(transform.gameObject);
+            Vector2 dir = (projectile.Origin - (Vector2)transform.position).normalized;
+            transform.position += (Vector3)dir * (projectile.EffectiveSpeed * Time.deltaTime);
+            yield return null;
         }
+
+        if (transform != null)
+            UnityEngine.Object.Destroy(transform.gameObject);
     }
 
     

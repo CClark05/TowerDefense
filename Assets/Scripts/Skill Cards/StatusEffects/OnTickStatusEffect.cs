@@ -9,7 +9,7 @@ public abstract class OnTickStatusEffect : PersistentStatusEffect
     protected void SetDamageData(TickData tickData, SkillContext skillContext, int damage, List<Color> newColors)
     {
         var data = new DamageData();
-        data.finalDamage += damage;
+        data.finalDamage += CalculateDamage.MultIncrease(tickData.damageable.GetDamageBonus(), damage, 1);
         foreach (var c in newColors)
             data.colors.Add(c);
         if(newColors.Count == 0) 

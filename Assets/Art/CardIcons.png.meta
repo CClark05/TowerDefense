@@ -916,7 +916,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -925,6 +925,160 @@ TextureImporter:
       bones: []
       spriteID: 39a49072e963c1a4ea645dabc4f0e538
       internalID: 1477287667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SearingShots_Icon
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 61
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17d0aea45ef90ab4b8c33c32d0710f8f
+      internalID: 1707775066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SlowDomain_Icon
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e91f516156218174f882293de9a1f19e
+      internalID: 674952182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Domain_Ico
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aac7a5f54c0c6a43b65e1723783604f
+      internalID: -1184123341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BlackHole_Icon
+      rect:
+        serializedVersion: 2
+        x: 175
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7db66cd1f32aba419a4a099a05396f9
+      internalID: -1052606750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RainArrows_Icon
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fb38a0c887c8cb4cadd2f08fb0c054f
+      internalID: -733010213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SummonArrows_Icon
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1781e929de1c79a4d85756a1895f9e5e
+      internalID: 123590753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WhiteFlag_Icon
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44713101a59b0f7458e37bc68537c685
+      internalID: 310865519
       vertices: []
       indices: 
       edges: []
@@ -945,6 +1099,7 @@ TextureImporter:
     nameFileIdTable:
       AzureFlame_Icon: -881937668
       BanditsSecret_Icon: 1858116976572667410
+      BlackHole_Icon: -1052606750
       BloodMoney_Icon: 287649832177700510
       Boomerang_Icon: -1340798023
       CardIcons_2: 351554976137735218
@@ -954,6 +1109,7 @@ TextureImporter:
       CrossShooter_Icon: -1468192599
       Devour_Icon: 1942748494
       Dividend_Icon: 92611940212284077
+      Domain_Ico: -1184123341
       DoubleBarrel_Icon: -1936568852
       Draft_Icon: -1610581713
       Execution_Icon: 2864700677688057526
@@ -973,12 +1129,17 @@ TextureImporter:
       PerfectForm_Icon: -4575220665565685519
       PiercingShot_Icon: -1819482657
       Quickdraw_Icon: 2535411246737045790
+      RainArrows_Icon: -733010213
       Recall_Icon: -3413648882919510996
       Sacrifice_Icon: 5476671250807671832
+      SearingShots_Icon: 1707775066
       SignalBoost_Icon: -1664386169
       Siphon_Icon: 1477287667
+      SlowDomain_Icon: 674952182
+      SummonArrows_Icon: 123590753
       Support_Icon: -1973547398
       Vitality_Icon: -2079561314
+      WhiteFlag_Icon: 310865519
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

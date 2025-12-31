@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 public class BirdMovement : MonoBehaviour, IPathPredictor, IMovementListener, IMovementOverride
 {
@@ -61,5 +62,29 @@ public class BirdMovement : MonoBehaviour, IPathPredictor, IMovementListener, IM
     public void ResetSpeed(float duration = 0)
     {
         speedMult = 1;
+    }
+
+    public void AddSpeed(float percentIncrease)
+    {
+        speedMult += percentIncrease;
+    }
+
+    private Tween moveTween;
+    public void MoveTo(Vector2 position, float duration)
+    {
+        if (moveTween != null) return;
+        velocity = Vector2.zero;
+        rb.linearVelocity = Vector2.zero;
+
+        moveTween = rb.DOMove(position, duration)
+            .SetEase(Ease.OutQuad)
+            .SetUpdate(UpdateType.Fixed)
+            .OnComplete(() =>
+            {
+                Vector2 target = path[^1];
+                direction = (target - (Vector2)transform.position).normalized;
+                velocity = direction * baseSpeed;
+                moveTween = null;
+            });
     }
 }

@@ -10,8 +10,7 @@ public static class DamageService
         IDamageable damageable,
         IUsesStatusEffects statusEffects,
         SkillContext skillContext,
-        Action<HitData, Vector2> onDealDamage,
-        float finalMult = 1)
+        Action<HitData, Vector2> onDealDamage)
     {
         var onHitEffects = statusEffects.PersistentEffectsApplied.Where(kvp => kvp.Key is OnHitStatusEffect).ToList();
         if (onHitEffects.Count > 0)
@@ -45,7 +44,8 @@ public static class DamageService
             statusEffects.AddPersistentEffect(persistentEffect, hitData, kvp.Value, effectData);
         }
 
-        hitData.finalDamage = Mathf.RoundToInt(hitData.finalDamage * finalMult);
+        // hitData.finalDamage = Mathf.RoundToInt(hitData.finalDamage);
+        hitData.finalDamage = CalculateDamage.MultIncrease(damageable.GetDamageBonus(), hitData.finalDamage, 1);
         CallModifier.Call<IAfterHitModifier>(skillContext, (mod, _) => { mod.Modify(hitData); });
         bool isDead = damageable.IsDeadFromDamage(hitData.finalDamage);
         hitData.didKill = isDead;
@@ -54,7 +54,7 @@ public static class DamageService
         {
             CallModifier.Call<IOnKill>(skillContext, (mod, _) => { mod.OnKill(hitData); });
         }
-
+        
         damageable.TakeDamage(hitData.finalDamage);
     }
 }

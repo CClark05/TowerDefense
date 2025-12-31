@@ -29,34 +29,34 @@ public class TowerVisual : MonoBehaviour
             
         };
         rangeVisual.transform.localScale = new Vector3(dataHolder.Data.range * 2f, dataHolder.Data.range * 2f, 1);
-        rangeVisual.gameObject.SetActive(false);
+        rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
     }
     
 
     private void DisableSelection()
     {
         isSelected = false;
-        rangeVisual.SetActive(false);
+        rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
     }
     private void OnClickTower(TowerDataHolder data)
     {
         if (data == GetComponent<TowerDataHolder>())
         {
             isSelected = !isSelected;
-            rangeVisual.SetActive(isSelected);
+            rangeVisual.transform.GetChild(0).gameObject.SetActive(isSelected);
         }
     }
 
     private void OnHover(TowerDataHolder data)
     {
         if (data == GetComponent<TowerDataHolder>())
-            rangeVisual.SetActive(true);
+            rangeVisual.transform.GetChild(0).gameObject.SetActive(true);
     }
 
     private void OnLeaveHover()
     {
         if (isSelected) return;
-        rangeVisual.SetActive(false);
+        rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
     }
 
     private void Update()

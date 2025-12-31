@@ -39,6 +39,8 @@ public class EnemyManager : Singleton<EnemyManager>
     private WaveGenerator waveGenerator;
     [Header("TESTING DATA")]
     [SerializeField] private List<EnemyData> testEnemies = new();
+
+    [SerializeField] private float delayBetweenTestSpawns = 0.5f;
     private void Start()
     {
         levelData = LevelDataHolder.Instance.Data;
@@ -64,6 +66,32 @@ public class EnemyManager : Singleton<EnemyManager>
 
     }
 
+    public List<Transform> GetNearbyEnemies(Vector2 position, float range)
+    {
+        var nearbyEnemies = new List<Transform>();
+        foreach (var enemy in CurrentEnemies)
+        {
+            if(Vector2.Distance(enemy.transform.position, position) > range) continue;
+            nearbyEnemies.Add(enemy.transform);
+        }
+        return nearbyEnemies;
+    }
+
+    public Transform GetClosestEnemy(Vector2 position)
+    {
+        Transform closestEnemy = null;
+        float closestDistance = float.MaxValue;
+        foreach (var enemy in CurrentEnemies)
+        {
+            float distance = Vector2.Distance(enemy.transform.position, position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestEnemy = enemy.transform;
+            }
+        }
+        return closestEnemy;
+    }
     private void SpawnEnemy(EnemyData enemyData) => SpawnEnemyAtPosition(enemyData, AStarPathfinding.Instance.GetPath()[0]);
 
     public void SpawnEnemyAtPosition(EnemyData enemyData, Vector2 position)
@@ -150,7 +178,7 @@ public class EnemyManager : Singleton<EnemyManager>
             foreach (var e in testEnemies)
             {
                 SpawnEnemy(e);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(delayBetweenTestSpawns);
             }
             WaveState = WaveStates.DoneSpawning;
             CurrentWave++;

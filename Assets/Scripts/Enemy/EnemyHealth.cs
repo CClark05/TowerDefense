@@ -5,11 +5,12 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
 {
     public HealthSystem HealthSystem { get; private set; }
-    public Transform Transform => transform;
+    public Transform Transform => this != null ? transform : null;
     public event Action OnDeath;
     public static event Action<bool> OnDeathStatic; // bool indicates if final enemy of wave
     public event Action OnHit;
     private FunctionTimer deathTimer;
+    private float damageBonus;
     private void Start()
     {
         HealthSystem = new HealthSystem(GetComponent<EnemyDataHolder>().Data.health);
@@ -39,6 +40,13 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
     {
         return HealthSystem.Health - damage <= 0;
     }
+
+    public void ApplyDamageBonus(float percentIncrease)
+    {
+        damageBonus += percentIncrease;
+    }
+
+    public float GetDamageBonus() => damageBonus;
 
     private void OnDestroy()
     {

@@ -562,7 +562,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveSettings: {fileID: 11400000, guid: 177d607bf8b04a94994e2bf1a2e7af0e, type: 2}
-  testEnemies: []
+  testEnemies:
+  - {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
+  - {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
+  - {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
+  - {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
+  - {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
+  - {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
+  - {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
+  - {fileID: 11400000, guid: d35eac71b8bbaba4bacc6f42bc978644, type: 2}
+  delayBetweenTestSpawns: 0.5
 --- !u!4 &84492598
 Transform:
   m_ObjectHideFlags: 0
@@ -6765,15 +6774,15 @@ MonoBehaviour:
   - {fileID: 449712532}
   - {fileID: 134421251}
   testingData:
-  - {fileID: 11400000, guid: 9fe4b0bdf367e2a419663225efd2e0ff, type: 2}
+  - {fileID: 11400000, guid: db75aadd7005cdf40a5039e46a419b43, type: 2}
+  - {fileID: 11400000, guid: 095f150d48c6aeb45b78c1dff141c48b, type: 2}
+  - {fileID: 11400000, guid: 822c72c8faef37f40a2e9330e4a18a1d, type: 2}
   - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
-  - {fileID: 11400000, guid: 60e86dad96a8e2b4d961dbfb2f0f75c8, type: 2}
-  - {fileID: 11400000, guid: c43815f674c7f0843b06bdc998822493, type: 2}
   - {fileID: 11400000, guid: ab97cb7746490ff4e9e23cf5fdbc3aec, type: 2}
+  - {fileID: 11400000, guid: 03e3051401fd2c44ea2e4a731fd7e366, type: 2}
   - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
-  - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
+  - {fileID: 11400000, guid: ce9586b0c6a0785439f63ad05150ae06, type: 2}
   - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
-  - {fileID: 11400000, guid: d33b3f49069a49e4b86130c7b3244fd9, type: 2}
   settings: {fileID: 11400000, guid: 3e51d1c9009932449b6d19df8edce600, type: 2}
 --- !u!1 &1040348794
 GameObject:

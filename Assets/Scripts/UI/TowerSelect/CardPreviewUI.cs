@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -54,19 +55,17 @@ public class CardPreviewUI : MonoBehaviour
         }
         void UpdateDescription(int playCount)
         {
-            string updated = Regex.Replace(
+            descriptionText.text = Regex.Replace(
                 descriptionText.text,
-                @"\+(\d+)",
+                @"\+(\d+(?:\.\d+)?)",
                 match =>
                 {
-                    int currentValue = int.Parse(match.Groups[1].Value);
-                    int newValue = currentValue * playCount;
-                    return $"+{newValue}";
+                    float baseValue = float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
+                    float newValue = baseValue * playCount;
+                    return $"+{newValue:0.##}";
                 },
                 RegexOptions.CultureInvariant
             );
-
-            descriptionText.text = updated;
         }
         runtimeStatText.gameObject.SetActive(false);
     }

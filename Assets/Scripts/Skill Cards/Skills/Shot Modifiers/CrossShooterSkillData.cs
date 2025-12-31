@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Cross Shooter Data", menuName = "SkillData/Generic/Cross Shooter")]
+[CreateAssetMenu(fileName = "Cross Shooter Data", menuName = "SkillData/Shot Modifiers/Cross Shooter")]
 public class CrossShooterSkillData : SkillData
 {
     private void OnValidate()

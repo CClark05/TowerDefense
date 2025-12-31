@@ -23,7 +23,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
     [SerializeField] private TextMeshProUGUI rerollCostText, rerollText;
     [SerializeField] private GameObject background;
     private List<GameObject> currentCards = new();
-    private CardCooldowns cardCooldowns = new(3);
+    private CardCooldowns cardCooldowns = new(6);
     private int rerollAmount;
     private int rerollCost;
     public event Action<int> OnReroll;

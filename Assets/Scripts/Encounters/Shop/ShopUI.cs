@@ -17,7 +17,7 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private ShopSellPanel sellPanel;
     public Transform ChestLocation => chestLocation;
     private int cardCount = 4;
-    private CardCooldowns cardCooldowns = new(3);
+    private CardCooldowns cardCooldowns = new(6);
     private List<SkillData> currentCards = new();
     private void Start()
     {

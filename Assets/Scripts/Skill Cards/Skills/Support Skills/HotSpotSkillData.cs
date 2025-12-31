@@ -23,7 +23,6 @@ public class HotSpotSkillInstance : SupportSkillInstance<HotSpotSkillData>
     {
         OnApply += tower =>
         {
-            Debug.Log("test2");
             tower.RuntimeData.CardSlots += Data.AdditionalSlots * PlayCount;
         };
         OnRemove += tower =>

@@ -26,7 +26,7 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
     public List<SkillInstance> SkillInstanceList => SkillContext.ActiveSkills;
     public static List<TowerDataHolder> ActiveTowerList { get; private set; } = new();
     private EnemyManager enemyManager;
-
+    
     private void Awake()
     {
         towerShooting = GetComponent<TowerShooting>();
