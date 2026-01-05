@@ -31,9 +31,12 @@ public class SellCardAnimation : MonoBehaviour
         sellCardUI.OnLeaveHoverCard += () =>
         {
             scaleTween?.Kill();
-            scaleTween = transform.DOScale(originalScale, hoverAnimationDuration * 0.75f).SetEase(Ease.OutSine);
-            canvas.sortingOrder = originalSortingOrder;
-            canvas.overrideSorting = false;
+            scaleTween = transform.DOScale(originalScale, hoverAnimationDuration * 0.75f).SetEase(Ease.OutSine).OnComplete(() =>
+            {
+                canvas.sortingOrder = originalSortingOrder;
+                canvas.overrideSorting = false;
+            });
+            
         };
     }
 

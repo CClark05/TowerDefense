@@ -12,6 +12,8 @@ public class SellCardUI : MonoBehaviour, ICardUI
     private float sellRate = 0.5f;
     public event Action OnHoverCard;
     public event Action OnLeaveHoverCard;
+    public event Action OnClickCard;
+    public GameObject GameObject => gameObject;
     private int sellPrice;
     public event Action OnSellCard;
     private void Start()

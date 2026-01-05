@@ -50,7 +50,7 @@ public class SkillCardAnimation : MonoBehaviour
             scaleTween = transform.DOScale(originalScale, moveDuration * 0.75f).SetEase(Ease.OutSine).SetUpdate(true);
         };
         
-        cardUI.OnClickCard += selected =>
+        cardUI.OnClickedCard += selected =>
         {
             t?.Kill();
             if (selected)

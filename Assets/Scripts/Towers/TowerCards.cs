@@ -23,6 +23,7 @@ public class TowerCards : MonoBehaviour, IUsesCards
     public void RemoveCard(SkillInstance skillData)
     {
         OnRemovedCard?.Invoke(skillData);
+        
     }
 
     public bool CanAddCard(SkillData skillData)

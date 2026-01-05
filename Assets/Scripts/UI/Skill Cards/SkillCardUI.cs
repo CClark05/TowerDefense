@@ -7,13 +7,19 @@ public class SkillCardUI : MonoBehaviour, ICardUI
     public SkillInstance SkillInstance { get; private set; }
     [SerializeField] private Button_Hover button;
     //[SerializeField] private Button_Base sellButton;
-    public event Action<bool> OnClickCard;
+    public event Action<bool> OnClickedCard;
     public bool Selected { get; private set; }
     private static SkillCardUI selectedCard;
     public static event Action<int> OnSellCardStatic;
     //public event Action OnSellCard;
     public event Action OnHoverCard;
     public event Action OnLeaveHoverCard;
+    public event Action OnClickCard;
+    public GameObject GameObject => gameObject;
+    public void ToggleButton(bool enabled)
+    {
+        button.enabled = enabled;
+    }
 
     private static readonly List<SkillCardUI> activeCards = new();
     private Vector3 originalScale;
@@ -33,7 +39,7 @@ public class SkillCardUI : MonoBehaviour, ICardUI
                 return;
             }
             Selected = !Selected;
-            OnClickCard?.Invoke(Selected);
+            OnClickedCard?.Invoke(Selected);
            // sellButton.gameObject.SetActive(Selected);
             if (Selected)
             {
@@ -93,7 +99,7 @@ public class SkillCardUI : MonoBehaviour, ICardUI
         Selected = false;
         ToggleButtonSize(true);
         OnLeaveHoverCard?.Invoke();
-        OnClickCard?.Invoke(false);
+        OnClickedCard?.Invoke(false);
         //sellButton.gameObject.SetActive(false);
         //GetComponent<Canvas>().sortingOrder = originalSortingOrder;
     }

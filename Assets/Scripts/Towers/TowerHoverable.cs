@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 
 public class TowerHoverable : MonoBehaviour, IHoverable
@@ -14,6 +15,7 @@ public class TowerHoverable : MonoBehaviour, IHoverable
     {
         OnHoverTowerStatic?.Invoke(GetComponent<TowerDataHolder>());
         OnHoverTower?.Invoke();
+        
     }
 
     public void OnLeaveHover()

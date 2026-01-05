@@ -9,6 +9,9 @@ public interface ICardUI
 {
     public event Action OnHoverCard;
     public event Action OnLeaveHoverCard;
+    public event Action OnClickCard;
+    public GameObject GameObject { get; }
+    public void ToggleButton(bool enabled);
 }
 public class ShopCardUI : MonoBehaviour, ICardUI
 {
@@ -20,6 +23,13 @@ public class ShopCardUI : MonoBehaviour, ICardUI
     public static event Action<SkillData> OnBuyCardStatic;
     public static event Action OnNotEnoughCoins;
     public event Action OnBuyCard;
+    public event Action OnClickCard;
+    public GameObject GameObject => gameObject;
+    public void ToggleButton(bool enabled)
+    {
+        button.enabled = enabled;
+    }
+
     private void Start()
     {
         cardData = GetComponent<SetCardData>().SkillData;
@@ -57,4 +67,5 @@ public class ShopCardUI : MonoBehaviour, ICardUI
     private void SetCostText() => costText.color = PlayerInventory.Instance.Coins >= cardData.price ? Color.white : ColorPicker.red;
     public event Action OnHoverCard;
     public event Action OnLeaveHoverCard;
+   
 }

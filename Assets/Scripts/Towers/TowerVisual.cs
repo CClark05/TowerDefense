@@ -5,12 +5,13 @@ using UnityEngine.Serialization;
 
 public class TowerVisual : MonoBehaviour
 {
-    [SerializeField] private GameObject rangeVisual, crossbowVisual;
+    [SerializeField] private GameObject rangeVisual, crossbowVisual, baseVisual, tentVisual, tileOutline;
     private bool isSelected;
     private TowerDataHolder dataHolder;
     private EnemyManager enemyManager;
     private CardSelectUI cardSelectUI;
     private TowerShooting towerShooting;
+    
     private void Start()
     {
         TowerHoverable.OnClickTowerStatic += OnClickTower;
@@ -30,6 +31,12 @@ public class TowerVisual : MonoBehaviour
         };
         rangeVisual.transform.localScale = new Vector3(dataHolder.Data.range * 2f, dataHolder.Data.range * 2f, 1);
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
+        towerShooting.OnToggleShooting += disable =>
+        {
+            tentVisual.SetActive(disable);
+            crossbowVisual.SetActive(!disable);
+            baseVisual.SetActive(!disable);
+        };
     }
     
 
@@ -44,6 +51,7 @@ public class TowerVisual : MonoBehaviour
         {
             isSelected = !isSelected;
             rangeVisual.transform.GetChild(0).gameObject.SetActive(isSelected);
+            tileOutline.SetActive(isSelected);
         }
     }
 

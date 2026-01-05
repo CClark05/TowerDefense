@@ -1,6 +1,8 @@
 using System;
+using System.Linq;
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -15,7 +17,22 @@ public class TowerAnimation : MonoBehaviour
         skillContext = GetComponent<TowerDataHolder>().SkillContext;
         skillContext.OnBuffAdded += OnBuffAdded;
     }
-
+    public void Init()
+    {
+        transform.localScale = Vector2.zero;
+        transform.DOScale(Vector3.one, 0.25f).SetEase(Ease.OutBack).SetUpdate(true).OnComplete(() =>
+        {
+            Squish(1, () => GetComponent<TowerHoverable>().OnHoverTower += () =>
+            {
+                if (GetComponentInChildren<TowerSelectUI>().Selected) return;
+                Squish(0.5f);
+            });
+        });
+    }
+    private void Squish(float strength = 1, Action OnComplete = null)
+    {
+        GetComponentsInChildren<SquishAnimation>().ToList().ForEach(squish => squish.Squish(strength, OnComplete));
+    }
     private void OnBuffAdded(IBuff buff, int stacks)
     {
         var text = Instantiate(effectTextPrefab, effectTextParent).GetComponent<TextMeshProUGUI>();

@@ -47,6 +47,7 @@ public class BuildingManager : Singleton<BuildingManager>
             gridManager.Grid.SetValue(x, y, currentBuild.data);
             GameObject newBuilding = Instantiate(currentBuild.data.prefab, worldGridPosition, Quaternion.identity);
             OnPlacedBuild?.Invoke(currentBuild.data);
+            newBuilding.GetComponent<TowerAnimation>().Init();
             currentBuild.data.Cost += currentBuild.data.costIncreasePerPurchase;
             ExitBuildMode();
             StartCoroutine(UpdateTowers());

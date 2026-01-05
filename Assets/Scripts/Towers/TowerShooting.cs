@@ -29,6 +29,7 @@ public class TowerShooting : MonoBehaviour
     public Vector2? Direction { get; private set; }
     private GameObject target;
     private bool disableShooting;
+    public event Action<bool> OnToggleShooting;
     private void Awake()
     {
         towerDataHolder = GetComponent<TowerDataHolder>();
@@ -122,6 +123,7 @@ public class TowerShooting : MonoBehaviour
     public void ToggleShooting(bool disable)
     {
         disableShooting = disable;
+        OnToggleShooting?.Invoke(disableShooting);
     }
     public void DealtDamage(HitData hitData, Vector2 pos)
     {

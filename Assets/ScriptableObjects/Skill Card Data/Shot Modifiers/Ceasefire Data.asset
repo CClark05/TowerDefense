@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ceasefire Data
   m_EditorClassIdentifier: 
   name: Ceasefire
-  icon: {fileID: 0}
+  icon: {fileID: 310865519, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Tower gains +3 card slots but can no longer shoot projectiles.
   hasRuntimeValue: 0

@@ -19,12 +19,25 @@ public class TowerSelectUI : MonoBehaviour
     [SerializeField] private GameObject emptySlotPrefab;
     private List<GameObject> emptySlots = new();
     private bool selected;
+    public bool Selected
+    {
+        get => selected;
+        private set
+        {
+            if (selected == value) return;
+            selected = value;
+            OnSelectedUpdated?.Invoke(selected);
+        }
+    }
+    
+    public event Action<bool> OnSelectedUpdated;
     private List<(SkillInstance instance, CardIconUI iconUI)> activeCards = new();
     private CardIconUI selectedCard;
     public static event Action<SkillData> OnSellCardStatic;
     public event Action<SkillInstance> OnSellCard;
     private EnemyManager enemyManager;
     private CardSelectUI cardSelectUI;
+    
     private void Start()
     {
         enemyManager = EnemyManager.Instance;
@@ -32,13 +45,13 @@ public class TowerSelectUI : MonoBehaviour
         towerHoverable.OnHoverTower += () => { UI.SetActive(true); };
         towerHoverable.OnLeaveHoverTower += () =>
         {
-            if (selected) return;
+            if (Selected) return;
             UI.SetActive(false);
         };
         towerHoverable.OnClickTower += () =>
         {
-            selected = !selected;
-            if (selected)
+            Selected = !Selected;
+            if (Selected)
             {
                 UI.SetActive(true);
                 return;
@@ -51,7 +64,7 @@ public class TowerSelectUI : MonoBehaviour
             if (selectedCard == null)
             {
                 towerData.GetComponent<TowerSellable>().Sell();
-                selected = false;
+                Selected = false;
                 UI.SetActive(false);
                 return;
             }
@@ -164,7 +177,7 @@ public class TowerSelectUI : MonoBehaviour
 
     private void OnWaveStarted()
     {
-        selected = false;
+        Selected = false;
         if (selectedCard != null)
         {
             selectedCard.Selected = false;
@@ -175,7 +188,7 @@ public class TowerSelectUI : MonoBehaviour
     }
     private void OnWaveComplete()
     {
-        selected = false;
+        Selected = false;
         selectedCard = null;
         UI.SetActive(false);
     }

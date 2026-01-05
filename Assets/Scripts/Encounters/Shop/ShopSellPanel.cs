@@ -10,7 +10,7 @@ public class ShopSellPanel : Singleton<ShopSellPanel>
     {
         public SkillInstance Instance { get; }
         public IUsesCards Owner { get; }
-        public SellCardUI UI { get; set; }
+        public ICardUI UI { get; set; }
         public SellableCard(SkillInstance instance, IUsesCards owner)
         {
             Instance = instance;
@@ -84,6 +84,6 @@ public class ShopSellPanel : Singleton<ShopSellPanel>
     public void ToggleCardButtons(bool enable)
     {
         foreach(var card in sellableCards)
-            card.UI.ToggleButton(enable);
+            card.UI.GameObject.GetComponent<SellCardUI>().ToggleButton(enable);
     }
 }
