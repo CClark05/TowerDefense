@@ -40,18 +40,15 @@ public class UpgradeCardUI : MonoBehaviour, ICardUI
     public void Init(int count)
     {
         this.count = count;
-        countText.text = $"x{count}";
+        countText.text = count > 1 ? $"x{count}" : "";
     }
 
     public void AddCount(int amount, float delay)
     {
         count += amount;
         FunctionTimer.Create(() =>
-        {
-            if(count > 1)
-                countText.text = $"x{count}";
-            else
-                countText.text = "";
+        { 
+            countText.text = count > 1 ? $"x{count}" : "";
             if (count <= 0)
             {
                 OnRemoveCard?.Invoke();

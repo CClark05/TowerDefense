@@ -31,7 +31,7 @@ public class TowerAnimation : MonoBehaviour
     }
     private void Squish(float strength = 1, Action OnComplete = null)
     {
-        GetComponentsInChildren<SquishAnimation>().ToList().ForEach(squish => squish.Squish(strength, OnComplete));
+        GetComponentsInChildren<SquishAnimation>().ToList().ForEach(squish => squish.Squish(strength, 1, OnComplete));
     }
     private void OnBuffAdded(IBuff buff, int stacks)
     {

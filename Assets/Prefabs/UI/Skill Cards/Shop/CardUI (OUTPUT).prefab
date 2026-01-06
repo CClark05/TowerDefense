@@ -101,7 +101,7 @@ MonoBehaviour:
   clickDelay: 0
   scaleFactor: 1.3
   animationDuration: 0.25
-  canvas: {fileID: 455659496921095196}
+  canvas: {fileID: 0}
 --- !u!1 &3652782958091510673
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,10 +792,8 @@ GameObject:
   - component: {fileID: 5799179530166222014}
   - component: {fileID: 5167595340718216634}
   - component: {fileID: 2591776229436844987}
-  - component: {fileID: 455659496921095196}
-  - component: {fileID: 1627055310849565602}
   - component: {fileID: 1485901434102195966}
-  - component: {fileID: 2150042689291693412}
+  - component: {fileID: 281755680067448893}
   m_Layer: 5
   m_Name: CardUI (OUTPUT)
   m_TagString: Untagged
@@ -812,7 +810,7 @@ RectTransform:
   m_GameObject: {fileID: 6204308533141475000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.825, y: 0.825, z: 1}
+  m_LocalScale: {x: 0.75, y: 0.75, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4163103347867882709}
@@ -865,46 +863,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 4188481268480166101}
---- !u!223 &455659496921095196
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6204308533141475000}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 1
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -1372244773
-  m_SortingOrder: 100
-  m_TargetDisplay: 0
---- !u!114 &1627055310849565602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6204308533141475000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &1485901434102195966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -918,9 +876,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   setUpdate: 0
-  playOnAwake: 1
+  playOnAwake: 0
   strengthMult: 1
---- !u!114 &2150042689291693412
+--- !u!114 &281755680067448893
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -929,16 +887,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6204308533141475000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e400e4afabc64d7889d021b79e309d0d, type: 3}
+  m_Script: {fileID: 11500000, guid: 34052a725e744d9e91427138608883f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toLocation: {fileID: 0}
-  moveDuration: 0.75
-  flipDuration: 0.085
-  liftTime: 0.3
-  canvasGroup: {fileID: 6732326572494306178}
-  playOnAwake: 0
-  delay: 0.35
 --- !u!1 &7474249145161089846
 GameObject:
   m_ObjectHideFlags: 0
