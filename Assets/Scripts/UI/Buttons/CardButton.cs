@@ -22,7 +22,6 @@ public class CardButton : Button_Hover
         originalSortingOrder = canvas.sortingOrder;
         canvas.sortingOrder = originalSortingOrder + 1;
     }
-
     public override void OnMouseLeave()
     {
         base.OnMouseLeave();
@@ -31,5 +30,10 @@ public class CardButton : Button_Hover
         if (canvas == null) return;
         canvas.sortingOrder = originalSortingOrder;
         canvas.overrideSorting = false;
+    }
+
+    public void DisableButton()
+    {
+        
     }
 }

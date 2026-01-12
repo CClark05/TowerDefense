@@ -60,6 +60,7 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
         }
         currentIndex = Mathf.Clamp(best + 1, 0, projectedPath.Count - 1);
     }
+    /**
     private void Update()
     {
         if (currentIndex >= projectedPath.Count) 
@@ -82,8 +83,56 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
     {
         rb.linearVelocity = velocity;
     }
+    */
+    private void FixedUpdate()
+    {
+        if (stopMovement) return;
 
+        if (projectedPath == null || projectedPath.Count == 0) return;
 
+        if (currentIndex >= projectedPath.Count)
+        {
+            OnReachedEnd?.Invoke();
+            Destroy(gameObject);
+            return;
+        }
+
+        Vector2 pos = rb.position;
+
+        float remaining = effectiveSpeed * Time.fixedDeltaTime;
+
+        // Consume as many path points as needed this step (prevents overshoot jitter)
+        while (remaining > 0f && currentIndex < projectedPath.Count)
+        {
+            Vector2 target = projectedPath[currentIndex];
+            Vector2 to = target - pos;
+            float dist = to.magnitude;
+
+            // If we're basically on the point, advance
+            if (dist <= 0.001f)
+            {
+                pos = target;
+                currentIndex++;
+                continue;
+            }
+
+            // Move towards target without overshooting
+            if (remaining < dist)
+            {
+                Vector2 dir = to / dist;
+                pos += dir * remaining;
+                remaining = 0f;
+            }
+            else
+            {
+                pos = target;
+                remaining -= dist;
+                currentIndex++;
+            }
+        }
+
+        rb.MovePosition(pos);
+    }
     public void MoveTo(Vector2 position, float duration)
     {
         if (stopMovement) return;

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: SkillRegistry
   m_EditorClassIdentifier: 
   Skills:
+  - {fileID: 11400000, guid: 747f3483797949f47bf32cc398a44183, type: 2}
   - {fileID: 11400000, guid: efb1430c0b1e15b4bbd780ff48c80ba9, type: 2}
   - {fileID: 11400000, guid: e25d42f2509e5a24aa60fd372523432c, type: 2}
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
@@ -42,9 +43,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d9291d8c1fd2a9944bab5a9abb517bde, type: 2}
   - {fileID: 11400000, guid: 9fe4b0bdf367e2a419663225efd2e0ff, type: 2}
   - {fileID: 11400000, guid: 1915c256f8514c34f98997d7ebc90cb4, type: 2}
+  - {fileID: 11400000, guid: 095f150d48c6aeb45b78c1dff141c48b, type: 2}
   - {fileID: 11400000, guid: c8e28281fae259d4b846b80cb075f8d6, type: 2}
   - {fileID: 11400000, guid: ec6be1dc28ed26042a1f8082c5d6b768, type: 2}
   - {fileID: 11400000, guid: 822c72c8faef37f40a2e9330e4a18a1d, type: 2}
+  - {fileID: 11400000, guid: db75aadd7005cdf40a5039e46a419b43, type: 2}
   - {fileID: 11400000, guid: f39fcdabf5e1feb44bd08ae423b14650, type: 2}
   - {fileID: 11400000, guid: 8ee0b0440d8eb1742a8d4c3a477c9f0e, type: 2}
   - {fileID: 11400000, guid: 84033bee1b2283245a2855f3b7beadde, type: 2}

@@ -18,6 +18,6 @@ MonoBehaviour:
   timeBetweenShots: 1
   range: 5
   damage: 5
-  cardSlots: 3
+  cardSlots: 4
   cost: 25
   growthRate: 1.28

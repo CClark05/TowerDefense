@@ -50,5 +50,8 @@ TagManager:
   - name: World UI
     uniqueID: 2922722523
     locked: 0
+  - name: SFX
+    uniqueID: 24867107
+    locked: 0
   m_RenderingLayers:
   - Default

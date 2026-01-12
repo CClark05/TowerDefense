@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927e8766c4484df8967c1447e285ac91, type: 3}
   m_Name: ShopSettings
   m_EditorClassIdentifier: 
-  targetRate: 0.2
+  targetRate: 0.25
   firstWave: 4
   icon: {fileID: -5599827733488901632, guid: 5d7f59a1aec679b46bbd263f1f582663, type: 3}

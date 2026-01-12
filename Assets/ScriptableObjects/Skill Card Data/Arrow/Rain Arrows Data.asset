@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: -733010213, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
   description: Every 3 kills rain down +5 <color=#94A6A4>Arrows</color> in a 1.5
-    tile radius. Each <color=#94A6A4>Arrow</color> does 8 damage.
+    tile radius.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects:

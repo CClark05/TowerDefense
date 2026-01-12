@@ -9,7 +9,7 @@ public class BloodMoneySkillData : SkillData
     public int killsNeeded = 2;
     private void OnValidate()
     {
-        description = $"Gives +${PlusMoney} per {killsNeeded} kill(s).";
+        description = $"Gives +${PlusMoney} every {killsNeeded} kill(s).";
     }
 
     public override SkillInstance CreateInstance()
@@ -31,5 +31,14 @@ public class BloodMoneySkillInstance : SkillInstance<BloodMoneySkillData>, IOnKi
 
     public BloodMoneySkillInstance(BloodMoneySkillData data) : base(data)
     {
+        EnemyManager.Instance.OnWaveComplete += OnWaveComplete;
+    }
+
+    private void OnWaveComplete() => killCounter = 0;
+
+    public override void Dispose()
+    {
+        base.Dispose();
+        EnemyManager.Instance.OnWaveComplete -= OnWaveComplete;
     }
 }

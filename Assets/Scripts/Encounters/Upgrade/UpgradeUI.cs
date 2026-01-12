@@ -222,9 +222,15 @@ public class UpgradeUI : Singleton<UpgradeUI>
             var c1 = cardsInSlots[0].card;
             var c2 = cardsInSlots[1].card;
             if (c1 == null || c2 == null) return;
+            
             int inventoryCards = new[] { c1, c2 }.Count(card => card.Owner is InventoryUI);
+            
             if (!InventoryUI.Instance.CanAddCardsAfterRemoval(inventoryCards))
+            {
+                TextPopupManager.Instance.CreateTextPopup("NO ROOM", Input.mousePosition);
                 return;
+            }
+            
             outputCard.GetComponent<ICardUI>().ToggleButton(false);
             outputCard.DisableTabs();
             c1.Owner.RemoveCard(c1.Instance);

@@ -10,7 +10,7 @@ public class BlackHoleSkillData : SkillData
     public float duration = 0.5f;
     private void OnValidate()
     {
-        description = $"On kill create a black hole that pulls in any enemies within a +{tileSize} tile radius.";
+        description = $"On kill create a black hole that pulls in any enemies within a +{tileSize} tile radius. Flying enemies are immune.";
     }
 
     public override SkillInstance CreateInstance()
@@ -27,6 +27,7 @@ public class BlackHoleSkillInstance : SkillInstance<BlackHoleSkillData>, IOnKill
 
     public void OnKill(HitData hitData)
     {
+        if (hitData.damageable.Transform.GetComponent<BirdMovement>() != null) return;
         GameObject visual = Object.Instantiate(Data.BlackHoleVisualPrefab, hitData.damageable.Transform.position, Quaternion.identity);
         float size = Data.tileSize * 4 * PlayCount;
         visual.transform.localScale = new Vector3(size, size, size);

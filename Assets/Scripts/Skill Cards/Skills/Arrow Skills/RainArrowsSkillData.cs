@@ -15,7 +15,7 @@ public class RainArrowsSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Every {KillsNeeded} kills rain down +{Arrows} <color=#{hex}>Arrows</color> in a {TileSize} tile radius. Each <color=#{hex}>Arrow</color> does {ArrowData.damage} damage.";
+        description = $"Every {KillsNeeded} kills rain down +{Arrows} <color=#{hex}>Arrows</color> in a {TileSize} tile radius.";
     }
 
     public override SkillInstance CreateInstance()
@@ -30,7 +30,10 @@ public class RainArrowsSkillInstance : SkillInstance<RainArrowsSkillData>, IOnKi
 
     public RainArrowsSkillInstance(RainArrowsSkillData data) : base(data)
     {
+        EnemyManager.Instance.OnWaveComplete += OnWaveComplete;
     }
+
+    private void OnWaveComplete() => killCounter = 0;
 
     public void OnKill(HitData hitData)
     {
@@ -74,4 +77,9 @@ public class RainArrowsSkillInstance : SkillInstance<RainArrowsSkillData>, IOnKi
     }
 
     public int SetPlayCount() => 1;
+    public override void Dispose()
+    {
+        base.Dispose();
+        EnemyManager.Instance.OnWaveComplete -= OnWaveComplete;
+    }
 }
