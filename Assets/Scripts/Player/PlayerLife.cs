@@ -12,7 +12,6 @@ public class PlayerLife : Singleton<PlayerLife>
         {
             if (Equals(value, currentLives)) return;
             currentLives = value;
-            Debug.Log("Lives Updated: " + currentLives);
             foreach (var tower in TowerDataHolder.ActiveTowerList)
             {
                 CallModifier.Call<IOnLivesUpdated>(tower.SkillContext, (mod,instance) => mod.OnLivesUpdated(currentLives));

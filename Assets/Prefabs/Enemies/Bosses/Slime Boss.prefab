@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 6376516497736485663}
   - component: {fileID: 5786162247630632988}
   - component: {fileID: 4242396133354370729}
+  - component: {fileID: 2921828630183276161}
   m_Layer: 10
   m_Name: Slime Boss
   m_TagString: Untagged
@@ -461,6 +462,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathParticlesPrefab: {fileID: 3814077728722885872, guid: 4d439a72d84ea2947b99d1915481f0f1, type: 3}
+--- !u!114 &2921828630183276161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4048362118106325107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d86aa0151e149fe9ca6af5d350a78cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6111767520381826524
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,7 @@ public class JajankenSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Reduces fire rate by {FireRateMult * 100}% but apply +1 <color=#{hex}>Stun</color> and +{PlusDamage} base damage on hit.";
+        description = $"Reduces fire rate by {FireRateMult * 100}% but gain +{PlusDamage} base damage and apply +1 <color=#{hex}>Stun</color> and on hit.";
     }
 
     public override SkillInstance CreateInstance()

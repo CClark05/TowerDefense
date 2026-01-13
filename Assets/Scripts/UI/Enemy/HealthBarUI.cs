@@ -13,6 +13,9 @@ public class HealthBarUI : MonoBehaviour
         {
             gameObject.SetActive(true);
             healthBar.fillAmount = (float)health / this.health.Value.HealthSystem.MaxHealth;
+            if(health <= 0)
+                gameObject.SetActive(false);
+            
         };
         shields.Value.OnShieldCountChanged += count =>
         {

@@ -6,7 +6,7 @@ public class CatalystSkillData : SkillData
 {
     private void OnValidate()
     {
-        description = "The next card added to this tower will always play +1 additional time(s). Self destructs after use.";
+        description = "The next +1 unupgraded card(s) added to this tower are permanently upgraded to level 2. Self destructs after use.";
     }
 
     public override SkillInstance CreateInstance()
@@ -16,16 +16,20 @@ public class CatalystSkillData : SkillData
 }
 public class CatalystSkillInstance : SkillInstance<CatalystSkillData>, IOnNewCardAdded, ISelfDestructs, IPlayCountPolicy<IOnNewCardAdded>
 {
-    private int accumulatedBonus;
+    private int cardsUpgraded;
+    
     public CatalystSkillInstance(CatalystSkillData data) : base(data)
     {
     }
 
     public void Modify(SkillInstance cardInstance, TowerWaveData towerWaveData)
     {
+        if (cardInstance.PlayCount != 1) return;
         PlayCard();
-        cardInstance.PlayCount += PlayCount;
-        OnSelfDestruct?.Invoke();
+        cardInstance.PlayCount = 2;
+        cardsUpgraded++;
+        if(cardsUpgraded >= PlayCount)
+            OnSelfDestruct?.Invoke();
     }
 
     public Action OnSelfDestruct { get; set; }

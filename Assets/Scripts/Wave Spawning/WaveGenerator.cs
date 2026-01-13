@@ -14,7 +14,6 @@ public struct WavePlan
 {
     public int waveIndex;
     public bool isBoss;
-    public bool isSpike;
     public List<EnemySpawn> enemySpawns;
 }
 
@@ -33,10 +32,9 @@ public class WaveGenerator
         float smooth = waveSettings.BaseBudget * Mathf.Pow(waveSettings.GrowthRate, wave - 1) + waveSettings.AdditivePerWave * (wave - 1);
         float noise = 1f + (UnityEngine.Random.value * 2f - 1f) * waveSettings.Variance;
         float budget = smooth * noise;
-        bool isBoss = (wave % waveSettings.BossEvery == 0);
-        bool isSpike = wave > waveSettings.BossEvery && (wave - 1) % waveSettings.BossEvery == 0;
-        if (isBoss) budget *= waveSettings.BossMultiplier;
-        if(isSpike) budget *= waveSettings.SpikeAfterBoss;
+        bool isBoss = EncounterGenerator.Instance.GetEncounter(wave) == EncounterGenerator.Instance.BossEncounter;
+        int bossesCompleted = (wave - 1) / EncounterGenerator.Instance.CycleLength;
+        budget *= Mathf.Pow(waveSettings.SpikeAfterBoss, bossesCompleted);
         Debug.Log("Budget : " + budget);
         var pool = waveSettings.Enemies.Where(e => e.MinWave <= wave && (e.MaxWave == 0 || wave <= e.MaxWave) && (isBoss ? (e.EnemyData.IsBoss || !e.EnemyData.IsBoss) : !e.EnemyData.IsBoss)).
             Where(e => CalculateCost(e, budgetTuning) <= budget).OrderBy(e => UnityEngine.Random.value).ToArray();
@@ -44,7 +42,6 @@ public class WaveGenerator
         {
             waveIndex = wave,
             isBoss = isBoss,
-            isSpike = isSpike,
             enemySpawns = new List<EnemySpawn>()
         };
         if (isBoss)

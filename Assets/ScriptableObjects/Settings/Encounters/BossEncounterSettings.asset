@@ -9,9 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 927e8766c4484df8967c1447e285ac91, type: 3}
-  m_Name: ShopSettings
+  m_Script: {fileID: 11500000, guid: 7c334fb0943e431a8449f14ce8d8f7f8, type: 3}
+  m_Name: BossEncounterSettings
   m_EditorClassIdentifier: 
-  targetRate: 0.25
-  firstWave: 4
-  icon: {fileID: -5599827733488901632, guid: 5d7f59a1aec679b46bbd263f1f582663, type: 3}
+  icon: {fileID: 3663246141613833925, guid: 8ac0deeeccce30341812c061ca196dbc, type: 3}
+  minWave: 0

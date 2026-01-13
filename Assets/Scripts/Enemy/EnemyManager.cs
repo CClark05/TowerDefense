@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using CodeMonkey.Utils;
+using Unity.Properties;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -35,7 +36,7 @@ public class EnemyManager : Singleton<EnemyManager>
     public event Action<int> OnEnemyKilled;
     //private WaveData waveData => levelData.waves[CurrentWave - 1];
     [FormerlySerializedAs("waveLibrary")] [SerializeField] private WaveSettings waveSettings;
-    public bool IsBossWave(int wave) => wave > 0 && wave % waveSettings.BossEvery == 0;
+    public WaveSettings WaveSettings => waveSettings;
     private WaveGenerator waveGenerator;
     [Header("TESTING DATA")]
     [SerializeField] private List<EnemyData> testEnemies = new();
@@ -141,7 +142,6 @@ public class EnemyManager : Singleton<EnemyManager>
         OnEnemiesUpdated?.Invoke();
         if (currentEnemies.Count == 0 && WaveState == WaveStates.DoneSpawning && PlayerLife.Instance.CurrentLives > 0)
         {
-            Debug.Log("Wave Complete");
             /**
             if (CurrentWave - 1 >= levelData.waves.Length)
             {
@@ -168,7 +168,6 @@ public class EnemyManager : Singleton<EnemyManager>
 
     private IEnumerator SpawnWave()
     {
-        Debug.Log("Starting wave");
         WaveTimer = 0;
         TowerService.BeginWave(TowerDataHolder.ActiveTowerList);
         OnWaveStarted?.Invoke();

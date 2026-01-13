@@ -31,7 +31,6 @@ public class KillEffects : MonoBehaviour
 
     private void SlowmoAnimation(float to, float toDuration, float holdTime)
     {
-        Debug.Log("slow mo");
         var seq = DOTween.Sequence().SetUpdate(true);
         seq.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, to, toDuration)).SetEase(Ease.InCubic);
         seq.AppendInterval(holdTime);

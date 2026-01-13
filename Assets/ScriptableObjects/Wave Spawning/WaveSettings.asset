@@ -13,12 +13,10 @@ MonoBehaviour:
   m_Name: WaveSettings
   m_EditorClassIdentifier: 
   BaseBudget: 5
-  GrowthRate: 1.1
+  GrowthRate: 1.2
   AdditivePerWave: 0.75
   Variance: 0.08
-  BossEvery: 8
-  BossMultiplier: 2
-  SpikeAfterBoss: 2
+  SpikeAfterBoss: 1.5
   Enemies:
   - {fileID: 11400000, guid: 2f2fcd078669a4942b46724243f70803, type: 2}
   - {fileID: 11400000, guid: 106970b98733adc4ba12eaf320f31428, type: 2}
@@ -31,4 +29,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: aaed3d0dcd83a3f438d642700bb29fd3, type: 2}
   - {fileID: 11400000, guid: b99a88ee799561f448e4f87dc1d9f83f, type: 2}
   - {fileID: 11400000, guid: 67e96efb6c79b254da89d9b4584813ef, type: 2}
+  HpIncreaseAfterBoss: 0.25
+  SpeedIncreaseAfterBoss: 0.1
   minEnemies: 4

@@ -11,12 +11,11 @@ public class WaveSettings : ScriptableObject
     public float Variance = 0.08f;     // ±8% noise
 
     [Header("Cadence")]
-    public int BossEvery = 4;  
-    public float BossMultiplier = 2.2f;
     public float SpikeAfterBoss = 1.4f;
 
     [Header("Enemy Pool")]
     public List<EnemyCost> Enemies;
-
+    public float HpIncreaseAfterBoss = 0.25f;
+    public float SpeedIncreaseAfterBoss = 0.1f;
     public int minEnemies = 4;
 }

@@ -25,6 +25,5 @@ public class DividendSkillInstance : SkillInstance<DividendSkillData>, ITowerWav
     {
         PlayerInventory.Instance.AddCoins(Data.plusGold);
         PlayCard();
-        Debug.Log(Data.plusGold);
     }
 }

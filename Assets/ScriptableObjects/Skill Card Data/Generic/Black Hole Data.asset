@@ -15,14 +15,14 @@ MonoBehaviour:
   name: Black Hole
   icon: {fileID: -1052606750, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: On kill create a black hole that pulls in any enemies within a +1
-    tile radius.
+  description: On kill create a black hole that pulls in any enemies within a +0.75
+    tile radius. Flying enemies are immune.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  tileSize: 1
+  tileSize: 0.75
   BlackHoleVisualPrefab: {fileID: 8213420445569304457, guid: f6e33cfe4be593a42bfbfe7b762044a6, type: 3}
   duration: 1

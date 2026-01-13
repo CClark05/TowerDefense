@@ -22,7 +22,8 @@ public class BirdMovement : MonoBehaviour, IPathPredictor, IMovementListener, IM
     {
         var random = UnityEngine.Random.Range(2.5f, -2.5f);
         transform.position = new Vector2(transform.position.x, transform.position.y + random);
-        baseSpeed = GetComponent<EnemyDataHolder>().Data.speed;
+        baseSpeed = GetComponent<EnemyDataHolder>().Data.speed + 1 * GetComponent<EnemyScaling>().SpeedIncrease;
+        Debug.Log(GetComponent<EnemyDataHolder>().Data.name + "Speed " + baseSpeed);
         path = AStarPathfinding.Instance.GetPath();
         direction = (path[^1] - (Vector2)transform.position).normalized;
         velocity = direction * baseSpeed; 

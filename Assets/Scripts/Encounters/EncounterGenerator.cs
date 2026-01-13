@@ -6,7 +6,27 @@ using UnityEngine;
 
 public class EncounterGenerator : Singleton<EncounterGenerator>
 {
-    [SerializeField] private List<EncounterSettings> encounterSettingsList;
+    [SerializeField] private EncounterSettings shop, upgrade, boss;
+    public EncounterSettings BossEncounter => boss;
+    [SerializeField] private int cycleLength = 8;
+    public int CycleLength => cycleLength;
+    public EncounterSettings GetEncounter(int wave)
+    {
+        int mod = wave % cycleLength;
+        int upgradeIndex = cycleLength - 1;
+        int shopIndex = cycleLength - 3;
+        
+        var encounter = mod switch
+        {
+            0 => boss,
+            _ when mod == upgradeIndex => upgrade,   
+            _ when mod == shopIndex => shop,       
+            _ => null
+        };
+        if (encounter == null || wave < encounter.minWave) return null;
+        return encounter;
+    }
+    /**
     [SerializeField] private int waveTarget = 40;
     private int cooldownLength = 3;
     public Dictionary<int, EncounterSettings> EncounterDictionary { get; private set; }
@@ -27,12 +47,12 @@ public class EncounterGenerator : Singleton<EncounterGenerator>
         foreach (var e in encounterSettingsList)
         {
             int expected = Mathf.RoundToInt(e.targetRate * waveTarget);
-            for (int i = 0; i < expected; i++) 
+            for (int i = 0; i < expected; i++)
                 tickets.Add(e);
         }
         for(int i = tickets.Count; i< waveTarget; i++)
-            tickets.Add(null); 
-        
+            tickets.Add(null);
+
         tickets = tickets.OrderBy(_ => UnityEngine.Random.value).ToList();
         int wave = 0;
         var result = new Dictionary<int, EncounterSettings>();
@@ -68,11 +88,12 @@ public class EncounterGenerator : Singleton<EncounterGenerator>
             }
         }
         return result;
-        
+
         bool IsOnCooldown(EncounterSettings e, int w)
         {
             return cooldown.TryGetValue(e, out var until) && w < until;
         }
     }
-    
+    */
+
 }   
