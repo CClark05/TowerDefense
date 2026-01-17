@@ -79,6 +79,7 @@ public class SummonMinionSkillInstance : SkillInstance<SummonMinionSkillData>, I
                 damageable.Transform.GetComponent<IUsesStatusEffects>(),
                 skillContext,
                 (_hitData, pos) => { _hitData.tower.DealtDamage(_hitData, pos); });
+            Damage += damage;
         };
         summons.Add(minion);
     }

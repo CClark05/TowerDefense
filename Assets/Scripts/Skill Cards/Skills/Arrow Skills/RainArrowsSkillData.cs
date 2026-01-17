@@ -70,6 +70,7 @@ public class RainArrowsSkillInstance : SkillInstance<RainArrowsSkillData>, IOnKi
                         damageable.Transform.GetComponent<IUsesStatusEffects>(),
                         skillContext,
                         (_hitData, pos) => {_hitData.tower.DealtDamage(_hitData,pos);});
+                    Damage += Data.ArrowData.damage;
                 };
                 yield return new WaitForSeconds(delayBetweenArrows);
             }

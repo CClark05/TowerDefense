@@ -31,8 +31,10 @@ public class HuntersMarkSkillInstance : SkillInstance<HuntersMarkSkillData>, IHi
         Debug.Log("Current Crit Chance: " + (Data.CritChance));
         if (UnityEngine.Random.value < Data.CritChance)
         {
-            critStats.DealCrit(hitData);
+            var damage = critStats.DealCrit(hitData);
+            if (damage == null) return;
             PlayCard();
+            Damage += damage.Value;
         }
     }
 
@@ -54,15 +56,17 @@ public class CritStats
     public float MultIncrease;
     public float CritChance => Mathf.Clamp01(ChanceIncrease);
     public float CritMult => baseCritMult + MultIncrease;
-
-    public void DealCrit(HitData hitData)
+    //returns damage delta 
+    public int? DealCrit(HitData hitData)
     {
-        if (hitData.didCrit) return;
-        hitData.finalDamage = CalculateDamage.MultIncrease(CritMult, hitData.finalDamage, 1);
+        if (hitData.didCrit) return null;
+        var damage = CalculateDamage.MultIncrease(CritMult, hitData.baseDamage, 1);
+        hitData.finalDamage += damage;
         hitData.colors.Add(color);
         hitData.damageMarkerPunchEffect = true;
         hitData.damageMarkerSizeMult *= damageMarkerSizeMult;
         hitData.didCrit = true;
+        return damage;
     }
 
     public void CalculateBonus(SkillContext skillContext)

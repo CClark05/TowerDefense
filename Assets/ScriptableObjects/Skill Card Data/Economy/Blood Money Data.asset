@@ -15,7 +15,9 @@ MonoBehaviour:
   name: Blood Money
   icon: {fileID: 287649832177700510, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Gives +$1 per 2 kill(s).
+  description: Gives +$1 every 2 kill(s).
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []

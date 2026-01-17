@@ -1,6 +1,9 @@
 using System;
+using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
 
 [CreateAssetMenu(fileName = "Blood Money Data", menuName = "SkillData/Economy/Blood Money")]
 public class BloodMoneySkillData : SkillData
@@ -25,7 +28,7 @@ public class BloodMoneySkillInstance : SkillInstance<BloodMoneySkillData>, IOnKi
     {
         killCounter++;
         if(killCounter % Data.killsNeeded != 0) return;
-        PlayerInventory.Instance.AddCoins(Data.PlusMoney);
+        PlayerInventory.Instance.AddCoins(Data.PlusMoney, hitData.damageable.Transform.position);
         PlayCard();
     }
 

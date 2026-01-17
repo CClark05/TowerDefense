@@ -12,7 +12,7 @@ public abstract class SkillInstance
     }
     public SkillContext skillContext { get; protected set; }
     public SkillData Data { get; }
-
+    
     private int? runtimeStat;
     public int? RuntimeStat
     {
@@ -54,7 +54,33 @@ public abstract class SkillInstance
             else skillContext?.EnableCard(this);
         }
     }
+
+    private int damage;
+    public int Damage
+    {
+        get => damage;
+        set
+        {
+            if (damage == value) return;
+            damage = value;
+            OnDamageUpdated?.Invoke(value);
+        }
+    }
+
+    public event Action<int> OnDamageUpdated;
+    private bool laminated;
+    public bool Laminated
+    {
+        get => laminated;
+        set
+        {
+            if (laminated == value) return;
+            laminated = value;
+            OnIsLaminatedUpdated?.Invoke(value);
+        }
+    }
     public event Action <bool> OnIsDisabledUpdated;
+    public event Action<bool> OnIsLaminatedUpdated;
     public event Action OnDispose;
     public void SetContext(SkillContext context) => skillContext = context;
     public event Action OnPlayCard;
@@ -67,10 +93,12 @@ public abstract class SkillInstance
         OnDispose?.Invoke();
         OnPlayCard = null;
         OnPlayCountUpdated = null;
+        OnIsLaminatedUpdated = null;
         OnIsDisabledUpdated = null;
         skillContext = null;
         OnDispose = null;
         OnRuntimeStatUpdated = null;
+        OnDamageUpdated = null;
     }
     protected List<TowerDataHolder> GetTowersInRange()
     {
@@ -85,6 +113,8 @@ public abstract class SkillInstance<TData> : SkillInstance where TData : SkillDa
     protected SkillInstance(TData data) : base(data)
     {
         Data = data;
+        if (data.statusEffects.Any(e => e.data is LaminatedEffectData))
+            Laminated = true;
     }
 }
 

@@ -9,15 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
-  m_Name: BasicEnemyData
+  m_Script: {fileID: 11500000, guid: ad3b7bbef310453c9d234acb165792e6, type: 3}
+  m_Name: Laminated Effect
   m_EditorClassIdentifier: 
-  health: 10
-  speed: 3
-  livesCost: 1
-  shields: 0
-  coins: 1
-  prefab: {fileID: 1784637425888943160, guid: f0c3706fcded90444bc34eb7518496e7, type: 3}
-  summonable: 1
-  IsBoss: 0
-  IsElite: 0
+  name: Laminated
+  description: Card cannot be upgraded.
+  color: {r: 0.78039217, g: 0.8117647, b: 0.8, a: 1}
+  sprite: {fileID: 0}

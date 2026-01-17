@@ -45,7 +45,7 @@ public static class DamageService
         }
 
         // hitData.finalDamage = Mathf.RoundToInt(hitData.finalDamage);
-        hitData.finalDamage = CalculateDamage.MultIncrease(damageable.GetDamageBonus(), hitData.finalDamage, 1);
+        hitData.finalDamage += CalculateDamage.MultIncrease(damageable.GetDamageBonus(), hitData.finalDamage, 1);
         CallModifier.Call<IAfterHitModifier>(skillContext, (mod, _) => { mod.Modify(hitData); });
         bool isDead = damageable.IsDeadFromDamage(hitData.finalDamage);
         hitData.didKill = isDead;

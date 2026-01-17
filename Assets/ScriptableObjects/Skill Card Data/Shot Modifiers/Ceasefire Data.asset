@@ -15,10 +15,12 @@ MonoBehaviour:
   name: Ceasefire
   icon: {fileID: 310865519, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Tower gains +3 card slots but can no longer shoot projectiles.
+  description: Tower gains 3 card slots but can no longer shoot projectiles.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
-  statusEffects: []
+  statusEffects:
+  - showInUI: 1
+    data: {fileID: 11400000, guid: f151d84d79d3d4d43a1d7da7a8f445ec, type: 2}
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0

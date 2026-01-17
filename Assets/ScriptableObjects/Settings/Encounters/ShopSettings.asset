@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ShopSettings
   m_EditorClassIdentifier: 
   icon: {fileID: 1524508683170295462, guid: 8ac0deeeccce30341812c061ca196dbc, type: 3}
-  minWave: 9
+  minWave: 8

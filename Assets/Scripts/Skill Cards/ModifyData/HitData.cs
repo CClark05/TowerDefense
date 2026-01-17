@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 public class HitData : DamageData
 {
-    private int baseDamage;
+    public int baseDamage { get; private set; }
+    public float finalMult = 1;
     public TowerShooting tower;
     public IDamageable damageable;
     public TowerDataHolder dataHolder => tower.GetComponent<TowerDataHolder>();

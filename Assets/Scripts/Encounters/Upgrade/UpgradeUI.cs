@@ -76,6 +76,7 @@ public class UpgradeUI : Singleton<UpgradeUI>
             all.AddRange(t.SkillInstanceList.Select(inst => new UpgradeableCard(inst, owner)));
         }
 
+        all.RemoveAll(c => c.Instance.Laminated);
         foreach (var c in all)
         {
             var key = (c.Instance.Data, c.Instance.PlayCount);

@@ -9,4 +9,5 @@ public interface IDamageable
     public bool IsDeadFromDamage(int damage);
     public void ApplyDamageBonus(float percentIncrease);
     public float GetDamageBonus();
+    public event Action<int> OnTakeDamage;
 }

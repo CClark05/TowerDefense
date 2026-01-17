@@ -26,10 +26,10 @@ public class CoinShotSkillInstance : SkillInstance<CoinShotSkillData>, IProjecti
     private bool shotCoin;
     public IEnumerator Modify(ProjectileShotData shotData)
     {
-        if (PlayerInventory.Instance.Coins > 0)
+        if (PlayerInventory.Instance.Coins >= shotData.Projectiles.Count)
         {
             shotData.projectileSprite = Data.coinSprite;
-            PlayerInventory.Instance.SubtractCoins(1);
+            PlayerInventory.Instance.SubtractCoins(shotData.Projectiles.Count);
             shotCoin = true;
         }
         else
@@ -42,8 +42,10 @@ public class CoinShotSkillInstance : SkillInstance<CoinShotSkillData>, IProjecti
     {
         if (shotCoin)
         {
-            hitData.finalDamage = CalculateDamage.MultIncrease(Data.damageMult, hitData.finalDamage, PlayCount);
+            var damage = CalculateDamage.MultIncrease(Data.damageMult, hitData.baseDamage, PlayCount);
+            hitData.finalDamage += damage;
             PlayCard();
+            Damage += damage;
         }
     }
 

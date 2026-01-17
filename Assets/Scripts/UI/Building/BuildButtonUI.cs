@@ -14,8 +14,6 @@ public class BuildButtonUI : MonoBehaviour
     public event Action<TowerData> OnBuildMode;
     public event Action OnExitBuildMode;
     public static event Action OnNotEnoughCoins;
-    private float buildDelayAfterWave = 1.5f;
-    private bool canBuild = true;
     private void Start()
     {
         runtimeTowerData = towerData.CloneRuntime();
@@ -32,21 +30,10 @@ public class BuildButtonUI : MonoBehaviour
             costText.text = cost.ToString();
             costText.color = PlayerInventory.Instance.Coins >= runtimeTowerData.Cost ? originalTextColor : ColorPicker.red;
         };
-        EnemyManager.Instance.OnWaveComplete += () =>
-        {
-            if (buildDelayRoutine != null)
-                StopCoroutine(buildDelayRoutine);
 
-            buildDelayRoutine = StartCoroutine(BuildDelay());
-        };
     }
     private Coroutine buildDelayRoutine;
-    private IEnumerator BuildDelay()
-    {
-        canBuild = false;
-        yield return new WaitForSeconds(buildDelayAfterWave);
-        canBuild = true;
-    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.B))
@@ -63,8 +50,6 @@ public class BuildButtonUI : MonoBehaviour
     }
     private void TryEnterBuildMode()
     {
-        if (!canBuild)
-            return;
         if (PlayerInventory.Instance.Coins < runtimeTowerData.cost)
         {
             OnNotEnoughCoins?.Invoke();

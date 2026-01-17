@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -24,7 +25,7 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
     {
         closestTower = FindClosestTower();
         if (closestTower == null) return;
-        var pool = closestTower.WaveData.startingSnapshot.Where(card => !stolenCards.Contains(card)).ToList();
+        var pool = closestTower.WaveData.startingSnapshot.Where(card => !stolenCards.Contains(card) && !card.Laminated).ToList();
         if (pool.Count == 0) return;
         randomCard = pool[UnityEngine.Random.Range(0, pool.Count)];
         stolenCards.Add(randomCard);

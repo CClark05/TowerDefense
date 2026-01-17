@@ -18,6 +18,7 @@ public class FireStatusEffect : OnTickStatusEffect
     
     public override void OnTick(TickData tickData)
     {
+        int originalTickDamage = damagePerTick;
         foreach (var kvp in tickData.stacks)
         {
             var skillContext = kvp.Key;
@@ -25,7 +26,7 @@ public class FireStatusEffect : OnTickStatusEffect
             List<Color> colors = new();
             foreach (var mod in skillContext.GetSkillInstancesWith<IFireModifier>())
             {
-                tickDamage = CalculateDamage.MultIncrease(mod.modifier.PlusMult, tickDamage, 1);
+                tickDamage += CalculateDamage.MultIncrease(mod.modifier.PlusMult, originalTickDamage, 1);
                 if(mod.modifier.Color != default)
                     colors.Add(mod.modifier.Color);
             }

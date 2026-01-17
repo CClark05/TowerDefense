@@ -17,7 +17,7 @@ public class CriticalMomentumSkillData : SkillData
     }
 }
 
-public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkillData>, IOnKill, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>
+public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkillData>, IOnKill, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>, IOnHit, IPlayCountPolicy<IOnHit>
 {
     private int accumulatedBonus;
     public CriticalMomentumSkillInstance(CriticalMomentumSkillData data) : base(data)
@@ -44,6 +44,11 @@ public class CriticalMomentumSkillInstance : SkillInstance<CriticalMomentumSkill
     {
         towerWaveData.increasedBaseDamage -= accumulatedBonus;
     }
+    
+    public void OnHit(HitData hitData)
+    {
+        Damage += accumulatedBonus;
+    }
 
-    int IPlayCountPolicy<ITowerCardReceivedModifier>.SetPlayCount() => 1;
+    public int SetPlayCount() => 1;
 }

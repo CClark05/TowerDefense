@@ -30,7 +30,6 @@ public class AzureFlameSkillInstance : SkillInstance<AzureFlameSkillData>, IFire
     {
         effectData.duration = 0;
         effectData.duration += Data.stackDuration;
-        Debug.Log("Modified duration : " + effectData.duration);
     }
     public bool PlayOnce => true;
     public EffectData Effect => Data.statusEffects[0].data;

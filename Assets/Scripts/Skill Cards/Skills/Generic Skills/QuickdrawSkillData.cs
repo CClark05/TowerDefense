@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Quickdraw Data", menuName = "SkillData/Generic/Quickdraw")]
 public class QuickdrawSkillData : SkillData
 {
-    public float speedIncrease = 1.1f;
+    public float speedIncrease = 0.25f;
 
     private void OnValidate()
     {
@@ -25,13 +25,13 @@ public class QuickdrawSkillInstance : SkillInstance<QuickdrawSkillData>, ITowerC
 
     public void Remove(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedSpeed /= 1 + Data.speedIncrease * PlayCount;
+        skillContext.Tower.RuntimeData.TimeBetweenShots *= 1 + Data.speedIncrease * PlayCount;
     }
     
     public void Apply(TowerWaveData towerWaveData)
     {
         PlayCard();
-        towerWaveData.increasedSpeed *= 1 + Data.speedIncrease * PlayCount;
+        skillContext.Tower.RuntimeData.TimeBetweenShots /= 1 + Data.speedIncrease * PlayCount;
     }
 
     public int SetPlayCount() => 1;

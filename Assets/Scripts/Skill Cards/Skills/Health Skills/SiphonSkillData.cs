@@ -8,7 +8,7 @@ public class SiphonSkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Enemies have a +{HealthDropChance * 100}% chance to drop 1 life on death.";
+        description = $"Enemies have a +{HealthDropChance * 100}% chance to drop 1 life on kill.";
     }
 
     public override SkillInstance CreateInstance()

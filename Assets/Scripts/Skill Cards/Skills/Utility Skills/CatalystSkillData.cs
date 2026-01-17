@@ -24,7 +24,7 @@ public class CatalystSkillInstance : SkillInstance<CatalystSkillData>, IOnNewCar
 
     public void Modify(SkillInstance cardInstance, TowerWaveData towerWaveData)
     {
-        if (cardInstance.PlayCount != 1) return;
+        if (cardInstance.PlayCount != 1 || cardInstance.Laminated) return;
         PlayCard();
         cardInstance.PlayCount = 2;
         cardsUpgraded++;

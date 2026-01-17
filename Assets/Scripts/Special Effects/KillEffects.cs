@@ -6,6 +6,7 @@ public class KillEffects : MonoBehaviour
 {
     public static readonly float finalFreezeFrameDuration = 0.3f;
     public static readonly float freezeFrameDuration = 0.075f;
+    private Coroutine freezeFrameCoroutine;
     private void Start()
     {
         /**
@@ -17,9 +18,16 @@ public class KillEffects : MonoBehaviour
         */
         EnemyHealth.OnDeathStatic += (bool final) =>
         {
-            if(final)
+            if (final)
+            {
                 SlowmoAnimation(0.2f, 0.2f, 0.5f);
-            StartCoroutine(FreezeFrame(final ? finalFreezeFrameDuration : freezeFrameDuration));
+                if(freezeFrameCoroutine != null) return;
+                StartCoroutine(FreezeFrame(finalFreezeFrameDuration, 1));
+                return;
+            }
+
+            if (freezeFrameCoroutine != null) return;
+            freezeFrameCoroutine = StartCoroutine(FreezeFrame(freezeFrameDuration));
         };
         /**
         EnemyManager.Instance.OnIdle += () =>
@@ -37,11 +45,12 @@ public class KillEffects : MonoBehaviour
         seq.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1, toDuration).SetEase(Ease.OutQuad));
     }
 
-    private IEnumerator FreezeFrame(float duration)
+    private IEnumerator FreezeFrame(float duration, float? finalTimeScale = null)
     {
-        float originalTimeScale = Time.timeScale >= 1 ? Time.timeScale : 1f;
+        var originalTimeScale = Time.timeScale;
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(duration);
-        Time.timeScale = originalTimeScale;
+        Time.timeScale = finalTimeScale ?? originalTimeScale;
+        freezeFrameCoroutine = null;
     }
 }

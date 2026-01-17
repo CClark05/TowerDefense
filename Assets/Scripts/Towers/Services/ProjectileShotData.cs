@@ -15,7 +15,7 @@ public class ProjectileShotData
     public Vector2 originalDirection;
     public readonly List<Vector2> directionOverrides;
     public int homingProjectiles;
-    private HashSet<Projectile> projectiles = new();
+    public HashSet<Projectile> Projectiles { get; private set; } = new();
     public ProjectileShotData(float releaseTime)
     {
         this.releaseTime = releaseTime;
@@ -24,8 +24,8 @@ public class ProjectileShotData
 
     public void RegisterProjectile(Projectile projectile)
     {
-        projectiles.Add(projectile);
-        if (projectiles.Count <= homingProjectiles)
+        Projectiles.Add(projectile);
+        if (Projectiles.Count <= homingProjectiles)
         {
             projectile.SetHoming();
             Debug.Log("homing");

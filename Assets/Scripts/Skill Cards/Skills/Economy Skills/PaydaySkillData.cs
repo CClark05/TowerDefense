@@ -8,7 +8,7 @@ public class PaydaySkillData : SkillData
 
     private void OnValidate()
     {
-        description = $"Gain +${goldPerKill} for each enemy killed. Self destructs after this wave.";
+        description = $"Gain +${goldPerKill} for each enemy killed. Self destructs after wave.";
     }
     public override SkillInstance CreateInstance()
     {
@@ -29,7 +29,7 @@ public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEnd
 
     public void OnKill(HitData hitData)
     {
-        PlayerInventory.Instance.AddCoins(Data.goldPerKill);
+        PlayerInventory.Instance.AddCoins(Data.goldPerKill, hitData.damageable.Transform.position);
         PlayCard();
     }
 

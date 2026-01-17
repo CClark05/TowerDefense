@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class CardPreviewUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI nameText, descriptionText, runtimeStatText;
+    [SerializeField] private TextMeshProUGUI nameText, descriptionText, runtimeStatText, damageText;
     [SerializeField] private VerticalLayoutGroup tabLayout;
     [SerializeField] private GameObject tabPrefab;
     private List<GameObject> activeTabs = new();
@@ -19,6 +19,13 @@ public class CardPreviewUI : MonoBehaviour
         if (currentInstance != null)
             currentInstance.OnRuntimeStatUpdated -= OnRuntimeStatUpdated;
         currentInstance = instance;
+        if(instance.Damage == 0) 
+            damageText.gameObject.SetActive(false);
+        else
+        {
+            damageText.gameObject.SetActive(true);
+            damageText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = instance.Damage.ToString();
+        }
         var data = instance.Data;
         activeTabs.ForEach(Destroy);
         nameText.text = data.name;
@@ -47,6 +54,11 @@ public class CardPreviewUI : MonoBehaviour
 
         instance.OnRuntimeStatUpdated += OnRuntimeStatUpdated;
         instance.OnPlayCountUpdated += UpdateDescription;
+        instance.OnDamageUpdated += (damage) =>
+        {
+            damageText.gameObject.SetActive(true);
+            damageText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{damage}";
+        };
         UpdateDescription(instance.PlayCount);
         if (instance.RuntimeStat.HasValue)
         {
@@ -57,12 +69,14 @@ public class CardPreviewUI : MonoBehaviour
         {
             descriptionText.text = Regex.Replace(
                 descriptionText.text,
-                @"\+(\d+(?:\.\d+)?)",
+                @"\+(\$?)(\d+(?:\.\d+)?)",
                 match =>
                 {
-                    float baseValue = float.Parse(match.Groups[1].Value, CultureInfo.InvariantCulture);
+                    string currency = match.Groups[1].Value; 
+                    float baseValue = float.Parse(match.Groups[2].Value, CultureInfo.InvariantCulture);
                     float newValue = baseValue * playCount;
-                    return $"+{newValue:0.##}";
+
+                    return $"+{currency}{newValue:0.##}";
                 },
                 RegexOptions.CultureInvariant
             );

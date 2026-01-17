@@ -17,7 +17,7 @@ public class DevourSkillData : SkillData
     }
 }
 
-public class DevourSkillInstance : SkillInstance<DevourSkillData>, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>
+public class DevourSkillInstance : SkillInstance<DevourSkillData>, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>, IOnHit, IPlayCountPolicy<IOnHit>
 {
     private int accumulatedBonus;
     public DevourSkillInstance(DevourSkillData data) : base(data)
@@ -41,4 +41,8 @@ public class DevourSkillInstance : SkillInstance<DevourSkillData>, ITowerCardRec
     }
 
     public int SetPlayCount() => 1;
+    public void OnHit(HitData hitData)
+    {
+        Damage += accumulatedBonus;
+    }
 }

@@ -29,7 +29,10 @@ public class EnemyHitEffect : MonoBehaviour
 
     private void OnDeathStatic(bool final)
     {
-        if (final) Flash(7);
+        if (final)
+        {
+            Flash(7);
+        }
     }
 
     /**

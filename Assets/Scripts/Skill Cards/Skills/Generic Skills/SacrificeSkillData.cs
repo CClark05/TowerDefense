@@ -16,7 +16,7 @@ public class SacrificeSkillData : SkillData
     }
 }
 
-public class SacrificeSkillInstance : SkillInstance<SacrificeSkillData>, IOnCardSelfDestruct, ITowerCardReceivedModifier, IPlayCountPolicy<IOnCardSelfDestruct>, IPlayCountPolicy<ITowerCardReceivedModifier>
+public class SacrificeSkillInstance : SkillInstance<SacrificeSkillData>, IOnCardSelfDestruct, ITowerCardReceivedModifier, IPlayCountPolicy<IOnCardSelfDestruct>, IPlayCountPolicy<ITowerCardReceivedModifier>, IOnHit, IPlayCountPolicy<IOnHit>
 {
     private int accumulatedBonus;
     private int appliedBonus;
@@ -52,5 +52,10 @@ public class SacrificeSkillInstance : SkillInstance<SacrificeSkillData>, IOnCard
         towerWaveData.increasedBaseDamage += delta;
         appliedBonus = accumulatedBonus;
         RuntimeStat = accumulatedBonus;
+    }
+
+    public void OnHit(HitData hitData)
+    {
+        Damage += accumulatedBonus;
     }
 }

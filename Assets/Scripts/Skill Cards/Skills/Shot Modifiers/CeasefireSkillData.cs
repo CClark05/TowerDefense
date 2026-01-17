@@ -7,7 +7,7 @@ public class CeasefireSkillData : SkillData
     public int PlusSlots = 3;
     private void OnValidate()
     {
-        description = $"Tower gains +{PlusSlots} card slots but can no longer shoot projectiles.";
+        description = $"Tower gains {PlusSlots} card slots but can no longer shoot projectiles.";
     }
 
     public override SkillInstance CreateInstance()

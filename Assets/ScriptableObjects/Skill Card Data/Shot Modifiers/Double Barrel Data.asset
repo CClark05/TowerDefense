@@ -19,7 +19,9 @@ MonoBehaviour:
     projectile.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
-  statusEffects: []
+  statusEffects:
+  - showInUI: 1
+    data: {fileID: 11400000, guid: f151d84d79d3d4d43a1d7da7a8f445ec, type: 2}
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0

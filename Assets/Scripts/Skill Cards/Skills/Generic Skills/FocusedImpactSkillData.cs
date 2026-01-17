@@ -16,7 +16,7 @@ public class FocusedImpactSkillData : SkillData
     }
 }
 
-public class FocusedImpactSkillInstance : SkillInstance<FocusedImpactSkillData>, ITowerCardReceivedModifier
+public class FocusedImpactSkillInstance : SkillInstance<FocusedImpactSkillData>, ITowerCardReceivedModifier, IOnHit
 {
     public FocusedImpactSkillInstance(FocusedImpactSkillData data) : base(data)
     {
@@ -32,6 +32,9 @@ public class FocusedImpactSkillInstance : SkillInstance<FocusedImpactSkillData>,
         towerWaveData.increasedBaseDamage -= Data.PlusDamage;
     }
 
-    public bool alwaysPlayOnce { get; }
+    public void OnHit(HitData hitData)
+    {
+        Damage += Data.PlusDamage;
+    }
 }
 

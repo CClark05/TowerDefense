@@ -33,7 +33,9 @@ public class PerfectFormSkillInstance : SkillInstance<PerfectFormSkillData>, IHi
             {
                 critStats.MultIncrease += mod.modifier.CritStats.MultIncrease;
             }
-            critStats.DealCrit(hitData);
+            var damage = critStats.DealCrit(hitData);
+            if (damage == null) return;
+            Damage += damage.Value;
             PlayCard();
         }
     }

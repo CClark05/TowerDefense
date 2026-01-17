@@ -28,7 +28,7 @@ public class ExecutionSkillInstance : SkillInstance<ExecutionSkillData>, IAfterH
     {
         if ((float)hitData.healthSystem.Health / hitData.healthSystem.MaxHealth <= Data.HealthThreshold && hitData.didCrit)
         {
-            Debug.Log("execution");
+            Damage += hitData.healthSystem.Health;
             hitData.damageMarkerSizeMult *= Data.DamageMarkerSizeMult;
             hitData.finalDamage = 9999;
             PlayCard();

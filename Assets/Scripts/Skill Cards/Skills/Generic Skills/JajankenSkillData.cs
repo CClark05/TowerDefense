@@ -36,13 +36,13 @@ public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCar
     
     public void Apply(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedSpeed *= 1f - Data.FireRateMult;
+        skillContext.Tower.RuntimeData.TimeBetweenShots /= 1 + Data.FireRateMult * PlayCount;
         towerWaveData.increasedBaseDamage += Data.PlusDamage * PlayCount;
     }
 
     public void Remove(TowerWaveData towerWaveData)
     {
-        towerWaveData.increasedSpeed /= 1 - Data.FireRateMult;
+        skillContext.Tower.RuntimeData.TimeBetweenShots *= 1 + Data.FireRateMult * PlayCount;
         towerWaveData.increasedBaseDamage -= Data.PlusDamage * PlayCount;
     }
 
@@ -50,6 +50,7 @@ public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCar
     {
         PlayCard();
         (Data.statusEffects[0].data as StunStatusEffect).AddStacks(hitData, PlayCount);
+        Damage += Data.PlusDamage * PlayCount;
     }
 
     public int SetPlayCount() => 1;

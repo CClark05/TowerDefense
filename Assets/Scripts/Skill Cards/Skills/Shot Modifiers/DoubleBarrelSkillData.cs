@@ -5,9 +5,10 @@ using UnityEngine;
 public class DoubleBarrelSkillData : SkillData
 {
     public float SpreadDegrees = 12;
+    public float fireRateReduction = 0.25f;
     private void OnValidate()
     {
-        description = "Fires 2 additional projectiles to the right and left of the original projectile.";
+        description = $"Fires 2 additional projectiles to the right and left of the original projectile. Reduces fire rate by {fireRateReduction * 100}%.";
     }
     public override SkillInstance CreateInstance()
     {
@@ -15,12 +16,20 @@ public class DoubleBarrelSkillData : SkillData
     }
 }
 
-public class DoubleBarrelSkillInstance : SkillInstance<DoubleBarrelSkillData>, IProjectileModifier, IPlayCountPolicy<IProjectileModifier>
+public class DoubleBarrelSkillInstance : SkillInstance<DoubleBarrelSkillData>, IProjectileModifier, IPlayCountPolicy<IProjectileModifier>, ITowerCardReceivedModifier
 {
     public DoubleBarrelSkillInstance(DoubleBarrelSkillData data) : base(data)
     {
     }
+    public void Apply(TowerWaveData towerWaveData)
+    {
+        towerWaveData.increasedSpeed *= 1f - Data.fireRateReduction;
+    }
 
+    public void Remove(TowerWaveData towerWaveData)
+    {
+        towerWaveData.increasedSpeed /= 1 - Data.fireRateReduction;
+    }
     public IEnumerator Modify(ProjectileShotData shotData)
     {
         Vector2 forward = shotData.originalDirection;
@@ -43,4 +52,5 @@ public class DoubleBarrelSkillInstance : SkillInstance<DoubleBarrelSkillData>, I
 
     public bool DelayShot { get; }
     public int SetPlayCount() => 1;
+    
 }
