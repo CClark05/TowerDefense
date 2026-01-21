@@ -18,7 +18,7 @@ public class SummonMinionSkillData : SkillData
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
         string hex2 = ColorUtility.ToHtmlStringRGB(statusEffects[1].data.color);
         description =
-            $"Summon +1 <color=#{hex}>Minion(s)</color>. Each <color=#{hex}>Minion</color> shoots an <color=#{hex2}>Arrow</color> every {timeBetweenShots} second at enemies within their range";
+            $"Summon +1 <color=#{hex}>Minion(s)</color>. Each <color=#{hex}>Minion</color> shoots an <color=#{hex2}>Arrow</color> every {timeBetweenShots} second at enemies within their range.";
     }
 
     public override SkillInstance CreateInstance()

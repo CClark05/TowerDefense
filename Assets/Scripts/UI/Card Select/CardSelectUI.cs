@@ -12,6 +12,7 @@ using ColorUtility = UnityEngine.ColorUtility;
 
 public class CardSelectUI : Singleton<CardSelectUI>
 {
+    [SerializeField] private List<SkillData> startingSkills;
     [SerializeField] private SkillRegistry skillRegistry;
     [SerializeField] private CardRaritySettings raritySettings;
     [SerializeField] private RerollSettings rerollSettings;
@@ -102,8 +103,11 @@ public class CardSelectUI : Singleton<CardSelectUI>
             Destroy(card);
 
         currentCards.Clear();
-        var availableSkills = Enumerable.ToHashSet(skillRegistry.Skills.Where(skill =>
-            skill.prerequisiteSkills.Length == 0 || skill.prerequisiteSkills.Any(pr => skillRegistry.CurrentSkills.Contains(pr))));
+        var availableSkills = EnemyManager.Instance.CurrentWave != 2
+            ? Enumerable.ToHashSet(skillRegistry.Skills.Where(skill =>
+                skill.prerequisiteSkills.Length == 0 || skill.prerequisiteSkills.Any(pr => skillRegistry.CurrentSkills.Contains(pr))))
+            : Enumerable.ToHashSet(startingSkills);
+        
         var filteredSkills = Enumerable.ToHashSet(availableSkills.Where(skill => !cardCooldowns.ContainsKey(skill)));
         var pool = filteredSkills.Count >= 3 ? filteredSkills : availableSkills;
         var cards = CardRarityPicker.PickCards(pool.ToList(), raritySettings, 3);

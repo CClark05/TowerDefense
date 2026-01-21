@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
   m_Name: FastEnemyData
   m_EditorClassIdentifier: 
-  health: 40
+  health: 30
   speed: 10
   livesCost: 1
   shields: 0
@@ -20,3 +20,4 @@ MonoBehaviour:
   prefab: {fileID: 4935836106486947188, guid: 6c8c9054f9591c54aaffa58a31ce7928, type: 3}
   summonable: 1
   IsBoss: 0
+  IsElite: 0

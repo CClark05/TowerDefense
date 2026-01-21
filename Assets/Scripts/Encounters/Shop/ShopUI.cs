@@ -60,7 +60,9 @@ public class ShopUI : MonoBehaviour
             CardRarity.Legendary  => 1.9f, 
             _ => throw new ArgumentOutOfRangeException(nameof(r), r, null)
         };
-        HashSet<SkillData> filteredSkills = skillRegistry.Skills.Where(skill => !cardCooldowns.ContainsKey(skill)).ToHashSet();
+        var availableSkills = skillRegistry.Skills.Where(skill =>
+            skill.prerequisiteSkills.Length == 0 || skill.prerequisiteSkills.Any(pr => skillRegistry.CurrentSkills.Contains(pr))).ToHashSet();
+        HashSet<SkillData> filteredSkills = availableSkills.Where(skill => !cardCooldowns.ContainsKey(skill)).ToHashSet();
         HashSet<SkillData> pool = filteredSkills.Count >= cardCount ? filteredSkills : skillRegistry.Skills.ToHashSet();
         List<SkillData> cards = CardRarityPicker.PickCards(pool.ToList(), raritySettings, cardCount, ShopWeightMod);
         currentCards.AddRange(cards);

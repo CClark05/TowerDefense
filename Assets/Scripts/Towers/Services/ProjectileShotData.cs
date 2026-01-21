@@ -7,6 +7,7 @@ public class ProjectileShotData
     public Color projectileColor = Color.white;
     public Sprite projectileSprite;
     public int plusDamage;
+    public float plusSizePercent;
     public int maxEnemiesPierced;
     //public bool homing;
     public float speedIncrease = 1;

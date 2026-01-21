@@ -164,6 +164,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blinkAnimation: {fileID: 11400000, guid: f224b1297b9e5b5429ad6db86022fc32, type: 2}
+  closeEyesAnimation: {fileID: 11400000, guid: ae3eac4ad4f5eda46b9712ee9550b9a4, type: 2}
+  openEyesAnimation: {fileID: 11400000, guid: 5d5c213c4cb046146a587cc86107bda7, type: 2}
+  blinkSprite: {fileID: 1330673165, guid: 164bcc9afcdedfe4084567dbd214556e, type: 3}
 --- !u!114 &5531201584944688538
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2005,6 +2005,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a33bfd1c349c481f9fd58569343fc99b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingSkills:
+  - {fileID: 11400000, guid: 025f086d2fc05a64fa3703d3480a35fd, type: 2}
+  - {fileID: 11400000, guid: c43815f674c7f0843b06bdc998822493, type: 2}
+  - {fileID: 11400000, guid: 03e3051401fd2c44ea2e4a731fd7e366, type: 2}
   skillRegistry: {fileID: 11400000, guid: 5437b0564b2259044824ede22bb06552, type: 2}
   raritySettings: {fileID: 11400000, guid: d67cea1d0b1b1f44091bfaa995765fd7, type: 2}
   rerollSettings: {fileID: 11400000, guid: e9d73c6409cf94a4faefb9c3972c1d60, type: 2}
@@ -8497,12 +8501,14 @@ MonoBehaviour:
   - {fileID: 449712532}
   - {fileID: 134421251}
   testingData:
-  - {fileID: 11400000, guid: c6f0064a23c6bf441bc9705415f9920b, type: 2}
-  - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
-  - {fileID: 11400000, guid: 025f086d2fc05a64fa3703d3480a35fd, type: 2}
-  - {fileID: 11400000, guid: f39fcdabf5e1feb44bd08ae423b14650, type: 2}
-  - {fileID: 11400000, guid: c8e28281fae259d4b846b80cb075f8d6, type: 2}
+  - {fileID: 11400000, guid: 45f4c6bc7ce29bb46a0e6b47265be8d6, type: 2}
+  - {fileID: 11400000, guid: c5076f8287a722c4a8e4d98f57563805, type: 2}
+  - {fileID: 11400000, guid: 1d80b19cead681c42b44e314aae3f698, type: 2}
+  - {fileID: 11400000, guid: 4f51873575c66434489f5a710faf69a2, type: 2}
   - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
+  - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
+  - {fileID: 11400000, guid: 4f51873575c66434489f5a710faf69a2, type: 2}
+  - {fileID: 11400000, guid: 8e1f5518cbd478944ba59f38b54e6f78, type: 2}
   settings: {fileID: 11400000, guid: 3e51d1c9009932449b6d19df8edce600, type: 2}
 --- !u!1 &1040348794
 GameObject:

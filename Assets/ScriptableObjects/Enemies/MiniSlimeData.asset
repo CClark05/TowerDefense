@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
   m_Name: MiniSlimeData
   m_EditorClassIdentifier: 
-  health: 50
+  health: 30
   speed: 3
   livesCost: 1
   shields: 0
@@ -20,3 +20,4 @@ MonoBehaviour:
   prefab: {fileID: 9100206265802528946, guid: 56e6f066fc202b94dbb6670d14823ada, type: 3}
   summonable: 1
   IsBoss: 0
+  IsElite: 0

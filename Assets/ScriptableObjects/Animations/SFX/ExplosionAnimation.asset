@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abaebcbabb5142d29a808e3f123ec75a, type: 3}
+  m_Name: ExplosionAnimation
+  m_EditorClassIdentifier: 
+  defaultDuration: 0.5
+  looping: 0
+  sprites:
+  - {fileID: -8270682667820493152, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: -5653310219544052410, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: -3896082578864764428, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: -8315158705213957744, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: 3311401673808303994, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: -8287771990645840987, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: 1496757653080332833, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: -6011442001594796326, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: 8653074432532216479, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: 5316895596659760207, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: 8265616978428040010, guid: 8249a71fc84eda04791f586c0c891945, type: 3}
+  - {fileID: 5414884474715057876, guid: 8249a71fc84eda04791f586c0c891945, type: 3}

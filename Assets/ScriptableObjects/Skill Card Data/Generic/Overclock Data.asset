@@ -17,9 +17,11 @@ MonoBehaviour:
   rarity: 0
   description: Gives +4 card slots on receiving this card. Has a 20% chance to self
     destruct at the end of the wave.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  isExcluded: 0
+  isExcluded: 1
   extraSlots: 4
   destroyChance: 0.2

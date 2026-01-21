@@ -15,11 +15,11 @@ MonoBehaviour:
   name: Payday
   icon: {fileID: -492782416430950139, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Gain +$4 for each enemy killed. Self destructs after this wave.
+  description: Gain +$3 for each enemy killed. Self destructs after wave.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  goldPerKill: 4
+  goldPerKill: 3

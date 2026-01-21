@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
   m_Name: NecromancerData
   m_EditorClassIdentifier: 
-  health: 150
+  health: 125
   speed: 2
   livesCost: 1
   shields: 0

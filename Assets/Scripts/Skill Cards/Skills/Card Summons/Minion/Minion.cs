@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public interface IMinion
 {
@@ -21,7 +22,9 @@ public class Minion : MonoBehaviour, IHoverable, IMinion
     public event Action OnShoot;
     public event Action OnDestroy;
     public Transform Transform => transform;
-    
+    public event Action OnEnemyEnteredRange;
+    public event Action OnNoTarget;
+    public GameObject Target { get; private set; }
     public void Init(ProjectileData projectileData, float range, float timeBetweenShots)
     {
         this.projectileData = projectileData;
@@ -36,13 +39,17 @@ public class Minion : MonoBehaviour, IHoverable, IMinion
     {
         if (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Idle or EnemyManager.WaveStates.Complete) return;
         shootTimer += Time.deltaTime;
-        var target = TargetEnemy(TargetingModes.First);
+        var _target = TargetEnemy(TargetingModes.First);
+        if(_target == null && Target != null) OnNoTarget?.Invoke();
+        Target = _target;
         if (shootTimer >= timeBetweenShots)
         {
-            if (target == null) return;
+            if (Target == null)
+                return;
+            
             OnShoot?.Invoke();
             GameObject projectile = Instantiate(projectileData.prefab, transform.position, Quaternion.identity);
-            projectile.GetComponent<IMinionProjectile>().Init(target.GetComponent<IDamageable>());
+            projectile.GetComponent<IMinionProjectile>().Init(Target.GetComponent<IDamageable>());
             projectile.GetComponent<IMinionProjectile>().OnHit += (d) => OnHit?.Invoke(d, projectileData.damage);
             shootTimer = 0;
         }
@@ -57,6 +64,7 @@ public class Minion : MonoBehaviour, IHoverable, IMinion
             if (enemy == null) continue;
             float distance = Vector2.Distance(transform.position, enemy.transform.position);
             if (distance > range) continue;
+            if(Target == null) OnEnemyEnteredRange?.Invoke();
             switch (targetingMode)
             {
                 case TargetingModes.First:

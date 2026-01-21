@@ -6,5 +6,8 @@ public static class CalculateDamage
     {
         return (int)Math.Floor(original * (mult * playCount));
     }
-    
+    public static float MultIncrease(float mult, float original, int playCount)
+    {
+        return (original * (mult * playCount));
+    }
 }

@@ -29,4 +29,9 @@ public class SpriteAnimationClip : AnimationClip
 
         sr.sprite = originalSprite;
     }
+    public void ApplyLastFrame(Transform transform, AnimArgs args)
+    {
+        var sr = transform.GetComponent<SpriteRenderer>();
+        sr.sprite = sprites[^1];
+    }
 }

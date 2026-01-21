@@ -28,4 +28,5 @@ public class JumpAnimationClip : AnimationClip
         });
         yield return new DOTweenCYInstruction.WaitForCompletion(seq);
     }
+    
 }

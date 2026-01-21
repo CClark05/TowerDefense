@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -90,19 +91,7 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
         skillCard.GetComponent<SetCardData>().SetInstance(skillInstance);
         SkillCards.Add(skillCard);
         skillRegistry.AddNewSkill(skillInstance.Data);
-        skillCard.OnRemoveCard += cardUI =>
-        {
-            SkillCards.Remove(cardUI);
-            Destroy(skillCard.gameObject);
-            OnRemovedCard?.Invoke();
-            for(int i = 0; i<SkillCards.Count; i++)
-            {
-                var parent = cardSlots[i];
-                if(SkillCards[i].transform.parent == parent.transform) continue;
-                SkillCards[i].transform.SetParent(parent.transform);
-                SkillCards[i].transform.localPosition = Vector3.zero;
-            }
-        };
+        skillCard.OnRemoveCard += RemoveCard;
     }
     public void AddCards(List<SkillInstance> skillInstances)
     {
@@ -123,32 +112,32 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     public void RemoveCard(SkillInstance skillData)
     {
         var card = SkillCards.FirstOrDefault(c => c.SkillInstance == skillData);
+        RemoveCard(card);
+    }
+    private void RemoveCard(SkillCardUI card)
+    {
         if (card != null)
         {
             SkillCards.Remove(card);
             Destroy(card.gameObject);
             OnRemovedCard?.Invoke();
+            int counter = 0;
             for(int i = 0; i<SkillCards.Count; i++)
             {
                 var parent = cardSlots[i];
                 if(SkillCards[i].transform.parent == parent.transform) continue;
-                SkillCards[i].transform.SetParent(parent.transform);
-                SkillCards[i].transform.localPosition = Vector3.zero;
+                counter++;
+                var c = SkillCards[i];
+                var originalPosition = c.transform.position;
+                c.transform.parent = parent.transform;
+                c.transform.position = originalPosition;
+                c.GetComponent<InventoryCardAnimation>().SlideOverAnimation(parent.transform.position, (counter - 1) * 0.03f);
             }
         }
-        
     }
-
+    
     public bool CanAddCard(SkillData skillData)
     {
         return SkillCards.Count < settings.MaxCards;
-    }
-    public bool CanAddCard()
-    {
-        return SkillCards.Count < settings.MaxCards;
-    }
-    public bool CanAddCardsAfterRemoval(int removalCount)
-    {
-        return SkillCards.Count - removalCount < settings.MaxCards;
     }
 }

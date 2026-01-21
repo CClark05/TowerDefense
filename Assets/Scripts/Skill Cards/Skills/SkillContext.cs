@@ -84,6 +84,7 @@ public class SkillContext
     {
         bool activeInstance = ActiveSkills.Any(s => s == instance);
         if (!activeInstance) return false;
+        instance.OnRemoveCard?.Invoke(instance);
         var towerWaveData = new TowerWaveData();
         if(TowerService.TryModifyOnCardRemoved(towerWaveData, instance))
             OnTowerUpdated?.Invoke(towerWaveData);
@@ -93,6 +94,12 @@ public class SkillContext
             instance.IsDisabled = false;
         //instance.Dispose();
         return true;
+    }
+
+    public bool TryDestroySkill(SkillInstance instance)
+    {
+        instance.Dispose();
+        return TryRemoveSkill(instance);
     }
 
     public void DisableCard(SkillInstance instance)

@@ -1070,7 +1070,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1079,6 +1079,94 @@ TextureImporter:
       bones: []
       spriteID: 44713101a59b0f7458e37bc68537c685
       internalID: 310865519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CreateBomb_Icon
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 41
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20ca749f72833a240a54035d1878a04d
+      internalID: 467706852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BiggerProjectile_Icon
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 141
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b3412f124ded794e89713e55c64f623
+      internalID: -1220416737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Volatile_Icon
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 41
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 141e3d940f787494b8fcf11eebf7ffff
+      internalID: -476345004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BiggerBombs_Icon
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 41
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce9bcf1b38761c74fb9095b1b49e1a56
+      internalID: 1077979287
       vertices: []
       indices: 
       edges: []
@@ -1099,12 +1187,15 @@ TextureImporter:
     nameFileIdTable:
       AzureFlame_Icon: -881937668
       BanditsSecret_Icon: 1858116976572667410
+      BiggerBombs_Icon: 1077979287
+      BiggerProjectile_Icon: -1220416737
       BlackHole_Icon: -1052606750
       BloodMoney_Icon: 287649832177700510
       Boomerang_Icon: -1340798023
       CardIcons_2: 351554976137735218
       Catalyst_Icon: -7013116369423637763
       CoinShot_Icon: 1837379312
+      CreateBomb_Icon: 467706852
       CriticalMomentum_Icon: -3131443974699964910
       CrossShooter_Icon: -1468192599
       Devour_Icon: 1942748494
@@ -1139,6 +1230,7 @@ TextureImporter:
       SummonArrows_Icon: 123590753
       Support_Icon: -1973547398
       Vitality_Icon: -2079561314
+      Volatile_Icon: -476345004
       WhiteFlag_Icon: 310865519
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

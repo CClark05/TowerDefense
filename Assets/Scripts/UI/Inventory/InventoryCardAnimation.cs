@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class SkillCardAnimation : MonoBehaviour
+public class InventoryCardAnimation : MonoBehaviour
 {
     private SkillCardUI cardUI;
     private CardDragDrop dragDrop;
@@ -90,5 +91,12 @@ public class SkillCardAnimation : MonoBehaviour
                 cardUI.RemoveCard(cardUI);
                 Destroy(gameObject);
             }).SetUpdate(true);
+    }
+
+    public void SlideOverAnimation(Vector3 position, float delay)
+    {
+        cardUI.ToggleButton(false);
+        transform.DOMove(position, 0.23f).SetEase(Ease.OutBack).SetDelay(delay).SetUpdate(true)
+            .OnComplete(() => cardUI.ToggleButton(true));
     }
 }

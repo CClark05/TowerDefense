@@ -15,8 +15,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
     private float damageBonus;
     private void Start()
     {
-        HealthSystem = new HealthSystem(GetComponent<EnemyScaling>().MaxHP);
-        Debug.Log(GetComponent<EnemyDataHolder>().Data.name + "Health: " + HealthSystem.Health);
+        HealthSystem = new HealthSystem(GetComponent<EnemyDataHolder>().MaxHP);
     }
 
     public bool TakeDamage(int amount)

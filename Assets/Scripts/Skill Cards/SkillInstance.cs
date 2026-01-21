@@ -85,6 +85,7 @@ public abstract class SkillInstance
     public void SetContext(SkillContext context) => skillContext = context;
     public event Action OnPlayCard;
     public event Action<int> OnPlayCountUpdated;
+    public Action<SkillInstance> OnRemoveCard;
     
     protected void PlayCard() => OnPlayCard?.Invoke();
     public virtual void Dispose()

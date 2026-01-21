@@ -26,8 +26,7 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
 
     private void Start()
     {
-        baseSpeed = GetComponent<EnemyDataHolder>().Data.speed + 1 * GetComponent<EnemyScaling>().SpeedIncrease;
-        Debug.Log(GetComponent<EnemyDataHolder>().Data.name + "Speed " + baseSpeed);
+        baseSpeed = GetComponent<EnemyDataHolder>().Data.speed + 1 * GetComponent<EnemyDataHolder>().SpeedIncrease;
         CalculatePath();
     }
     private void CalculatePath()

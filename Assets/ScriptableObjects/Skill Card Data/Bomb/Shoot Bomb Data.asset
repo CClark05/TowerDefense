@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8ec0cb47a704856826931632cf8e5ee, type: 3}
+  m_Name: Shoot Bomb Data
+  m_EditorClassIdentifier: 
+  name: Volatile
+  icon: {fileID: -476345004, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
+  rarity: 1
+  description: If your <color=#922C33>Bombs</color> are hit by projectiles they explode
+    immediately for +20% damage.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
+  statusEffects:
+  - showInUI: 1
+    data: {fileID: 11400000, guid: 53dee0f532c2ff14baa6dc8a1d13d06f, type: 2}
+  buffs: []
+  prerequisiteSkills:
+  - {fileID: 11400000, guid: ad2df2410a27fc94cafcff8fe595239b, type: 2}
+  isExcluded: 0
+  PlusDamage: 0.2

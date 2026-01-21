@@ -80,15 +80,14 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
     public void UpdateTowerData(TowerWaveData towerWaveData)
     {
         foreach (var instance in towerWaveData.addedCards)
-        {
             AddCard(instance);
-        }
-
+        
         foreach (var instance in towerWaveData.removedCards)
-        {
             TryRemoveCard(instance);
-        }
-
+        
+        foreach (var instance in towerWaveData.destroyedCards)
+            SkillContext.TryDestroySkill(instance);
+        
         RuntimeData.Range *= towerWaveData.increasedRange;
         RuntimeData.CardSlots += towerWaveData.increasedSlots;
         RuntimeData.TimeBetweenShots /= towerWaveData.increasedSpeed;

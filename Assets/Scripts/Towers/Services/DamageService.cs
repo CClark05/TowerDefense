@@ -57,4 +57,9 @@ public static class DamageService
         
         damageable.TakeDamage(hitData.finalDamage);
     }
+
+    public static void ApplyDamage(HitData hitData, IDamageable damageable, SkillContext skillContext)
+    {
+        ApplyDamage(hitData, damageable, damageable.Transform.GetComponent<IUsesStatusEffects>(), skillContext,(_hitData, pos) => _hitData.tower.DealtDamage(_hitData,pos));
+    }
 }

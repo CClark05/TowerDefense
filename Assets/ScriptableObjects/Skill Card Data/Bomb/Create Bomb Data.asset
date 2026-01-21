@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1fd156166894025933b4337e56db095, type: 3}
+  m_Name: Create Bomb Data
+  m_EditorClassIdentifier: 
+  name: Create Bomb
+  icon: {fileID: 467706852, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
+  rarity: 0
+  description: Every 3 kills, create +1 <color=#922C33>Bomb(s)</color> near where
+    the enemy died.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: +x
+  statusEffects:
+  - showInUI: 1
+    data: {fileID: 11400000, guid: 53dee0f532c2ff14baa6dc8a1d13d06f, type: 2}
+  buffs: []
+  prerequisiteSkills: []
+  isExcluded: 0
+  KillsNeeded: 3

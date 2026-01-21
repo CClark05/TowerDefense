@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: id
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 903251711436055419, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: d95970f9e90610047af1cfc4ca4261c2, type: 2}
     - target: {fileID: 2661289385655798022, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
       propertyPath: towerLayer.m_Bits
       value: 512

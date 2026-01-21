@@ -33,6 +33,7 @@ public class Projectile : MonoBehaviour
         maxEnemiesPierced = shotData.maxEnemiesPierced;
         targetTransform = target.Transform;
         speedIncrease *= shotData.speedIncrease;
+        transform.localScale *= new Vector2(shotData.plusSizePercent + 1, shotData.plusSizePercent + 1);
         CalculateAim(transform.position, EffectiveSpeed);
     }
 
@@ -46,6 +47,7 @@ public class Projectile : MonoBehaviour
         maxEnemiesPierced = shotData.maxEnemiesPierced;
         speedIncrease *= shotData.speedIncrease;
         this.direction = direction;
+        transform.localScale *= new Vector2(shotData.plusSizePercent + 1, shotData.plusSizePercent + 1);
     }
 
     public static Projectile CreateProjectile(ProjectileData data, ProjectileShotData shotData, Vector2 position, IDamageable target, TowerDataHolder tower)
@@ -164,7 +166,7 @@ public class Projectile : MonoBehaviour
             }
         }
 
-        int baseDamage = data.damage + towerData.RuntimeData.BaseDamage;
+        int baseDamage = towerData.RuntimeData.BaseDamage;
         var hitData = new HitData(baseDamage, towerData.GetComponent<TowerShooting>(), damageable, statusEffects);
 
         CallModifier.Call<IOnHit>(towerData.SkillContext, (mod, _) => { mod.OnHit(hitData); });

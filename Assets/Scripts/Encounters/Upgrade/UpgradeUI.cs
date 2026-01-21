@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using CodeMonkey.Utils;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
 using UnityEngine.UI;
@@ -225,7 +226,7 @@ public class UpgradeUI : Singleton<UpgradeUI>
             if (c1 == null || c2 == null) return;
             
             int inventoryCards = new[] { c1, c2 }.Count(card => card.Owner is InventoryUI);
-            
+            /**
             if (!InventoryUI.Instance.CanAddCardsAfterRemoval(inventoryCards))
             {
                 TextPopupManager.Instance.CreateTextPopup("NO ROOM", Input.mousePosition);
@@ -237,6 +238,25 @@ public class UpgradeUI : Singleton<UpgradeUI>
             c1.Owner.RemoveCard(c1.Instance);
             c2.Owner.RemoveCard(c2.Instance);
             InventoryUI.Instance.AddCard(newInstance);
+            */
+            outputCard.GetComponent<ICardUI>().ToggleButton(false);
+            outputCard.DisableTabs();
+            
+            switch (inventoryCards)
+            {
+                case 2:
+                case 0:
+                    c1.Instance.PlayCount++;
+                    c2.Owner.RemoveCard(c2.Instance);
+                    break;
+                case 1:
+                    var primaryCard = c1.Owner is InventoryUI ? c1 : c2;
+                    var secondaryCard = primaryCard == c1 ? c2 : c1;
+                    primaryCard.Owner.RemoveCard(primaryCard.Instance);
+                    secondaryCard.Instance.PlayCount++;
+                    break;
+            }
+
             var c = AddUpgradedCardToUI(newInstance);
             
             StartCoroutine(WaitFrame());

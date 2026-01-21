@@ -52,7 +52,7 @@ public class TowerRuntimeData
     public int BaseDamage 
     {
         get => baseDamage;
-        set => SetProperty(ref baseDamage, value);
+        set => SetProperty(ref baseDamage, value, OnBaseDamageUpdated);
     }
     public float TimeBetweenShots
     {
@@ -61,6 +61,7 @@ public class TowerRuntimeData
     }
     public event Action<float> OnRangeUpdated;
     public event Action<int> OnCardSlotsUpdated;
+    public event Action<int> OnBaseDamageUpdated;
     public event Action OnStatsUpdated;
     private void SetProperty<T>(ref T field, T value, Action<T> onChanged = null)
     {

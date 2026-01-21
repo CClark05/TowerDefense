@@ -67,9 +67,9 @@ public class EnemyManager : Singleton<EnemyManager>
 
     }
 
-    public List<Transform> GetNearbyEnemies(Vector2 position, float range)
+    public HashSet<Transform> GetNearbyEnemies(Vector2 position, float range)
     {
-        var nearbyEnemies = new List<Transform>();
+        var nearbyEnemies = new HashSet<Transform>();
         foreach (var enemy in CurrentEnemies)
         {
             if(Vector2.Distance(enemy.transform.position, position) > range) continue;
@@ -115,27 +115,7 @@ public class EnemyManager : Singleton<EnemyManager>
         OnEnemiesUpdated?.Invoke();
         enemy.GetComponent<IUsesStatusEffects>().OnEffectsUpdated += () => OnEnemiesUpdated?.Invoke();
     }
-
-    public void SpawnEnemyBurst(EnemyData enemyData, int count, Vector2 position)
-    {
-        EnemyData[] dataArray = new EnemyData[count];
-        for (int i = 0; i < count; i++)
-        {
-            dataArray[i] = enemyData;
-        }
-
-        SpawnEnemyBurst(dataArray, position);
-    }
     
-    public void SpawnEnemyBurst(EnemyData[] enemyData, Vector2 position)
-    {
-        var spawnPoints = ClusterSpawning.CreateRandomCluster(position, 4, enemyData.Length);
-        for (int i = 0; i < enemyData.Length; i++)
-        {
-            Vector2 spawnPos = (i < spawnPoints.Length) ? spawnPoints[i] : position;
-            SpawnEnemyAtPosition(enemyData.ElementAt(i), spawnPos);
-        }
-    }
     private void RemoveEnemy(GameObject enemy)
     {
         currentEnemies.Remove(enemy);

@@ -16,7 +16,7 @@ public class DomainSkillData : SkillData
         return new DomainSkillInstance(this);
     }
 }
-public class DomainSkillInstance : SkillInstance<DomainSkillData>, IOnEnemyEnteredRange, IPlayCountPolicy<IOnEnemyEnteredRange>
+public class DomainSkillInstance : SkillInstance<DomainSkillData>, IOnEnemyEnteredRange, IPlayCountPolicy<IOnEnemyEnteredRange>, ITowerWaveEndModifier, IPlayCountPolicy<ITowerWaveEndModifier>
 {
     public DomainSkillInstance(DomainSkillData data) : base(data)
     {
@@ -41,4 +41,11 @@ public class DomainSkillInstance : SkillInstance<DomainSkillData>, IOnEnemyEnter
     }
 
     public int SetPlayCount() => 1;
+    public void Modify(TowerWaveData towerWaveData)
+    {
+        foreach (var enemy in trackedEnemies.Keys.ToList())
+            enemy.OnTakeDamage -= trackedEnemies[enemy];
+        
+        trackedEnemies.Clear();
+    }
 }
