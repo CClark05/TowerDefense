@@ -26,10 +26,10 @@ public class CoinShotSkillInstance : SkillInstance<CoinShotSkillData>, IProjecti
     private bool shotCoin;
     public IEnumerator Modify(ProjectileShotData shotData)
     {
-        if (PlayerInventory.Instance.Coins >= shotData.Projectiles.Count)
+        if (PlayerInventory.Instance.Coins >= shotData.projectiles)
         {
             shotData.projectileSprite = Data.coinSprite;
-            PlayerInventory.Instance.SubtractCoins(shotData.Projectiles.Count);
+            PlayerInventory.Instance.SubtractCoins(shotData.projectiles);
             shotCoin = true;
         }
         else

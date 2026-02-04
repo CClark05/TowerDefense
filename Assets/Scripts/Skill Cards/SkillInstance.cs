@@ -82,6 +82,7 @@ public abstract class SkillInstance
     public event Action <bool> OnIsDisabledUpdated;
     public event Action<bool> OnIsLaminatedUpdated;
     public event Action OnDispose;
+    public static event Action<SkillInstance,Vector2> OnDisposeSkill;
     public void SetContext(SkillContext context) => skillContext = context;
     public event Action OnPlayCard;
     public event Action<int> OnPlayCountUpdated;
@@ -91,6 +92,7 @@ public abstract class SkillInstance
     public virtual void Dispose()
     {
         Debug.Log("dispose called on " + Data.name);
+        OnDisposeSkill?.Invoke(this,skillContext.Tower.transform.position);
         OnDispose?.Invoke();
         OnPlayCard = null;
         OnPlayCountUpdated = null;

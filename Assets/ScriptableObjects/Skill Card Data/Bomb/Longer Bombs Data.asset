@@ -15,8 +15,8 @@ MonoBehaviour:
   name: Delayed Fuse
   icon: {fileID: 0}
   rarity: 1
-  description: Your <color=#922C33>Bombs</color> last +2 second(s) longer before
-    exploding, however they explode an additional time.
+  description: Your <color=#922C33>Bombs</color> last 2 second(s) longer before exploding,
+    however they explode a +1 time(s).
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects:

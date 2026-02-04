@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Upgrade Above Card Data", menuName = "SkillData/Utility/Upgrade Above Card")]
-public class UpgradeAboveCardSkillData : SkillData
+public class PromotionSkillData : SkillData
 {
     private void OnValidate()
     {
@@ -16,10 +16,10 @@ public class UpgradeAboveCardSkillData : SkillData
         return new UpgradeAboveCardSkillInstance(this);
     }
 }
-public class UpgradeAboveCardSkillInstance : SkillInstance<UpgradeAboveCardSkillData>, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>
+public class UpgradeAboveCardSkillInstance : SkillInstance<PromotionSkillData>, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
     List<SkillInstance> upgradedCards = new List<SkillInstance>();
-    public UpgradeAboveCardSkillInstance(UpgradeAboveCardSkillData data) : base(data)
+    public UpgradeAboveCardSkillInstance(PromotionSkillData data) : base(data)
     {
     }
 

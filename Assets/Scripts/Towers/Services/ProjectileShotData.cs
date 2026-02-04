@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ProjectileShotData
@@ -8,7 +9,9 @@ public class ProjectileShotData
     public Sprite projectileSprite;
     public int plusDamage;
     public float plusSizePercent;
+
     public int maxEnemiesPierced;
+
     //public bool homing;
     public float speedIncrease = 1;
     private float releaseTime;
@@ -16,24 +19,28 @@ public class ProjectileShotData
     public Vector2 originalDirection;
     public readonly List<Vector2> directionOverrides;
     public int homingProjectiles;
-    public HashSet<Projectile> Projectiles { get; private set; } = new();
+    public int projectiles;
+
     public ProjectileShotData(float releaseTime)
     {
         this.releaseTime = releaseTime;
         directionOverrides = new();
     }
 
+    private int currentProjectileAmount;
     public void RegisterProjectile(Projectile projectile)
     {
-        Projectiles.Add(projectile);
-        if (Projectiles.Count <= homingProjectiles)
+        currentProjectileAmount++;
+        if (currentProjectileAmount <= homingProjectiles)
         {
             projectile.SetHoming();
             Debug.Log("homing");
         }
+        
     }
+
     public event Action<Projectile> OnShotDestroyed;
-    
+
     public void ShotDestroyed(Projectile projectile)
     {
         if (OnShotDestroyed != null)
@@ -42,6 +49,7 @@ public class ProjectileShotData
             Debug.Log("ShotDestroyed event invoked");
             return;
         }
+
         UnityEngine.Object.Destroy(projectile.gameObject);
     }
 }

@@ -246,8 +246,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
+  m_sharedMaterial: {fileID: 208216535120782835, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -458,7 +458,6 @@ MonoBehaviour:
   selectionOutline: {fileID: 1698143478946198289}
   disabledOverlay: {fileID: 347646038752083887}
   button: {fileID: 5459435613366828566}
-  redOutline: {fileID: 0}
   playCountText: {fileID: 5574749550251348576}
 --- !u!114 &2176275839327952126
 MonoBehaviour:

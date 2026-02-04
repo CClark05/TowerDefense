@@ -91,18 +91,20 @@ public class TowerShooting : MonoBehaviour
         {
             originalDirection = (target.transform.position - transform.position).normalized
         };
+        CallModifier.Call<IShotModifier>(towerDataHolder.SkillContext, (mod, instance) => mod.Modify(shotData));
         yield return ProjectileService.ModifyProjectile(shotData, towerDataHolder.SkillContext);
+        shotData.projectiles++;
+        shotData.directionOverrides.ForEach((_) => shotData.projectiles++);
         if (target != null && target.TryGetComponent<IDamageable>(out var damageable))
         {
             var projectile = Projectile.CreateProjectile(projectileData, shotData, transform.position, damageable, towerDataHolder);
             Hook(projectile);
             foreach (var dir in shotData.directionOverrides)
             {
-                projectile = Projectile.CreateProjectile(projectileData, shotData, transform.position, dir, towerDataHolder);
-                Hook(projectile);
+                var p = Projectile.CreateProjectile(projectileData, shotData, transform.position, dir, towerDataHolder);
+                Hook(p);
             }
             ShotsThisRound++;
-
             
             void Hook(Projectile p)
             {

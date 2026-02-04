@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class TextPopupManager : Singleton<TextPopupManager>
@@ -12,7 +13,18 @@ public class TextPopupManager : Singleton<TextPopupManager>
         canvas = GetComponent<Canvas>();
     }
 
-    public TextPopup CreateTextPopup(string text, Vector3 position)
+    private void Start()
+    {
+        SkillInstance.OnDisposeSkill += (instance,position) =>
+        {
+            Debug.Log("popup");
+            string text = $"<b><size=125%>{instance.Data.name}</size></b> Destroyed";
+            var popup = CreateTextPopup(text, position + new Vector2(3,0), 0.5f);
+            popup.GetComponent<TextMeshProUGUI>().color = ColorPicker.red;
+        };
+    }
+
+    public TextPopup CreateUITextPopup(string text, Vector3 position)
     {
         var popup = Instantiate(textPopupPrefab, canvas.transform).GetComponent<TextPopup>();
 
@@ -24,15 +36,31 @@ public class TextPopupManager : Singleton<TextPopupManager>
             canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
             out Vector2 localPos
         );
-
         rect.anchoredPosition = localPos;
         popup.Init(text);
         return popup;
     }
-
-    private void Update()
+    public TextPopup CreateTextPopup(string text, Vector3 position, float durationIncrease = 0)
     {
-        if (Input.GetKeyDown(KeyCode.P))
-            CreateTextPopup("NO ROOM", Input.mousePosition);
+        var popup = Instantiate(textPopupPrefab, canvas.transform).GetComponent<TextPopup>();
+        var rect = (RectTransform)popup.transform;
+        
+        Camera cam = canvas.worldCamera != null ? canvas.worldCamera : Camera.main;
+        Vector2 screenPos = cam.WorldToScreenPoint(position);
+        
+        screenPos += new Vector2(UnityEngine.Random.Range(-25f, 25f), 0f);
+        
+        RectTransform canvasRect = (RectTransform)canvas.transform;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            screenPos,
+            cam, 
+            out Vector2 localPos
+        );
+        
+        rect.anchoredPosition = localPos;
+
+        popup.Init(text, durationIncrease);
+        return popup;
     }
 }

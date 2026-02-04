@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baee3450f3a744328a65aa8007ee228a, type: 3}
+  m_Name: Orbit Fireballs Data
+  m_EditorClassIdentifier: 
+  name: Orbit Fireballs
+  icon: {fileID: 0}
+  rarity: 0
+  description: At the start of each wave create +2 <color=#A53030>Fireballs</color>
+    that orbit your tower.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
+  statusEffects:
+  - showInUI: 1
+    data: {fileID: 11400000, guid: d580e50cec0ee0b41b594746bdc691c4, type: 2}
+  buffs: []
+  prerequisiteSkills: []
+  isExcluded: 1
+  Fireballs: 2

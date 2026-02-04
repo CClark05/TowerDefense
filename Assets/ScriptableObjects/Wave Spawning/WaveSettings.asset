@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BaseBudget: 5
   GrowthRate: 1.1
-  AdditivePerWave: 0.75
+  AdditivePerWave: 0.5
   Variance: 0.08
   SpikeAfterBoss: 1.5
   Enemies:

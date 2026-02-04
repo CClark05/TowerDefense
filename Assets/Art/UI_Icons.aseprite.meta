@@ -207,27 +207,6 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: UI_X
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 61
-      y: 68
-      width: 48
-      height: 48
-    spriteID: b7905e15302fd2744805a8d134535e72
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
   - name: UI_Chest_Closed
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -367,6 +346,27 @@ ScriptedImporter:
       width: 32
       height: 32
     spriteID: f43c9c712e1f71446b60bf6596c5cdff
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: UI_Eye
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 81
+      y: 87
+      width: 38
+      height: 29
+    spriteID: 6eafc2fd1c61c55459a14b5ebbb78b21
     spriteBone: []
     spriteOutline: []
     vertices: []

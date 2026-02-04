@@ -452,8 +452,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
+  m_sharedMaterial: {fileID: 208216535120782835, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -588,8 +588,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Each hit builds 10% of mana bar. Once mana bar is full next shot is Empowered.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
+  m_sharedMaterial: {fileID: 208216535120782835, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -613,7 +613,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.7
+  m_fontSize: 25
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -846,15 +846,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 45622730482672191}
   descriptionText: {fileID: 5676707237571682654}
+  damageText: {fileID: 0}
   sideTabPrefab: {fileID: 642262339446544309, guid: d972b84aebdeee44992f9ab37903f4e0, type: 3}
   runtimeStatText: {fileID: 948240129399252982}
   skillData: {fileID: 11400000, guid: a5f7e3f1fac49d64d95679d572809c1a, type: 2}
   skillIconImage: {fileID: 259904171688400682}
   tabGroup: {fileID: 8306363829578929916}
   laminatedImage: {fileID: 3997971615033284102}
-  laminatedEffectData: {fileID: 11400000, guid: f151d84d79d3d4d43a1d7da7a8f445ec, type: 2}
   cardUI:
-    underlyingValue: {fileID: 2591776229436844987}
+    underlyingValue: {fileID: 3029119070305622707, guid: e15497e3cfeb2954cb25c250de54ec35, type: 3}
 --- !u!114 &2591776229436844987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1002,8 +1002,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "EMPOWERED \nSHOT"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e7b14f47333e0c04f91b93dd83023a43, type: 2}
+  m_sharedMaterial: {fileID: -6351606422978614801, guid: e7b14f47333e0c04f91b93dd83023a43, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1027,7 +1027,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.45
+  m_fontSize: 18
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1

@@ -25,7 +25,7 @@ MonoBehaviour:
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 3f4fa63c1aa112a4aa74dbb9665043f6, type: 2}
-  isExcluded: 0
+  isExcluded: 1
   burnDamageMult: 1
   color: {r: 0.30980393, g: 0.56078434, b: 0.7294118, a: 1}
   stackDuration: 5

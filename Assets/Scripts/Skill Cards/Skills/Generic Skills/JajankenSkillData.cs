@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -26,7 +27,16 @@ public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCar
 {
     public JajankenSkillInstance(JajankenSkillData data) : base(data)
     {
+        OnPlayCountUpdatedHandle += _ =>
+        {
+            skillContext.Tower.RuntimeData.BaseDamage -= damageBonus;
+            damageBonus = Data.PlusDamage * PlayCount;
+            skillContext.Tower.RuntimeData.BaseDamage += damageBonus;
+        };
     }
+    private Action<int> OnPlayCountUpdatedHandle;
+    private int damageBonus;
+
     public IEnumerator Modify(ProjectileShotData shotData)
     {
         shotData.projectileColor = Data.ProjectileColor;
@@ -36,14 +46,17 @@ public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCar
     
     public void Apply(TowerWaveData towerWaveData)
     {
-        skillContext.Tower.RuntimeData.TimeBetweenShots /= 1 + Data.FireRateMult * PlayCount;
-        towerWaveData.increasedBaseDamage += Data.PlusDamage * PlayCount;
+        OnPlayCountUpdated += OnPlayCountUpdatedHandle;
+        skillContext.Tower.RuntimeData.TimeBetweenShots /= 1 + Data.FireRateMult;
+        damageBonus = Data.PlusDamage * PlayCount;
+        towerWaveData.increasedBaseDamage += damageBonus;
     }
 
     public void Remove(TowerWaveData towerWaveData)
     {
-        skillContext.Tower.RuntimeData.TimeBetweenShots *= 1 + Data.FireRateMult * PlayCount;
-        towerWaveData.increasedBaseDamage -= Data.PlusDamage * PlayCount;
+        OnPlayCountUpdated -= OnPlayCountUpdatedHandle;
+        skillContext.Tower.RuntimeData.TimeBetweenShots *= 1 + Data.FireRateMult;
+        towerWaveData.increasedBaseDamage -= damageBonus;
     }
 
     public void Modify(HitData hitData, IDamageable target)

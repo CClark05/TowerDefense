@@ -1,4 +1,5 @@
 using System;
+using CodeMonkey.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,6 +30,23 @@ public class PlayButtonUI : Singleton<PlayButtonUI>
         {
             Array.ForEach(fastForwardButton.GetComponentsInChildren<Image>(true),
                 img => img.color = originalFastForwardColor);
+            playButton.gameObject.SetActive(true);
+            playButton.enabled = false;
+            fastForwardButton.gameObject.SetActive(false);
+            playButton.GetComponent<Image>().color = new Color(1, 1, 1, 30/255f);
+            if (EncounterGenerator.Instance.GetEncounter(EnemyManager.Instance.CurrentWave - 1) != null)
+            {
+                FunctionTimer.Create(() =>
+                {
+                    playButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+                    playButton.enabled = true;
+                }, GridObjectPlacement.AnimationDuration + 0.1f);
+            }
+        };
+        CardSelectUI.Instance.OnSelectedCard += () =>
+        {
+            playButton.GetComponent<Image>().color = new Color(1, 1, 1, 1);
+            playButton.enabled = true;
         };
     }
 

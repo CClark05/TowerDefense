@@ -6,7 +6,7 @@ public class LongerBombsSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Your <color=#{hex}>Bombs</color> last +{DurationIncrease} second(s) longer before exploding, however they explode an additional time.";
+        description = $"Your <color=#{hex}>Bombs</color> last {DurationIncrease} second(s) longer before exploding, however they explode a +1 time(s).";
     }
     public override SkillInstance CreateInstance()
     {

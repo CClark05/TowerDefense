@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class BanditsSecretSkillData : SkillData
     }
 }
 
-public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>, ITowerWaveStartModifier, ITowerWaveEndModifier
+public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>, IPreWaveStartModifier, ITowerWaveEndModifier, ITowerCardReceivedModifier, IPlayCountPolicy<IPreWaveStartModifier>
 {
     private SkillInstance randomCard;
     private TowerDataHolder closestTower;
@@ -21,7 +22,8 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
     {
         
     }
-    void ITowerWaveStartModifier.Modify(TowerWaveData towerWaveData)
+    
+    void IPreWaveStartModifier.Modify(TowerWaveData towerWaveData)
     {
         closestTower = FindClosestTower();
         if (closestTower == null) return;
@@ -53,5 +55,20 @@ public class BanditsSecretSkillInstance : SkillInstance<BanditsSecretSkillData>,
     public void Modify(TowerWaveData towerWaveData)
     {
         stolenCards.Clear();
+    }
+
+    public void Apply(TowerWaveData towerWaveData)
+    {
+        towerWaveData.increasedSlots++;
+    }
+
+    public void Remove(TowerWaveData towerWaveData)
+    {
+        towerWaveData.increasedSlots--;
+    }
+
+    public int SetPlayCount()
+    {
+        return 1;
     }
 }

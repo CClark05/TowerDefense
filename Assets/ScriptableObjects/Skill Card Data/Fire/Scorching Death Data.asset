@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24eda9eb5de441d9aa637d153e05ae3d, type: 3}
   m_Name: Scorching Death Data
   m_EditorClassIdentifier: 
-  price: 0
   name: Scorching Death
   icon: {fileID: 0}
   rarity: 1
-  description: Applies 1 <color=#A53030>Fire</color> on kill to all enemies.
+  description: Applies +1 <color=#A53030>Fire</color> on kill to all enemies.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects:
   - showInUI: 1
     data: {fileID: 11400000, guid: e27d48209898baa4da32440daf087efd, type: 2}
   buffs: []
   prerequisiteSkills:
   - {fileID: 11400000, guid: 3f4fa63c1aa112a4aa74dbb9665043f6, type: 2}
+  isExcluded: 1
   fireOnKill: 1

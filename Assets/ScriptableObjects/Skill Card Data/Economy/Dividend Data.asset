@@ -15,11 +15,11 @@ MonoBehaviour:
   name: Dividend
   icon: {fileID: 92611940212284077, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: At the end of each wave, gain +$4.
+  description: At the end of each wave, gain +$3.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  plusGold: 4
+  plusGold: 3

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d8a38ec1d504651871ceb2b513b1749, type: 3}
   m_Name: Upgrade Above Card Data
   m_EditorClassIdentifier: 
-  name: Upgrade
+  name: Promotion
   icon: {fileID: 0}
-  rarity: 0
+  rarity: 1
   description: Upgrades the +1 most recently added card(s) to the tower (if possible).
   hasRuntimeValue: 0
   runtimeStatsFormat: 

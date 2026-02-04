@@ -1,25 +1,24 @@
 using System;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 public class GridObjectButton : MonoBehaviour, IHoverable
 {
     public SOEvent OnClickObject;
-    public SpriteRenderer[] Sprites { get; private set; }
+    private Vector3 originalScale;
     private void Awake()
     {
-        Sprites = GetComponentsInChildren<SpriteRenderer>().OrderBy(sr => sr.transform.GetSiblingIndex()).ToArray();
+        originalScale = transform.localScale;
     }
-
     public void OnHover()
     {
-        foreach (SpriteRenderer sr in Sprites)
-            sr.color = new Color(1, 1, 1, 0.5f);
+        transform.DOScale(originalScale * 1.1f, 0.2f).SetEase(Ease.OutSine);
+        transform.DOPunchRotation(new Vector3(0, 0, 5f), 0.2f);
     }
     public void OnLeaveHover()
     {
-        foreach (SpriteRenderer sr in Sprites)
-            sr.color = new Color(1, 1, 1, 1);
+        transform.DOScale(originalScale, 0.2f).SetEase(Ease.OutSine);
     }
     public void OnClick()
     {

@@ -32,7 +32,7 @@ public class CreateBombSkillInstance : SkillInstance<CreateBombSkillData>, ITowe
         for (int i = 0; i < PlayCount; i++)
         {
             var bombData = Data.statusEffects[0].data as BombEffectData;
-            var bomb = UnityEngine.Object.Instantiate(bombData.bombPrefab, hitData.damageable.Transform.position, Quaternion.identity).GetComponent<Bomb>();
+            var bomb = UnityEngine.Object.Instantiate(bombData.prefab, hitData.damageable.Transform.position, Quaternion.identity).GetComponent<Bomb>();
             bomb.Init(skillContext.Tower);
             bomb.OnDealtDamage += damage =>
             {

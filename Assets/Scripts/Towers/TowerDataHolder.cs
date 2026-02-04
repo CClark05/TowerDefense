@@ -60,10 +60,17 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
             
     }
 
+    public static event Action OnUpdateData;
     private void OnWaveStart()
     {
-        TowerService.ModifyWaveStart(WaveData, SkillContext);
+        
+        CallModifier.Call<IPreWaveStartModifier>(SkillContext, (mod, instance) =>
+        {
+            mod.Modify(WaveData);
+        });
         TowerService.MarkWaveStartDone(this);
+        TowerService.ModifyWaveStart(WaveData, SkillContext);
+        OnUpdateData?.Invoke();
     }
 
     private void OnWaveComplete()

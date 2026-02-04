@@ -1,10 +1,11 @@
 using System;
+using System.Linq;
 
 public static class CallModifier
 {
     public static void Call<TModifier>(SkillContext context, Action<TModifier, SkillInstance> call) where TModifier : class
     {
-        foreach (var mod in context.GetSkillInstancesWith<TModifier>())
+        foreach (var mod in context.GetSkillInstancesWith<TModifier>().OrderByDescending(m => m.instance is IPriorityMod<TModifier>))
         {
             if(mod.instance.IsDisabled) continue;
             int playCount = mod.instance is IPlayCountPolicy<TModifier> policy ? policy.SetPlayCount() : mod.instance.PlayCount;
@@ -17,7 +18,7 @@ public static class CallModifier
     
     public static void Call<TModifier>(SkillContext context, Action<TModifier, SkillInstance> call, Action<TModifier> OnComplete) where TModifier : class
     {
-        foreach (var mod in context.GetSkillInstancesWith<TModifier>())
+        foreach (var mod in context.GetSkillInstancesWith<TModifier>().OrderByDescending(m => m.instance is IPriorityMod<TModifier>))
         {
             if(mod.instance.IsDisabled) continue;
             int playCount = mod.instance is IPlayCountPolicy<TModifier> policy ? policy.SetPlayCount() : mod.instance.PlayCount;

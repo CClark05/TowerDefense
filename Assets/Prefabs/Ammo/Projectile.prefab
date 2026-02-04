@@ -141,6 +141,8 @@ MonoBehaviour:
   data: {fileID: 11400000, guid: e0ef38f957c1ae64e96046742dfdb351, type: 2}
   maxLeadSeconds: 0.3
   steerGain: 12
+  turnRateDegPerSec: 1080
+  homingDelay: 0.035
 --- !u!114 &5058631515989083445
 MonoBehaviour:
   m_ObjectHideFlags: 0

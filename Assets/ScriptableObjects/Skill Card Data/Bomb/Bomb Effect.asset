@@ -13,11 +13,15 @@ MonoBehaviour:
   m_Name: Bomb Effect
   m_EditorClassIdentifier: 
   name: Bomb
-  description: After 3 second(s), deals 15 damage to all enemies within a 1 tile
+  description: After 2 second(s), deals 50 damage to all enemies within a 1 tile
     radius.
   color: {r: 0.57254905, g: 0.17254902, b: 0.2, a: 1}
   sprite: {fileID: 0}
-  damage: 15
+  damage: 50
+  baseDamage: 0
   tileRadius: 1
-  timerDuration: 3
+  timerDuration: 2
   bombPrefab: {fileID: 123712303137431414, guid: a6ed8979e40341744875dd686237fa46, type: 3}
+  damageMult: 1
+  additionalExplosions: 0
+  bomb: {fileID: 0}

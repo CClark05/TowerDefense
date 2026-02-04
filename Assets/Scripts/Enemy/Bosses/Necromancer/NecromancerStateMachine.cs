@@ -12,7 +12,7 @@ public class NecromancerStateMachine : BossStateMachine
     {
         var healthPredicate = new HealthPercentagePredicate(facade.GetComponent<IUsesHealth>());
         var defaultState = new NecromancerDefaultState(facade, 2, moveAnimation);
-        var summonState = new NecromancerSummonState(facade, 1f, 4, 5f, summonAnimation, 3);
+        var summonState = new NecromancerSummonState(facade, 1f, 4, 5f, summonAnimation, 2);
         var attackState = new NecromancerAttackState(facade, 3, 3, 3, stunDebuff);
         summonState.OnEnterState += () => summonCounter++;
         stateMachine.SetState(defaultState);

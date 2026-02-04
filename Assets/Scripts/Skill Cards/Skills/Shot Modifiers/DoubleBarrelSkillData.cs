@@ -16,7 +16,7 @@ public class DoubleBarrelSkillData : SkillData
     }
 }
 
-public class DoubleBarrelSkillInstance : SkillInstance<DoubleBarrelSkillData>, IProjectileModifier, IPlayCountPolicy<IProjectileModifier>, ITowerCardReceivedModifier
+public class DoubleBarrelSkillInstance : SkillInstance<DoubleBarrelSkillData>, IShotModifier, IPlayCountPolicy<IShotModifier>, ITowerCardReceivedModifier
 {
     public DoubleBarrelSkillInstance(DoubleBarrelSkillData data) : base(data)
     {
@@ -30,7 +30,7 @@ public class DoubleBarrelSkillInstance : SkillInstance<DoubleBarrelSkillData>, I
     {
         towerWaveData.increasedSpeed /= 1 - Data.fireRateReduction;
     }
-    public IEnumerator Modify(ProjectileShotData shotData)
+    public void Modify(ProjectileShotData shotData)
     {
         Vector2 forward = shotData.originalDirection;
         Vector2 left  = Rotate(forward, Data.SpreadDegrees);
@@ -47,10 +47,8 @@ public class DoubleBarrelSkillInstance : SkillInstance<DoubleBarrelSkillData>, I
                 v.x * sin + v.y * cos
             ).normalized;
         }
-        yield return null;
     }
-
-    public bool DelayShot { get; }
+    
     public int SetPlayCount() => 1;
     
 }

@@ -24,9 +24,9 @@ public abstract class SkillData : ScriptableObject
         switch (cardRarity)
         {
             case CardRarity.Common:
-                return 40;
+                return 20;
             case CardRarity.Rare:
-                return 70;
+                return 50;
             case CardRarity.Legendary:
                 return 100;
             default:

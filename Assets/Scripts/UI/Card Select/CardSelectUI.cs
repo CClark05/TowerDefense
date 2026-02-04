@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CodeMonkey.Utils;
+using DG.Tweening;
 using NUnit.Framework.Constraints;
 using TMPro;
 using Unity.VisualScripting;
@@ -17,7 +18,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
     [SerializeField] private CardRaritySettings raritySettings;
     [SerializeField] private RerollSettings rerollSettings;
     [SerializeField] private GameObject cardPrefab;
-    [SerializeField] private HorizontalLayoutGroup cardLayout;
+    [SerializeField] private Transform[] cardSlots;
     [SerializeField] private Button_Base rerollButton;
     [SerializeField] private Button_Base skipButton;
     [SerializeField] private Button_Base peekButton;
@@ -36,7 +37,6 @@ public class CardSelectUI : Singleton<CardSelectUI>
     {
         rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
         SetPriceText();
-        GenerateRandomCards();
         rerollButton.OnClick.AddListener(() =>
         {
             if (PlayerInventory.Instance.Coins < rerollCost || rerollAmount >= rerollSettings.MaxRerolls) return;
@@ -79,21 +79,18 @@ public class CardSelectUI : Singleton<CardSelectUI>
 
     private void OnWaveComplete()
     {
-        if(PlayerLife.Instance.CurrentLives <= 0) return;
+        if (PlayerLife.Instance.CurrentLives <= 0) return;
         var encounter = EncounterGenerator.Instance.GetEncounter(EnemyManager.Instance.CurrentWave - 1);
         if (encounter != null) return;
+        GenerateRandomCards();
         rerollAmount = 0;
         rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
         SetPriceText();
         cardCooldowns.DecreaseCooldowns();
-        float delay = 2f;
-        FunctionTimer.Create(() =>
-        {
-            background.SetActive(true);
-            peekButton.gameObject.SetActive(true);
-            GenerateRandomCards();
-            OnShowCards?.Invoke();
-        }, delay);
+        float fadeDuration = 0.5f;
+        background.SetActive(true);
+        background.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        background.GetComponent<Image>().DOFade(203f / 255f, fadeDuration).OnComplete(() => { OnShowCards?.Invoke(); });
     }
 
 
@@ -107,32 +104,60 @@ public class CardSelectUI : Singleton<CardSelectUI>
             ? Enumerable.ToHashSet(skillRegistry.Skills.Where(skill =>
                 skill.prerequisiteSkills.Length == 0 || skill.prerequisiteSkills.Any(pr => skillRegistry.CurrentSkills.Contains(pr))))
             : Enumerable.ToHashSet(startingSkills);
-        
+
         var filteredSkills = Enumerable.ToHashSet(availableSkills.Where(skill => !cardCooldowns.ContainsKey(skill)));
         var pool = filteredSkills.Count >= 3 ? filteredSkills : availableSkills;
         var cards = CardRarityPicker.PickCards(pool.ToList(), raritySettings, 3);
         cardCooldowns.SetCooldowns(cards);
         foreach (var data in cards)
         {
-            var newCard = Instantiate(cardPrefab, cardLayout.transform);
+            var cardParent = cardSlots[currentCards.Count];
+            var newCard = Instantiate(cardPrefab, cardParent.transform);
             newCard.GetComponent<SetCardData>().SetData(data);
             currentCards.Add(newCard);
-            newCard.GetComponentInChildren<Button_Base>().OnClick.AddListener(() =>
+            var cardAnimation = newCard.GetComponent<CardSelectCardAnimation>();
+            cardAnimation.Init(currentCards.Count);
+            cardAnimation.OnDoneAnimating += () =>
             {
-                if (InventoryUI.Instance.CanAddCard(data))
+                newCard.GetComponentInChildren<Button_Base>().OnClick.AddListener(() =>
                 {
-                    var skillInstance = data.CreateInstance();
-                    InventoryUI.Instance.AddCard(skillInstance);
-                    background.SetActive(false);
-                    peekButton.gameObject.SetActive(false);
-                    OnSelectedCard?.Invoke();
-                    return;
-                }
+                    if (InventoryUI.Instance.CanAddCard(data))
+                    {
+                        var skillInstance = data.CreateInstance();
+                        InventoryUI.Instance.AddCard(skillInstance);
+                        background.SetActive(false);
+                        peekButton.gameObject.SetActive(false);
+                        OnSelectedCard?.Invoke();
+                        return;
+                    }
 
-                newCard.GetComponent<UIShake>().TriggerShake();
-                InventoryChestUI.Instance.GetComponent<UIScaleLoop>().Play();
-                InventoryUI.Instance.OnRemovedCard += () => { InventoryChestUI.Instance.GetComponent<UIScaleLoop>().Stop(); };
-            });
+                    newCard.GetComponent<UIShake>().TriggerShake();
+                    InventoryChestUI.Instance.GetComponent<UIScaleLoop>().Play();
+                    InventoryUI.Instance.OnRemovedCard += () => { InventoryChestUI.Instance.GetComponent<UIScaleLoop>().Stop(); };
+                });
+            };
         }
+
+        rerollButton.gameObject.SetActive(true);
+        skipButton.gameObject.SetActive(true);
+        peekButton.gameObject.SetActive(true);
+        RectTransform rerollRT = rerollButton.GetComponent<RectTransform>();
+        RectTransform skipRT = skipButton.GetComponent<RectTransform>();
+        RectTransform peekRT = peekButton.GetComponent<RectTransform>();
+        Vector2 rerollTarget = rerollRT.anchoredPosition;
+        Vector2 skipTarget = skipRT.anchoredPosition;
+        Vector2 peekTarget = peekRT.anchoredPosition;
+        const float offscreenY = 775f;
+        rerollRT.anchoredPosition = new Vector2(rerollTarget.x, offscreenY);
+        skipRT.anchoredPosition = new Vector2(skipTarget.x, offscreenY);
+        peekRT.anchoredPosition = new Vector2(peekTarget.x, offscreenY);
+        rerollRT.DOAnchorPosY(rerollTarget.y, CardSelectCardAnimation.DropAnimationDuration)
+            .SetEase(Ease.OutBounce).SetDelay(CardSelectCardAnimation.DropDelayPerCard * 4);
+        skipRT.DOAnchorPosY(skipTarget.y, CardSelectCardAnimation.DropAnimationDuration)
+            .SetEase(Ease.OutBounce)
+            .SetDelay(CardSelectCardAnimation.DropDelayPerCard * 5);
+        peekRT.DOAnchorPosY(peekTarget.y, CardSelectCardAnimation.DropAnimationDuration)
+            .SetEase(Ease.OutBounce)
+            .SetDelay(CardSelectCardAnimation.DropDelayPerCard * 6);
     }
 }

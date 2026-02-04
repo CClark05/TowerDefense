@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b5b9280b7744878b40130471da19ad, type: 3}
   m_Name: Summon Arrow Minion Data
   m_EditorClassIdentifier: 
-  name: Arrow Minion
+  name: Archer Minion
   icon: {fileID: 123590753, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
   description: Summon +1 <color=#411D31>Minion(s)</color>. Each <color=#411D31>Minion</color>
     shoots an <color=#94A6A4>Arrow</color> every 1 second at enemies within their
-    range
+    range.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects:

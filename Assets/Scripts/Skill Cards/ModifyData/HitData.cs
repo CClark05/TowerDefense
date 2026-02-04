@@ -24,6 +24,7 @@ public class HitData : DamageData
         damageMarkerSizeMult = 1;
         damageMarkerPunchEffect = false;
     }
+
     //Clone
     public HitData(HitData other)
     {

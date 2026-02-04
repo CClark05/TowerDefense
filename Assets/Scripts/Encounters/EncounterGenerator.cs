@@ -13,7 +13,7 @@ public class EncounterGenerator : Singleton<EncounterGenerator>
     public EncounterSettings GetEncounter(int wave)
     {
         int mod = wave % cycleLength;
-        int upgradeIndex = cycleLength - 7;
+        int upgradeIndex = cycleLength - 1;
         int shopIndex = cycleLength - 7;
         
         var encounter = mod switch

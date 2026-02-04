@@ -359,8 +359,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Each hit builds 10% of mana bar. Once mana bar is full next shot is Empowered.
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
+  m_sharedMaterial: {fileID: 208216535120782835, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -384,7 +384,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.7
+  m_fontSize: 25
   m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -604,6 +604,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardUI:
     underlyingValue: {fileID: 3737880428838537535}
+  UI: {fileID: 4078595458211601708}
 --- !u!1 &7474249145161089846
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,8 +672,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "EMPOWERED \nSHOT"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e7b14f47333e0c04f91b93dd83023a43, type: 2}
+  m_sharedMaterial: {fileID: -6351606422978614801, guid: e7b14f47333e0c04f91b93dd83023a43, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -696,7 +697,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.45
+  m_fontSize: 18
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1

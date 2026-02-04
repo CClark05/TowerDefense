@@ -16,7 +16,7 @@ MonoBehaviour:
   icon: {fileID: -476345004, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
   description: If your <color=#922C33>Bombs</color> are hit by projectiles they explode
-    immediately for +20% damage.
+    immediately for +50% damage.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects:
@@ -26,4 +26,4 @@ MonoBehaviour:
   prerequisiteSkills:
   - {fileID: 11400000, guid: ad2df2410a27fc94cafcff8fe595239b, type: 2}
   isExcluded: 0
-  PlusDamage: 0.2
+  PlusDamage: 0.5

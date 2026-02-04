@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public static class TowerService
 {
@@ -93,14 +94,20 @@ public static class TowerService
                         
                 }
             }
-            foreach (var kv in waveData)
-                kv.Key.UpdateTowerData(kv.Value);
+            foreach (var kv in waveData) kv.Key.UpdateTowerData(kv.Value);
+            TowerDataHolder.OnUpdateData += OnUpdateData;
+            
             finishedTowers = 0;
         }
         
     }
+    static void OnUpdateData()
+    {
+        foreach (var kv in waveData) kv.Key.UpdateTowerData(kv.Value);
+    }
     public static void MarkWaveEnd(TowerDataHolder tower)
     {
+        TowerDataHolder.OnUpdateData -= OnUpdateData;
         finishedTowers++;
         if (finishedTowers == expectedTowers)
         {

@@ -16,13 +16,13 @@ public class CrossShooterSkillData : SkillData
     }
 }
 
-public class CrossShooterSkillInstance : SkillInstance<CrossShooterSkillData>, IProjectileModifier, IPlayCountPolicy<IProjectileModifier>
+public class CrossShooterSkillInstance : SkillInstance<CrossShooterSkillData>, IShotModifier, IPlayCountPolicy<IShotModifier>
 {
     public CrossShooterSkillInstance(CrossShooterSkillData data) : base(data)
     {
     }
 
-    public IEnumerator Modify(ProjectileShotData shotData)
+    public void Modify(ProjectileShotData shotData)
     {
         Vector2 left = Vector2.Perpendicular(shotData.originalDirection);
         Vector2 right = -left;
@@ -30,7 +30,6 @@ public class CrossShooterSkillInstance : SkillInstance<CrossShooterSkillData>, I
         shotData.directionOverrides.Add(left);
         shotData.directionOverrides.Add(right);
         shotData.directionOverrides.Add(back);
-        yield return null;
     }
 
     public bool DelayShot { get; }
