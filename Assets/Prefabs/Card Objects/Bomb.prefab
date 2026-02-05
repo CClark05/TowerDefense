@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a130d7a0ee4b058b0a0f6bd0e2f2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bombEffectData: {fileID: 11400000, guid: 53dee0f532c2ff14baa6dc8a1d13d06f, type: 2}
+  effectData: {fileID: 11400000, guid: 53dee0f532c2ff14baa6dc8a1d13d06f, type: 2}
   aoeVisualPrefab: {fileID: 8213420445569304457, guid: edfa6cb9c5f90e445a5e984acbd25eea, type: 3}
   explosionSFXPrefab: {fileID: 1721648919620507950, guid: cf5beaf256c372642908030c27cbdfe9, type: 3}
   bombIdle: {fileID: 11400000, guid: 2693e92d69cd74d429f531b53db803fb, type: 2}

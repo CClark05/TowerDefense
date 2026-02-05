@@ -62,7 +62,7 @@ public class Bomb : CardSpawnable
     {
         if (other.GetComponent<Projectile>() == null || data == null || explodeRoutine == null) return;
         Debug.Log("Explode Immediately");
-        data.explodeOnShot.Invoke();
+        data.explodeOnShot?.Invoke();
         StopCoroutine(explodeRoutine);
         explodeRoutine = null;
         StartCoroutine(Damage());

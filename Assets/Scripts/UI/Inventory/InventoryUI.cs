@@ -77,7 +77,9 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
             test++;
         }
     }
-    
+
+    public Transform GetNextCardSlot() => cardSlots.FirstOrDefault(s => !s.IsOccupied)?.transform;
+
     public void AddCard(SkillInstance skillInstance)
     {
         Transform slotTransform = cardSlots.FirstOrDefault(s => !s.IsOccupied)?.transform;

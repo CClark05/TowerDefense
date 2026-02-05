@@ -41,5 +41,20 @@ public class CardSelectCardAnimation : MonoBehaviour
             OnDoneAnimating?.Invoke();
         });
     }
-    
+    public void AnimateBack()
+    {
+        GetComponent<RectTransform>().DOAnchorPosY(775f, 0.5f).SetEase(Ease.InBack);
+    }
+
+    public void MoveToInventory(Transform cardSlot, Action OnComplete)
+    {
+        float duration = 0.35f;
+        Sequence seq = DOTween.Sequence();
+        seq.Append(UI.transform.DOScale(Vector3.zero, duration).SetEase(Ease.InCubic));
+        seq.Join(GetComponent<RectTransform>().DOMove(cardSlot.position, duration).SetEase(Ease.InCubic));
+        seq.AppendCallback(() =>
+        {
+            OnComplete?.Invoke();
+        }).SetDelay(0.1f);
+    }
 }

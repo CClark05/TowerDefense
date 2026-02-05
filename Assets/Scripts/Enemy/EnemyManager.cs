@@ -110,6 +110,7 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             OnEnemyReachedEnd?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.livesCost);
             RemoveEnemy(enemy);
+            if (currentEnemies.Count == 0) Time.timeScale = 0;
         };
         currentEnemies.Add(enemy);
         OnEnemiesUpdated?.Invoke();

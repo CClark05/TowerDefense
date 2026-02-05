@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Arrow Storm
   icon: {fileID: -733010213, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
-  description: Every 3 kills rain down +5 <color=#94A6A4>Arrows</color> in a 1.5
+  description: Every 2 kills rain down +5 <color=#94A6A4>Arrows</color> in a 1.5
     tile radius.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
@@ -25,7 +25,7 @@ MonoBehaviour:
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  KillsNeeded: 3
+  KillsNeeded: 2
   Arrows: 5
   VisualPrefab: {fileID: 8213420445569304457, guid: edfa6cb9c5f90e445a5e984acbd25eea, type: 3}
   TileSize: 1.5

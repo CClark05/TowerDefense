@@ -18,7 +18,6 @@ public class UpgradeUI : Singleton<UpgradeUI>
     [SerializeField] private Button_Base leaveButton;
     [SerializeField] private Transform[] cardSlots;
     [SerializeField] private Transform outputSlot;
-    [SerializeField] private ScrollRect scrollRect;
     private UpgradeUIAnimation animation;
     private SetCardData outputCard;
 

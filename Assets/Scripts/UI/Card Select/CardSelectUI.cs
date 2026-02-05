@@ -124,10 +124,24 @@ public class CardSelectUI : Singleton<CardSelectUI>
                     if (InventoryUI.Instance.CanAddCard(data))
                     {
                         var skillInstance = data.CreateInstance();
-                        InventoryUI.Instance.AddCard(skillInstance);
-                        background.SetActive(false);
+                       
                         peekButton.gameObject.SetActive(false);
-                        OnSelectedCard?.Invoke();
+                        rerollButton.gameObject.SetActive(false);
+                        skipButton.gameObject.SetActive(false);
+                        foreach (var c in currentCards.Where(c => c != newCard))
+                        {
+                            c.GetComponent<CardSelectCardAnimation>().AnimateBack();
+                        }
+                        newCard.GetComponent<CardSelectCardAnimation>().MoveToInventory(InventoryUI.Instance.GetNextCardSlot(), () =>
+                        {
+                            InventoryUI.Instance.AddCard(skillInstance);
+                            background.GetComponent<Image>().DOFade(0, 0.5f).OnComplete(() =>
+                            {
+                                background.SetActive(false);
+                                OnSelectedCard?.Invoke();
+                            });
+                        });
+                        
                         return;
                     }
 
@@ -155,9 +169,9 @@ public class CardSelectUI : Singleton<CardSelectUI>
             .SetEase(Ease.OutBounce).SetDelay(CardSelectCardAnimation.DropDelayPerCard * 4);
         skipRT.DOAnchorPosY(skipTarget.y, CardSelectCardAnimation.DropAnimationDuration)
             .SetEase(Ease.OutBounce)
-            .SetDelay(CardSelectCardAnimation.DropDelayPerCard * 5);
+            .SetDelay(CardSelectCardAnimation.DropDelayPerCard * 4);
         peekRT.DOAnchorPosY(peekTarget.y, CardSelectCardAnimation.DropAnimationDuration)
             .SetEase(Ease.OutBounce)
-            .SetDelay(CardSelectCardAnimation.DropDelayPerCard * 6);
+            .SetDelay(CardSelectCardAnimation.DropDelayPerCard * 4);
     }
 }

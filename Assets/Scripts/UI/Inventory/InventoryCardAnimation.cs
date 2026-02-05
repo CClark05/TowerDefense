@@ -67,7 +67,6 @@ public class InventoryCardAnimation : MonoBehaviour
         transform.DOScale(originalScale, 0.3f).SetEase(Ease.OutBack).SetDelay(0.1f).SetUpdate(true);
     }
     
-
     private void Update()
     {
         if (dragDrop.TargetPosition.HasValue)
