@@ -12,6 +12,11 @@ public static class DamageService
         SkillContext skillContext,
         Action<HitData, Vector2> onDealDamage)
     {
+        if (damageable.Transform.GetComponent<IUsesShields>() != null)
+        {
+            if (damageable.Transform.GetComponent<IUsesShields>().TryRemoveShield(1))
+                return;
+        }
         var onHitEffects = statusEffects.PersistentEffectsApplied.Where(kvp => kvp.Key is OnHitStatusEffect).ToList();
         if (onHitEffects.Count > 0)
         {

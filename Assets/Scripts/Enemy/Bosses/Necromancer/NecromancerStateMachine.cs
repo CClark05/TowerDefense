@@ -7,7 +7,7 @@ public class NecromancerStateMachine : BossStateMachine
     [SerializeField] private AnimationClip summonAnimation, moveAnimation;
     [SerializeField] private BuffData stunDebuff;
     private int maxSummons = 3;
-    public int summonCounter;
+    private int summonCounter;
     private void Start()
     {
         var healthPredicate = new HealthPercentagePredicate(facade.GetComponent<IUsesHealth>());

@@ -133,6 +133,9 @@ public class TowerShooting : MonoBehaviour
         OnDealDamageStatic?.Invoke(pos, hitData);
         if (hitData.didKill) OnKillEnemy?.Invoke();
     }
+
+    public void AddHit(int amount = 1) => HitsThisRound += amount;
+
     private GameObject TargetEnemy()
     {
         var enemies = EnemyManager.Instance.CurrentEnemies;

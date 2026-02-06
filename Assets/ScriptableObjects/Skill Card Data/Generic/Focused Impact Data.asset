@@ -15,11 +15,11 @@ MonoBehaviour:
   name: Focused Impact
   icon: {fileID: -8648032925365490086, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Adds +6 base damage.
+  description: Adds +5 base damage.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  PlusDamage: 6
+  PlusDamage: 5

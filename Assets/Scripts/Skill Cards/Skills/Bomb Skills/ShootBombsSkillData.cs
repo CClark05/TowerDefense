@@ -16,7 +16,7 @@ public class ShootBombsSkillData : SkillData
         return new ShootBombsSkillInstance(this);
     }
 }
-public class ShootBombsSkillInstance : SkillInstance<ShootBombsSkillData>, IBombModifier
+public class ShootBombsSkillInstance : SkillInstance<ShootBombsSkillData>, IBombModifier, IPlayCountPolicy<IBombModifier>
 {
     public ShootBombsSkillInstance(ShootBombsSkillData data) : base(data)
     {
@@ -30,8 +30,6 @@ public class ShootBombsSkillInstance : SkillInstance<ShootBombsSkillData>, IBomb
             Damage += damage;
         };
     }
-    
-
     public int SetPlayCount() => 1;
     
 }

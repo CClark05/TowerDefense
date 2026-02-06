@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Upgrade Above Card Data
   m_EditorClassIdentifier: 
   name: Promotion
-  icon: {fileID: 0}
+  icon: {fileID: -1226382499, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
   description: Upgrades the +1 most recently added card(s) to the tower (if possible).
   hasRuntimeValue: 0

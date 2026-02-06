@@ -15,10 +15,11 @@ public class GetDeadEnemiesCommand : EnemyCommand
     {
         deadEnemies.Clear();
         var pool = EnemyManager.Instance.DeadEnemies.Where(e => e.summonable).ToList();
+        if(pool.Count == 0)
+            yield break;
         for (int i = 0; i < count; i++)
         {
             deadEnemies.Add(pool[UnityEngine.Random.Range(0, pool.Count)]);
         }
-        yield break;
     }
 }

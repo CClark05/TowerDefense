@@ -1158,7 +1158,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1167,6 +1167,50 @@ TextureImporter:
       bones: []
       spriteID: ce9bcf1b38761c74fb9095b1b49e1a56
       internalID: 1077979287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Promotion_Icon
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7204f6eca2e66d3489d3bac4c9a70040
+      internalID: -1226382499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SeekingShot_Icon
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b22eb6c7fcd019e4caeaff7595116edf
+      internalID: -15812219
       vertices: []
       indices: 
       edges: []
@@ -1219,11 +1263,13 @@ TextureImporter:
       Payday_Icon: -492782416430950139
       PerfectForm_Icon: -4575220665565685519
       PiercingShot_Icon: -1819482657
+      Promotion_Icon: -1226382499
       Quickdraw_Icon: 2535411246737045790
       RainArrows_Icon: -733010213
       Recall_Icon: -3413648882919510996
       Sacrifice_Icon: 5476671250807671832
       SearingShots_Icon: 1707775066
+      SeekingShot_Icon: -15812219
       SignalBoost_Icon: -1664386169
       Siphon_Icon: 1477287667
       SlowDomain_Icon: 674952182

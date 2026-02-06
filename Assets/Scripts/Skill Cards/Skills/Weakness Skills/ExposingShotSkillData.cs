@@ -6,7 +6,7 @@ public class ExposingShotSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Applies +1 <color=#{hex}>Weak</color> on hit if target has zero <color=#{hex}>Weak</color> stacks.";
+        description = $"Projectiles apply +1 <color=#{hex}>Weak</color> on hit if target has zero <color=#{hex}>Weak</color> stacks.";
     }
     public override SkillInstance CreateInstance()
     {

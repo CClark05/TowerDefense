@@ -140,6 +140,7 @@ PrefabInstance:
     - {fileID: 6376516497736485663, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
     - {fileID: 5267796830266426185, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
     - {fileID: 8066698530144228589, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+    - {fileID: 2921828630183276161, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -216,3 +217,4 @@ MonoBehaviour:
   summonAnimation: {fileID: 11400000, guid: 34bacad676eb7da4195239e51cdd7f77, type: 2}
   moveAnimation: {fileID: 11400000, guid: 2a05e8642213cb94cbe70be228994b6e, type: 2}
   stunDebuff: {fileID: 11400000, guid: 7006be7218381c2479cb0c8d961b3c9d, type: 2}
+  summonCounter: 0

@@ -17,9 +17,8 @@ public class TextPopupManager : Singleton<TextPopupManager>
     {
         SkillInstance.OnDisposeSkill += (instance,position) =>
         {
-            Debug.Log("popup");
             string text = $"<b><size=125%>{instance.Data.name}</size></b> Destroyed";
-            var popup = CreateTextPopup(text, position + new Vector2(3,0), 0.5f);
+            var popup = CreateTextPopup(text, position + new Vector2(6,0), 0.5f);
             popup.GetComponent<TextMeshProUGUI>().color = ColorPicker.red;
         };
     }

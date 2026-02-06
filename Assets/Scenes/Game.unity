@@ -8702,12 +8702,7 @@ MonoBehaviour:
   - {fileID: 981986522}
   - {fileID: 449712532}
   - {fileID: 134421251}
-  testingData:
-  - {fileID: 11400000, guid: ad2df2410a27fc94cafcff8fe595239b, type: 2}
-  - {fileID: 11400000, guid: c43815f674c7f0843b06bdc998822493, type: 2}
-  - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
-  - {fileID: 11400000, guid: 4f51873575c66434489f5a710faf69a2, type: 2}
-  - {fileID: 11400000, guid: c5076f8287a722c4a8e4d98f57563805, type: 2}
+  testingData: []
   settings: {fileID: 11400000, guid: 3e51d1c9009932449b6d19df8edce600, type: 2}
 --- !u!1 &1040348794
 GameObject:
@@ -13697,7 +13692,7 @@ GameObject:
   - component: {fileID: 1565673759}
   - component: {fileID: 1565673758}
   - component: {fileID: 1565673757}
-  m_Layer: 5
+  m_Layer: 7
   m_Name: Text Popup Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13767,8 +13762,8 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 519420031}
-  m_PlaneDistance: 100
+  m_Camera: {fileID: 353301493}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -13778,7 +13773,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 24867107
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!224 &1565673761
 RectTransform:
@@ -14994,7 +14989,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1699882892
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17202,6 +17197,7 @@ SceneRoots:
   - {fileID: 4969801805208059208}
   - {fileID: 353301496}
   - {fileID: 619394802}
+  - {fileID: 1565673761}
   - {fileID: 914274690}
   - {fileID: 191956766}
   - {fileID: 1845087208}
@@ -17221,5 +17217,4 @@ SceneRoots:
   - {fileID: 1221964863}
   - {fileID: 1221964859}
   - {fileID: 1377683192}
-  - {fileID: 1565673761}
   - {fileID: 423888832}

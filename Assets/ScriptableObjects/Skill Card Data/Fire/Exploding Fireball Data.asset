@@ -27,7 +27,7 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: e27d48209898baa4da32440daf087efd, type: 2}
   buffs: []
   prerequisiteSkills: []
-  isExcluded: 0
+  isExcluded: 1
   Radius: 1
   fireCirclePrefab: {fileID: 8213420445569304457, guid: fcfc5a88559d56849b77e0a3b54a52c5, type: 3}
   duration: 2

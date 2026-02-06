@@ -60,8 +60,7 @@ public class Bomb : CardSpawnable
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Projectile>() == null || data == null || explodeRoutine == null) return;
-        Debug.Log("Explode Immediately");
+        if (other.GetComponent<Projectile>() == null || data == null || explodeRoutine == null || data.explodeOnShot == null) return;
         data.explodeOnShot?.Invoke();
         StopCoroutine(explodeRoutine);
         explodeRoutine = null;

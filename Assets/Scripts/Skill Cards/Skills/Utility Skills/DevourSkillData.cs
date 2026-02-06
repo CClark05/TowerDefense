@@ -8,7 +8,7 @@ public class DevourSkillData : SkillData
     public int plusDamage = 2;
     private void OnValidate()
     {
-        description = $"Tries to destroy a random card on tower when added and gains +{plusDamage} base damage if successful.";
+        description = $"Tries to destroy a random card on the tower when added and gains +{plusDamage} base damage if successful.";
     }
 
     public override SkillInstance CreateInstance()

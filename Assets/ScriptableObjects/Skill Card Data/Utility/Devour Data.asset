@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Devour
   icon: {fileID: 1942748494, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
-  description: Tries to destroy a random card on tower when added and gains +5 base
+  description: Tries to destroy a random card on tower when added and gains +3 base
     damage if successful.
   hasRuntimeValue: 1
   runtimeStatsFormat: +x
@@ -23,4 +23,4 @@ MonoBehaviour:
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  plusDamage: 5
+  plusDamage: 3

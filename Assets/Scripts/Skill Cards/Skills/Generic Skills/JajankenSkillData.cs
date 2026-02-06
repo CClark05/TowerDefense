@@ -47,7 +47,7 @@ public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCar
     public void Apply(TowerWaveData towerWaveData)
     {
         OnPlayCountUpdated += OnPlayCountUpdatedHandle;
-        skillContext.Tower.RuntimeData.TimeBetweenShots /= 1 + Data.FireRateMult;
+        skillContext.Tower.RuntimeData.TimeBetweenShots *= 1 + Data.FireRateMult;
         damageBonus = Data.PlusDamage * PlayCount;
         towerWaveData.increasedBaseDamage += damageBonus;
     }
@@ -55,7 +55,7 @@ public class JajankenSkillInstance : SkillInstance<JajankenSkillData>, ITowerCar
     public void Remove(TowerWaveData towerWaveData)
     {
         OnPlayCountUpdated -= OnPlayCountUpdatedHandle;
-        skillContext.Tower.RuntimeData.TimeBetweenShots *= 1 + Data.FireRateMult;
+        skillContext.Tower.RuntimeData.TimeBetweenShots /= 1 + Data.FireRateMult;
         towerWaveData.increasedBaseDamage -= damageBonus;
     }
 

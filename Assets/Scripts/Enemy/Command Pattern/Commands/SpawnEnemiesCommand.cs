@@ -24,6 +24,8 @@ public class SpawnEnemiesCommand : EnemyCommand
     }
     public override IEnumerator Execute(IAgent agent)
     {
+        if(enemyData.Count == 0)
+            yield break;
         foreach (var enemy in enemyData)
         {
             EnemyManager.Instance.SpawnEnemyAtPosition(enemy, position);
