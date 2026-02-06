@@ -8,7 +8,7 @@ public class PromotionSkillData : SkillData
 {
     private void OnValidate()
     {
-        description = $"Upgrades the +1 most recently added card(s) to the tower (if possible).";
+        description = $"Upgrades the +1 card(s) above this one when added (if possible).";
     }
 
     public override SkillInstance CreateInstance()
@@ -42,6 +42,22 @@ public class UpgradeAboveCardSkillInstance : SkillInstance<PromotionSkillData>, 
         card.PlayCount--;
         upgradedCards.Remove(card);
         card.OnRemoveCard -= OnCardRemoved;
+        int index = skillContext.Tower.SkillInstanceList.IndexOf(this);
+        var cards = skillContext.Tower.SkillInstanceList.Where(c => c != this && c != card).ToList();
+        foreach (var c in cards)
+        {
+            Debug.Log(c.Data.name);
+        }
+        if(cards.Count == 0) return;
+        for (int i = cards.Count - 1; i >= 0 && upgradedCards.Count < PlayCount && i < index - 1; i--)
+        {
+            var c = cards[i];
+            if (c.Laminated || upgradedCards.Contains(c)) continue;
+            c.PlayCount++;
+            c.OnRemoveCard += OnCardRemoved;
+            upgradedCards.Add(c);
+        }
+        
     }
 
     public void Remove(TowerWaveData towerWaveData)

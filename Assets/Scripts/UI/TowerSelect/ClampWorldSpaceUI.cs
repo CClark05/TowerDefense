@@ -1,20 +1,25 @@
+using System.Collections;
 using UnityEngine;
 
 public class ClampWorldSpaceUI : MonoBehaviour
 {
-    [SerializeField] private float screenPadding = 20f;
-
     private Camera cam;
     private RectTransform rectTransform;
 
     void Start()
     {
+        StartCoroutine(Wait());
+    }
+
+    IEnumerator Wait()
+    {
+        yield return null;
+        yield return new WaitForEndOfFrame();
         cam = Camera.main;
         rectTransform = GetComponent<RectTransform>();
 
         ClampUIOnScreen();
     }
-
     private void ClampUIOnScreen()
     {
         Vector3[] worldCorners = new Vector3[4];

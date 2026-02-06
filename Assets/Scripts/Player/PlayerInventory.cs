@@ -107,7 +107,7 @@ public class PlayerInventory : Singleton<PlayerInventory>
                 sequence.Join(coin.transform.DOScale(1.1f, flyDur * 0.2f).SetEase(Ease.OutBack));
                 sequence.Join(coin.GetComponent<SpriteRenderer>().DOFade(0, 0.2f).SetDelay(flyDur - 0.2f));
                 sequence.OnComplete(() => Destroy(coin));
-                yield return new WaitForSeconds(0.15f);
+                yield return new WaitForSeconds(Mathf.Lerp(0.15f, 0.03f, (float)i / amount));
             }
         }
     }

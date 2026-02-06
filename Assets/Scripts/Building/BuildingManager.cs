@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 public class BuildingManager : Singleton<BuildingManager>
 {
     [SerializeField] private BuildButtonUI buildButtonUI;
+    [SerializeField] private Button_Base undoButton;
     [SerializeField] private GameObject selectionTilePrefab;
     public event Action OnEnterBuildMode;
     public event Action OnExitBuildMode;
@@ -14,6 +15,7 @@ public class BuildingManager : Singleton<BuildingManager>
     private Camera cam;
     public event Action<TowerData> OnPlacedBuild;
     public bool IsInBuildMode => currentBuild.preview != null;
+    private (TowerDataHolder data, Vector2Int gridPos, int cost) mostRecentBuild;
     private void Start()
     {
         gridManager = GridManager.Instance;
@@ -28,6 +30,19 @@ public class BuildingManager : Singleton<BuildingManager>
             OnEnterBuildMode?.Invoke();
         };
         buildButtonUI.OnExitBuildMode += ExitBuildMode;
+        undoButton.gameObject.SetActive(false);
+        undoButton.OnClick.AddListener(() =>
+        {
+            gridManager.SetEmpty(mostRecentBuild.gridPos.x, mostRecentBuild.gridPos.y);
+            undoButton.gameObject.SetActive(false);
+            PlayerInventory.Instance.AddCoins(mostRecentBuild.cost, mostRecentBuild.data.gameObject.transform.position);
+            buildButtonUI.RuntimeTowerData.Cost = mostRecentBuild.cost;
+            Destroy(mostRecentBuild.data.gameObject);
+        });
+        EnemyManager.Instance.OnWaveStarted += () =>
+        {
+            undoButton.gameObject.SetActive(false);
+        };
     }
 
     private void Update()
@@ -44,8 +59,12 @@ public class BuildingManager : Singleton<BuildingManager>
         if (isInvalid) return;
         if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
+            undoButton.gameObject.SetActive(true);
             gridManager.Grid.SetValue(x, y, currentBuild.data);
             GameObject newBuilding = Instantiate(currentBuild.data.prefab, worldGridPosition, Quaternion.identity);
+            mostRecentBuild.data = newBuilding.GetComponent<TowerDataHolder>();
+            mostRecentBuild.gridPos = new Vector2Int(x, y);
+            mostRecentBuild.cost = currentBuild.data.cost;
             OnPlacedBuild?.Invoke(currentBuild.data);
             newBuilding.GetComponent<TowerAnimation>().Init();
             currentBuild.data.Cost += currentBuild.data.costIncreasePerPurchase;

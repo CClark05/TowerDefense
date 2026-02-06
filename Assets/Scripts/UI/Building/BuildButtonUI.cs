@@ -9,6 +9,7 @@ public class BuildButtonUI : MonoBehaviour
     [SerializeField] private Button_Base button;
     [SerializeField] private TowerData towerData;
     private TowerData runtimeTowerData;
+    public TowerData RuntimeTowerData => runtimeTowerData;
     [SerializeField] private GameObject background;
     private Color originalTextColor;
     public event Action<TowerData> OnBuildMode;

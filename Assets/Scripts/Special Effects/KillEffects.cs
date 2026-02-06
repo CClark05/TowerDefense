@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine;
@@ -16,19 +17,8 @@ public class KillEffects : MonoBehaviour
                 SlowmoAnimation(0.1f, 0f, 1f);
         };
         */
-        EnemyHealth.OnDeathStatic += (bool final) =>
-        {
-            if (final)
-            {
-                SlowmoAnimation(0.2f, 0.2f, 0.5f);
-                if(freezeFrameCoroutine != null) return;
-                StartCoroutine(FreezeFrame(finalFreezeFrameDuration, 1));
-                return;
-            }
 
-            if (freezeFrameCoroutine != null) return;
-            freezeFrameCoroutine = StartCoroutine(FreezeFrame(freezeFrameDuration));
-        };
+        EnemyHealth.OnDeathStatic += OnDeath;
         /**
         EnemyManager.Instance.OnIdle += () =>
         {
@@ -36,7 +26,19 @@ public class KillEffects : MonoBehaviour
         };
         */
     }
+    void OnDeath(bool final)
+    {
+        if (final)
+        {
+            SlowmoAnimation(0.2f, 0.2f, 0.5f);
+            if (freezeFrameCoroutine != null) return;
+            StartCoroutine(FreezeFrame(finalFreezeFrameDuration, 1));
+            return;
+        }
 
+        if (freezeFrameCoroutine != null) return;
+        freezeFrameCoroutine = StartCoroutine(FreezeFrame(freezeFrameDuration));
+    }
     private void SlowmoAnimation(float to, float toDuration, float holdTime)
     {
         var seq = DOTween.Sequence().SetUpdate(true);
@@ -52,5 +54,10 @@ public class KillEffects : MonoBehaviour
         yield return new WaitForSecondsRealtime(duration);
         Time.timeScale = finalTimeScale ?? originalTimeScale;
         freezeFrameCoroutine = null;
+    }
+
+    private void OnDisable()
+    {
+        EnemyHealth.OnDeathStatic -= OnDeath;
     }
 }
