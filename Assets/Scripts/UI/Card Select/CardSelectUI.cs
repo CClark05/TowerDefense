@@ -121,7 +121,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
             {
                 newCard.GetComponentInChildren<Button_Base>().OnClick.AddListener(() =>
                 {
-                    if (InventoryUI.Instance.CanAddCard(data))
+                    if (InventoryUI.Instance.CanAddCard())
                     {
                         var skillInstance = data.CreateInstance();
                        

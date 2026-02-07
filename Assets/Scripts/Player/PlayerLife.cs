@@ -26,19 +26,16 @@ public class PlayerLife : Singleton<PlayerLife>
     {
         CurrentLives = LevelDataHolder.Instance.Data.playerLives;
         EnemyManager.Instance.OnEnemyReachedEnd += OnEnemyReachedEndStatic;
-        EnemyManager.Instance.OnWaveComplete += () =>
-        {
-            if (currentLives <= 0)
-            {
-                Debug.Log("GAME OVER");
-                OnGameOver?.Invoke( PlayerGameOverStats.GetGameOverData());
-            }
-        };
     }
     private void OnEnemyReachedEndStatic(int lives)
     {
-        if (CurrentLives <= 0) return;
-        CurrentLives -= lives;
+        CurrentLives = Mathf.Max(0, CurrentLives - lives);
+        VignetteController.Instance.PulseColor(Color.red, 0.4f, 0.14f);
+        if (CurrentLives <= 0)
+        {
+            Debug.Log("GAME OVER");
+            OnGameOver?.Invoke( PlayerGameOverStats.GetGameOverData());
+        }
     }
     public void AddLives(int amount)
     {

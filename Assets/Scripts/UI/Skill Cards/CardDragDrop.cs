@@ -12,16 +12,20 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     private Vector2 originalPosition;
     private UIRaycastBlocker raycastBlocker;
     public event Action OnDropCard;
+    public event Action OnOverTarget;
+    public static event Action OnStartDragStatic;
+    public static event Action OnEndDragStatic;
     public Vector2? TargetPosition { get; private set; } = null;
     public bool IsDragging { get; private set; }
+
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
         canvas = GetComponentInParent<Canvas>();
         cardUI = GetComponent<SkillCardUI>();
         canvasGroup = GetComponent<CanvasGroup>();
-        
     }
+
     private void Start()
     {
         raycastBlocker = UIRaycastBlocker.Instance;
@@ -30,6 +34,7 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!cardUI.Selected) return;
+        GameManager.Instance.SetCursor(GameManager.Cursors.ClosedHand);
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.8f;
         originalPosition = rect.anchoredPosition;
@@ -46,25 +51,52 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
         IsDragging = false;
         if (!TryDropOnTower())
         {
-            //rect.anchoredPosition = originalPosition;
             TargetPosition = originalPosition;
-            return;
         }
     }
+
+    private IUsesCards lastHit;
 
     public void OnDrag(PointerEventData eventData)
     {
         if (!cardUI.Selected) return;
+
         TargetPosition = rect.anchoredPosition + eventData.delta / canvas.scaleFactor;
-        //rect.anchoredPosition += eventData.delta / canvas.scaleFactor;
+
+        Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+
+        IUsesCards hovered = null;
+        if (hit.collider != null)
+            hovered = hit.collider.GetComponent<IUsesCards>();
+
+        if (hovered != null && hovered != lastHit)
+        {
+            if (hovered.CanAddCard(cardUI.SkillInstance))
+            {
+                OnOverTarget?.Invoke();
+                GameManager.Instance.SetCursor(GameManager.Cursors.OpenHand);
+                lastHit = hovered;
+                return;
+            }
+            GameManager.Instance.SetCursor(GameManager.Cursors.Disabled);
+        }
+
+        if (hovered == null && (lastHit != null || GameManager.Instance.CurrentCursor == GameManager.Cursors.Disabled))
+        {
+            lastHit = null;
+            GameManager.Instance.SetCursor(GameManager.Cursors.ClosedHand);
+        }
     }
+
     private bool TryDropOnTower()
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+        GameManager.Instance.SetCursor(GameManager.Cursors.Default);
         if (hit.collider != null && hit.collider.GetComponent<IUsesCards>() != null)
         {
-            if (hit.collider.GetComponent<IUsesCards>().CanAddCard(cardUI.SkillInstance.Data))
+            if (hit.collider.GetComponent<IUsesCards>().CanAddCard(cardUI.SkillInstance))
             {
                 OnDropCard?.Invoke();
                 hit.collider.GetComponent<IUsesCards>().AddCard(cardUI.SkillInstance);

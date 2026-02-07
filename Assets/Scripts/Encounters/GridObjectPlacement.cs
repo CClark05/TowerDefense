@@ -44,7 +44,7 @@ public class GridObjectPlacement : MonoBehaviour
 
     public void DriveAway()
     {
-        var seq = DOTween.Sequence();
+        var seq = DOTween.Sequence().SetUpdate(true);
         seq.Append(transform.DOMoveX(-26f, 0.7f).SetEase(Ease.InBack).OnComplete(() =>
         {
             gameObject.SetActive(false);

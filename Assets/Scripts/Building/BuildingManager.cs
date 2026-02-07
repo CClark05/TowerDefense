@@ -62,6 +62,12 @@ public class BuildingManager : Singleton<BuildingManager>
             undoButton.gameObject.SetActive(true);
             gridManager.Grid.SetValue(x, y, currentBuild.data);
             GameObject newBuilding = Instantiate(currentBuild.data.prefab, worldGridPosition, Quaternion.identity);
+            var towerData = newBuilding.GetComponent<TowerDataHolder>();
+            towerData.OnUpdateCards += () =>
+            {
+                if(mostRecentBuild.data == towerData)
+                    undoButton.gameObject.SetActive(false);
+            };
             mostRecentBuild.data = newBuilding.GetComponent<TowerDataHolder>();
             mostRecentBuild.gridPos = new Vector2Int(x, y);
             mostRecentBuild.cost = currentBuild.data.cost;
@@ -84,9 +90,13 @@ public class BuildingManager : Singleton<BuildingManager>
     }
     private void ExitBuildMode()
     {
-        Destroy(currentBuild.preview);
-        Destroy(currentBuild.selectionTile.gameObject);
-        currentBuild = (null, null, null);
+        if (currentBuild.preview != null)
+        {
+            Destroy(currentBuild.preview);
+            Destroy(currentBuild.selectionTile.gameObject);
+            currentBuild = (null, null, null);
+        }
+
         OnExitBuildMode?.Invoke();
     }
 }

@@ -21,14 +21,15 @@ public class BloodMoneySkillData : SkillData
     }
 }
 
-public class BloodMoneySkillInstance : SkillInstance<BloodMoneySkillData>, IOnKill
+public class BloodMoneySkillInstance : SkillInstance<BloodMoneySkillData>, IOnKill, IPlayCountPolicy<IOnKill>
 {
     private int killCounter;
     public void OnKill(HitData hitData)
     {
         killCounter++;
         if(killCounter % Data.killsNeeded != 0) return;
-        PlayerInventory.Instance.AddCoins(Data.PlusMoney, hitData.damageable.Transform.position);
+        PlayerInventory.Instance.AddCoins(Data.PlusMoney * PlayCount, hitData.damageable.Transform.position);
+        CoinsGenerated += Data.PlusMoney * PlayCount;
         PlayCard();
     }
 
@@ -44,4 +45,6 @@ public class BloodMoneySkillInstance : SkillInstance<BloodMoneySkillData>, IOnKi
         base.Dispose();
         EnemyManager.Instance.OnWaveComplete -= OnWaveComplete;
     }
+
+    public int SetPlayCount() => 1;
 }

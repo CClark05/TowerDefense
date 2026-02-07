@@ -19,12 +19,27 @@ public class PromotionSkillData : SkillData
 public class UpgradeAboveCardSkillInstance : SkillInstance<PromotionSkillData>, ITowerCardReceivedModifier, IPlayCountPolicy<ITowerCardReceivedModifier>
 {
     List<SkillInstance> upgradedCards = new List<SkillInstance>();
+    private Action<int> OnPlayCountUpdatedHandle;
     public UpgradeAboveCardSkillInstance(PromotionSkillData data) : base(data)
     {
+        OnPlayCountUpdatedHandle += _ =>
+        {
+            var cards = skillContext.Tower.SkillInstanceList.Where(c => c != this).ToList();
+            if(cards.Count == 0) return;
+            for (int i = 0; i < PlayCount && i < cards.Count; i++)
+            {
+                var card = cards[i];
+                if (card.Laminated || upgradedCards.Contains(card)) continue;
+                card.PlayCount++;
+                card.OnRemoveCard += OnCardRemoved;
+                upgradedCards.Add(card);
+            }
+        };
     }
 
     public void Apply(TowerWaveData towerWaveData)
     {
+        OnPlayCountUpdated += OnPlayCountUpdatedHandle;
         var cards = skillContext.Tower.SkillInstanceList.Where(c => c != this).ToList();
         if(cards.Count == 0) return;
         for (int i = cards.Count - 1; i >= 0 && upgradedCards.Count < PlayCount; i--)
@@ -44,10 +59,6 @@ public class UpgradeAboveCardSkillInstance : SkillInstance<PromotionSkillData>, 
         card.OnRemoveCard -= OnCardRemoved;
         int index = skillContext.Tower.SkillInstanceList.IndexOf(this);
         var cards = skillContext.Tower.SkillInstanceList.Where(c => c != this && c != card).ToList();
-        foreach (var c in cards)
-        {
-            Debug.Log(c.Data.name);
-        }
         if(cards.Count == 0) return;
         for (int i = cards.Count - 1; i >= 0 && upgradedCards.Count < PlayCount && i < index - 1; i--)
         {
@@ -62,6 +73,7 @@ public class UpgradeAboveCardSkillInstance : SkillInstance<PromotionSkillData>, 
 
     public void Remove(TowerWaveData towerWaveData)
     {
+        OnPlayCountUpdated -= OnPlayCountUpdatedHandle;
         upgradedCards.ForEach(card =>
         {
             card.PlayCount--;

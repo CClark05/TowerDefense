@@ -17,16 +17,15 @@ public class PerfectFormSkillData : SkillData
     }
 }
 
-public class PerfectFormSkillInstance : SkillInstance<PerfectFormSkillData>, IHitModifier, ITowerCardReceivedModifier
+public class PerfectFormSkillInstance : SkillInstance<PerfectFormSkillData>, IHitModifier, IPlayCountPolicy<IHitModifier>
 {
-    private int hits;
     public PerfectFormSkillInstance(PerfectFormSkillData data) : base(data)
     {
     }
 
     public void Modify(HitData hitData, IDamageable target)
     {
-        if (hitData.tower.HitsThisRound < hits)
+        if (hitData.tower.HitsThisRound < Data.hits * PlayCount)
         {
             CritStats critStats = new CritStats();
             foreach (var mod in skillContext.GetSkillInstancesWith<ICritModifier>())
@@ -39,14 +38,5 @@ public class PerfectFormSkillInstance : SkillInstance<PerfectFormSkillData>, IHi
             PlayCard();
         }
     }
-    public void Apply(TowerWaveData towerWaveData)
-    {
-        hits += Data.hits;
-    }
-
-    public void Remove(TowerWaveData towerWaveData)
-    {
-        hits -= Data.hits;
-    }
-
+    public int SetPlayCount() => 1;
 }

@@ -24,6 +24,7 @@ public class DividendSkillInstance : SkillInstance<DividendSkillData>, ITowerWav
     public void Modify(TowerWaveData towerWaveData)
     {
         PlayerInventory.Instance.AddCoins(Data.plusGold,skillContext.Tower.transform.position);
+        CoinsGenerated += Data.plusGold;
         PlayCard();
     }
 }

@@ -14,6 +14,8 @@ public class VignetteController : Singleton<VignetteController>
     private Tween _intensityTw;
     private Tween _smoothnessTw;
     private Sequence _fadeSeq;
+    private Tween _colorTw;
+
 
     public float Intensity => _vignette?.intensity.value ?? 0f;
     public float Smoothness => _vignette?.smoothness.value ?? 0f;
@@ -110,14 +112,50 @@ public class VignetteController : Singleton<VignetteController>
         _fadeSeq.Append(DOTween.To(() => Intensity, SetIntensity, from, each));
         return _fadeSeq;
     }
+    /// <summary>
+    /// Pulses the vignette color briefly, then returns to the original color.
+    /// Ideal for "enemy reached end" damage feedback.
+    /// </summary>
+    public Sequence PulseColor(
+        Color pulseColor,
+        float pulseIntensity = 0.35f,
+        float each = 0.12f,
+        bool unscaledTime = true)
+    {
+        if (_vignette == null) return null;
 
+        // Force overrides on (equivalent to checking the boxes)
+        _vignette.color.overrideState = true;
+        _vignette.intensity.overrideState = true;
+
+        KillTweens();
+
+        Color fromColor = _vignette.color.value;
+        float fromIntensity = _vignette.intensity.value;
+
+        _fadeSeq = DOTween.Sequence()
+            .SetUpdate(unscaledTime)
+            .SetEase(Ease.OutSine);
+
+        // Up
+        _fadeSeq.Join(DOTween.To(() => _vignette.color.value, SetColor, pulseColor, each));
+        _fadeSeq.Join(DOTween.To(() => _vignette.intensity.value, SetIntensity, pulseIntensity, each));
+
+        // Back
+        _fadeSeq.Append(DOTween.To(() => _vignette.color.value, SetColor, fromColor, each));
+        _fadeSeq.Join(DOTween.To(() => _vignette.intensity.value, SetIntensity, fromIntensity, each));
+
+        return _fadeSeq;
+    }
     /// <summary>Stops any running vignette tweens safely.</summary>
     public void KillTweens()
     {
         _intensityTw?.Kill();
         _smoothnessTw?.Kill();
+        _colorTw?.Kill();
         _fadeSeq?.Kill();
-        _intensityTw = _smoothnessTw = null;
+
+        _intensityTw = _smoothnessTw = _colorTw = null;
         _fadeSeq = null;
     }
 }

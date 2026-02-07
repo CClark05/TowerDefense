@@ -49,6 +49,7 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
         IsOverReceiver = false;
         originalPosition = rect.position;
         if (!iconUI.Selected) return;
+        GameManager.Instance.SetCursor(GameManager.Cursors.ClosedHand);
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.8f;
     }
@@ -76,17 +77,20 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
             cardReceiver = hit.collider.GetComponent<IUsesCards>();
         }
 
-        IsOverReceiver = cardReceiver != null && cardReceiver.CanAddCard(iconUI.SkillInstance.Data);
+        IsOverReceiver = cardReceiver != null && cardReceiver.CanAddCard(iconUI.SkillInstance);
+        
+        GameManager.Instance.SetCursor(IsOverReceiver ? GameManager.Cursors.OpenHand : GameManager.Cursors.ClosedHand);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         if (!iconUI.Selected) return;
+        GameManager.Instance.SetCursor(GameManager.Cursors.Default);
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1;
         if (isOverReceiver)
         {
-            if (cardReceiver.CanAddCard(iconUI.SkillInstance.Data))
+            if (cardReceiver.CanAddCard(iconUI.SkillInstance))
             {
                 iconUI.usesCards.RemoveCard(iconUI.SkillInstance);
                 OnRemoveCard?.Invoke();

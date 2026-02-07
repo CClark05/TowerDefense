@@ -62,7 +62,10 @@ public class InventoryCardAnimation : MonoBehaviour
             cardImage.sprite = originalSprite;
 
         };
-
+        dragDrop.OnOverTarget += () =>
+        {
+            GetComponentInChildren<SquishAnimation>().Squish(0.5f);
+        };
         transform.localScale = Vector3.zero;
         transform.DOScale(originalScale, 0.3f).SetEase(Ease.OutBack).SetDelay(0.1f).SetUpdate(true);
     }

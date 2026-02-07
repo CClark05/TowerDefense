@@ -1202,7 +1202,7 @@ TextureImporter:
         width: 18
         height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -1211,6 +1211,28 @@ TextureImporter:
       bones: []
       spriteID: b22eb6c7fcd019e4caeaff7595116edf
       internalID: -15812219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WildCard_Icon
+      rect:
+        serializedVersion: 2
+        x: 295
+        y: 161
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa141049ddb9a65439d44fbaa124dee7
+      internalID: 1554295851
       vertices: []
       indices: 
       edges: []
@@ -1278,6 +1300,7 @@ TextureImporter:
       Vitality_Icon: -2079561314
       Volatile_Icon: -476345004
       WhiteFlag_Icon: 310865519
+      WildCard_Icon: 1554295851
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

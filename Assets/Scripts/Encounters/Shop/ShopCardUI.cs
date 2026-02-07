@@ -45,7 +45,7 @@ public class ShopCardUI : MonoBehaviour, ICardUI
                 OnNotEnoughCoins?.Invoke();
                 return;
             }
-            if (!InventoryUI.Instance.CanAddCard(cardData))
+            if (!InventoryUI.Instance.CanAddCard())
             {
                 Debug.Log("Inventory full");
                 return;

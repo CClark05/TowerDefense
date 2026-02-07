@@ -138,7 +138,11 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
         }
     }
     
-    public bool CanAddCard(SkillData skillData)
+    public bool CanAddCard(SkillInstance instance)
+    {
+        return SkillCards.Count < settings.MaxCards;
+    }
+    public bool CanAddCard()
     {
         return SkillCards.Count < settings.MaxCards;
     }

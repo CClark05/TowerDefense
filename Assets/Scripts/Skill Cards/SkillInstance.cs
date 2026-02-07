@@ -32,6 +32,9 @@ public abstract class SkillInstance
         set
         {
             if (playCount == value) return;
+            if (value > PlayCount && skillContext != null)
+                OnUpgradeSkill?.Invoke(this,skillContext.Tower.transform.position);
+            
             playCount = value;
             OnPlayCountUpdated?.Invoke(value);
         }
@@ -67,6 +70,19 @@ public abstract class SkillInstance
         }
     }
 
+    private int coinsGenerated;
+    public int CoinsGenerated
+    {
+        get => coinsGenerated;
+        set
+        {
+            if (coinsGenerated == value) return;
+            coinsGenerated = value;
+            OnCoinsUpdated?.Invoke(value);
+        }
+    }
+
+    public event Action<int> OnCoinsUpdated;
     public event Action<int> OnDamageUpdated;
     private bool laminated;
     public bool Laminated
@@ -83,6 +99,7 @@ public abstract class SkillInstance
     public event Action<bool> OnIsLaminatedUpdated;
     public event Action OnDispose;
     public static event Action<SkillInstance,Vector2> OnDisposeSkill;
+    public static event Action<SkillInstance, Vector2> OnUpgradeSkill; 
     public void SetContext(SkillContext context) => skillContext = context;
     public event Action OnPlayCard;
     public event Action<int> OnPlayCountUpdated;

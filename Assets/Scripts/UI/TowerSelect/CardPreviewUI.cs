@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class CardPreviewUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI nameText, descriptionText, runtimeStatText, damageText;
+    [SerializeField] private TextMeshProUGUI nameText, descriptionText, runtimeStatText, damageText, coinText;
     [SerializeField] private VerticalLayoutGroup tabLayout;
     [SerializeField] private GameObject tabPrefab;
     private List<GameObject> activeTabs = new();
@@ -25,6 +25,13 @@ public class CardPreviewUI : MonoBehaviour
         {
             damageText.gameObject.SetActive(true);
             damageText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = instance.Damage.ToString();
+        }
+        if(instance.CoinsGenerated == 0) 
+            coinText.gameObject.SetActive(false);
+        else
+        {
+            coinText.gameObject.SetActive(true);
+            coinText.text = $"${instance.CoinsGenerated}";
         }
         var data = instance.Data;
         activeTabs.ForEach(Destroy);
@@ -58,6 +65,11 @@ public class CardPreviewUI : MonoBehaviour
         {
             damageText.gameObject.SetActive(true);
             damageText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{damage}";
+        };
+        instance.OnCoinsUpdated += coins =>
+        {
+            coinText.gameObject.SetActive(true);
+            coinText.text = $"${coins}";
         };
         UpdateDescription(instance.PlayCount);
         if (instance.RuntimeStat.HasValue)

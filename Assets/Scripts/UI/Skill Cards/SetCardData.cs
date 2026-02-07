@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class SetCardData : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI nameText, descriptionText, damageText;
+    [SerializeField] private TextMeshProUGUI nameText, descriptionText, damageText, coinsText;
     private string originalDescription;
     [SerializeField] private GameObject sideTabPrefab;
     [SerializeField] private TextMeshProUGUI runtimeStatText;
@@ -91,6 +91,11 @@ public class SetCardData : MonoBehaviour
             damageText.gameObject.SetActive(true);
             damageText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = instance.Damage.ToString();
         }
+        if(instance.CoinsGenerated > 0 && coinsText != null)
+        {
+            coinsText.gameObject.SetActive(true);
+            coinsText.text = $"${instance.CoinsGenerated}";
+        }
         SkillInstance.OnRuntimeStatUpdated += value => { runtimeStatText.text = $"({SkillInstance.Data.FormatRuntimeStat(value)})"; };
         SkillInstance.OnPlayCountUpdated += UpdateDescription;
         SkillInstance.OnIsLaminatedUpdated += laminated =>
@@ -119,6 +124,12 @@ public class SetCardData : MonoBehaviour
             if (damageText == null) return;
             damageText.gameObject.SetActive(true);
             damageText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{damage}";
+        };
+        SkillInstance.OnCoinsUpdated += (coins) =>
+        {
+            if (coinsText == null) return;
+            coinsText.gameObject.SetActive(true);
+            coinsText.text = $"${coins}";
         };
     }
 

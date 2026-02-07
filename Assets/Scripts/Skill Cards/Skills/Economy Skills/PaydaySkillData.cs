@@ -30,6 +30,7 @@ public class PaydaySkillInstance : SkillInstance<PaydaySkillData>, ITowerWaveEnd
     public void OnKill(HitData hitData)
     {
         PlayerInventory.Instance.AddCoins(Data.goldPerKill, hitData.damageable.Transform.position);
+        CoinsGenerated += Data.goldPerKill;
         PlayCard();
     }
 

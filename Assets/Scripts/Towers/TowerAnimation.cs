@@ -28,8 +28,9 @@ public class TowerAnimation : MonoBehaviour
                 Squish(0.5f);
             });
         });
+        
     }
-    private void Squish(float strength = 1, Action OnComplete = null)
+    public void Squish(float strength = 1, Action OnComplete = null)
     {
         GetComponentsInChildren<SquishAnimation>().ToList().ForEach(squish => squish.Squish(strength, 1, OnComplete));
     }
