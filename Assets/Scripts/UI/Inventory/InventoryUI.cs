@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class InventoryUI : Singleton<InventoryUI>, IUsesCards
@@ -14,59 +16,73 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private SkillRegistry skillRegistry;
     [SerializeField] private InventoryCardSlot[] cardSlots;
+    [SerializeField] private Transform handTransform;
     public List<SkillCardUI> SkillCards { get; private set; } = new();
     public event Action OnRemovedCard;
     
     public List<SkillData> testingData; //REMOVE THIS LATER
     [SerializeField] private InventorySettings settings;
+    private bool handShown = true;
     private void Start()
     {
         
-        InventoryChestUI chestUI = chestButton.GetComponent<InventoryChestUI>();
         BuildingManager.Instance.OnEnterBuildMode += EnterBuildMode;
         BuildingManager.Instance.OnExitBuildMode += ExitBuildMode;
         void ExitBuildMode()
         {
-            if (chestUI.RemainOpen) return;
             inventoryUI.SetActive(false);
-            chestUI.SetState(InventoryChestUI.States.Closed);
         }
-
         void EnterBuildMode()
         {
-            chestUI.SetState(InventoryChestUI.States.Open);
             inventoryUI.SetActive(true);
         }
+
+        Image handOverlay = chestButton.transform.GetChild(0).GetComponent<Image>();
         chestButton.OnHover += () =>
         {
-            if (chestUI.RemainOpen || BuildingManager.Instance.IsInBuildMode) return;
-            chestUI.SetState(InventoryChestUI.States.Peeking);
-            inventoryUI.SetActive(true);
+            handOverlay.DOFade(80f / 255, 0.2f);
         };
         chestButton.OnLeaveHover += () =>
         {
-            if (chestUI.RemainOpen || BuildingManager.Instance.IsInBuildMode) return;
-            inventoryUI.SetActive(false);
-            chestUI.SetState(InventoryChestUI.States.Closed);
+            handOverlay.DOFade(0, 0.2f);
         };
-        chestButton.OnClick.AddListener(() =>
-        {
-            chestUI.ToggleRemainOpen(!chestUI.RemainOpen);
-            chestUI.SetState(chestUI.RemainOpen ? InventoryChestUI.States.Open : InventoryChestUI.States.Closed);
-            inventoryUI.SetActive(chestUI.RemainOpen);
-        });
+        chestButton.OnClick.AddListener(ToggleHandVisibility);
 
         EnemyManager.Instance.OnWaveStarted += () =>
         {
-            inventoryUI.SetActive(false);
-            chestUI.gameObject.SetActive(false);
+            if(handShown) ToggleHandVisibility();
         };
         EnemyManager.Instance.OnWaveComplete += () =>
         {
-            inventoryUI.SetActive(true);
-            chestUI.gameObject.SetActive(true);
+            if(!handShown)
+                ToggleHandVisibility();
         };
     }
+
+    private void ToggleHandVisibility()
+    {
+        float stagger = 0.05f;
+        handShown = !handShown;
+        if (!handShown)
+        {
+            for (int i = 0; i < SkillCards.Count; i++)
+            {
+                SkillCards[i]
+                    .GetComponent<InventoryCardAnimation>()
+                    .AnimateIntoHand(handTransform, i * stagger);
+            }
+            return;
+        }
+        for (int i = 0; i < SkillCards.Count; i++)
+        {
+            float reversedDelay = (SkillCards.Count - 1 - i) * stagger;
+
+            SkillCards[i]
+                .GetComponent<InventoryCardAnimation>()
+                .AnimateBack(reversedDelay);
+        }
+    }
+
     //REMOVE THIS
     private int test = 0;
     private void Update()

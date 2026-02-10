@@ -5,11 +5,13 @@ using UnityEngine;
 public class CardIconAnimation : MonoBehaviour
 {
     private CardIconUI iconUI;
+    private CardIconDragDrop dragDrop;
     private TowerDataHolder towerDataHolder;
     private Vector3 originalScale;
     private void Awake()
     {
         iconUI = GetComponent<CardIconUI>();
+        dragDrop = GetComponent<CardIconDragDrop>();
     }
 
     private void Start()
@@ -17,6 +19,16 @@ public class CardIconAnimation : MonoBehaviour
         towerDataHolder = GetComponentInParent<TowerDataHolder>();
         towerDataHolder.SkillContext.OnCardPlayed += OnCardPlayed;
         originalScale = GetComponent<RectTransform>().localScale;
+        dragDrop.OnOverTarget += (owner) =>
+        {
+            if (owner == towerDataHolder.GetComponent<IUsesCards>()) return;
+            transform.DOScale(originalScale * 1.5f, 0.1f);
+        };
+        dragDrop.OnLeftTarget += () =>
+        {
+            if (transform.localScale == originalScale) return;
+            transform.DOScale(originalScale, 0.1f);
+        };
     }
 
     private void OnCardPlayed(SkillInstance data)

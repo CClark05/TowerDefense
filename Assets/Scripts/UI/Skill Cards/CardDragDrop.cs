@@ -11,13 +11,13 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     private CanvasGroup canvasGroup;
     private Vector2 originalPosition;
     private UIRaycastBlocker raycastBlocker;
+    private Transform dragParent;
+    private Transform originalParent;
     public event Action OnDropCard;
     public event Action OnOverTarget;
-    public static event Action OnStartDragStatic;
-    public static event Action OnEndDragStatic;
     public Vector2? TargetPosition { get; private set; } = null;
     public bool IsDragging { get; private set; }
-
+    public static bool IsDraggingAny { get; private set; }
     private void Awake()
     {
         rect = GetComponent<RectTransform>();
@@ -29,29 +29,38 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
     private void Start()
     {
         raycastBlocker = UIRaycastBlocker.Instance;
+        dragParent = transform.parent.parent.parent;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!cardUI.Selected) return;
         GameManager.Instance.SetCursor(GameManager.Cursors.ClosedHand);
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.8f;
-        originalPosition = rect.anchoredPosition;
+        //originalPosition = rect.anchoredPosition + new Vector2(0,-50f);
+        originalParent = rect.parent;
+        rect.SetParent(dragParent, true);
+
         raycastBlocker.GetComponent<Image>().raycastTarget = true;
         IsDragging = true;
+        IsDraggingAny = true;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!cardUI.Selected) return;
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1;
         raycastBlocker.GetComponent<Image>().raycastTarget = false;
         IsDragging = false;
+        IsDraggingAny = false;
         if (!TryDropOnTower())
         {
-            TargetPosition = originalPosition;
+            rect.SetParent(originalParent, true);
+            TargetPosition = GetComponent<InventoryCardAnimation>().originalPos;
+        }
+        else
+        {
+            TargetPosition = rect.anchoredPosition;
         }
     }
 
@@ -59,8 +68,6 @@ public class CardDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, I
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!cardUI.Selected) return;
-
         TargetPosition = rect.anchoredPosition + eventData.delta / canvas.scaleFactor;
 
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

@@ -8,7 +8,7 @@ public class BombBaseDamageSkillData : SkillData
     private void OnValidate()
     {
         string hex = ColorUtility.ToHtmlStringRGB(statusEffects[0].data.color);
-        description = $"Your <color=#{hex}>Bombs</color> gain base damage of +{baseDamageMult * 100}% of your tower's base damage.";
+        description = $"Your <color=#{hex}>Bombs</color> gain base damage equal to +{baseDamageMult * 100}% of your tower's base damage.";
     }
 
     public override SkillInstance CreateInstance()

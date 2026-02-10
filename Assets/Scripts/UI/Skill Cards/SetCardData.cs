@@ -132,7 +132,7 @@ public class SetCardData : MonoBehaviour
             coinsText.text = $"${coins}";
         };
     }
-
+    
     public void DisableTabs()
     {
         foreach (var tab in currentTabs)

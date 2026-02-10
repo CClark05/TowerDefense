@@ -227,7 +227,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Damage :'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
   m_sharedMaterial: {fileID: 208216535120782835, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
@@ -758,8 +758,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51c6c66cc8f7d2241ab75a8d8f9a78ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectedSprite: {fileID: -990553344713136355, guid: 2174da240774a714ab67e3ae437e8c26, type: 3}
+  originalPos: {x: 0, y: 0, z: 0}
   cardImage: {fileID: 8671839564978458881}
+  icon: {fileID: 259904171688400682}
+  UI: {fileID: 4078595458211601708}
+  cardBackSprite: {fileID: 4962204976219509173, guid: 2174da240774a714ab67e3ae437e8c26, type: 3}
+  Dropped: 0
 --- !u!223 &5064917663201008603
 Canvas:
   m_ObjectHideFlags: 0
@@ -877,7 +881,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 530
+  m_text: '
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}
   m_sharedMaterial: {fileID: 208216535120782835, guid: 372d22b7eb35f524fb07ed8ebd899021, type: 2}

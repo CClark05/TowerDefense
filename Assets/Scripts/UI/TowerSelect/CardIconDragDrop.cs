@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-
 public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
     private RectTransform rect;
@@ -14,8 +13,10 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
     private CardIconUI iconUI;
     public event Action OnRemoveCard;
     public event Action<bool> OnIsOverReceiverUpdated;
-    private bool isOverReceiver;
+    public event Action<IUsesCards> OnOverTarget;
+    public event Action OnLeftTarget;
 
+    private bool isOverReceiver;
     public bool IsOverReceiver
     {
         get => isOverReceiver;
@@ -28,6 +29,7 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
     }
 
     private IUsesCards cardReceiver;
+    private IUsesCards lastHoverReceiver;
 
     private void Awake()
     {
@@ -47,8 +49,8 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
     public void OnBeginDrag(PointerEventData eventData)
     {
         IsOverReceiver = false;
+        lastHoverReceiver = null;
         originalPosition = rect.position;
-        if (!iconUI.Selected) return;
         GameManager.Instance.SetCursor(GameManager.Cursors.ClosedHand);
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.8f;
@@ -56,7 +58,6 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!iconUI.Selected) return;
         cardReceiver = null;
         if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
                 worldCanvas.transform as RectTransform, eventData.position, worldCanvas.worldCamera, out var world))
@@ -70,24 +71,35 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
             screenCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : screenCanvas.worldCamera
         );
         if (IsOverChest) cardReceiver = InventoryUI.Instance.GetComponent<IUsesCards>();
+
         Vector2 pointerWorld = cam.ScreenToWorldPoint(eventData.position);
         var hit = Physics2D.Raycast(pointerWorld, Vector2.zero);
         if (hit.collider != null && hit.collider.GetComponent<IUsesCards>() != null)
-        {
             cardReceiver = hit.collider.GetComponent<IUsesCards>();
-        }
 
-        IsOverReceiver = cardReceiver != null && cardReceiver.CanAddCard(iconUI.SkillInstance);
+        if (cardReceiver != null && cardReceiver != lastHoverReceiver)
+        {
+            OnOverTarget?.Invoke(cardReceiver);
+            lastHoverReceiver = cardReceiver;
+        }
+        else if (cardReceiver == null)
+        {
+            lastHoverReceiver = null;
+            OnLeftTarget?.Invoke();
+        }
         
+        IsOverReceiver = cardReceiver != null && cardReceiver.CanAddCard(iconUI.SkillInstance);
+        Debug.Log(IsOverReceiver);
         GameManager.Instance.SetCursor(IsOverReceiver ? GameManager.Cursors.OpenHand : GameManager.Cursors.ClosedHand);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!iconUI.Selected) return;
         GameManager.Instance.SetCursor(GameManager.Cursors.Default);
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1;
+        lastHoverReceiver = null;
+
         if (isOverReceiver)
         {
             if (cardReceiver.CanAddCard(iconUI.SkillInstance))

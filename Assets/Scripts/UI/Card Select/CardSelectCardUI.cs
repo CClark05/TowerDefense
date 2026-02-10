@@ -17,7 +17,7 @@ public class CardSelectCardUI : MonoBehaviour, ICardUI
     {
         button.OnHover += () => OnHoverCard?.Invoke();
         button.OnLeaveHover += () => OnLeaveHoverCard?.Invoke();
+        button.OnClick.AddListener(() => OnClickCard?.Invoke());
     }
-    
     
 }
