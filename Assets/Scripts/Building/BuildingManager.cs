@@ -16,6 +16,7 @@ public class BuildingManager : Singleton<BuildingManager>
     public event Action<TowerData> OnPlacedBuild;
     public bool IsInBuildMode => currentBuild.preview != null;
     private (TowerDataHolder data, Vector2Int gridPos, int cost) mostRecentBuild;
+    public event Action<TowerDataHolder> OnAddNewTower;
     private void Start()
     {
         gridManager = GridManager.Instance;
@@ -63,6 +64,7 @@ public class BuildingManager : Singleton<BuildingManager>
             gridManager.Grid.SetValue(x, y, currentBuild.data);
             GameObject newBuilding = Instantiate(currentBuild.data.prefab, worldGridPosition, Quaternion.identity);
             var towerData = newBuilding.GetComponent<TowerDataHolder>();
+            OnAddNewTower?.Invoke(towerData);
             towerData.OnUpdateCards += () =>
             {
                 if(mostRecentBuild.data == towerData)

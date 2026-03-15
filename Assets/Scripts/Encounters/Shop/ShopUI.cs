@@ -15,8 +15,9 @@ public class ShopUI : MonoBehaviour
     [SerializeField] private Button_Scale leaveButton, sellButton;
     [SerializeField] private Transform chestLocation;
     [SerializeField] private ShopSellPanel sellPanel;
+    [SerializeField] private SkillData wildCardData, overflowData;
     public Transform ChestLocation => chestLocation;
-    private int cardCount = 4;
+    private int cardCount = 3;
     private CardCooldowns cardCooldowns = new(6);
     private List<SkillData> currentCards = new();
     private void Start()
@@ -41,6 +42,8 @@ public class ShopUI : MonoBehaviour
                 GameObject newCard = Instantiate(cardPrefab, cardLayout.transform);
                 newCard.GetComponent<SetCardData>().SetData(data);
             }
+            Instantiate(cardPrefab, cardLayout.transform).GetComponent<SetCardData>().SetData(wildCardData);
+            Instantiate(cardPrefab, cardLayout.transform).GetComponent<SetCardData>().SetData(overflowData);
             sellPanel.ToggleCardButtons(true);
         };
         sellButton.OnClick.AddListener(() =>

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: UpgradeSettings
   m_EditorClassIdentifier: 
   icon: {fileID: -5224017164857104836, guid: 8ac0deeeccce30341812c061ca196dbc, type: 3}
-  minWave: 0
+  minWave: 8

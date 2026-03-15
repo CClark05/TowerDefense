@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Hunter's Mark
   icon: {fileID: -5632352613104609792, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Gain a +7.5% chance for hits to be <color=#468232>Critical</color>
+  description: Gain a +5% chance for hits to be <color=#468232>Critical</color>
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects:
@@ -24,4 +24,4 @@ MonoBehaviour:
   buffs: []
   prerequisiteSkills: []
   isExcluded: 0
-  CritChance: 0.075
+  CritChance: 0.05

@@ -18,7 +18,7 @@ public class PiercingShotSkillData : SkillData
     }
 }
 
-public class PiercingShotSkillInstance : SkillInstance<PiercingShotSkillData>, IProjectileModifier
+public class PiercingShotSkillInstance : SkillInstance<PiercingShotSkillData>, IProjectileModifier, IPlayCountPolicy<IProjectileModifier>
 {
     public PiercingShotSkillInstance(PiercingShotSkillData data) : base(data)
     {
@@ -26,9 +26,10 @@ public class PiercingShotSkillInstance : SkillInstance<PiercingShotSkillData>, I
 
     public IEnumerator Modify(ProjectileShotData shotData)
     {
-        shotData.maxEnemiesPierced += Data.maxEnemiesPierced;
+        shotData.maxEnemiesPierced += 1 + ((Data.maxEnemiesPierced - 1)* PlayCount);
         yield return null;
     }
 
     public bool DelayShot { get; }
+    public int SetPlayCount() => 1;
 }

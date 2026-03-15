@@ -15,8 +15,10 @@ MonoBehaviour:
   name: Exposing Haste
   icon: {fileID: 0}
   rarity: 1
-  description: While every enemy is <color=#A23E8C>Weak</color> gain 3 <color=#DE9E41>Haste</color>
+  description: While every enemy is <color=#A23E8C>Weak</color> gain +3 <color=#DE9E41>Haste</color>
     per enemy.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects:
   - showInUI: 1
     data: {fileID: 11400000, guid: bbc4e7296f4b7db49a7dda77c757b7f0, type: 2}
@@ -25,5 +27,5 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: cd6844518b81a7148b069ae01942a042, type: 2}
   prerequisiteSkills:
   - {fileID: 11400000, guid: 03d3d4cdd9236f54a9cf8b9b51ea1c3a, type: 2}
-  isExcluded: 0
+  isExcluded: 1
   hasteStacksPerEnemy: 3

@@ -17,7 +17,9 @@ public class TowerBuffs : MonoBehaviour
         skillContext.OnBuffRemoved += OnBuffRemoved;
         enemyManager = EnemyManager.Instance;
         enemyManager.OnWaveComplete += OnWaveComplete;
+        enemyManager.OnWaveStarted += OnWaveComplete;
     }
+    
 
     private void OnWaveComplete()
     {
@@ -57,5 +59,6 @@ public class TowerBuffs : MonoBehaviour
     private void OnDisable()
     {
         enemyManager.OnWaveComplete -= OnWaveComplete;
+        enemyManager.OnWaveStarted -= OnWaveComplete;
     }
 }

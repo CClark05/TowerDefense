@@ -15,7 +15,8 @@ MonoBehaviour:
   name: Killing Spree
   icon: {fileID: 4017673532660534875, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Gain +10% Critical damage on kill. Resets after wave.
+  description: Gain +5% <color=#468232>Critical</color> damage on kill. Resets after
+    wave.
   hasRuntimeValue: 1
   runtimeStatsFormat: +x%
   statusEffects:
@@ -25,4 +26,4 @@ MonoBehaviour:
   prerequisiteSkills:
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
   isExcluded: 0
-  CritDamageGainOnKill: 0.1
+  CritDamageGainOnKill: 0.05

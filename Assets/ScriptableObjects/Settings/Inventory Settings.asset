@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c00ab4444eb54d06ac9d409d27274fc5, type: 3}
   m_Name: Inventory Settings
   m_EditorClassIdentifier: 
-  MaxCards: 6
+  MaxCards: 7

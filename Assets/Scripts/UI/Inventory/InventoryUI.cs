@@ -25,18 +25,6 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     private bool handShown = true;
     private void Start()
     {
-        
-        BuildingManager.Instance.OnEnterBuildMode += EnterBuildMode;
-        BuildingManager.Instance.OnExitBuildMode += ExitBuildMode;
-        void ExitBuildMode()
-        {
-            inventoryUI.SetActive(false);
-        }
-        void EnterBuildMode()
-        {
-            inventoryUI.SetActive(true);
-        }
-
         Image handOverlay = chestButton.transform.GetChild(0).GetComponent<Image>();
         chestButton.OnHover += () =>
         {

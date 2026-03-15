@@ -435,14 +435,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.87058824, g: 0.61960787, b: 0.25490198, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -130430235782360439, guid: cb505094c8208bb45b8e3ea368b97c44, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5604,6 +5604,7 @@ GameObject:
   - component: {fileID: 594898885}
   - component: {fileID: 594898887}
   - component: {fileID: 594898889}
+  - component: {fileID: 594898890}
   m_Layer: 5
   m_Name: Hand
   m_TagString: Untagged
@@ -5709,6 +5710,18 @@ MonoBehaviour:
   loops: -1
   playOnAwake: 0
   ease: 4
+--- !u!114 &594898890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594898883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccc57d88fc1642e98a9a6f66436ca243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &606126134
 GameObject:
   m_ObjectHideFlags: 0
@@ -9325,7 +9338,7 @@ MonoBehaviour:
   - {fileID: 134421251}
   handTransform: {fileID: 594898884}
   testingData:
-  - {fileID: 11400000, guid: 8e1f5518cbd478944ba59f38b54e6f78, type: 2}
+  - {fileID: 11400000, guid: c43815f674c7f0843b06bdc998822493, type: 2}
   - {fileID: 11400000, guid: 0ec5bde8ede56c54696f09a0a27780e4, type: 2}
   - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
   - {fileID: 11400000, guid: ad2df2410a27fc94cafcff8fe595239b, type: 2}
@@ -11222,6 +11235,8 @@ MonoBehaviour:
   sellButton: {fileID: 1495456060}
   chestLocation: {fileID: 1472722009}
   sellPanel: {fileID: 1405750032}
+  wildCardData: {fileID: 11400000, guid: 7ce19f628cfe1fb41a8885b0beb9147b, type: 2}
+  overflowData: {fileID: 11400000, guid: ab97cb7746490ff4e9e23cf5fdbc3aec, type: 2}
 --- !u!224 &1221964859
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16524,13 +16539,11 @@ MonoBehaviour:
   chestButton: {fileID: 46289596}
   wildCardData: {fileID: 11400000, guid: 7ce19f628cfe1fb41a8885b0beb9147b, type: 2}
   possibleCards:
-  - {fileID: 11400000, guid: ab97cb7746490ff4e9e23cf5fdbc3aec, type: 2}
-  - {fileID: 11400000, guid: 4edb7d57af391d642bac3145c8f07f1d, type: 2}
-  - {fileID: 11400000, guid: d34e632f0b9178548aba568a21bb1fbe, type: 2}
-  - {fileID: 11400000, guid: c5076f8287a722c4a8e4d98f57563805, type: 2}
+  - {fileID: 11400000, guid: 7ce19f628cfe1fb41a8885b0beb9147b, type: 2}
   cardPrefab: {fileID: 6204308533141475000, guid: 9225c4f38c5c72042bf681cef8ebc09a, type: 3}
   background: {fileID: 888861317}
   rewardLayout: {fileID: 1903500953}
+  openChestSprite: {fileID: -2824512489388135805, guid: cb505094c8208bb45b8e3ea368b97c44, type: 3}
 --- !u!1001 &1743697028
 PrefabInstance:
   m_ObjectHideFlags: 0

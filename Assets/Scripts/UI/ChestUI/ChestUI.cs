@@ -12,6 +12,8 @@ public class ChestUI : MonoBehaviour
     [SerializeField] private SkillData[] possibleCards;
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private Transform background, rewardLayout;
+    [SerializeField] private Sprite openChestSprite;
+    private Sprite closedChestSprite;
     private int totalRewards = 2;
     private int rewardsLeft;
     private TextMeshProUGUI rewardsLeftText;
@@ -19,6 +21,7 @@ public class ChestUI : MonoBehaviour
     private List<GameObject> rewardSlots = new();
     private void Start()
     {
+        closedChestSprite = chestButton.GetComponent<Image>().sprite;
         rewardsLeft = totalRewards;
         rewardsLeftText = chestButton.GetComponentInChildren<TextMeshProUGUI>();
         rewardsLeftText.text = totalRewards.ToString();
@@ -30,6 +33,7 @@ public class ChestUI : MonoBehaviour
         }
         chestButton.OnClick.AddListener(() =>
         {
+            chestButton.GetComponent<Image>().sprite = openChestSprite;
             rewardsLeft--;
             rewardsLeftText.text = rewardsLeft.ToString();
             Transform parent = rewardSlots.First(slot => slot.transform.childCount == 0).transform;
@@ -72,14 +76,13 @@ public class ChestUI : MonoBehaviour
             var encounter = EncounterGenerator.Instance.GetEncounter(EnemyManager.Instance.CurrentWave - 1);
             if (encounter == EncounterGenerator.Instance.BossEncounter)
             {
+                chestButton.GetComponent<Image>().sprite = closedChestSprite;
                 background.gameObject.SetActive(true);
                 rewardsLeft = totalRewards;
                 background.GetComponent<Image>().DOFade(203/255f, 0.5f).OnComplete(() =>
                 {
                     chestButton.gameObject.SetActive(true);
                 });
-                
-                
             }
         };
     }

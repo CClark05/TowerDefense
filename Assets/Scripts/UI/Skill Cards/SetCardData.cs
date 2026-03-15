@@ -89,6 +89,7 @@ public class SetCardData : MonoBehaviour
         if (instance.Damage > 0 && damageText != null)
         {
             damageText.gameObject.SetActive(true);
+            damageText.text = "Damage:";
             damageText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = instance.Damage.ToString();
         }
         if(instance.CoinsGenerated > 0 && coinsText != null)
@@ -123,6 +124,7 @@ public class SetCardData : MonoBehaviour
         {
             if (damageText == null) return;
             damageText.gameObject.SetActive(true);
+            damageText.text = "Damage:";
             damageText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{damage}";
         };
         SkillInstance.OnCoinsUpdated += (coins) =>
