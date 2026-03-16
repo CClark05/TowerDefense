@@ -32,7 +32,7 @@ public class TowerSelectUI : MonoBehaviour
     
     public event Action<bool> OnSelectedUpdated;
     private List<(SkillInstance instance, CardIconUI iconUI)> activeCards = new();
-    private CardIconUI selectedCard;
+
     public static event Action<SkillData> OnSellCardStatic;
     public event Action<SkillInstance> OnSellCard;
     private EnemyManager enemyManager;
@@ -59,6 +59,7 @@ public class TowerSelectUI : MonoBehaviour
 
             UI.SetActive(!UI.activeSelf);
         };
+        /**
         sellButton.OnClick.AddListener(() =>
         {
             if (selectedCard == null)
@@ -79,6 +80,7 @@ public class TowerSelectUI : MonoBehaviour
             sellText.text = $"SELL : <color=#DE9E41>${towerData.GoldValue}</color>";
             fullCardPreview.SetActive(false);
         });
+        */
         towerData.OnUpdateCards += UpdateCards;
         towerData.OnUpdateCards += UpdateUI;
         enemyManager.OnWaveStarted += OnWaveStarted;
@@ -144,7 +146,6 @@ public class TowerSelectUI : MonoBehaviour
             };
             button.OnHover += () =>
             {
-                if (selectedCard != null) return;
                 if(EnemyManager.Instance.WaveState == EnemyManager.WaveStates.Idle)
                     GameManager.Instance.SetCursor(GameManager.Cursors.OpenHand);
                 fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance);
@@ -152,13 +153,15 @@ public class TowerSelectUI : MonoBehaviour
             };
             button.OnLeaveHover += () =>
             {
-                if (selectedCard != null) return;
                 GameManager.Instance.SetCursor(GameManager.Cursors.Default);
                 fullCardPreview.SetActive(false);
             };
+            
             button.OnClick.AddListener(() =>
             {
-                if (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Spawning || EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning) return;
+                /**
+                if (EnemyManager.Instance.WaveState != EnemyManager.WaveStates.Idle) return;
+                /**
                 if (selectedCard == newCard)
                 {
                     newCard.Selected = false;
@@ -166,33 +169,30 @@ public class TowerSelectUI : MonoBehaviour
                     sellText.text = $"SELL : <color=#DE9E41>${towerData.GoldValue}</color>";
                     return;
                 }
-
-                if (selectedCard != null)
-                    selectedCard.Selected = false;
-
-                newCard.Selected = true;
-                selectedCard = newCard;
+                */
+                
                 fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance);
-                sellText.text = $"SELL : <color=#DE9E41>${Mathf.FloorToInt(instance.Data.price * 0.5f)}</color>";
+                //sellText.text = $"SELL : <color=#DE9E41>${Mathf.FloorToInt(instance.Data.price * 0.5f)}</color>";
             });
+            
         }
     }
 
     private void OnWaveStarted()
     {
         Selected = false;
+        /**
         if (selectedCard != null)
         {
             selectedCard.Selected = false;
             selectedCard = null;
         }
-
+        */
         UI.SetActive(false);
     }
     private void OnWaveComplete()
     {
         Selected = false;
-        selectedCard = null;
         UI.SetActive(false);
     }
     private void OnDisable()

@@ -97,7 +97,7 @@ public class SetCardData : MonoBehaviour
             coinsText.gameObject.SetActive(true);
             coinsText.text = $"${instance.CoinsGenerated}";
         }
-        SkillInstance.OnRuntimeStatUpdated += value => { runtimeStatText.text = $"({SkillInstance.Data.FormatRuntimeStat(value)})"; };
+        SkillInstance.OnRuntimeStatUpdated += (value) => { runtimeStatText.text = $"({SkillInstance.Data.FormatRuntimeStat(value)})"; };
         SkillInstance.OnPlayCountUpdated += UpdateDescription;
         SkillInstance.OnIsLaminatedUpdated += laminated =>
         {

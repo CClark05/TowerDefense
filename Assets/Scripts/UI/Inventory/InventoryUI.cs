@@ -18,7 +18,9 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
     [SerializeField] private InventoryCardSlot[] cardSlots;
     [SerializeField] private Transform handTransform;
     public List<SkillCardUI> SkillCards { get; private set; } = new();
+    private HashSet<SkillInstance> seenCards = new();
     public event Action OnRemovedCard;
+    public event Action<SkillInstance> OnAddNewCard;
     
     public List<SkillData> testingData; //REMOVE THIS LATER
     [SerializeField] private InventorySettings settings;
@@ -95,6 +97,11 @@ public class InventoryUI : Singleton<InventoryUI>, IUsesCards
         SkillCardUI skillCard = Instantiate(cardPrefab, slotTransform).GetComponent<SkillCardUI>();
         skillCard.GetComponent<SetCardData>().SetData(skillInstance.Data);
         skillCard.GetComponent<SetCardData>().SetInstance(skillInstance);
+        if (seenCards.Add(skillInstance))
+        {
+            OnAddNewCard?.Invoke(skillInstance);
+        }
+
         SkillCards.Add(skillCard);
         skillRegistry.AddNewSkill(skillInstance.Data);
         skillCard.OnRemoveCard += RemoveCard;

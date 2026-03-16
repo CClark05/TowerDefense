@@ -17,14 +17,16 @@ public class BaseDamageRelicInstance : RelicInstance
 {
     public BaseDamageRelicInstance(BaseDamageRelicData data) : base(data)
     {
-        BuildingManager.Instance.OnAddNewTower += OnAddNewTower;
+        
     }
     void OnAddNewTower(TowerDataHolder tower)
     {
         tower.RuntimeData.BaseDamage += ((BaseDamageRelicData)Data).BonusDamage;
+        OnUsed?.Invoke();
     }
     public override void OnPickup()
     {
+        BuildingManager.Instance.OnAddNewTower += OnAddNewTower;
         foreach(var tower in TowerDataHolder.ActiveTowerList)
         {
             tower.RuntimeData.BaseDamage += ((BaseDamageRelicData)Data).BonusDamage;

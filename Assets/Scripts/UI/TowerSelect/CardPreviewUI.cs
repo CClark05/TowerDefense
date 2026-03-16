@@ -63,11 +63,13 @@ public class CardPreviewUI : MonoBehaviour
         instance.OnPlayCountUpdated += UpdateDescription;
         instance.OnDamageUpdated += (damage) =>
         {
+            if (currentInstance != instance) return;
             damageText.gameObject.SetActive(true);
             damageText.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{damage}";
         };
         instance.OnCoinsUpdated += coins =>
         {
+            if (currentInstance != instance) return;
             coinText.gameObject.SetActive(true);
             coinText.text = $"${coins}";
         };

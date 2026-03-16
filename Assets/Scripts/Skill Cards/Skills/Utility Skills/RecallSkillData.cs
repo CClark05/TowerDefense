@@ -27,6 +27,7 @@ public class RecallSkillInstance : SkillInstance<RecallSkillData>, ISelfDestruct
         {
             PlayCard();
             var newInstance = cardInstance.Data.CreateInstance();
+            newInstance.PlayCount = cardInstance.PlayCount;
             InventoryUI.Instance.AddCard(newInstance);
         }
 

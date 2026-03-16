@@ -60,10 +60,9 @@ public class PlayerInventory : Singleton<PlayerInventory>
     
     private void Update()
     {
-        /**
         if (Input.GetKeyDown(KeyCode.C))
             AddCoins(10);
-            */
+        
     }
     public void AddCoins(int amount)
     {

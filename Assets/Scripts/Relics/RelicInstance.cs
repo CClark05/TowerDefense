@@ -1,3 +1,6 @@
+using System;
+using UnityEngine;
+
 public abstract class RelicInstance 
 {
     protected RelicInstance(RelicData data)
@@ -6,4 +9,6 @@ public abstract class RelicInstance
     }
     public RelicData Data { get; }
     public abstract void OnPickup();
+
+    public Action OnUsed;
 }
