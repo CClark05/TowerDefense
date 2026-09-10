@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using CodeMonkey.Utils;
+using Unity.Burst.Intrinsics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -88,7 +89,10 @@ public class UpgradeUI : Singleton<UpgradeUI>
         foreach (var kvp in cardGroups)
         {
             var list = kvp.Value;
-            var rep = list[0];
+            var rep = list
+                .Where(c => c.Instance.RuntimeStat.HasValue)
+                .OrderByDescending(c => c.Instance.RuntimeStat.Value)
+                .FirstOrDefault() ?? list[0];
             rep.Count = list.Count;
             AddListCard(rep);
         }
@@ -145,8 +149,11 @@ public class UpgradeUI : Singleton<UpgradeUI>
                 var key = (repCard.Instance.Data, repCard.Instance.PlayCount);
                 if (!cardGroups.TryGetValue(key, out var list) || list.Count == 0)
                     return;
-                var picked = list[^1];
-                list.RemoveAt(list.Count - 1);
+                var picked = list
+                    .Where(c => c.Instance.RuntimeStat.HasValue)
+                    .OrderByDescending(c => c.Instance.RuntimeStat.Value)
+                    .FirstOrDefault() ?? list[^1];
+                list.Remove(picked);
 
                 upgradeUI.AddCount(-1, 0);
 
@@ -166,7 +173,11 @@ public class UpgradeUI : Singleton<UpgradeUI>
                     if (!cardGroups.TryGetValue(putKey, out var putList))
                         cardGroups[putKey] = putList = new List<UpgradeableCard>();
                     putList.Add(picked);
-
+                    var bestRep = putList
+                        .Where(c => c.Instance.RuntimeStat.HasValue)
+                        .OrderByDescending(c => c.Instance.RuntimeStat.Value)
+                        .FirstOrDefault() ?? putList[0];
+                    
                     cardsInSlots[i] = (null, null);
                     if (listUIByKey.TryGetValue(putKey, out var ui) && ui != null)
                     {
@@ -197,7 +208,17 @@ public class UpgradeUI : Singleton<UpgradeUI>
                     if (c1 == null || c2 == null) return;
 
                     if (c1.Instance.PlayCount == c2.Instance.PlayCount && c1.Instance.Data == c2.Instance.Data)
-                        CreateOrReplaceOutput(c1);
+                    {
+                        var c = (c1.Instance.RuntimeStat.HasValue, c2.Instance.RuntimeStat.HasValue) switch
+                        {
+                            (true, true) => c1.Instance.RuntimeStat.Value >= c2.Instance.RuntimeStat.Value ? c1 : c2,
+                            (true, false) => c1,
+                            (false, true) => c2,
+                            _ => c1
+                        };
+                        CreateOrReplaceOutput(c);
+                    }
+                        
                 }
 
                 break;
@@ -213,6 +234,11 @@ public class UpgradeUI : Singleton<UpgradeUI>
 
         var newInstance = baseCard.Instance.Data.CreateInstance();
         newInstance.PlayCount = baseCard.Instance.PlayCount + 1;
+        if (baseCard.Instance.RuntimeStat.HasValue)
+        {
+            newInstance.SetRuntimeStat(baseCard.Instance.RuntimeStat.Value);
+            Debug.Log(baseCard.Instance.RuntimeStat.Value);
+        }
 
         outputCard = Instantiate(outputCardPrefab, outputSlot).GetComponent<SetCardData>();
         outputCard.SetData(baseCard.Instance.Data);
@@ -220,41 +246,25 @@ public class UpgradeUI : Singleton<UpgradeUI>
 
         outputCard.GetComponent<ICardUI>().OnClickCard += () =>
         {
-            var c1 = cardsInSlots[0].card;
-            var c2 = cardsInSlots[1].card;
+            UpgradeableCard c1 = cardsInSlots[0].card;
+            UpgradeableCard c2 = cardsInSlots[1].card;
+            
+            if (cardsInSlots[0].card.Instance.RuntimeStat.HasValue && cardsInSlots[1].card.Instance.RuntimeStat.HasValue)
+            {
+                (c1, c2) = cardsInSlots[0].card.Instance.RuntimeStat.Value >= cardsInSlots[1].card.Instance.RuntimeStat.Value
+                    ? (cardsInSlots[0].card, cardsInSlots[1].card)
+                    : (cardsInSlots[1].card, cardsInSlots[0].card);
+            }
+            
             if (c1 == null || c2 == null) return;
             
-            int inventoryCards = new[] { c1, c2 }.Count(card => card.Owner is InventoryUI);
-            /**
-            if (!InventoryUI.Instance.CanAddCardsAfterRemoval(inventoryCards))
-            {
-                TextPopupManager.Instance.CreateTextPopup("NO ROOM", Input.mousePosition);
-                return;
-            }
-            
             outputCard.GetComponent<ICardUI>().ToggleButton(false);
             outputCard.DisableTabs();
-            c1.Owner.RemoveCard(c1.Instance);
+            
+            if (baseCard.Instance.RuntimeStat.HasValue)
+                c1.Instance.SetRuntimeStat(baseCard.Instance.RuntimeStat.Value);
+            c1.Instance.PlayCount++;
             c2.Owner.RemoveCard(c2.Instance);
-            InventoryUI.Instance.AddCard(newInstance);
-            */
-            outputCard.GetComponent<ICardUI>().ToggleButton(false);
-            outputCard.DisableTabs();
-            
-            switch (inventoryCards)
-            {
-                case 2:
-                case 0:
-                    c1.Instance.PlayCount++;
-                    c2.Owner.RemoveCard(c2.Instance);
-                    break;
-                case 1:
-                    var primaryCard = c1.Owner is InventoryUI ? c1 : c2;
-                    var secondaryCard = primaryCard == c1 ? c2 : c1;
-                    primaryCard.Owner.RemoveCard(primaryCard.Instance);
-                    secondaryCard.Instance.PlayCount++;
-                    break;
-            }
 
             var c = AddUpgradedCardToUI(newInstance);
             

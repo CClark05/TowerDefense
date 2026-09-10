@@ -9,19 +9,17 @@ public class CardSelectCardAnimation : MonoBehaviour
     [SerializeField] private GameObject UI;
     private Tweener scaleTween;
     private Vector3 originalScale;
-    public static float DropAnimationDuration => 0.75f;
-    public static float DropDelayPerCard => 0.1f;
+    public static float AnimationDuration => 0.25f;
+    public static float DelayPerCard => 0.075f;
     public event Action OnDoneAnimating;
 
     private void Awake()
     {
         cardUI.Value.ToggleButton(false);
-        UI.SetActive(false);
     }
 
     public void Init(int cardNumber)
     {
-        transform.localPosition = new Vector3(0, 775f, 0);
         originalScale = transform.localScale;
         float scaleDuration = 0.25f;
         cardUI.Value.OnHoverCard += () =>
@@ -34,8 +32,9 @@ public class CardSelectCardAnimation : MonoBehaviour
             scaleTween?.Kill();
             scaleTween = transform.DOScale(originalScale, scaleDuration * 0.75f).SetEase(Ease.OutSine).SetUpdate(true);
         };
-        FunctionTimer.Create(() => UI.SetActive(true), cardNumber * 0.1f);
-        GetComponent<RectTransform>().DOAnchorPosY(0, DropAnimationDuration).SetEase(Ease.OutBounce).SetDelay(cardNumber * DropDelayPerCard).OnComplete(() =>
+
+        transform.localScale = Vector3.zero;
+        GetComponent<RectTransform>().DOScale(1, AnimationDuration).SetEase(Ease.OutCubic).SetDelay(cardNumber * DelayPerCard).OnComplete(() =>
         {
             cardUI.Value.ToggleButton(true);
             OnDoneAnimating?.Invoke();

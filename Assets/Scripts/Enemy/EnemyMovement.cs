@@ -149,6 +149,13 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
                 stopMovement = false;
             });
     }
+
+    public void TeleportTo(Vector2 position)
+    {
+        if (stopMovement) return;
+        transform.position = position;
+        CalculatePath();
+    }
     public bool TryPosVelAt(float t, out Vector2 pos, out Vector2 vel)
     {
         if (centerPath == null || centerPath.Count == 0) { pos = transform.position; vel = Vector2.zero; return false; }

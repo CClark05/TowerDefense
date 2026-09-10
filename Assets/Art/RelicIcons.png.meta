@@ -130,7 +130,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -139,6 +139,28 @@ TextureImporter:
       bones: []
       spriteID: aa28af7d75a5008499f06fb6e092ed81
       internalID: -1154254010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pomegranate_Icon
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 168
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a16e2e02d1f2e7408dc0157ca80f245
+      internalID: -928374458
       vertices: []
       indices: 
       edges: []
@@ -158,6 +180,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       Mango_Icon: -1154254010
+      Pomegranate_Icon: -928374458
       Strawberry_Icon: -2586602131588724031
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0

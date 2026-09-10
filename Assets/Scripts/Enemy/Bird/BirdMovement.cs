@@ -88,4 +88,7 @@ public class BirdMovement : MonoBehaviour, IPathPredictor, IMovementListener, IM
                 moveTween = null;
             });
     }
+    public void TeleportTo(Vector2 position){
+        
+    }
 }

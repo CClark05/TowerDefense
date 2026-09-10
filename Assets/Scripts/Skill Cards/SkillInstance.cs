@@ -25,6 +25,11 @@ public abstract class SkillInstance
         }
     }
     public event Action<int> OnRuntimeStatUpdated;
+
+    public void SetRuntimeStat(int value)
+    {
+        RuntimeStat = value;
+    }
     private int playCount = 1;
     public int PlayCount
     {

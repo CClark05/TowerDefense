@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f849f737186842ec9c9b82a9863fc9ce, type: 3}
+  m_Name: Duplicate Card Relic Data
+  m_EditorClassIdentifier: 
+  name: 'Pomegranate '
+  sprite: {fileID: -928374458, guid: fe4eb8424cc408a4c9b2946e819c1337, type: 3}
+  description: When you add a new card to your hand it has a 15% chance to duplicate.
+  PercentChance: 0.15

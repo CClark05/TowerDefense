@@ -48,7 +48,9 @@ public class CardSelectUI : Singleton<CardSelectUI>
         });
         skipButton.OnClick.AddListener(() =>
         {
-            background.SetActive(false);
+            background.GetComponent<Image>().DOFade(0, 0.5f).OnComplete(() => background.SetActive(false));
+            skipButton.GetComponent<CanvasGroup>().DOFade(0, 0.2f).SetEase(Ease.InCubic);
+            currentCards.ForEach(c => c.GetComponent<CardSelectCardAnimation>().AnimateBack());
             peekButton.gameObject.SetActive(false);
             InventoryChestUI.Instance.GetComponent<UIScaleLoop>().Stop();
             OnSelectedCard?.Invoke();
@@ -67,7 +69,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
 
     private void SetPriceText()
     {
-        rerollButton.gameObject.SetActive(true);
+        //rerollButton.gameObject.SetActive(true);
         Color color = PlayerInventory.Instance.Coins >= rerollCost ? Color.white : ColorPicker.red;
         rerollCostText.text = $"${rerollCost}";
         rerollCostText.color = color;
@@ -151,8 +153,8 @@ public class CardSelectUI : Singleton<CardSelectUI>
                 });
             };
         }
-
-        rerollButton.gameObject.SetActive(true);
+        /**
+        //rerollButton.gameObject.SetActive(true);
         skipButton.gameObject.SetActive(true);
         peekButton.gameObject.SetActive(true);
         RectTransform rerollRT = rerollButton.GetComponent<RectTransform>();
@@ -165,13 +167,23 @@ public class CardSelectUI : Singleton<CardSelectUI>
         rerollRT.anchoredPosition = new Vector2(rerollTarget.x, offscreenY);
         skipRT.anchoredPosition = new Vector2(skipTarget.x, offscreenY);
         peekRT.anchoredPosition = new Vector2(peekTarget.x, offscreenY);
-        rerollRT.DOAnchorPosY(rerollTarget.y, CardSelectCardAnimation.DropAnimationDuration)
-            .SetEase(Ease.OutBounce).SetDelay(CardSelectCardAnimation.DropDelayPerCard * 4);
-        skipRT.DOAnchorPosY(skipTarget.y, CardSelectCardAnimation.DropAnimationDuration)
+        rerollRT.DOAnchorPosY(rerollTarget.y, CardSelectCardAnimation.AnimationDuration)
+            .SetEase(Ease.OutBounce).SetDelay(CardSelectCardAnimation.DelayPerCard * 4);
+        skipRT.DOAnchorPosY(skipTarget.y, CardSelectCardAnimation.AnimationDuration)
             .SetEase(Ease.OutBounce)
-            .SetDelay(CardSelectCardAnimation.DropDelayPerCard * 4);
-        peekRT.DOAnchorPosY(peekTarget.y, CardSelectCardAnimation.DropAnimationDuration)
+            .SetDelay(CardSelectCardAnimation.DelayPerCard * 4);
+        peekRT.DOAnchorPosY(peekTarget.y, CardSelectCardAnimation.AnimationDuration)
             .SetEase(Ease.OutBounce)
-            .SetDelay(CardSelectCardAnimation.DropDelayPerCard * 4);
+            .SetDelay(CardSelectCardAnimation.DelayPerCard * 4);
+            */
+        FunctionTimer.Create(() =>
+        {
+            float duration = 0.2f;
+            skipButton.gameObject.SetActive(true);
+            var canvasGroup = skipButton.GetComponent<CanvasGroup>();
+            canvasGroup.DOFade(1, duration).SetEase(Ease.OutCubic);
+            skipButton.gameObject.transform.DOLocalMoveY(-405f, duration).SetEase(Ease.OutCubic);
+        }, 0.15f);
+
     }
 }

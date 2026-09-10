@@ -27,7 +27,6 @@ public class TowerVisual : MonoBehaviour
         dataHolder.RuntimeData.OnRangeUpdated += range =>
         {
             rangeVisual.transform.localScale = new Vector3(range * 2f, range * 2f, 1);
-            
         };
         rangeVisual.transform.localScale = new Vector3(dataHolder.Data.range * 2f, dataHolder.Data.range * 2f, 1);
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
@@ -44,6 +43,7 @@ public class TowerVisual : MonoBehaviour
     {
         isSelected = false;
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
+        tileOutline.SetActive(false);
     }
     private void OnClickTower(TowerDataHolder data)
     {

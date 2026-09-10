@@ -16,10 +16,12 @@ public class RelicUI : MonoBehaviour
     {
         icon = GetComponent<Image>();
         button = GetComponent<Button_Hover>();
+        button.enabled = false;
     }
 
     private void Start()
     {
+        descriptionTab.GetComponent<Canvas>().sortingLayerName = "Screen UI";
         button.OnClick.AddListener(() =>
         {
             OnClick?.Invoke();
@@ -46,5 +48,12 @@ public class RelicUI : MonoBehaviour
         {
             GetComponent<SquishAnimation>().Squish(0.5f);
         };
+        transform.localScale = Vector3.zero;
+        transform.DOLocalMove(Vector3.zero, 0.35f);
+        transform.DOScale(Vector3.one, 0.35f).SetEase(Ease.OutCubic).OnComplete(() =>
+        {
+            GetComponent<SquishAnimation>().Squish(0.5f);
+            button.enabled = true;
+        });
     }
 }

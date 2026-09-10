@@ -5,7 +5,6 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
 {
     public HealthSystem HealthSystem { get; private set; }
-    
     public Transform Transform => this != null ? transform : null;
     public event Action OnDeath;
     public static event Action<bool> OnDeathStatic; // bool indicates if final enemy of wave

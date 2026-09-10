@@ -52,6 +52,13 @@ public class AStarPathfinding : Singleton<AStarPathfinding>
         Vector2 closest = GetClosestPathPoint(position);
         return path.IndexOf(closest);
     }
+    public Vector2 GetPathPointAhead(Vector2 position, int stepsForward)
+    {
+        if (path.Count == 0) return Vector2.zero;
+        int currentIndex = GetPathIndex(position);
+        int targetIndex = Mathf.Clamp(currentIndex + stepsForward, 0, path.Count - 1);
+        return path[targetIndex];
+    }
 
     public Vector2 GetClosestPathPoint(Vector2 position)
     {

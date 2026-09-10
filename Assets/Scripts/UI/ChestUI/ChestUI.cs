@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
@@ -5,9 +6,11 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class ChestUI : MonoBehaviour
 {
+    
     [SerializeField] private Button_Base chestButton;
     [SerializeField] private RelicData[] possibleRelics;
     [SerializeField] private Transform background, rewardLayout;
@@ -15,10 +18,10 @@ public class ChestUI : MonoBehaviour
     [SerializeField] private Sprite openChestSprite;
     [SerializeField] private GameObject relicPrefab;
     private Sprite closedChestSprite;
-    private List<SkillData> generatedRewards = new();
-    private List<GameObject> rewardSlots = new();
+    private float chestOriginalY;
     private void Start()
     {
+        chestOriginalY = chestButton.GetComponent<RectTransform>().anchoredPosition.y;
         closedChestSprite = chestButton.GetComponent<Image>().sprite;
         rewardCounterText.text = "1";
         chestButton.OnClick.AddListener(() =>
@@ -28,7 +31,8 @@ public class ChestUI : MonoBehaviour
             chestButton.GetComponent<Image>().sprite = openChestSprite;
             var relicInstance = possibleRelics[Random.Range(0, possibleRelics.Length)].CreateInstance();
             relicInstance.OnPickup();
-            var relic = Instantiate(relicPrefab, rewardLayout).GetComponent<RelicUI>();
+            var relic = Instantiate(relicPrefab, background.transform).GetComponent<RelicUI>();
+            relic.transform.position = chestButton.transform.position;
             relic.Init(relicInstance);
             relic.OnClick += () =>
             {
@@ -45,13 +49,16 @@ public class ChestUI : MonoBehaviour
             var encounter = EncounterGenerator.Instance.GetEncounter(EnemyManager.Instance.CurrentWave - 1);
             if (encounter == EncounterGenerator.Instance.BossEncounter)
             {
-                chestButton.enabled = true;
+                rewardCounterText.text = "1";
+                chestButton.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 690f);
+                chestButton.gameObject.SetActive(true);
                 chestButton.GetComponent<Image>().sprite = closedChestSprite;
                 background.gameObject.SetActive(true);
-                background.GetComponent<Image>().DOFade(203/255f, 0.5f).OnComplete(() =>
+                chestButton.GetComponent<RectTransform>().DOAnchorPosY(chestOriginalY, 0.75f).SetEase(CustomEase.EaseOutBounceCustom).OnComplete(() =>
                 {
-                    chestButton.gameObject.SetActive(true);
+                    chestButton.enabled = true;
                 });
+                background.GetComponent<Image>().DOFade(203 / 255f, 0.5f);
             }
         };
     }

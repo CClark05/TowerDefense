@@ -28,7 +28,7 @@ public class TowerCards : MonoBehaviour, IUsesCards
 
     public bool CanAddCard(SkillInstance skillInstance)
     {
-        if (skillInstance is IAddsCardSlots slots)
+        if (skillInstance is IAddsCardSlots slots && towerDataHolder.SkillInstanceList.All(s => s.Data != skillInstance.Data))
             return true;
         return !(towerDataHolder.SkillInstanceList.Any(s => s.Data == skillInstance.Data) || towerDataHolder.SkillInstanceList.Count >= towerDataHolder.RuntimeData.CardSlots);
     }

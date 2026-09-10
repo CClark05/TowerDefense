@@ -16,7 +16,7 @@ public class RelicManager : Singleton<RelicManager>
         {
             relic.transform.SetParent(parent.transform);
         });
-        relic.transform.DOScale(new Vector3(0.75f, 0.75f, 0.75f), duration);
+        relic.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), duration);
     }
     
 }

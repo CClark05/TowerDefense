@@ -19,9 +19,14 @@ public class PlayerCursor : Singleton<PlayerCursor>
         {
             CurrentHoveredObject.OnClick();
         }
-        
+
         if (EventSystem.current.IsPointerOverGameObject())
+        {
+            CurrentHoveredObject?.OnLeaveHover();
+            CurrentHoveredObject = null;
             return;
+        }
+            
         Vector2 mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, 0,hoverLayer);
         if (hit.collider != null && hit.collider.GetComponent<IHoverable>() != null)
@@ -39,5 +44,4 @@ public class PlayerCursor : Singleton<PlayerCursor>
         
         
     }
-    
 }

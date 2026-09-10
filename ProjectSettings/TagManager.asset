@@ -44,14 +44,17 @@ TagManager:
   - name: Foreground
     uniqueID: 2103342471
     locked: 0
-  - name: Screen UI
-    uniqueID: 2166301193
-    locked: 0
   - name: World UI
     uniqueID: 2922722523
     locked: 0
+  - name: Screen UI
+    uniqueID: 2166301193
+    locked: 0
   - name: SFX
     uniqueID: 24867107
+    locked: 0
+  - name: Pause Menu
+    uniqueID: 2895067101
     locked: 0
   m_RenderingLayers:
   - Default
