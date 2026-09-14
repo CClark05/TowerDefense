@@ -825,10 +825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waveSettings: {fileID: 11400000, guid: 177d607bf8b04a94994e2bf1a2e7af0e, type: 2}
   testEnemies:
-  - {fileID: 11400000, guid: 7d59885b1226a39499d91e349d8c95d9, type: 2}
-  - {fileID: 11400000, guid: 7d59885b1226a39499d91e349d8c95d9, type: 2}
-  - {fileID: 11400000, guid: 7d59885b1226a39499d91e349d8c95d9, type: 2}
-  - {fileID: 11400000, guid: 7d59885b1226a39499d91e349d8c95d9, type: 2}
+  - {fileID: 11400000, guid: e34843a57468b054399cf57613d4d11c, type: 2}
   delayBetweenTestSpawns: 0.5
 --- !u!4 &84492598
 Transform:

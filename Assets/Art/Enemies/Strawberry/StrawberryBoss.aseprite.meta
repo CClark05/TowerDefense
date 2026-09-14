@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7e2da77fd55171c4b892d5b478d1d828
+guid: 0ff26da1068188b4386e22cb35b0d997
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639003864190318884
+  platformSettingsDirtyTick: 639249207233442010
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: BasicEnemy
+  - name: StrawberryBoss
     originalName: 
-    pivot: {x: 0.87179494, y: -4.25}
+    pivot: {x: 0.5416666, y: -1.4642857}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,9 +132,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 39
-      height: 16
-    spriteID: 4b54a0e1a73064b4b856e970090a0f1e
+      width: 24
+      height: 28
+    spriteID: 16322854c5d08424ea745385bc492fe0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,49 +144,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: BasicEnemy
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 41
-      width: 25
-      height: 25
-    spriteID: d06a7bd087472f74b981cbcd988d7162
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: BasicEnemy_2
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 36
-      y: 37
-      width: 25
-      height: 29
-    spriteID: f2f6626e97a3a5c489aa59c7162e49b3
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: BasicEnemy_1
+  - name: StrawberryBoss
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -196,30 +154,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 25
-      height: 27
-    spriteID: 50cee6d5ca31a9649b4ca4f6ca25665f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 0, y: 0}
-  - name: Strawberry Enemy
-    originalName: 
-    pivot: {x: 0.5, y: 0.5}
-    alignment: 0
-    border: {x: 0, y: 0, z: 0, w: 0}
-    customData: 
-    rect:
-      serializedVersion: 2
-      x: 121
-      y: 75
-      width: 14
-      height: 16
-    spriteID: ff0604c761be6014bbb0276ea80141c6
+      width: 24
+      height: 28
+    spriteID: 11a81b4e08577ca4db24216a668b52ea
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -230,21 +167,21 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
-    guid: -2006767240
-    name: BasicEnemy
+    guid: -1621760170
+    name: StrawberryBoss
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: BasicEnemy
+    - name: StrawberryBoss
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 20
-        y: 68
-        width: 97
-        height: 91
-      spriteId: 4b54a0e1a73064b4b856e970090a0f1e
+        x: 37
+        y: 41
+        width: 24
+        height: 28
+      spriteId: 16322854c5d08424ea745385bc492fe0
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -287,4 +224,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 267, y: 178}
+  canvasSize: {x: 100, y: 100}

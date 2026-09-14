@@ -49,6 +49,7 @@ public class NecromancerAttackState : BaseState
             new ResetSpeedCommand(0)
         });
     }
+    
 }
 
 public class NecromancerSummonState : BaseState

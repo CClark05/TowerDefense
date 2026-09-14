@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e204c7e890ff47ab8ebe0b0a6d2164b0, type: 3}
-  m_Name: StrawberryData
+  m_Name: StrawberryBossData
   m_EditorClassIdentifier: 
-  health: 25
+  health: 200
   speed: 3
   livesCost: 1
   shields: 0
-  coins: 1
-  prefab: {fileID: 8245728969220441560, guid: 4bc78eb502a6b4541b641861a314469f, type: 3}
-  summonable: 1
-  IsBoss: 0
+  coins: 15
+  prefab: {fileID: 2456339192168690766, guid: 2aa2296cd0a131c4abc91189e76450a2, type: 3}
+  summonable: 0
+  IsBoss: 1
   IsElite: 0

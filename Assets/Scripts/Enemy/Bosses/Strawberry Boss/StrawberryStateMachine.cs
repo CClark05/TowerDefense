@@ -26,7 +26,6 @@ public class StrawberryDigState : BaseState
 
     public override void OnEnter()
     {
-        Debug.Log("Strawberry dig state entered");
         var pos = AStarPathfinding.Instance.GetPathPointAhead(agent.Transform.position, 3);
         runner.Play(this, new ICommand[]
         {
@@ -47,7 +46,6 @@ public class StrawberryDefaultState : BaseState
     }
     public override void OnEnter()
     {
-        Debug.Log("Strawberry default state entered");
         var randDuration = duration + UnityEngine.Random.Range(0, 2f);
         runner.Play(this, new ICommand[]
         {

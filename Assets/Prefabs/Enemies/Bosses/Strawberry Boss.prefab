@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1889260724819432509
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740423614206651896, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048362118106325107, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_Name
+      value: Strawberry Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 4242396133354370729, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: deathParticlesPrefab
+      value: 
+      objectReference: {fileID: 3814077728722885872, guid: 015ee4ff3ad53ba4989f009cb31e9656, type: 3}
+    - target: {fileID: 6423339356686965217, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 2097801554201616135, guid: 0ff26da1068188b4386e22cb35b0d997, type: 3}
+    - target: {fileID: 8066698530144228589, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      propertyPath: m_Radius
+      value: 0.87
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5267796830266426185, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+    - {fileID: 6376516497736485663, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4048362118106325107, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 27556835342011888}
+  m_SourcePrefab: {fileID: 100100000, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+--- !u!1 &2456339192168690766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4048362118106325107, guid: ff5b06562fd9ece4e97c8d97e790ddf0, type: 3}
+  m_PrefabInstance: {fileID: 1889260724819432509}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &27556835342011888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2456339192168690766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6890b12534c498e978aed07bc3916b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniStrawberryData: {fileID: 11400000, guid: 7d59885b1226a39499d91e349d8c95d9, type: 2}
+  projectilePrefab: {fileID: 2512615483356999596, guid: 8a2f681c2148fbe4cb3c2be9c361c192, type: 3}
+  stunDebuff: {fileID: 11400000, guid: 7006be7218381c2479cb0c8d961b3c9d, type: 2}
