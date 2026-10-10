@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Bigger Bombs
   icon: {fileID: 1077979287, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
-  rarity: 0
+  rarity: 1
   description: Your <color=#922C33>Bombs</color> deal damage in a +50% tile radius.
   hasRuntimeValue: 0
   runtimeStatsFormat: 

@@ -61,7 +61,7 @@ public class RainArrowsSkillInstance : SkillInstance<RainArrowsSkillData>, IOnKi
                 Sequence arrowAnimation = DOTween.Sequence();
                 arrowAnimation.Append(arrow.transform.DOMoveY(yPos, 0.5f).SetEase(Ease.InCubic).OnComplete(() => arrow.GetComponent<BoxCollider2D>().enabled = true));
                 arrowAnimation.Append(arrow.GetComponent<SpriteRenderer>().DOFade(0, arrowDuration).SetEase(Ease.InCubic).OnComplete(() => Object.Destroy(arrow)));
-                arrow.GetComponent<Arrow>().OnHit += damageable =>
+                arrow.GetComponent<MinionArrow>().OnHit += damageable =>
                 {
                     var damageData = new HitData(Data.ArrowData.damage, hitData.tower, damageable, damageable.Transform.GetComponent<IUsesStatusEffects>());
                     DamageService.ApplyDamage(

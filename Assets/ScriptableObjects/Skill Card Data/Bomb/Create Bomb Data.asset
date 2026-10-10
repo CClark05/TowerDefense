@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Create Bomb
   icon: {fileID: 467706852, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
-  rarity: 0
+  rarity: 1
   description: Every 2 kills, create +1 <color=#922C33>Bomb(s)</color> near where
     the enemy died.
   hasRuntimeValue: 0

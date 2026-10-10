@@ -15,12 +15,12 @@ MonoBehaviour:
   name: Coin Shot
   icon: {fileID: 1837379312, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: When you have coins, use them as projectiles for +25% damage.
+  description: If possible, use coins as projectiles for +25% damage.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  isExcluded: 0
+  isExcluded: 1
   damageMult: 0.25
   coinSprite: {fileID: -6966233109194370410, guid: cb505094c8208bb45b8e3ea368b97c44, type: 3}

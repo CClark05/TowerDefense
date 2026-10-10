@@ -17,6 +17,7 @@ public class TowerShooting : MonoBehaviour
     public event Action<int> OnDealDamage;
     public static event Action<Vector2, DamageData> OnDealDamageStatic;
     public event Action OnKillEnemy;
+    public event Action OnShoot;
     public float TotalUptime { get; private set; }
     private Coroutine shootCoroutine;
     private float timeBetweenShots => towerDataHolder.RuntimeData.TimeBetweenShots;
@@ -29,11 +30,13 @@ public class TowerShooting : MonoBehaviour
     public Vector2? Direction { get; private set; }
     private GameObject target;
     private bool disableShooting;
+    private TowerAnimation towerAnimation;
     public event Action<bool> OnToggleShooting;
     private void Awake()
     {
         towerDataHolder = GetComponent<TowerDataHolder>();
         projectileData = towerDataHolder.ProjectileData;
+        towerAnimation = GetComponent<TowerAnimation>();
     }
 
     private void OnEnable()
@@ -97,29 +100,38 @@ public class TowerShooting : MonoBehaviour
         shotData.directionOverrides.ForEach((_) => shotData.projectiles++);
         if (target != null && target.TryGetComponent<IDamageable>(out var damageable))
         {
-            var projectile = Projectile.CreateProjectile(projectileData, shotData, transform.position, damageable, towerDataHolder);
-            Hook(projectile);
-            foreach (var dir in shotData.directionOverrides)
+            OnShoot?.Invoke();
+            Action OnShootComplete = null;
+            OnShootComplete = () =>
             {
-                var p = Projectile.CreateProjectile(projectileData, shotData, transform.position, dir, towerDataHolder);
-                Hook(p);
-            }
-            ShotsThisRound++;
-            
-            void Hook(Projectile p)
-            {
-                shotData.RegisterProjectile(p);
-                p.OnDealDamage += (HitData hitData, Vector2 pos) =>
+                towerAnimation.OnShootAnimationComplete -= OnShootComplete;
+                var projectile = Projectile.CreateProjectile(projectileData, shotData, transform.position, damageable, towerDataHolder);
+                Hook(projectile);
+                foreach (var dir in shotData.directionOverrides)
                 {
-                    HitsThisRound++;
-                    OnDealDamage?.Invoke(hitData.finalDamage);
-                    OnDealDamageStatic?.Invoke(pos, hitData);
-                    if (hitData.didKill) OnKillEnemy?.Invoke();
-                };
-            }
+                    var p = Projectile.CreateProjectile(projectileData, shotData, transform.position, dir, towerDataHolder);
+                    Hook(p);
+                }
+                ShotsThisRound++;
+            
+                void Hook(Projectile p)
+                {
+                    shotData.RegisterProjectile(p);
+                    p.OnDealDamage += (HitData hitData, Vector2 pos) =>
+                    {
+                        HitsThisRound++;
+                        OnDealDamage?.Invoke(hitData.finalDamage);
+                        OnDealDamageStatic?.Invoke(pos, hitData);
+                        if (hitData.didKill) OnKillEnemy?.Invoke();
+                    };
+                }
+                shootCoroutine = null;
+            };
+            towerAnimation.OnShootAnimationComplete += OnShootComplete;
         }
-
-        shootCoroutine = null;
+        else
+            shootCoroutine = null;
+        
     }
 
     public void ToggleShooting(bool disable)
@@ -189,6 +201,7 @@ public class TowerShooting : MonoBehaviour
         }
 
         EnemyStatusEffects.OnTakeDamageStatic -= EnemyStatusEffectsOnTakeDamage;
+        towerAnimation.OnShootAnimationComplete = null;
         enemyManager.OnWaveStarted -= OnWaveStarted;
     }
 }

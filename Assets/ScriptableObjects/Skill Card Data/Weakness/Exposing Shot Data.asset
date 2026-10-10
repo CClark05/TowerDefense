@@ -14,9 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Exposing Shot
   icon: {fileID: -5456733981038111024, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
-  rarity: 0
-  description: Applies 1 <color=#A23E8C>Weak</color> on hit if target has zero <color=#A23E8C>Weak</color>
-    stacks.
+  rarity: 1
+  description: Projectiles apply +1 <color=#A23E8C>Weak</color> on hit if target
+    has zero <color=#A23E8C>Weak</color> stacks.
+  hasRuntimeValue: 0
+  runtimeStatsFormat: 
   statusEffects:
   - showInUI: 1
     data: {fileID: 11400000, guid: bbc4e7296f4b7db49a7dda77c757b7f0, type: 2}

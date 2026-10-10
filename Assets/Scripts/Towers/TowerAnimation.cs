@@ -4,6 +4,7 @@ using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -11,12 +12,31 @@ public class TowerAnimation : MonoBehaviour
 {
     [SerializeField] private GameObject effectTextPrefab;
     [SerializeField] private Transform effectTextParent;
+    [SerializeField] private AnimationClip shootAnimation;
+    private AnimationPlayer animationPlayer;
     private SkillContext skillContext;
+    [SerializeField] private Transform visual;
+    private TowerRuntimeData runtimeData;
+    public Action OnShootAnimationComplete;
+    private void Awake()
+    {
+        animationPlayer = GetComponent<AnimationPlayer>();
+        runtimeData = GetComponent<TowerDataHolder>().RuntimeData;
+    }
+
     private void Start()
     {
         skillContext = GetComponent<TowerDataHolder>().SkillContext;
         skillContext.OnBuffAdded += OnBuffAdded;
+        GetComponent<TowerShooting>().OnShoot += OnShoot;
     }
+
+    private void OnShoot()
+    {
+        var handle = animationPlayer.Play(shootAnimation, visual, AnimPlayMode.Auto, runtimeData.TimeBetweenShots / 3f);
+        handle.OnComplete += () => OnShootAnimationComplete?.Invoke();
+    }
+
     public void Init()
     {
         transform.localScale = Vector2.zero;
@@ -54,5 +74,10 @@ public class TowerAnimation : MonoBehaviour
             Destroy(rect.gameObject);
         };
         
+    }
+
+    private void OnDisable()
+    {
+        GetComponent<TowerShooting>().OnShoot -= OnShoot;
     }
 }

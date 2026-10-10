@@ -22,4 +22,4 @@ MonoBehaviour:
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  isExcluded: 0
+  isExcluded: 1

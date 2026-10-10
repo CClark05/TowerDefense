@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5903583044342779065}
   - component: {fileID: 2955873662191715478}
-  - component: {fileID: 471531942445042057}
   - component: {fileID: 9201307684983041744}
+  - component: {fileID: -7707672669211608136}
   m_Layer: 0
-  m_Name: Arrow
+  m_Name: MinionArrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -89,21 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &471531942445042057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123712303137431414}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d78909e3c0934926b9c5e4e7a677fc9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLeadSeconds: 0.3
-  steerGain: 12
-  data: {fileID: 11400000, guid: d0c9b0ffd7ffba94e8fa23db37901ab5, type: 2}
 --- !u!61 &9201307684983041744
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -150,3 +135,18 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.19, y: 0.18}
   m_EdgeRadius: 0
+--- !u!114 &-7707672669211608136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123712303137431414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78909e3c0934926b9c5e4e7a677fc9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLeadSeconds: 0.3
+  steerGain: 12
+  data: {fileID: 11400000, guid: e0ef38f957c1ae64e96046742dfdb351, type: 2}

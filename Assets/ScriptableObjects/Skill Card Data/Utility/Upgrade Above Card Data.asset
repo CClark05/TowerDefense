@@ -15,10 +15,10 @@ MonoBehaviour:
   name: Promotion
   icon: {fileID: -1226382499, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 1
-  description: Upgrades the +1 most recently added card(s) to the tower (if possible).
+  description: Upgrades the +1 card(s) above this one when added (if possible).
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects: []
   buffs: []
   prerequisiteSkills: []
-  isExcluded: 0
+  isExcluded: 1

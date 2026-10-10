@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Archer Minion
   icon: {fileID: 123590753, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
-  rarity: 0
+  rarity: 1
   description: Summon +1 <color=#411D31>Minion(s)</color>. Each <color=#411D31>Minion</color>
     shoots an <color=#94A6A4>Arrow</color> every 1 second at enemies within their
     range.

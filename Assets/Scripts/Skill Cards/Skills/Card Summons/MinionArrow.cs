@@ -8,7 +8,7 @@ public interface IMinionProjectile
     public void Init(IDamageable target);
     public event Action<IDamageable> OnHit;
 }
-public class Arrow : MonoBehaviour, IMinionProjectile
+public class MinionArrow : MonoBehaviour, IMinionProjectile
 {
     [SerializeField] private float maxLeadSeconds = 0.3f;
     [SerializeField] private float steerGain = 12;

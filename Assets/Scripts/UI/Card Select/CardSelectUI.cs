@@ -50,6 +50,7 @@ public class CardSelectUI : Singleton<CardSelectUI>
         {
             background.GetComponent<Image>().DOFade(0, 0.5f).OnComplete(() => background.SetActive(false));
             skipButton.GetComponent<CanvasGroup>().DOFade(0, 0.2f).SetEase(Ease.InCubic);
+            peekButton.GetComponent<CanvasGroup>().DOFade(0, 0.2f).SetEase(Ease.InCubic).OnComplete(() => peekButton.gameObject.SetActive(false));
             currentCards.ForEach(c => c.GetComponent<CardSelectCardAnimation>().AnimateBack());
             peekButton.gameObject.SetActive(false);
             InventoryChestUI.Instance.GetComponent<UIScaleLoop>().Stop();
@@ -180,9 +181,10 @@ public class CardSelectUI : Singleton<CardSelectUI>
         {
             float duration = 0.2f;
             skipButton.gameObject.SetActive(true);
-            var canvasGroup = skipButton.GetComponent<CanvasGroup>();
-            canvasGroup.DOFade(1, duration).SetEase(Ease.OutCubic);
+            peekButton.gameObject.SetActive(true);
+            skipButton.GetComponent<CanvasGroup>().DOFade(1, duration).SetEase(Ease.OutCubic);
             skipButton.gameObject.transform.DOLocalMoveY(-405f, duration).SetEase(Ease.OutCubic);
+            peekButton.GetComponent<CanvasGroup>().DOFade(1, duration).SetEase(Ease.OutCubic);
         }, 0.15f);
 
     }

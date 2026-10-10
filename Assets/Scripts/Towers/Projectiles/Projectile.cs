@@ -134,7 +134,11 @@ public class Projectile : MonoBehaviour
         }
 
         if (direction != null)
+        {
             transform.position += (Vector3)direction.Value * (EffectiveSpeed * Time.deltaTime);
+            transform.up = direction.Value;
+        }
+           
     }
 
     private void OnTriggerEnter2D(Collider2D other)
