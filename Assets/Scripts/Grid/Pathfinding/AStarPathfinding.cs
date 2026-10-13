@@ -14,6 +14,7 @@ public class AStarPathfinding : Singleton<AStarPathfinding>
     {
         grid = GridManager.Instance.Grid;
         pathfinding = new Pathfinding<GridObjectData>(grid, walkableTileData);
+        
         var startAndEnd = FindStartAndEnd();
         if (startAndEnd.start == null || startAndEnd.end == null)
             Debug.LogError("No path found");

@@ -41,7 +41,7 @@ public class SlimeJumpState : BaseState
         float scaleTo = HelperMethods.ScaleForRadius(shockWave.GetComponent<SpriteRenderer>(), stunRadius);
         agent.Require<IAnimationPlayer>().Play(shockwaveAnimation, shockWave, AnimPlayMode.Auto, 0.5f, 
             args: new AnimArgs{scaleTo = new Vector2(scaleTo,scaleTo)});
-        CameraShake.Shake(Camera.main.transform, 0.2f, 0.4f);
+        //CameraShake.Shake(Camera.main.transform, 0.2f, 0.4f);
         runner.Play(this, new ICommand[]
         {
             new ApplyBuffToTowersCommand(stunDebuff, stunStacks, nearbyTowers)

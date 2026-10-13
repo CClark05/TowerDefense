@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using CodeMonkey.Utils;
+using DG.Tweening;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -22,7 +24,8 @@ public class Projectile : MonoBehaviour
     private bool homing;
     private ProjectileShotData shotData;
     public float EffectiveSpeed => data.speed * speedIncrease;
-
+    private bool active = true;
+    private bool returning;
     private void Init(IDamageable target, ProjectileShotData shotData)
     {
         this.target = target;
@@ -143,6 +146,7 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (!active) return;
         if (other.GetComponent<Border>() != null)
         {
             Destroy(gameObject);
@@ -163,8 +167,7 @@ public class Projectile : MonoBehaviour
             {
                 if (enemiesHit.Count >= maxEnemiesPierced)
                 {
-                    shotData.ShotDestroyed(this);
-                    direction = null;
+                    StickEnemy(damageable);
                     return;
                 }
             }
@@ -179,12 +182,28 @@ public class Projectile : MonoBehaviour
         if (homing && targetTransform != null && damageable.Transform == targetTransform)
             targetTransform = null;
         if (enemiesHit.Count >= maxEnemiesPierced)
-        {
-            shotData.ShotDestroyed(this);
-            direction = null;
-        }
+            StickEnemy(damageable);
+        
     }
 
+    private void StickEnemy(IDamageable damageable)
+    {
+        if (returning) return;
+        shotData.ShotDestroyed(this, out bool eventInvoked);
+        direction = null;
+        if (eventInvoked)
+        {
+            homing = false;
+            returning = true;
+            return;
+        }
+        active = false;
+        transform.parent = damageable.Transform;
+        GetComponent<SpriteRenderer>().DOFade(0, 0.75f).SetDelay(0.5f).OnComplete(() =>
+        {
+            Destroy(gameObject);
+        });
+    }
     private bool TryPathIntercept(IPathPredictor predictor, Vector2 shooterPos, float projSpeed, float tMax, out Vector2 aim, out float tHit)
     {
         float G(float t)

@@ -52,6 +52,7 @@ public class MinionArrow : MonoBehaviour, IMinionProjectile
         Vector2 desired = (aim - shooterPos).normalized;
         float a = 1f - Mathf.Exp(-steerGain * Time.deltaTime);
         direction ??= Vector2.zero;
+        transform.up = direction.Value;
         direction = Vector2.Lerp(direction.Value, desired, a).normalized;
     }
     

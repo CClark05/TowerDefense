@@ -11,6 +11,7 @@ public enum TargetingModes
 
 public class TowerShooting : MonoBehaviour
 {
+    [SerializeField] private Transform shootOrigin;
     private ProjectileData projectileData;
     private TowerDataHolder towerDataHolder;
     private float shootTimer;
@@ -105,11 +106,11 @@ public class TowerShooting : MonoBehaviour
             OnShootComplete = () =>
             {
                 towerAnimation.OnShootAnimationComplete -= OnShootComplete;
-                var projectile = Projectile.CreateProjectile(projectileData, shotData, transform.position, damageable, towerDataHolder);
+                var projectile = Projectile.CreateProjectile(projectileData, shotData, shootOrigin.position, damageable, towerDataHolder);
                 Hook(projectile);
                 foreach (var dir in shotData.directionOverrides)
                 {
-                    var p = Projectile.CreateProjectile(projectileData, shotData, transform.position, dir, towerDataHolder);
+                    var p = Projectile.CreateProjectile(projectileData, shotData, shootOrigin.position, dir, towerDataHolder);
                     Hook(p);
                 }
                 ShotsThisRound++;

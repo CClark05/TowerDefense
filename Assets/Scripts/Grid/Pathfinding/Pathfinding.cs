@@ -52,6 +52,8 @@ public class Pathfinding<T>
         startNode.gCost = 0;
         startNode.hCost = Heuristic(startNode, endNode);
 
+        PathNode best = startNode;
+
         while (openList.Count > 0)
         {
             PathNode current = openList.OrderBy(n => n.fCost).First();
@@ -61,6 +63,8 @@ public class Pathfinding<T>
 
             openList.Remove(current);
             closedSet.Add(current);
+
+            if (current.hCost < best.hCost) best = current;
 
             foreach (var neighbor in GetNeighbors(current, nodes, grid))
             {
@@ -80,7 +84,7 @@ public class Pathfinding<T>
             }
         }
 
-        return null; 
+        return ReconstructPath(best, grid);
     }
     
     private List<PathNode> GetNeighbors(PathNode node, PathNode[,] nodes, Grid<T> grid)

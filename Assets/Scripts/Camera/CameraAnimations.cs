@@ -1,4 +1,5 @@
 using System;
+using CameraShake;
 using CodeMonkey.Utils;
 using DG.Tweening;
 using UnityEngine;
@@ -24,16 +25,20 @@ public class CameraAnimations : MonoBehaviour
         BuildingManager.Instance.OnExitBuildMode += ZoomBack;
         EnemyHealth.OnDeathStatic += (bool final) =>
         {
-            float duration = final ? 1f : 0.1f;
-            float strength = final ? 0.25f : 0.2f;
             if (final)
             {
+                
                 FunctionTimer.Create(() =>
                 {
-                    CameraShake.Shake(Camera.main.transform, duration, strength);
-                }, 0.2f);
+                    CameraShaker.Presets.Explosion2D(1, 3, 1);
+                }, 0.1f);
+                return;
             }
-                
+            CameraShaker.Presets.ShortShake2D();
+        };
+        EnemyManager.Instance.OnEnemyReachedEnd += _ =>
+        {
+            CameraShaker.Presets.Explosion2D(0.5f);
         };
     }
 

@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fca132da8215d824ab4190d4c831b271, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: d0c9b0ffd7ffba94e8fa23db37901ab5, type: 2}
+  data: {fileID: 11400000, guid: e0ef38f957c1ae64e96046742dfdb351, type: 2}
   maxLeadSeconds: 0.3
   steerGain: 12
   turnRateDegPerSec: 1080

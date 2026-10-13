@@ -39,6 +39,7 @@ public class BoomerangSkillInstance : SkillInstance<BoomerangSkillData>, IProjec
         {
             Vector2 dir = (projectile.Origin - (Vector2)transform.position).normalized;
             transform.position += (Vector3)dir * (projectile.EffectiveSpeed * Time.deltaTime);
+            transform.up = dir;
             yield return null;
         }
 

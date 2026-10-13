@@ -1,9 +1,13 @@
+using System.Collections;
 using CodeMonkey.Utils;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class EnemyParticles : MonoBehaviour
 {
+    [FormerlySerializedAs("deathParticlesPrefab")] [SerializeField]
+    private GameObject finalDeathParticlesPrefab;
+
     [SerializeField] private GameObject deathParticlesPrefab;
 
     private void Start()
@@ -11,9 +15,19 @@ public class EnemyParticles : MonoBehaviour
         var baseColor = SpriteColorUtils.AverageColor(GetComponent<SpriteRenderer>().sprite);
         GetComponent<EnemyHealth>().OnDeath += () =>
         {
-            if (EnemyManager.Instance.CurrentEnemies.Count != 0 || 
-                (EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Spawning)) return;
-            var particles = Instantiate(deathParticlesPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
+            var position = transform.position;
+            IEnumerator ParticlesRoutine()
+            {
+                yield return new WaitForSecondsRealtime(0.1f);
+                Instantiate(deathParticlesPrefab, position, Quaternion.identity, null);
+            }
+
+            CoroutineRunner.Instance.StartCoroutine(ParticlesRoutine());
+            
+            if (EnemyManager.Instance.CurrentEnemies.Count != 0 || EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Spawning)
+                return;
+
+            var particles = Instantiate(finalDeathParticlesPrefab, transform.position, Quaternion.identity).GetComponent<ParticleSystem>();
             var main = particles.main;
 
             Color.RGBToHSV(baseColor, out float h, out float s, out float v);

@@ -354,7 +354,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ebb524e78764e35886227b69b4e1fbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathParticlesPrefab: {fileID: 3814077728722885872, guid: 4d439a72d84ea2947b99d1915481f0f1, type: 3}
+  finalDeathParticlesPrefab: {fileID: 3814077728722885872, guid: 4d439a72d84ea2947b99d1915481f0f1, type: 3}
+  deathParticlesPrefab: {fileID: 4983824855399679509, guid: 5b9df04b3e6208b4b8de766af35a2a03, type: 3}
 --- !u!114 &4223098207583143547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -383,10 +384,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36688a4b446649c68e3d1065a0c386c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySprites:
-  - {fileID: 7276211793363068908, guid: 7e2da77fd55171c4b892d5b478d1d828, type: 3}
-  - {fileID: -4394290084423845246, guid: 7e2da77fd55171c4b892d5b478d1d828, type: 3}
-  - {fileID: -1984133298428176346, guid: 7e2da77fd55171c4b892d5b478d1d828, type: 3}
 --- !u!1 &5852598952880042616
 GameObject:
   m_ObjectHideFlags: 0

@@ -824,8 +824,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveSettings: {fileID: 11400000, guid: 177d607bf8b04a94994e2bf1a2e7af0e, type: 2}
-  testEnemies: []
-  delayBetweenTestSpawns: 0.5
+  testEnemies:
+  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
+  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
+  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
+  - {fileID: 11400000, guid: 233ace54c854db04cbfbfe71740adb28, type: 2}
+  delayBetweenTestSpawns: 1
 --- !u!4 &84492598
 Transform:
   m_ObjectHideFlags: 0
@@ -5219,6 +5223,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -5339,11 +5344,11 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 731672744}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &519420033
 MonoBehaviour:
@@ -5359,6 +5364,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoomDuration: 0.5
   easeType: 9
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a257897ce04dc64eb5ae266c62846be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 519420032}
+  StrengthMultiplier: 1
 --- !u!1 &565801817
 GameObject:
   m_ObjectHideFlags: 0
@@ -5815,7 +5834,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -1372244773
+  m_SortingLayerID: -2128666103
   m_SortingOrder: 100
   m_TargetDisplay: 0
 --- !u!114 &606126138
@@ -6896,6 +6915,38 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3265465190982314034, guid: e15497e3cfeb2954cb25c250de54ec35, type: 3}
   m_PrefabInstance: {fileID: 1906921779}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &731672743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 731672744}
+  m_Layer: 0
+  m_Name: Camera Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &731672744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 731672743}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 519420032}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &740664955
 GameObject:
   m_ObjectHideFlags: 0
@@ -9364,8 +9415,8 @@ MonoBehaviour:
   - {fileID: 134421251}
   handTransform: {fileID: 594898884}
   testingData:
-  - {fileID: 11400000, guid: 558c2f8a679efd846a3c7903b2a17e57, type: 2}
-  - {fileID: 11400000, guid: efb1430c0b1e15b4bbd780ff48c80ba9, type: 2}
+  - {fileID: 11400000, guid: 8be9c257da289274d852b58ddf7b497c, type: 2}
+  - {fileID: 11400000, guid: c43815f674c7f0843b06bdc998822493, type: 2}
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
   - {fileID: 11400000, guid: 4f42c438ba682b1478614983c38787a5, type: 2}
   - {fileID: 11400000, guid: 8be9c257da289274d852b58ddf7b497c, type: 2}
@@ -18946,7 +18997,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -1372244773
+  m_SortingLayerID: -2128666103
   m_SortingOrder: 90
   m_TargetDisplay: 0
 --- !u!114 &2100287715
@@ -19111,7 +19162,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
+  - {fileID: 731672744}
   - {fileID: 4969801805208059208}
   - {fileID: 353301496}
   - {fileID: 619394802}

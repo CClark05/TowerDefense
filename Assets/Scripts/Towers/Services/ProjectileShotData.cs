@@ -41,15 +41,17 @@ public class ProjectileShotData
 
     public event Action<Projectile> OnShotDestroyed;
 
-    public void ShotDestroyed(Projectile projectile)
+    public void ShotDestroyed(Projectile projectile, out bool eventInvoked)
     {
         if (OnShotDestroyed != null)
         {
             OnShotDestroyed.Invoke(projectile);
             Debug.Log("ShotDestroyed event invoked");
+            eventInvoked = true;
             return;
         }
 
-        UnityEngine.Object.Destroy(projectile.gameObject);
+        eventInvoked = false;
+        //UnityEngine.Object.Destroy(projectile.gameObject);
     }
 }

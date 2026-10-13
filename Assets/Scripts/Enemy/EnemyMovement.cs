@@ -31,13 +31,6 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
     }
     private void CalculatePath()
     {
-        /**
-        
-        if(centerPath == null) Debug.LogError("No path found");
-        var segment = AStarPathfinding.GetSegment(centerPath, transform.position);
-        projectedPath = AStarPathfinding.BuildOffsetPath(centerPath, segment.signedOffset);
-        currentIndex =  Mathf.Clamp(segment.seg + (segment.t > 0.5f ? 1 : 0), 0, projectedPath.Count - 1);
-        */
         centerPath = AStarPathfinding.Instance.GetPath();
         if(centerPath == null) Debug.LogError("No path found");
         var seg = AStarPathfinding.GetSegment(centerPath, transform.position);
@@ -60,30 +53,6 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
         }
         currentIndex = Mathf.Clamp(best + 1, 0, projectedPath.Count - 1);
     }
-    /**
-    private void Update()
-    {
-        if (currentIndex >= projectedPath.Count) 
-        {
-            OnReachedEnd?.Invoke();
-            Destroy(gameObject);
-            return;
-        }
-
-        if (stopMovement) return;
-        Vector2 target = projectedPath[currentIndex];
-        Vector2 direction = (target - (Vector2)transform.position).normalized;
-        velocity = direction * effectiveSpeed;
-        if (Vector2.Distance(transform.position, target) < 0.01f)
-            currentIndex++;
-    }
-
-    
-    private void FixedUpdate()
-    {
-        rb.linearVelocity = velocity;
-    }
-    */
     private void FixedUpdate()
     {
         if (stopMovement) return;
@@ -100,23 +69,20 @@ public class EnemyMovement : MonoBehaviour, IPathPredictor, IMovementOverride, I
         Vector2 pos = rb.position;
 
         float remaining = effectiveSpeed * Time.fixedDeltaTime;
-
-        // Consume as many path points as needed this step (prevents overshoot jitter)
+        
         while (remaining > 0f && currentIndex < projectedPath.Count)
         {
             Vector2 target = projectedPath[currentIndex];
             Vector2 to = target - pos;
             float dist = to.magnitude;
-
-            // If we're basically on the point, advance
+            
             if (dist <= 0.001f)
             {
                 pos = target;
                 currentIndex++;
                 continue;
             }
-
-            // Move towards target without overshooting
+            
             if (remaining < dist)
             {
                 Vector2 dir = to / dist;
