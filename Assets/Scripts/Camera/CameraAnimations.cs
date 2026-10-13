@@ -38,7 +38,16 @@ public class CameraAnimations : MonoBehaviour
         };
         EnemyManager.Instance.OnEnemyReachedEnd += _ =>
         {
-            CameraShaker.Presets.Explosion2D(0.5f);
+            var oldTimeScale = Time.timeScale;
+            //CameraShaker.Presets.Explosion2D(0.5f, 1f, 0.25f);
+            CameraShaker.Presets.ShortShake2D(0.04f);
+            Time.timeScale = 0;
+            FunctionTimer.Create(() =>
+            {
+                Time.timeScale = oldTimeScale;
+            }, 0.125f, true);
+            
+            
         };
     }
 

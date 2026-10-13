@@ -30,7 +30,7 @@ public class PlayerLife : Singleton<PlayerLife>
     private void OnEnemyReachedEndStatic(int lives)
     {
         CurrentLives = Mathf.Max(0, CurrentLives - lives);
-        VignetteController.Instance.PulseColor(Color.red, 0.4f, 0.14f);
+        VignetteController.Instance.PulseColor(Color.red, 0.3f, 0.14f);
         if (CurrentLives <= 0)
         {
             Debug.Log("GAME OVER");
