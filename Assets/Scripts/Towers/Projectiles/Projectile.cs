@@ -199,7 +199,7 @@ public class Projectile : MonoBehaviour
         }
         active = false;
         transform.parent = damageable.Transform;
-        GetComponent<SpriteRenderer>().DOFade(0, 0.75f).SetDelay(0.5f).OnComplete(() =>
+        GetComponent<SpriteRenderer>().DOFade(0, 0.75f).SetDelay(1f).OnComplete(() =>
         {
             Destroy(gameObject);
         });

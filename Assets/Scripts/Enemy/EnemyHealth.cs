@@ -52,7 +52,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
     }
 
     public float GetDamageBonus() => damageBonus;
-    
+
+    public void Heal(int amount) => HealthSystem.Heal(amount);
 
     private void OnDestroy()
     {

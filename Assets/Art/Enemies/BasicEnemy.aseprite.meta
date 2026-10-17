@@ -152,10 +152,10 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 41
-      width: 25
-      height: 25
+      x: 102
+      y: 40
+      width: 19
+      height: 19
     spriteID: d06a7bd087472f74b981cbcd988d7162
     spriteBone: []
     spriteOutline: []
@@ -207,7 +207,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: Strawberry Enemy
+  - name: Healer_Enemy
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -215,10 +215,10 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 121
-      y: 75
-      width: 14
-      height: 16
+      x: 134
+      y: 40
+      width: 19
+      height: 19
     spriteID: ff0604c761be6014bbb0276ea80141c6
     spriteBone: []
     spriteOutline: []
@@ -242,7 +242,7 @@ ScriptedImporter:
       cellRect:
         x: 20
         y: 68
-        width: 97
+        width: 149
         height: 91
       spriteId: 4b54a0e1a73064b4b856e970090a0f1e
     linkedCells: []

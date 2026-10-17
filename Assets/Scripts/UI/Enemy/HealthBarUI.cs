@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,7 +14,7 @@ public class HealthBarUI : MonoBehaviour
         {
             gameObject.SetActive(true);
             healthBar.fillAmount = (float)health / this.health.Value.HealthSystem.MaxHealth;
-            if(health <= 0)
+            if(health <= 0 || health >= this.health.Value.HealthSystem.MaxHealth)
                 gameObject.SetActive(false);
             
         };

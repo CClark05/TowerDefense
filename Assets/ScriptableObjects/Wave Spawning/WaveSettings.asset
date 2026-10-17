@@ -31,6 +31,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 67e96efb6c79b254da89d9b4584813ef, type: 2}
   - {fileID: 11400000, guid: 67e96efb6c79b254da89d9b4584813ef, type: 2}
   - {fileID: 11400000, guid: c3476906c990dd94d85d63aa48a38cc5, type: 2}
+  - {fileID: 11400000, guid: 789048ca6ec172149a59c47d391bd6b4, type: 2}
   HpIncreaseAfterBoss: 0.6
   SpeedIncreaseAfterBoss: 0.1
   minEnemies: 4
