@@ -38,8 +38,8 @@ public class CameraAnimations : MonoBehaviour
         };
         EnemyManager.Instance.OnEnemyReachedEnd += _ =>
         {
-            var oldTimeScale = Time.timeScale;
-            //CameraShaker.Presets.Explosion2D(0.5f, 1f, 0.25f);
+            var oldTimeScale = EnemyManager.Instance.CurrentEnemies.Count == 1 ? 1f : Time.timeScale;
+            Debug.Log(oldTimeScale);
             CameraShaker.Presets.ShortShake2D(0.04f);
             Time.timeScale = 0;
             FunctionTimer.Create(() =>

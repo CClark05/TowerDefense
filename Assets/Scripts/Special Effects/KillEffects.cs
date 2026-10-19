@@ -10,21 +10,8 @@ public class KillEffects : MonoBehaviour
     private Coroutine freezeFrameCoroutine;
     private void Start()
     {
-        /**
-        Projectile.OnWillKill += () =>
-        {
-            if(EnemyManager.Instance.CurrentEnemies.Count == 1 && EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning)
-                SlowmoAnimation(0.1f, 0f, 1f);
-        };
-        */
-
         EnemyHealth.OnDeathStatic += OnDeath;
-        /**
-        EnemyManager.Instance.OnIdle += () =>
-        {
-            Time.timeScale = 1;
-        };
-        */
+
     }
     void OnDeath(bool final)
     {

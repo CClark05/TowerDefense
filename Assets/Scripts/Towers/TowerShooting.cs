@@ -106,7 +106,7 @@ public class TowerShooting : MonoBehaviour
             OnShootComplete = () =>
             {
                 towerAnimation.OnShootAnimationComplete -= OnShootComplete;
-                var projectile = Projectile.CreateProjectile(projectileData, shotData, shootOrigin.position, damageable, towerDataHolder);
+                var projectile = Projectile.CreateProjectile(projectileData, shotData, shootOrigin.position, damageable, towerDataHolder, shotData.originalDirection);
                 Hook(projectile);
                 foreach (var dir in shotData.directionOverrides)
                 {

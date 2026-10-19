@@ -2,12 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "WaveData")]
-public class WaveData : ScriptableObject
-{
-    public List<EnemyWaveData> enemies;
-    public float delayBetweenSpawns;
-}
 [System.Serializable]
 public class EnemyWaveData
 {

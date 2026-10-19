@@ -18,11 +18,11 @@ public class DirectionArrowAnimation : MonoBehaviour
     {
         var fullPath = AStarPathfinding.Instance.GetPath();
         Vector3[] path = fullPath
-            .Take(fullPath.Count / 2)
+            .Take(fullPath.Count / 3)
             .Select(p => (Vector3)p)
             .ToArray();
         
-        float duration = path.Length / 10f;
+        float duration = path.Length / 8.5f;
         
         direction = (path[1] - path[0]).normalized;
         ApplyRotation();
@@ -49,7 +49,10 @@ public class DirectionArrowAnimation : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle + 180);
     }
-    //down is 90
-    //up is -90
+
+    public void DestroyArrow()
+    {
+        sr.DOFade(0, 0.5f).OnComplete(() => Destroy(gameObject));
+    }
     
 }

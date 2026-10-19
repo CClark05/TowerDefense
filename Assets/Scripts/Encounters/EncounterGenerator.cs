@@ -13,13 +13,11 @@ public class EncounterGenerator : Singleton<EncounterGenerator>
     public EncounterSettings GetEncounter(int wave)
     {
         int mod = wave % cycleLength;
-        int upgradeIndex = cycleLength - 7;
         int shopIndex = cycleLength - 1;
         
         var encounter = mod switch
         {
             0 => boss,
-            _ when mod == upgradeIndex => upgrade,   
             _ when mod == shopIndex => shop,       
             _ => null
         };

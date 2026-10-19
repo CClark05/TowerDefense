@@ -11,13 +11,16 @@ public class EnemyHitEffect : MonoBehaviour
     [SerializeField] private float flashToDuration = 0.06f;
     [SerializeField] private float holdDuration = 0.06f;
     [SerializeField] private float flashBackDuration = 0.18f;
+    [SerializeField] private SpriteRenderer overlaySr;
     private static readonly int FlashProp = Shader.PropertyToID("_Flash");
     private SpriteRenderer sr;
     private Sequence flashSeq;
     private Material material;
+    private Material overlayMaterial;
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
+        overlayMaterial = overlaySr.material;
         material = sr.material;
     }
 
@@ -35,31 +38,17 @@ public class EnemyHitEffect : MonoBehaviour
         }
     }
 
-    /**
-    private void HitEffect()
-    {
-        flashSeq?.Kill();
-        flashSeq = DOTween.Sequence(gameObject).SetLink(gameObject).SetUpdate(true);
-
-        Tween tweenTo(float to, float duration)
-        {
-            return DOTween.To(() => material.GetFloat(FlashProp), x =>
-            {
-                material.SetFloat(FlashProp, x);
-            }, to, duration);
-        }
-        
-        flashSeq.Append(tweenTo(1, flashToDuration));
-        flashSeq.AppendInterval(holdDuration);
-        flashSeq.Append(tweenTo(0, flashBackDuration));
-    }
-    */
     private void Flash(int times)
     {
         flashSeq?.Kill();
         flashSeq = DOTween.Sequence(gameObject).SetLink(gameObject).SetUpdate(true);
         float From() => material.GetFloat(FlashProp);
-        void Setter(float v) => material.SetFloat(FlashProp, v);
+        void Setter(float v)
+        {
+            overlayMaterial.SetFloat(FlashProp, v);
+            material.SetFloat(FlashProp, v);
+        }
+
         for (int i = 0; i < times; i++)
         {
             flashSeq.Append(DOTween.To(From, Setter, flashAmountOnHit, flashToDuration))

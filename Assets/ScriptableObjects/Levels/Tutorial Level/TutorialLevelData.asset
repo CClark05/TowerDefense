@@ -284,3 +284,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
   emptyTile: {fileID: 11400000, guid: e763ee6d92753de4a92002a5fea007a6, type: 2}
   playerLives: 15
+  waves:
+  - {fileID: 11400000, guid: c00540268e1bce34a9dce75570a3d89b, type: 2}
+  - {fileID: 11400000, guid: 2f18eb6d3a04763478581155c4bb6f58, type: 2}
+  - {fileID: 11400000, guid: 2881deb577d9e424ba75c48b58a97386, type: 2}
+  - {fileID: 11400000, guid: 616d291c6cdb3e743979b1d5cca0b951, type: 2}
+  - {fileID: 11400000, guid: 5384137309a71474db60035dc4338bc3, type: 2}

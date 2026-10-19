@@ -12,7 +12,6 @@ public class EnemyData : ScriptableObject
     public GameObject prefab;
     public bool summonable = true;
     public bool IsBoss;
-    public bool IsElite;
 
     public EliteBonus EliteBonus = new EliteBonus
     {

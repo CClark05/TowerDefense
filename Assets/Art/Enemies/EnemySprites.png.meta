@@ -205,7 +205,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -214,28 +214,6 @@ TextureImporter:
       bones: []
       spriteID: c7eb64ee87e373a448621a23a16d1fed
       internalID: -345402950
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FastEnemy_Sprite
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 4
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e31a091f09e1d04789cc3bf1f51a27f
-      internalID: -816350051
       vertices: []
       indices: 
       edges: []

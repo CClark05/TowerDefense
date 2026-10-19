@@ -26,7 +26,7 @@ public class Projectile : MonoBehaviour
     public float EffectiveSpeed => data.speed * speedIncrease;
     private bool active = true;
     private bool returning;
-    private void Init(IDamageable target, ProjectileShotData shotData)
+    private void Init(IDamageable target, ProjectileShotData shotData, Vector2 originalDirection)
     {
         this.target = target;
         this.shotData = shotData;
@@ -34,10 +34,10 @@ public class Projectile : MonoBehaviour
             GetComponent<SpriteRenderer>().sprite = shotData.projectileSprite;
         GetComponent<ProjectileVisual>().SetColor(shotData.projectileColor);
         maxEnemiesPierced = shotData.maxEnemiesPierced;
-        targetTransform = target.Transform;
+        targetTransform = (target as UnityEngine.Object) != null ? target.Transform : null;
         speedIncrease *= shotData.speedIncrease;
         transform.localScale *= new Vector2(shotData.plusSizePercent + 1, shotData.plusSizePercent + 1);
-        CalculateAim(transform.position, EffectiveSpeed);
+        CalculateAim(transform.position, EffectiveSpeed, originalDirection);
     }
 
     private void Init(Vector2 direction, ProjectileShotData shotData)
@@ -53,12 +53,12 @@ public class Projectile : MonoBehaviour
         transform.localScale *= new Vector2(shotData.plusSizePercent + 1, shotData.plusSizePercent + 1);
     }
 
-    public static Projectile CreateProjectile(ProjectileData data, ProjectileShotData shotData, Vector2 position, IDamageable target, TowerDataHolder tower)
+    public static Projectile CreateProjectile(ProjectileData data, ProjectileShotData shotData, Vector2 position, IDamageable target, TowerDataHolder tower, Vector2 originalDirection)
     {
         var projectile = Instantiate(data.prefab, position, Quaternion.identity).GetComponent<Projectile>();
         projectile.Origin = position;
         projectile.towerData = tower;
-        projectile.Init(target, shotData);
+        projectile.Init(target, shotData, originalDirection);
         return projectile;
     }
 
@@ -262,8 +262,14 @@ public class Projectile : MonoBehaviour
         return false;
     }
 
-    private void CalculateAim(Vector2 shooterPos, float projSpeed)
+    private void CalculateAim(Vector2 shooterPos, float projSpeed, Vector2 originalDirection)
     {
+        if (targetTransform == null)
+        {
+            direction = originalDirection;
+            Debug.Log("transform null");
+            return;
+        }
         var predictor = targetTransform.GetComponent<IPathPredictor>();
         TryPathIntercept(predictor, shooterPos, projSpeed, maxLeadSeconds, out var aim, out var tHit);
         Vector2 desired = (aim - shooterPos).normalized;

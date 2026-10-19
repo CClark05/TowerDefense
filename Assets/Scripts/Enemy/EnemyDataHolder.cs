@@ -1,3 +1,5 @@
+using System;
+using System.Security.Permissions;
 using UnityEngine;
 
 public class EnemyDataHolder : MonoBehaviour
@@ -6,10 +8,14 @@ public class EnemyDataHolder : MonoBehaviour
     public EnemyData Data => data;
     public int MaxHP { get; private set; }
     public float SpeedIncrease { get; private set; }
-    public void Init(EnemyData data)
+    private EnemyCost[] enemiesUnderneath;
+    public EnemyCost[] EnemiesUnderneath => enemiesUnderneath;
+    public bool IsElite { get; private set; }
+    public void Init(EnemyData data, bool isElite = false, EnemyCost[] enemiesUnderneath = null)
     {
         this.data = data;
-        if (data.IsElite)
+        IsElite = isElite;
+        if (isElite)
         {
             this.data = data.CloneRuntime();
             this.data.health = Mathf.CeilToInt(this.data.health * data.EliteBonus.healthMultiplier);
@@ -17,7 +23,9 @@ public class EnemyDataHolder : MonoBehaviour
         }
         int cycle = (EnemyManager.Instance.CurrentWave- 1) / EncounterGenerator.Instance.CycleLength;
         float mult = 1f + cycle * EnemyManager.Instance.WaveSettings.HpIncreaseAfterBoss;
-        MaxHP = Mathf.CeilToInt(data.health * mult);
+        MaxHP = Mathf.CeilToInt(this.data.health * mult);
         SpeedIncrease = cycle * EnemyManager.Instance.WaveSettings.SpeedIncreaseAfterBoss;
+        this.enemiesUnderneath = enemiesUnderneath;
     }
+    
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using CodeMonkey.Utils;
 using UnityEngine;
 
@@ -12,9 +13,11 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
     public event Action<int> OnTakeDamage;
     private FunctionTimer deathTimer;
     private float damageBonus;
+    private EnemyDataHolder dataHolder;
     private void Start()
     {
         HealthSystem = new HealthSystem(GetComponent<EnemyDataHolder>().MaxHP);
+        dataHolder = GetComponent<EnemyDataHolder>();
     }
 
     public bool TakeDamage(int amount)
@@ -29,10 +32,15 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
             if (GetComponent<EnemyDataHolder>().Data.coins > 1)
                 PlayerInventory.Instance.CoinAnimation(GetComponent<EnemyDataHolder>().Data.coins, transform.position);
             
-            bool finalEnemy = EnemyManager.Instance.CurrentEnemies.Count == 1 && EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning;
+            bool finalEnemy = EnemyManager.Instance.CurrentEnemies.Count == 1 && dataHolder.EnemiesUnderneath.Length == 0 && EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning;
+            Debug.Log(finalEnemy);
             OnDeathStatic?.Invoke(finalEnemy);
             OnDeath?.Invoke();
             GetComponent<IMovementOverride>().SetSpeed(0);
+            if (dataHolder.EnemiesUnderneath != null && dataHolder.EnemiesUnderneath.Length > 0)
+            {
+                EnemyManager.Instance.SpawnEnemyAtPosition(dataHolder.EnemiesUnderneath[0].EnemyData, transform.position, dataHolder.EnemiesUnderneath.Skip(1).ToArray());
+            }
             deathTimer = FunctionTimer.Create(() =>
             {
                 Destroy(gameObject);

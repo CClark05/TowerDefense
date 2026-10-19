@@ -28,6 +28,7 @@ public class PlayButtonUI : Singleton<PlayButtonUI>
         });
         EnemyManager.Instance.OnWaveComplete += () =>
         {
+            Time.timeScale = 1;
             Array.ForEach(fastForwardButton.GetComponentsInChildren<Image>(true),
                 img => img.color = originalFastForwardColor);
             playButton.gameObject.SetActive(true);

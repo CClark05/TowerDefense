@@ -12,26 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d59f71e1cb4ba789a3535d7105ae08, type: 3}
   m_Name: WaveSettings
   m_EditorClassIdentifier: 
-  BaseBudget: 5
+  BaseBudget: 8
   GrowthRate: 1.2
   AdditivePerWave: 0.65
   Variance: 0.08
   SpikeAfterBoss: 1.75
   Enemies:
   - {fileID: 11400000, guid: 2f2fcd078669a4942b46724243f70803, type: 2}
-  - {fileID: 11400000, guid: 106970b98733adc4ba12eaf320f31428, type: 2}
   - {fileID: 11400000, guid: 8aa6506b18442fa4a8cce7534096753e, type: 2}
-  - {fileID: 11400000, guid: 94cc2fb4df09f464d84f197afdee9265, type: 2}
   - {fileID: 11400000, guid: 37fa90145bbb49a42a8657ca15c58e3b, type: 2}
-  - {fileID: 11400000, guid: 24a5a1bde1271b344bf3333253529986, type: 2}
-  - {fileID: 11400000, guid: 2994162710d996d4f82ecf1702c17d0d, type: 2}
   - {fileID: 11400000, guid: fcb351460ce1d494c9e013da8d0c5861, type: 2}
-  - {fileID: 11400000, guid: aaed3d0dcd83a3f438d642700bb29fd3, type: 2}
   - {fileID: 11400000, guid: b99a88ee799561f448e4f87dc1d9f83f, type: 2}
-  - {fileID: 11400000, guid: 67e96efb6c79b254da89d9b4584813ef, type: 2}
-  - {fileID: 11400000, guid: 67e96efb6c79b254da89d9b4584813ef, type: 2}
   - {fileID: 11400000, guid: c3476906c990dd94d85d63aa48a38cc5, type: 2}
   - {fileID: 11400000, guid: 789048ca6ec172149a59c47d391bd6b4, type: 2}
+  - {fileID: 11400000, guid: 92c4119591af90247a0b1679b794f18d, type: 2}
   HpIncreaseAfterBoss: 0.6
   SpeedIncreaseAfterBoss: 0.1
-  minEnemies: 4
+  minEnemies: 6

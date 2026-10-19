@@ -13,6 +13,8 @@ public class LevelData : ScriptableObject
     public GridObjectData emptyTile;
     [Header("Player Data")] 
     public int playerLives;
+    [Header("Wave Data")]
+    public WaveData[] waves;
     public void InitializeGrid()
     {
         float aspect = 16 / 9f;
@@ -26,6 +28,7 @@ public class LevelData : ScriptableObject
             tiles[i] = emptyTile;
         }
     }
+    
 
     public GridObjectData GetTile(int x, int y) => tiles[y * width + x];
     public void SetTile(int x, int y, GridObjectData data) => tiles[y * width + x] = data;

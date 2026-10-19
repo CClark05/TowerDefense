@@ -34,10 +34,11 @@ public class EnemyManager : Singleton<EnemyManager>
     public event Action OnEnemiesUpdated;
     public event Action<int> OnEnemyReachedEnd;
     public event Action<int> OnEnemyKilled;
-    //private WaveData waveData => levelData.waves[CurrentWave - 1];
+    private WaveData waveData => levelData.waves[CurrentWave - 1];
     [FormerlySerializedAs("waveLibrary")] [SerializeField] private WaveSettings waveSettings;
     public WaveSettings WaveSettings => waveSettings;
     private WaveGenerator waveGenerator;
+    
     [Header("TESTING DATA")]
     [SerializeField] private List<EnemyData> testEnemies = new();
 
@@ -64,7 +65,6 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             WaveTimer += Time.deltaTime;
         }
-
     }
 
     public HashSet<Transform> GetNearbyEnemies(Vector2 position, float range)
@@ -93,12 +93,13 @@ public class EnemyManager : Singleton<EnemyManager>
         }
         return closestEnemy;
     }
-    private void SpawnEnemy(EnemyData enemyData) => SpawnEnemyAtPosition(enemyData, AStarPathfinding.Instance.GetPath()[0]);
+    private void SpawnEnemy(EnemyData enemyData, EnemyCost[] enemiesUnderneath = null, bool isElite = false) => SpawnEnemyAtPosition(enemyData, AStarPathfinding.Instance.GetPath()[0], enemiesUnderneath, isElite);
 
-    public void SpawnEnemyAtPosition(EnemyData enemyData, Vector2 position)
+    public void SpawnEnemyAtPosition(EnemyData enemyData, Vector2 position, EnemyCost[] enemiesUnderneath = null, bool isElite = false)
     {
         var enemy = Instantiate(enemyData.prefab, position, Quaternion.identity);
-        enemy.GetComponent<EnemyDataHolder>().Init(enemyData);
+        enemy.GetComponent<EnemyDataHolder>().Init(enemyData, isElite, enemiesUnderneath);
+        var totalLives = enemy.GetComponent<EnemyDataHolder>().EnemiesUnderneath?.Sum(e => e.EnemyData.livesCost) ?? 0;
         enemy.GetComponent<EnemyHealth>().OnDeath += () =>
         {
             OnEnemyKilled?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.coins);
@@ -108,7 +109,7 @@ public class EnemyManager : Singleton<EnemyManager>
         };
         enemy.GetComponent<IMovementListener>().OnReachedEnd += () =>
         {
-            OnEnemyReachedEnd?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.livesCost);
+            OnEnemyReachedEnd?.Invoke(enemy.GetComponent<EnemyDataHolder>().Data.livesCost + totalLives);
             RemoveEnemy(enemy);
             if (currentEnemies.Count == 0) Time.timeScale = 1;
         };
@@ -150,6 +151,7 @@ public class EnemyManager : Singleton<EnemyManager>
     private IEnumerator SpawnWave()
     {
         WaveTimer = 0;
+        float defaultDelay = 1f;
         TowerService.BeginWave(TowerDataHolder.ActiveTowerList);
         OnWaveStarted?.Invoke();
         WaveState = WaveStates.Spawning;
@@ -164,11 +166,15 @@ public class EnemyManager : Singleton<EnemyManager>
             CurrentWave++;
             yield break;
         }
-        var spawns = waveGenerator.Generate(CurrentWave).enemySpawns;
-        foreach (var e in spawns)
+
+        var entries = waveData.entries;
+        foreach (var e in entries)
         {
-            SpawnEnemy(e.enemy.EnemyData);
-            yield return new WaitForSeconds(e.delay);
+            for (int i = 0; i < (e.count > 0 ? e.count : 1); i++)
+            {
+                SpawnEnemy(e.enemy.EnemyData, e.enemiesUnderneath, e.isElite);
+                yield return new WaitForSeconds(e.delay > 0 ? e.delay : defaultDelay);
+            }
         }
         WaveState = WaveStates.DoneSpawning;
         CurrentWave++;
