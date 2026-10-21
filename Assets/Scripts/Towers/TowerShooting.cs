@@ -1,5 +1,7 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using Mono.Cecil.Cil;
 using UnityEngine;
 
 public enum TargetingModes
@@ -101,6 +103,7 @@ public class TowerShooting : MonoBehaviour
         shotData.directionOverrides.ForEach((_) => shotData.projectiles++);
         if (target != null && target.TryGetComponent<IDamageable>(out var damageable))
         {
+            Debug.Log("Shoot");
             OnShoot?.Invoke();
             Action OnShootComplete = null;
             OnShootComplete = () =>
@@ -125,6 +128,7 @@ public class TowerShooting : MonoBehaviour
                         OnDealDamageStatic?.Invoke(pos, hitData);
                         if (hitData.didKill) OnKillEnemy?.Invoke();
                     };
+                      
                 }
                 shootCoroutine = null;
             };

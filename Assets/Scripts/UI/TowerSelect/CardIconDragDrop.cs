@@ -49,6 +49,11 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (EnemyManager.Instance.WaveState != EnemyManager.WaveStates.Idle) return;
+        if (iconUI.SkillInstance.Data.cannotBeRemoved)
+        {
+            GameManager.Instance.SetCursor(GameManager.Cursors.Disabled);
+            return;
+        }
         IsOverReceiver = false;
         lastHoverReceiver = null;
         originalPosition = rect.position;
@@ -59,7 +64,7 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (EnemyManager.Instance.WaveState != EnemyManager.WaveStates.Idle) return;
+        if (EnemyManager.Instance.WaveState != EnemyManager.WaveStates.Idle || iconUI.SkillInstance.Data.cannotBeRemoved) return;
         cardReceiver = null;
         if (RectTransformUtility.ScreenPointToWorldPointInRectangle(
                 worldCanvas.transform as RectTransform, eventData.position, worldCanvas.worldCamera, out var world))
@@ -96,7 +101,7 @@ public class CardIconDragDrop : MonoBehaviour, IBeginDragHandler, IEndDragHandle
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (EnemyManager.Instance.WaveState != EnemyManager.WaveStates.Idle) return;
+        if (EnemyManager.Instance.WaveState != EnemyManager.WaveStates.Idle || iconUI.SkillInstance.Data.cannotBeRemoved) return;
         GameManager.Instance.SetCursor(GameManager.Cursors.Default);
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1;

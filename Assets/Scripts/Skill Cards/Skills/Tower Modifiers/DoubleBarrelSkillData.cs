@@ -1,14 +1,14 @@
 using System.Collections;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Double Barrel Data", menuName = "SkillData/Shot Modifiers/Double Barrel")]
+[CreateAssetMenu(fileName = "Double Barrel Data", menuName = "SkillData/Tower Modifiers/Double Barrel")]
 public class DoubleBarrelSkillData : SkillData
 {
     public float SpreadDegrees = 12;
-    public float fireRateReduction = 0.25f;
+    public float bulletLifetime = 1;
     private void OnValidate()
     {
-        description = $"Fires 2 additional projectiles to the right and left of the original projectile. Reduces fire rate by {fireRateReduction * 100}%.";
+        description = $"Tower fires a spread of 3 close-range shotgun pellets.";
     }
     public override SkillInstance CreateInstance()
     {
@@ -16,22 +16,14 @@ public class DoubleBarrelSkillData : SkillData
     }
 }
 
-public class DoubleBarrelSkillInstance : SkillInstance<DoubleBarrelSkillData>, IShotModifier, IPlayCountPolicy<IShotModifier>, ITowerCardReceivedModifier
+public class DoubleBarrelSkillInstance : SkillInstance<DoubleBarrelSkillData>, IShotModifier, IPlayCountPolicy<IShotModifier>
 {
     public DoubleBarrelSkillInstance(DoubleBarrelSkillData data) : base(data)
     {
     }
-    public void Apply(TowerWaveData towerWaveData)
-    {
-        towerWaveData.increasedSpeed *= 1f - Data.fireRateReduction;
-    }
-
-    public void Remove(TowerWaveData towerWaveData)
-    {
-        towerWaveData.increasedSpeed /= 1 - Data.fireRateReduction;
-    }
     public void Modify(ProjectileShotData shotData)
     {
+        shotData.lifetimeDuration = Data.bulletLifetime;
         Vector2 forward = shotData.originalDirection;
         Vector2 left  = Rotate(forward, Data.SpreadDegrees);
         Vector2 right = Rotate(forward, -Data.SpreadDegrees);

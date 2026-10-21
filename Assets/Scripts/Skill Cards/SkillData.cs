@@ -43,6 +43,7 @@ public abstract class SkillData : ScriptableObject
     public EffectEntry[] statusEffects;
     public EffectEntry[] buffs;
     public SkillData[] prerequisiteSkills;
+    public bool cannotBeRemoved;
     public bool isExcluded;
     public abstract SkillInstance CreateInstance();
     public string FormatRuntimeStat(int value)

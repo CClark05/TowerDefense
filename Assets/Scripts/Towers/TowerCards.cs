@@ -11,6 +11,10 @@ public class TowerCards : MonoBehaviour, IUsesCards
     private void Start()
     {
         towerDataHolder = GetComponent<TowerDataHolder>();
+        foreach (var card in GetComponent<TowerDataHolder>().Data.startingCards)
+        {
+            AddCard(card.CreateInstance());
+        }
     }
 
     public void AddCard(SkillInstance skillInstance)

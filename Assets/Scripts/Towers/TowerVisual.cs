@@ -5,7 +5,9 @@ using UnityEngine.Serialization;
 
 public class TowerVisual : MonoBehaviour
 {
-    [SerializeField] private GameObject rangeVisual, crossbowVisual, baseVisual, tentVisual, tileOutline;
+    [SerializeField] private GameObject rangeVisual;
+    [FormerlySerializedAs("crossbowVisual")] [SerializeField] private GameObject visual;
+    [SerializeField] private GameObject baseVisual, tentVisual, tileOutline;
     private bool isSelected;
     private TowerDataHolder dataHolder;
     private EnemyManager enemyManager;
@@ -33,7 +35,7 @@ public class TowerVisual : MonoBehaviour
         towerShooting.OnToggleShooting += disable =>
         {
             tentVisual.SetActive(disable);
-            crossbowVisual.SetActive(!disable);
+            visual.SetActive(!disable);
             baseVisual.SetActive(!disable);
         };
     }
@@ -72,13 +74,13 @@ public class TowerVisual : MonoBehaviour
         if (!towerShooting.Direction.HasValue) return;
         Vector2 dir = towerShooting.Direction.Value;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        float currentAngle = crossbowVisual.transform.rotation.eulerAngles.z;
+        float currentAngle = visual.transform.rotation.eulerAngles.z;
         float angleDifference = Mathf.Abs(Mathf.DeltaAngle(currentAngle, angle));
 
         if (angleDifference > 0.5f) 
         {
             float speed = 25f;
-            crossbowVisual.transform.rotation = Quaternion.Lerp(crossbowVisual.transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * speed);
+            visual.transform.rotation = Quaternion.Lerp(visual.transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * speed);
         }
     }
 

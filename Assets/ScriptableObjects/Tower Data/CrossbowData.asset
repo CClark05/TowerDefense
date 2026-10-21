@@ -20,4 +20,6 @@ MonoBehaviour:
   damage: 10
   cardSlots: 4
   cost: 20
+  startingCards:
+  - {fileID: 11400000, guid: 7b0b7b9dd8bca424aa91cfff71f7332c, type: 2}
   growthRate: 1.28

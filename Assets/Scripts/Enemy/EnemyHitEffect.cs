@@ -11,6 +11,7 @@ public class EnemyHitEffect : MonoBehaviour
     [SerializeField] private float flashToDuration = 0.06f;
     [SerializeField] private float holdDuration = 0.06f;
     [SerializeField] private float flashBackDuration = 0.18f;
+
     [SerializeField] private SpriteRenderer overlaySr;
     private static readonly int FlashProp = Shader.PropertyToID("_Flash");
     private SpriteRenderer sr;
@@ -27,16 +28,8 @@ public class EnemyHitEffect : MonoBehaviour
     private void Start()
     {
         GetComponent<EnemyHealth>().OnHit += () => Flash(1);
-        EnemyHealth.OnDeathStatic += OnDeathStatic;
     }
 
-    private void OnDeathStatic(bool final)
-    {
-        if (final)
-        {
-            Flash(7);
-        }
-    }
 
     private void Flash(int times)
     {
@@ -56,9 +49,5 @@ public class EnemyHitEffect : MonoBehaviour
                 .Append(DOTween.To(From, Setter, 0f, flashBackDuration));
         }
     }
-
-    private void OnDestroy()
-    {
-        EnemyHealth.OnDeathStatic -= OnDeathStatic;
-    }
+    
 }

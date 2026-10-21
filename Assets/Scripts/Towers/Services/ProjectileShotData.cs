@@ -20,7 +20,8 @@ public class ProjectileShotData
     public readonly List<Vector2> directionOverrides;
     public int homingProjectiles;
     public int projectiles;
-
+    public float? lifetimeDuration;
+    
     public ProjectileShotData(float releaseTime)
     {
         this.releaseTime = releaseTime;
@@ -53,5 +54,10 @@ public class ProjectileShotData
 
         eventInvoked = false;
         //UnityEngine.Object.Destroy(projectile.gameObject);
+    }
+
+    public void SetLifetime(float duration)
+    {
+        
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using CodeMonkey.Utils;
 using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
@@ -33,6 +34,14 @@ public class TowerAnimation : MonoBehaviour
 
     private void OnShoot()
     {
+        if (shootAnimation == null)
+        {
+            FunctionTimer.Create(() =>
+            {
+                OnShootAnimationComplete?.Invoke();
+            }, 0.1f);
+            return;
+        }
         var handle = animationPlayer.Play(shootAnimation, visual, AnimPlayMode.Auto, runtimeData.TimeBetweenShots / 3f);
         handle.OnComplete += () => OnShootAnimationComplete?.Invoke();
     }

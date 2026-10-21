@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Laminated Effect
   m_EditorClassIdentifier: 
   name: Laminated
-  description: Card cannot be upgraded.
+  description: Card cannot be removed.
   color: {r: 0.78039217, g: 0.8117647, b: 0.8, a: 1}
   sprite: {fileID: 0}

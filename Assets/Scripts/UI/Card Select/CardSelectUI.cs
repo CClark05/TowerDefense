@@ -85,15 +85,19 @@ public class CardSelectUI : Singleton<CardSelectUI>
         if (PlayerLife.Instance.CurrentLives <= 0) return;
         var encounter = EncounterGenerator.Instance.GetEncounter(EnemyManager.Instance.CurrentWave - 1);
         if (encounter != null) return;
-        GenerateRandomCards();
-        rerollAmount = 0;
-        rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
-        SetPriceText();
-        cardCooldowns.DecreaseCooldowns();
-        float fadeDuration = 0.5f;
-        background.SetActive(true);
-        background.GetComponent<Image>().color = new Color(0, 0, 0, 0);
-        background.GetComponent<Image>().DOFade(203f / 255f, fadeDuration).OnComplete(() => { OnShowCards?.Invoke(); });
+        FunctionTimer.Create(() =>
+        {
+            GenerateRandomCards();
+            rerollAmount = 0;
+            rerollCost = rerollSettings.BaseCost + rerollSettings.IncreasePerRoll * rerollAmount;
+            SetPriceText();
+            cardCooldowns.DecreaseCooldowns();
+            float fadeDuration = 0.5f;
+            background.SetActive(true);
+            background.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+            background.GetComponent<Image>().DOFade(203f / 255f, fadeDuration).OnComplete(() => { OnShowCards?.Invoke(); });
+        }, 1.5f);
+
     }
 
 

@@ -146,8 +146,11 @@ public class TowerSelectUI : MonoBehaviour
             };
             button.OnHover += () =>
             {
-                if(EnemyManager.Instance.WaveState == EnemyManager.WaveStates.Idle)
-                    GameManager.Instance.SetCursor(GameManager.Cursors.OpenHand);
+                if (EnemyManager.Instance.WaveState == EnemyManager.WaveStates.Idle)
+                {
+                    GameManager.Instance.SetCursor(instance.Data.cannotBeRemoved ? GameManager.Cursors.Disabled : GameManager.Cursors.OpenHand);
+                }
+                    
                 fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance);
                 fullCardPreview.SetActive(true);
             };

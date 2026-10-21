@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class KillEffects : MonoBehaviour
 {
-    public static readonly float finalFreezeFrameDuration = 0.3f;
     public static readonly float freezeFrameDuration = 0.075f;
     private Coroutine freezeFrameCoroutine;
     private void Start()
@@ -15,16 +14,8 @@ public class KillEffects : MonoBehaviour
     }
     void OnDeath(bool final)
     {
-        if (final)
-        {
-            SlowmoAnimation(0.2f, 0.2f, 0.5f);
-            if (freezeFrameCoroutine != null) return;
-            StartCoroutine(FreezeFrame(finalFreezeFrameDuration, 1));
-            return;
-        }
-
         if (freezeFrameCoroutine != null) return;
-        freezeFrameCoroutine = StartCoroutine(FreezeFrame(freezeFrameDuration));
+        freezeFrameCoroutine = StartCoroutine(FreezeFrame(freezeFrameDuration, final));
     }
     private void SlowmoAnimation(float to, float toDuration, float holdTime)
     {
@@ -34,12 +25,12 @@ public class KillEffects : MonoBehaviour
         seq.Append(DOTween.To(() => Time.timeScale, x => Time.timeScale = x, 1, toDuration).SetEase(Ease.OutQuad));
     }
 
-    private IEnumerator FreezeFrame(float duration, float? finalTimeScale = null)
+    private IEnumerator FreezeFrame(float duration, bool final)
     {
-        var originalTimeScale = Time.timeScale;
+        var originalTimeScale = final ? 1f : Time.timeScale;
         Time.timeScale = 0;
         yield return new WaitForSecondsRealtime(duration);
-        Time.timeScale = finalTimeScale ?? originalTimeScale;
+        Time.timeScale = originalTimeScale;
         freezeFrameCoroutine = null;
     }
 

@@ -26,10 +26,13 @@ public class Projectile : MonoBehaviour
     public float EffectiveSpeed => data.speed * speedIncrease;
     private bool active = true;
     private bool returning;
+    private float? lifetimeDuration;
+    private float lifetimeTimer;
     private void Init(IDamageable target, ProjectileShotData shotData, Vector2 originalDirection)
     {
         this.target = target;
         this.shotData = shotData;
+        this.lifetimeDuration = shotData.lifetimeDuration;
         if (shotData.projectileSprite != null)
             GetComponent<SpriteRenderer>().sprite = shotData.projectileSprite;
         GetComponent<ProjectileVisual>().SetColor(shotData.projectileColor);
@@ -44,6 +47,7 @@ public class Projectile : MonoBehaviour
     {
         target = null;
         this.shotData = shotData;
+        this.lifetimeDuration = shotData.lifetimeDuration;
         if (shotData.projectileSprite != null)
             GetComponent<SpriteRenderer>().sprite = shotData.projectileSprite;
         GetComponent<ProjectileVisual>().SetColor(shotData.projectileColor);
@@ -96,6 +100,25 @@ public class Projectile : MonoBehaviour
     private float homingTimer;
     private void Update()
     {
+        if (lifetimeDuration.HasValue)
+        {
+            lifetimeTimer += Time.deltaTime;
+            if (lifetimeTimer >= lifetimeDuration.Value)
+            {
+                shotData.ShotDestroyed(this, out bool eventInvoked);
+                lifetimeDuration = null;
+                direction = null;
+                if (eventInvoked)
+                {
+                    homing = false;
+                    returning = true;
+                    return;
+                }
+                Destroy(gameObject);
+                return;
+            }
+        }
+        
         homingTimer += Time.deltaTime;
         if (homing && direction != null && homingTimer > homingDelay)
         {
@@ -185,7 +208,7 @@ public class Projectile : MonoBehaviour
             StickEnemy(damageable);
         
     }
-
+    
     private void StickEnemy(IDamageable damageable)
     {
         if (returning) return;
@@ -204,6 +227,7 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         });
     }
+    
     private bool TryPathIntercept(IPathPredictor predictor, Vector2 shooterPos, float projSpeed, float tMax, out Vector2 aim, out float tHit)
     {
         float G(float t)

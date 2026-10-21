@@ -10,6 +10,7 @@ public class TowerData : GridObjectData
     public int damage;
     public int cardSlots;
     public int cost;
+    public SkillData[] startingCards;
     public int Cost
     {
         get => cost;

@@ -32,19 +32,18 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IUsesHealth
             if (GetComponent<EnemyDataHolder>().Data.coins > 1)
                 PlayerInventory.Instance.CoinAnimation(GetComponent<EnemyDataHolder>().Data.coins, transform.position);
             
-            bool finalEnemy = EnemyManager.Instance.CurrentEnemies.Count == 1 && dataHolder.EnemiesUnderneath.Length == 0 && EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning;
-            Debug.Log(finalEnemy);
-            OnDeathStatic?.Invoke(finalEnemy);
-            OnDeath?.Invoke();
             GetComponent<IMovementOverride>().SetSpeed(0);
             if (dataHolder.EnemiesUnderneath != null && dataHolder.EnemiesUnderneath.Length > 0)
             {
                 EnemyManager.Instance.SpawnEnemyAtPosition(dataHolder.EnemiesUnderneath[0].EnemyData, transform.position, dataHolder.EnemiesUnderneath.Skip(1).ToArray());
             }
+            bool finalEnemy = EnemyManager.Instance.CurrentEnemies.Count == 1 && dataHolder.EnemiesUnderneath.Length == 0 && EnemyManager.Instance.WaveState is EnemyManager.WaveStates.DoneSpawning;
+            OnDeathStatic?.Invoke(finalEnemy);
+            OnDeath?.Invoke();
             deathTimer = FunctionTimer.Create(() =>
             {
                 Destroy(gameObject);
-            }, finalEnemy ? KillEffects.finalFreezeFrameDuration * 3f : KillEffects.freezeFrameDuration, true);
+            }, KillEffects.freezeFrameDuration, true);
         }
         return isDead;
     }

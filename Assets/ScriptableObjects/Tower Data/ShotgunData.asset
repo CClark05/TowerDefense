@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d16044eb0045e89f91a1a3b30215be, type: 3}
+  m_Name: ShotgunData
+  m_EditorClassIdentifier: 
+  objectName: Shotgun
+  id: 4
+  prefab: {fileID: 6913024597348871524, guid: 1814f578697367c4cbca0364b9328e5e, type: 3}
+  timeBetweenShots: 1.25
+  range: 5
+  damage: 10
+  cardSlots: 5
+  cost: 20
+  startingCards:
+  - {fileID: 11400000, guid: ec6be1dc28ed26042a1f8082c5d6b768, type: 2}
+  growthRate: 1.28

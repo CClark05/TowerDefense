@@ -6,6 +6,6 @@ public class LaminatedEffectData : EffectData
 {
     private void OnValidate()
     {
-        description = "Card cannot be upgraded.";
+        description = "Card cannot be removed.";
     }
 }

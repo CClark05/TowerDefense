@@ -27,14 +27,13 @@ public class CameraAnimations : MonoBehaviour
         {
             if (final)
             {
-                
                 FunctionTimer.Create(() =>
                 {
                     CameraShaker.Presets.Explosion2D(1, 3, 1);
                 }, 0.1f);
                 return;
             }
-            CameraShaker.Presets.ShortShake2D();
+            //CameraShaker.Presets.ShortShake2D();
         };
         EnemyManager.Instance.OnEnemyReachedEnd += _ =>
         {
