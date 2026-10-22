@@ -8,6 +8,7 @@ public class TowerVisual : MonoBehaviour
     [SerializeField] private GameObject rangeVisual;
     [FormerlySerializedAs("crossbowVisual")] [SerializeField] private GameObject visual;
     [SerializeField] private GameObject baseVisual, tentVisual, tileOutline;
+    [SerializeField] private bool rotateTower = true;
     private bool isSelected;
     private TowerDataHolder dataHolder;
     private EnemyManager enemyManager;
@@ -71,6 +72,7 @@ public class TowerVisual : MonoBehaviour
 
     private void Update()
     {
+        if (!rotateTower) return;
         if (!towerShooting.Direction.HasValue) return;
         Vector2 dir = towerShooting.Direction.Value;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;

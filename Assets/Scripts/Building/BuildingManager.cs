@@ -21,15 +21,7 @@ public class BuildingManager : Singleton<BuildingManager>
     {
         gridManager = GridManager.Instance;
         cam = Camera.main;
-        buildButtonUI.OnBuildMode += data =>
-        {
-            Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
-            currentBuild.preview = Instantiate(data.prefab, mousePosition, Quaternion.identity);
-            currentBuild.preview.GetComponent<BoxCollider2D>().enabled = false;
-            currentBuild.data = data;
-            currentBuild.selectionTile = Instantiate(selectionTilePrefab, mousePosition, Quaternion.identity).GetComponent<SelectionTile>();
-            OnEnterBuildMode?.Invoke();
-        };
+        buildButtonUI.OnBuildMode += EnterBuildMode;
         buildButtonUI.OnExitBuildMode += ExitBuildMode;
         undoButton.gameObject.SetActive(false);
         undoButton.OnClick.AddListener(() =>
@@ -46,6 +38,15 @@ public class BuildingManager : Singleton<BuildingManager>
         };
     }
 
+    public void EnterBuildMode(TowerData data)
+    {
+        Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
+        currentBuild.preview = Instantiate(data.prefab, mousePosition, Quaternion.identity);
+        currentBuild.preview.GetComponent<BoxCollider2D>().enabled = false;
+        currentBuild.data = data;
+        currentBuild.selectionTile = Instantiate(selectionTilePrefab, mousePosition, Quaternion.identity).GetComponent<SelectionTile>();
+        OnEnterBuildMode?.Invoke();
+    }
     private void Update()
     {
         if (currentBuild.preview == null) return;
@@ -75,7 +76,7 @@ public class BuildingManager : Singleton<BuildingManager>
             mostRecentBuild.cost = currentBuild.data.cost;
             OnPlacedBuild?.Invoke(currentBuild.data);
             newBuilding.GetComponent<TowerAnimation>().Init();
-            currentBuild.data.Cost += currentBuild.data.costIncreasePerPurchase;
+            //currentBuild.data.Cost += currentBuild.data.costIncreasePerPurchase;
             ExitBuildMode();
             StartCoroutine(UpdateTowers());
             IEnumerator UpdateTowers()

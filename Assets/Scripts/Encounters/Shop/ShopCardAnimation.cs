@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShopCardAnimation : MonoBehaviour
 {
+    /**
     private Transform chestLocation;
     [SerializeField] private CanvasGroup canvasGroup;
     public InterfaceReference<ICardUI> cardUI;
@@ -48,4 +49,5 @@ public class ShopCardAnimation : MonoBehaviour
         seq.Insert(travelStart + flipDuration, transform.DOScaleX(0.85f, flipDuration).SetEase(Ease.InSine));
         seq.Insert(travelStart, canvasGroup.DOFade(0f, moveDuration).SetEase(Ease.OutCubic)).OnComplete(() => Destroy(gameObject));
     }
+    */
 }

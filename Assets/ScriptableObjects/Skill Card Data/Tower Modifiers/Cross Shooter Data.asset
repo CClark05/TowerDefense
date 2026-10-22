@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9d6beabfd6c4e9082db7bf4ccd4f5e7, type: 3}
   m_Name: Cross Shooter Data
   m_EditorClassIdentifier: 
-  name: Cross Shooter
+  name: Octo Shooter
   icon: {fileID: -1468192599, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}
   rarity: 0
-  description: Fires 3 additional projectiles in a cross pattern relative to the
-    original projectile.
+  description: Tower fires a ring of 8 arrows in all directions.
   hasRuntimeValue: 0
   runtimeStatsFormat: 
   statusEffects:
@@ -24,4 +23,5 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: f151d84d79d3d4d43a1d7da7a8f445ec, type: 2}
   buffs: []
   prerequisiteSkills: []
-  isExcluded: 0
+  cannotBeRemoved: 1
+  isExcluded: 1

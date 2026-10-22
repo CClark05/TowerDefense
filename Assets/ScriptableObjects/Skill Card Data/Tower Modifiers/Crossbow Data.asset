@@ -23,5 +23,5 @@ MonoBehaviour:
     data: {fileID: 11400000, guid: f151d84d79d3d4d43a1d7da7a8f445ec, type: 2}
   buffs: []
   prerequisiteSkills: []
-  cannotBeRemoved: 0
+  cannotBeRemoved: 1
   isExcluded: 1

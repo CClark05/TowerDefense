@@ -71,7 +71,7 @@ ScriptedImporter:
     textureFormatSet: 0
     applyGammaDecoding: 0
   previousAsepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 0
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -84,7 +84,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   asepriteImporterSettings:
-    fileImportMode: 1
+    fileImportMode: 0
     importHiddenLayers: 0
     layerImportMode: 1
     defaultPivotSpace: 0
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639027975437575525
+  platformSettingsDirtyTick: 639282002384240673
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: crossbow
+  - name: crossbow_displayVisual
     originalName: 
-    pivot: {x: 0.29090908, y: -0.67241377}
+    pivot: {x: 0.25, y: -0.5645161}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,8 +132,8 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 55
-      height: 58
+      width: 64
+      height: 62
     spriteID: 7284cda5c4d9d6741b14250ecfc20f3e
     spriteBone: []
     spriteOutline: []
@@ -143,7 +143,28 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  spriteSheetImportData: []
+  spriteSheetImportData:
+  - name: crossbow_displayVisual
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 39
+      y: 4
+      width: 29
+      height: 25
+    spriteID: df63a8a320708724cb818d923c02330e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
     guid: -1486787454
@@ -157,9 +178,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 34
-        y: 39
-        width: 55
-        height: 58
+        y: 35
+        width: 64
+        height: 62
       spriteId: 7284cda5c4d9d6741b14250ecfc20f3e
     linkedCells: []
     parentIndex: -1

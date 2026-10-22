@@ -21,7 +21,7 @@ public class ProjectileShotData
     public int homingProjectiles;
     public int projectiles;
     public float? lifetimeDuration;
-    
+    public bool shootMainProjectile = true;
     public ProjectileShotData(float releaseTime)
     {
         this.releaseTime = releaseTime;
