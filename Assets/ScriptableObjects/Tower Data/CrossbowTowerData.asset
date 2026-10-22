@@ -22,4 +22,5 @@ MonoBehaviour:
   cost: 25
   startingCards:
   - {fileID: 11400000, guid: 7b0b7b9dd8bca424aa91cfff71f7332c, type: 2}
+  visualModel: {fileID: 1792902863383916502, guid: 92b74753e6d0b874d86331c535f4de84, type: 3}
   growthRate: 1.28

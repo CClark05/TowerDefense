@@ -16,10 +16,11 @@ MonoBehaviour:
   id: 4
   prefab: {fileID: 6913024597348871524, guid: 1814f578697367c4cbca0364b9328e5e, type: 3}
   timeBetweenShots: 1.25
-  range: 5
+  range: 3
   damage: 10
   cardSlots: 5
   cost: 20
   startingCards:
   - {fileID: 11400000, guid: ec6be1dc28ed26042a1f8082c5d6b768, type: 2}
+  visualModel: {fileID: 5600579325256838525, guid: 8c495ecf2f319644a8b258749f46e45b, type: 3}
   growthRate: 1.28

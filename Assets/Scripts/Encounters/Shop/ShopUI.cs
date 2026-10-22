@@ -23,8 +23,8 @@ public class ShopUI : MonoBehaviour
         canvasGroup.DOFade(0, 0.2f).OnComplete(() =>
         {
             canvasGroup.gameObject.SetActive(false);
-            BuildingManager.Instance.EnterBuildMode(data);
         });
+        BuildingManager.Instance.EnterBuildMode(data);
         
     }
 }

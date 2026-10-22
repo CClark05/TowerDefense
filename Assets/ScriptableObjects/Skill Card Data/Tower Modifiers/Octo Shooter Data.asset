@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9d6beabfd6c4e9082db7bf4ccd4f5e7, type: 3}
-  m_Name: Cross Shooter Data
+  m_Name: Octo Shooter Data
   m_EditorClassIdentifier: 
   name: Octo Shooter
   icon: {fileID: -1468192599, guid: 96d9b4ee307d2ce418c55885a8ecabfa, type: 3}

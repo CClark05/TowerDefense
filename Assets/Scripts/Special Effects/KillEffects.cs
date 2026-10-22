@@ -14,6 +14,7 @@ public class KillEffects : MonoBehaviour
     }
     void OnDeath(bool final)
     {
+        if (!final) return;
         if (freezeFrameCoroutine != null) return;
         freezeFrameCoroutine = StartCoroutine(FreezeFrame(freezeFrameDuration, final));
     }

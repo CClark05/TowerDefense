@@ -10,7 +10,7 @@ public class TowerShopButton : MonoBehaviour
     public TowerData Data => data;
     [SerializeField] private TextMeshProUGUI nameText, priceText;
     [SerializeField] private Button_Hover button;
-    [SerializeField] private Image overlay;
+    [SerializeField] private Image overlay, visual;
     public event Action OnHover;
     public event Action OnLeaveHover;
     public event Action OnClick;
@@ -18,6 +18,7 @@ public class TowerShopButton : MonoBehaviour
     {
         nameText.text = data.objectName;
         priceText.text = data.cost.ToString();
+        visual.sprite = data.visualModel;
         PlayerInventory.Instance.OnCoinsUpdated += CoinsUpdated;
         CoinsUpdated(PlayerInventory.Instance.Coins);
         button.OnHover += () => OnHover?.Invoke();

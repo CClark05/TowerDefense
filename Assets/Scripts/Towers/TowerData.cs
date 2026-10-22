@@ -11,6 +11,7 @@ public class TowerData : GridObjectData
     public int cardSlots;
     public int cost;
     public SkillData[] startingCards;
+    public Sprite visualModel;
     public int Cost
     {
         get => cost;
