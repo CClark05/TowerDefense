@@ -43,7 +43,6 @@ public class TowerDataHolder : MonoBehaviour, IBuffOverride, ITowerStatsProvider
     {
         towerShooting.OnDealDamage += OnDealDamage;
         towerShooting.OnKillEnemy += OnKillEnemy;
-        towerSelectUI.OnSellCard += (data) => TryRemoveCard(data);
         enemyManager = EnemyManager.Instance;
         enemyManager.OnWaveStarted += OnWaveStart;
         enemyManager.OnWaveComplete += OnWaveComplete;

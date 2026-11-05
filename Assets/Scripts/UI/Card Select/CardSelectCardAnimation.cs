@@ -24,11 +24,13 @@ public class CardSelectCardAnimation : MonoBehaviour
         float scaleDuration = 0.25f;
         cardUI.Value.OnHoverCard += () =>
         {
+            GameManager.Instance.SetCursor(GameManager.Cursors.OpenHand);
             scaleTween?.Kill();
             scaleTween = transform.DOScale(originalScale * 1.25f, scaleDuration).SetEase(Ease.OutBack).SetUpdate(true);
         };
         cardUI.Value.OnLeaveHoverCard += () =>
         {
+            GameManager.Instance.SetCursor(GameManager.Cursors.Default);
             scaleTween?.Kill();
             scaleTween = transform.DOScale(originalScale, scaleDuration * 0.75f).SetEase(Ease.OutSine).SetUpdate(true);
         };

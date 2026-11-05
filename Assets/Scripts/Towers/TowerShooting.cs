@@ -90,6 +90,7 @@ public class TowerShooting : MonoBehaviour
 
     private IEnumerator ShootProjectile()
     {
+        if (projectileData == null) yield break;
         target = TargetEnemy();
         if (target == null)
             yield break;
@@ -104,7 +105,6 @@ public class TowerShooting : MonoBehaviour
         shotData.directionOverrides.ForEach((_) => shotData.projectiles++);
         if (target != null && target.TryGetComponent<IDamageable>(out var damageable))
         {
-            Debug.Log("Shoot");
             OnShoot?.Invoke();
             Action OnShootComplete = null;
             OnShootComplete = () =>

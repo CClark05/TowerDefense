@@ -19,6 +19,7 @@ public class TowerSelectUI : MonoBehaviour
     [SerializeField] private GameObject emptySlotPrefab;
     private List<GameObject> emptySlots = new();
     private bool selected;
+    private TowerDrag towerDrag;
     public bool Selected
     {
         get => selected;
@@ -27,14 +28,14 @@ public class TowerSelectUI : MonoBehaviour
             if (selected == value) return;
             selected = value;
             OnSelectedUpdated?.Invoke(selected);
+            OnSelectedTowerUpdatedStatic?.Invoke(towerData, selected);
         }
     }
     
     public event Action<bool> OnSelectedUpdated;
+    public static event Action<TowerDataHolder, bool> OnSelectedTowerUpdatedStatic;
     private List<(SkillInstance instance, CardIconUI iconUI)> activeCards = new();
-
-    public static event Action<SkillData> OnSellCardStatic;
-    public event Action<SkillInstance> OnSellCard;
+    
     private EnemyManager enemyManager;
     private CardSelectUI cardSelectUI;
     
@@ -42,45 +43,25 @@ public class TowerSelectUI : MonoBehaviour
     {
         enemyManager = EnemyManager.Instance;
         cardSelectUI = CardSelectUI.Instance;
-        towerHoverable.OnHoverTower += () => { UI.SetActive(true); };
+        towerDrag = GetComponentInParent<TowerDrag>();
+        towerHoverable.OnHoverTower += () =>
+        {
+            if (TowerDrag.IsAnyMoving) return;
+            UI.SetActive(true);
+        };
         towerHoverable.OnLeaveHoverTower += () =>
         {
-            if (Selected) return;
+            if (TowerDrag.IsAnyMoving) return;
             UI.SetActive(false);
         };
-        towerHoverable.OnClickTower += () =>
+        towerDrag.OnMoving += () =>
         {
-            Selected = !Selected;
-            if (Selected)
-            {
-                UI.SetActive(true);
-                return;
-            }
-
-            UI.SetActive(!UI.activeSelf);
+            UI.SetActive(false);
         };
-        /**
-        sellButton.OnClick.AddListener(() =>
+        towerDrag.OnDoneMoving += (successful) =>
         {
-            if (selectedCard == null)
-            {
-                towerData.GetComponent<TowerSellable>().Sell();
-                Selected = false;
-                UI.SetActive(false);
-                return;
-            }
-
-            var card = activeCards.FirstOrDefault(c => c.iconUI == selectedCard);
-            OnSellCardStatic?.Invoke(card.instance.Data);
-            OnSellCard?.Invoke(card.instance);
-            card.instance.Dispose();
-            activeCards.Remove(card);
-            Destroy(selectedCard.gameObject);
-            selectedCard = null;
-            sellText.text = $"SELL : <color=#DE9E41>${towerData.GoldValue}</color>";
-            fullCardPreview.SetActive(false);
-        });
-        */
+            UI.SetActive(successful);
+        };
         towerData.OnUpdateCards += UpdateCards;
         towerData.OnUpdateCards += UpdateUI;
         enemyManager.OnWaveStarted += OnWaveStarted;
@@ -99,7 +80,10 @@ public class TowerSelectUI : MonoBehaviour
     {
         nameText.text = towerData.Data.objectName;
         damageText.text = "Base Damage : " + (towerData.RuntimeData.BaseDamage);
-        fireRateText.text = "Fire Rate : " + (1f / towerData.RuntimeData.TimeBetweenShots).ToString("F2") + "/sec";
+        if (towerData.RuntimeData.TimeBetweenShots != -1f)
+            fireRateText.text = "Fire Rate : " + (1f / towerData.RuntimeData.TimeBetweenShots).ToString("F2") + "/sec";
+        else
+            fireRateText.text = "Fire Rate : 0/sec";
         RealDPSText.text = "Realtime DPS : " + Math.Round(towerData.RealWaveDPS, MidpointRounding.AwayFromZero).ToString();
         AverageDPS.text = "Average DPS : " + Math.Round(towerData.AverageOverallDps, MidpointRounding.AwayFromZero).ToString();
         Uptime.text = $"Uptime : {towerData.UptimePercentage:P1}";
@@ -147,10 +131,10 @@ public class TowerSelectUI : MonoBehaviour
             button.OnHover += () =>
             {
                 if (EnemyManager.Instance.WaveState == EnemyManager.WaveStates.Idle)
-                {
                     GameManager.Instance.SetCursor(instance.Data.cannotBeRemoved ? GameManager.Cursors.Disabled : GameManager.Cursors.OpenHand);
-                }
-                    
+                else
+                    GameManager.Instance.SetCursor(GameManager.Cursors.Disabled);
+                
                 fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance);
                 fullCardPreview.SetActive(true);
             };

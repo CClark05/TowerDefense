@@ -53,7 +53,7 @@ public class TowerAnimation : MonoBehaviour
         {
             Squish(1, () => GetComponent<TowerHoverable>().OnHoverTower += () =>
             {
-                if (GetComponentInChildren<TowerSelectUI>().Selected) return;
+                if (TowerDrag.IsAnyMoving) return;
                 Squish(0.5f);
             });
         });

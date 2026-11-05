@@ -22,7 +22,7 @@ public class PlayButtonUI : Singleton<PlayButtonUI>
         fastForwardButton.OnClick.AddListener(() =>
         {
             bool normalSpeed = Mathf.Approximately(Time.timeScale, 1);
-            Time.timeScale = normalSpeed ? 1.5f : 1;
+            Time.timeScale = normalSpeed ? 2f : 1;
             Array.ForEach(fastForwardButton.GetComponentsInChildren<Image>(true),
                 img => img.color = normalSpeed ? Color.white : originalFastForwardColor);
         });

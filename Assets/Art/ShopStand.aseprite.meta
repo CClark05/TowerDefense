@@ -32,7 +32,7 @@ ScriptedImporter:
     sRGBTexture: 1
     spriteMode: 2
     spriteExtrude: 1
-    spriteMeshType: 1
+    spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
     spritePixelsToUnits: 16
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 639053106851074844
+  platformSettingsDirtyTick: 639287195070101911
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -152,11 +152,32 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 4
-      y: 4
-      width: 69
-      height: 53
+      x: 3
+      y: 19
+      width: 71
+      height: 55
     spriteID: 6244c8d3b58376444becf3e5c9338b11
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  - name: ShopStand_Shadow
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 10
+      y: 2
+      width: 63
+      height: 8
+    spriteID: 946e8442fea8ef7428b1849f563dbc4e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -178,9 +199,9 @@ ScriptedImporter:
       additiveSortOrder: 0
       cellRect:
         x: 8
-        y: 26
+        y: 10
         width: 69
-        height: 53
+        height: 69
       spriteId: 43921c7c6c4416144bd9924653c865cb
     linkedCells: []
     parentIndex: -1

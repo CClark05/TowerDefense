@@ -23,7 +23,7 @@ public class PauseMenuUI : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !BuildingManager.Instance.IsInBuildMode)
+        if (Input.GetKeyDown(KeyCode.Escape) && !BuildingManager.Instance.IsInBuildMode && !BuildingManager.Instance.IsInMoveMode)
         {
             if (background.activeSelf)
             {

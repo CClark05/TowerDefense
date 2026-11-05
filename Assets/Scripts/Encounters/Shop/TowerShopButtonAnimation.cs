@@ -11,6 +11,12 @@ public class TowerShopButtonAnimation : MonoBehaviour
         button = GetComponent<TowerShopButton>();
         button.OnHover += AnimateHover;
         button.OnLeaveHover += AnimateLeaveHover;
+        button.OnClick += () =>
+        {
+            transform.DOKill();
+            transform.localRotation = Quaternion.identity;
+            transform.DOScale(originalScale, 0.25f).SetEase(Ease.OutSine);
+        };
         originalScale = transform.localScale;
     }
     private void AnimateHover()

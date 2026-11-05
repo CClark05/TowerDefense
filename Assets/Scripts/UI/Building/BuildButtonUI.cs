@@ -26,6 +26,7 @@ public class BuildButtonUI : MonoBehaviour
         EnemyManager.Instance.OnWaveStarted += () => background.SetActive(false);
         EnemyManager.Instance.OnWaveComplete += () => background.SetActive(true);
         BuildingManager.Instance.OnPlacedBuild += data => background.SetActive(true);
+        BuildingManager.Instance.OnExitBuildMode += () => background.SetActive(true);
         runtimeTowerData.OnCostIncreased += cost =>
         {
             costText.text = cost.ToString();

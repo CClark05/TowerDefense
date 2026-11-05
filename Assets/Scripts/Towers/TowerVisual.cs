@@ -6,20 +6,25 @@ using UnityEngine.Serialization;
 public class TowerVisual : MonoBehaviour
 {
     [SerializeField] private GameObject rangeVisual;
-    [FormerlySerializedAs("crossbowVisual")] [SerializeField] private GameObject visual;
-    [SerializeField] private GameObject baseVisual, tentVisual, tileOutline;
+
+    [FormerlySerializedAs("crossbowVisual")] [SerializeField]
+    private GameObject visual;
+
+    [SerializeField] private GameObject baseVisual;
     [SerializeField] private bool rotateTower = true;
+    [SerializeField] private WhiteOutlineEffect outlineEffect;
     private bool isSelected;
     private TowerDataHolder dataHolder;
     private EnemyManager enemyManager;
     private CardSelectUI cardSelectUI;
     private TowerShooting towerShooting;
-    
+    private TowerHoverable towerHoverable;
+
     private void Start()
     {
-        TowerHoverable.OnClickTowerStatic += OnClickTower;
-        TowerHoverable.OnHoverTowerStatic += OnHover;
-        TowerHoverable.OnLeaveTowerHoverStatic += OnLeaveHover;
+        towerHoverable = GetComponent<TowerHoverable>();
+        towerHoverable.OnHoverTower += OnHover;
+        towerHoverable.OnLeaveHoverTower += OnLeaveHover;
         enemyManager = EnemyManager.Instance;
         cardSelectUI = CardSelectUI.Instance;
         enemyManager.OnWaveStarted += DisableSelection;
@@ -27,47 +32,46 @@ public class TowerVisual : MonoBehaviour
         cardSelectUI.OnShowCards += DisableSelection;
         dataHolder = GetComponent<TowerDataHolder>();
         towerShooting = GetComponent<TowerShooting>();
-        dataHolder.RuntimeData.OnRangeUpdated += range =>
-        {
-            rangeVisual.transform.localScale = new Vector3(range * 2f, range * 2f, 1);
-        };
+        dataHolder.RuntimeData.OnRangeUpdated += range => { rangeVisual.transform.localScale = new Vector3(range * 2f, range * 2f, 1); };
         rangeVisual.transform.localScale = new Vector3(dataHolder.Data.range * 2f, dataHolder.Data.range * 2f, 1);
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
         towerShooting.OnToggleShooting += disable =>
         {
-            tentVisual.SetActive(disable);
             visual.SetActive(!disable);
             baseVisual.SetActive(!disable);
         };
+        GetComponent<TowerDrag>().OnDoneMoving += (successful) =>
+        {
+            if (successful) return;
+            GameManager.Instance.SetCursor(GameManager.Cursors.Default);
+            rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
+            outlineEffect.ToggleWhiteOutline(false);
+        };
     }
-    
+
 
     private void DisableSelection()
     {
+        outlineEffect.ToggleWhiteOutline(false);
         isSelected = false;
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
-        tileOutline.SetActive(false);
-    }
-    private void OnClickTower(TowerDataHolder data)
-    {
-        if (data == GetComponent<TowerDataHolder>())
-        {
-            isSelected = !isSelected;
-            rangeVisual.transform.GetChild(0).gameObject.SetActive(isSelected);
-            tileOutline.SetActive(isSelected);
-        }
     }
 
-    private void OnHover(TowerDataHolder data)
+
+    private void OnHover()
     {
-        if (data == GetComponent<TowerDataHolder>())
-            rangeVisual.transform.GetChild(0).gameObject.SetActive(true);
+        if (TowerDrag.IsAnyMoving) return;
+        GameManager.Instance.SetCursor(GameManager.Cursors.OpenHand);
+        rangeVisual.transform.GetChild(0).gameObject.SetActive(true);
+        outlineEffect.ToggleWhiteOutline(true);
     }
 
     private void OnLeaveHover()
     {
-        if (isSelected) return;
+        if (TowerDrag.IsAnyMoving) return;
+        GameManager.Instance.SetCursor(GameManager.Cursors.Default);
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
+        outlineEffect.ToggleWhiteOutline(false);
     }
 
     private void Update()
@@ -79,18 +83,20 @@ public class TowerVisual : MonoBehaviour
         float currentAngle = visual.transform.rotation.eulerAngles.z;
         float angleDifference = Mathf.Abs(Mathf.DeltaAngle(currentAngle, angle));
 
-        if (angleDifference > 0.5f) 
+        if (angleDifference > 0.5f)
         {
             float speed = 25f;
             visual.transform.rotation = Quaternion.Lerp(visual.transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * speed);
         }
     }
 
+    public void ToggleTowerVisibility(bool enabled)
+    {
+        baseVisual.SetActive(enabled);
+    }
+
     private void OnDisable()
     {
-        TowerHoverable.OnClickTowerStatic -= OnClickTower;
-        TowerHoverable.OnHoverTowerStatic -= OnHover;
-        TowerHoverable.OnLeaveTowerHoverStatic -= OnLeaveHover;
         enemyManager.OnWaveStarted -= DisableSelection;
         enemyManager.OnWaveComplete -= DisableSelection;
         cardSelectUI.OnShowCards -= DisableSelection;
