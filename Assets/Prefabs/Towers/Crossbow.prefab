@@ -835,6 +835,7 @@ MonoBehaviour:
   effectTextPrefab: {fileID: 6062671441686469844, guid: d6f693f870e77ef4e8778c7b243fc877, type: 3}
   effectTextParent: {fileID: 2985017428144806135}
   shootAnimation: {fileID: 11400000, guid: 56cf00d1d9e4b534ca0324de5b0cdb09, type: 2}
+  visualTransform: {fileID: 2833616861664432182}
   visual: {fileID: 8246052901157887588}
 --- !u!114 &2237383123076571300
 MonoBehaviour:

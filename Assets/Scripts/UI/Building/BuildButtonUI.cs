@@ -27,6 +27,8 @@ public class BuildButtonUI : MonoBehaviour
         EnemyManager.Instance.OnWaveComplete += () => background.SetActive(true);
         BuildingManager.Instance.OnPlacedBuild += data => background.SetActive(true);
         BuildingManager.Instance.OnExitBuildMode += () => background.SetActive(true);
+        TowerDrag.OnMovingStatic += () => background.SetActive(false);
+        TowerDrag.OnDoneMovingStatic += () => background.SetActive(true);
         runtimeTowerData.OnCostIncreased += cost =>
         {
             costText.text = cost.ToString();
@@ -38,7 +40,7 @@ public class BuildButtonUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) && background.activeSelf)
         {
             if (background.activeSelf)
             {
@@ -47,7 +49,7 @@ public class BuildButtonUI : MonoBehaviour
             }
             ExitBuildMode();
         }
-        if(Input.GetKeyDown(KeyCode.Escape) && !background.activeSelf)
+        if(Input.GetKeyDown(KeyCode.Escape) && !background.activeSelf && BuildingManager.Instance.IsInBuildMode)
             ExitBuildMode();
     }
     private void TryEnterBuildMode()

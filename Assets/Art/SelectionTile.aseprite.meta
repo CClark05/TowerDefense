@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8430ba3675ee5424583cc0176388cc53
+guid: 68c4d3300a08cce4d932582975f2be6a
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -23,7 +23,7 @@ ScriptedImporter:
     normalMapFilter: 0
     flipGreenChannel: 0
     swizzle: 50462976
-    isReadable: 1
+    isReadable: 0
     streamingMipmaps: 0
     streamingMipmapsPriority: 0
     vTOnly: 0
@@ -35,7 +35,7 @@ ScriptedImporter:
     spriteMeshType: 1
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 32
+    spritePixelsToUnits: 16
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -97,7 +97,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638945022500169815
+  platformSettingsDirtyTick: 639297781946223149
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -122,9 +122,9 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: RedGreenTiles
+  - name: SelectionTile
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: -0.5}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     customData: 
@@ -132,9 +132,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 64
+      width: 32
       height: 32
-    spriteID: a630c6c0a57842e4694f99c8ca7dc1c3
+    spriteID: 87508942e1c47d042b1b344a6b182a01
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -144,7 +144,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
   spriteSheetImportData:
-  - name: RedTile
+  - name: SelectionTile_0
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -154,9 +154,9 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 32
-      height: 32
-    spriteID: 0b34461ed365f12498d787d87b332be4
+      width: 42
+      height: 46
+    spriteID: f2a7a98660802984c8f849d2bc3205b0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -165,7 +165,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
-  - name: GreenTile
+  - name: SelectionTile_1
     originalName: 
     pivot: {x: 0.5, y: 0.5}
     alignment: 0
@@ -173,11 +173,11 @@ ScriptedImporter:
     customData: 
     rect:
       serializedVersion: 2
-      x: 36
+      x: 56
       y: 4
-      width: 32
-      height: 32
-    spriteID: 11bf7c3a810cff84597d5269c7ee7956
+      width: 42
+      height: 46
+    spriteID: b0aabff02f1f0df4e8f139514e58970e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -188,21 +188,21 @@ ScriptedImporter:
     uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
-    guid: -333796253
-    name: RedGreenTiles
+    guid: 519570192
+    name: SelectionTile
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: RedGreenTiles
+    - name: SelectionTile
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
-        x: 0
-        y: 0
-        width: 64
-        height: 32
-      spriteId: a630c6c0a57842e4694f99c8ca7dc1c3
+        x: 11
+        y: 42
+        width: 94
+        height: 46
+      spriteId: 87508942e1c47d042b1b344a6b182a01
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -245,4 +245,4 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 64, y: 32}
+  canvasSize: {x: 137, y: 97}

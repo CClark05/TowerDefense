@@ -14,15 +14,18 @@ public class TowerAnimation : MonoBehaviour
     [SerializeField] private GameObject effectTextPrefab;
     [SerializeField] private Transform effectTextParent;
     [SerializeField] private AnimationClip shootAnimation;
+    [SerializeField] private Transform visualTransform;
     private AnimationPlayer animationPlayer;
     private SkillContext skillContext;
     [SerializeField] private Transform visual;
     private TowerRuntimeData runtimeData;
     public Action OnShootAnimationComplete;
+    private TowerDrag towerDrag;
     private void Awake()
     {
         animationPlayer = GetComponent<AnimationPlayer>();
         runtimeData = GetComponent<TowerDataHolder>().RuntimeData;
+        towerDrag = GetComponent<TowerDrag>();
     }
 
     private void Start()
@@ -30,6 +33,14 @@ public class TowerAnimation : MonoBehaviour
         skillContext = GetComponent<TowerDataHolder>().SkillContext;
         skillContext.OnBuffAdded += OnBuffAdded;
         GetComponent<TowerShooting>().OnShoot += OnShoot;
+        towerDrag.OnMoving += () =>
+        {
+            visualTransform.DOLocalMoveY(0.25f, 0.15f).SetRelative(true);
+        };
+        towerDrag.OnDoneMoving += (success) =>
+        {
+            visualTransform.DOLocalMoveY(-0.25f, 0.15f).SetRelative(true);
+        };
     }
 
     private void OnShoot()
@@ -63,6 +74,7 @@ public class TowerAnimation : MonoBehaviour
     {
         GetComponentsInChildren<SquishAnimation>().ToList().ForEach(squish => squish.Squish(strength, 1, OnComplete));
     }
+    
     private void OnBuffAdded(IBuff buff, int stacks)
     {
         var text = Instantiate(effectTextPrefab, effectTextParent).GetComponent<TextMeshProUGUI>();

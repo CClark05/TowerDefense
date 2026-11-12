@@ -14,7 +14,9 @@ public class TowerDrag : MonoBehaviour
     public bool IsMoving => isMoving;
     public static bool IsAnyMoving;
     public event Action OnMoving;
-    public event Action<bool> OnDoneMoving; 
+    public event Action<bool> OnDoneMoving;
+    public static event Action OnMovingStatic;
+    public static event Action OnDoneMovingStatic;
     private SelectionTile selectionTile;
     private TowerDataHolder towerDataHolder;
     private bool isInvalidSpot;
@@ -36,6 +38,7 @@ public class TowerDrag : MonoBehaviour
         Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         offset = (Vector2)transform.position - mousePosition;
         OnMoving?.Invoke();
+        OnMovingStatic?.Invoke();
         selectionTile = Instantiate(BuildingManager.Instance.SelectionTilePrefab, originalPosition, Quaternion.identity).GetComponent<SelectionTile>();
     }
 
@@ -53,6 +56,7 @@ public class TowerDrag : MonoBehaviour
             {
                 transform.position = originalPosition;
                 OnDoneMoving?.Invoke(false);
+                OnDoneMovingStatic?.Invoke();
             }
             else
             {
@@ -68,6 +72,7 @@ public class TowerDrag : MonoBehaviour
                     }
                 }
                 OnDoneMoving?.Invoke(true);
+                OnDoneMovingStatic?.Invoke();
             }
             isMoving = false;
         }

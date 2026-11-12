@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class SelectionTile : MonoBehaviour
@@ -10,7 +11,9 @@ public class SelectionTile : MonoBehaviour
     {
         sr = GetComponent<SpriteRenderer>();
         greenSprite = sr.sprite;
+        transform.DOScale(new Vector2(0.8f, 0.8f), 0.75f).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
     }
+    
 
     public void SetGreen(bool green)
     {
@@ -22,4 +25,6 @@ public class SelectionTile : MonoBehaviour
 
         sr.sprite = redSprite;
     }
+
+    
 }
