@@ -19,10 +19,11 @@ public class TowerVisual : MonoBehaviour
     private CardSelectUI cardSelectUI;
     private TowerShooting towerShooting;
     private TowerHoverable towerHoverable;
-
+    private TowerDrag towerDrag;
     private void Start()
     {
         towerHoverable = GetComponent<TowerHoverable>();
+        towerDrag = GetComponent<TowerDrag>();
         towerHoverable.OnHoverTower += OnHover;
         towerHoverable.OnLeaveHoverTower += OnLeaveHover;
         enemyManager = EnemyManager.Instance;
@@ -40,12 +41,23 @@ public class TowerVisual : MonoBehaviour
             visual.SetActive(!disable);
             baseVisual.SetActive(!disable);
         };
-        GetComponent<TowerDrag>().OnDoneMoving += (successful) =>
+        towerDrag.OnDoneMoving += (successful) =>
         {
             if (successful) return;
-            GameManager.Instance.SetCursor(GameManager.Cursors.Default);
+            //GameManager.Instance.SetCursor(GameManager.Cursors.Default);
             rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
             outlineEffect.ToggleWhiteOutline(false);
+        };
+        towerDrag.OnSelect += () =>
+        {
+            outlineEffect.ToggleWhiteOutline(true);
+            visual.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+        };
+        towerDrag.OnDeselect += () =>
+        {
+            outlineEffect.ToggleWhiteOutline(false);
+            rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
+            visual.transform.localScale = new Vector3(1f, 1f, 1f);
         };
     }
 
@@ -63,15 +75,14 @@ public class TowerVisual : MonoBehaviour
         if (TowerDrag.IsAnyMoving) return;
         GameManager.Instance.SetCursor(GameManager.Cursors.OpenHand);
         rangeVisual.transform.GetChild(0).gameObject.SetActive(true);
-        outlineEffect.ToggleWhiteOutline(true);
     }
 
     private void OnLeaveHover()
     {
         if (TowerDrag.IsAnyMoving) return;
         GameManager.Instance.SetCursor(GameManager.Cursors.Default);
+        if(towerDrag.IsSelected) return;
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
-        outlineEffect.ToggleWhiteOutline(false);
     }
 
     private void Update()

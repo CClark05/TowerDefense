@@ -68,6 +68,7 @@ public class BuildingManager : Singleton<BuildingManager>
             IEnumerator UpdateTowers()
             {
                 yield return null;
+                newBuilding.GetComponent<TowerCards>().InitCards();
                 foreach (var tower in TowerDataHolder.ActiveTowerList)
                 {
                     if(tower == newBuilding.GetComponent<TowerDataHolder>()) continue;

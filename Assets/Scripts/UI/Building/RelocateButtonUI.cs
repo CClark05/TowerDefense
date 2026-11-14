@@ -28,11 +28,5 @@ public class RelocateButtonUI : MonoBehaviour
         {
             //StartCoroutine(BuildingManager.Instance.MoveBuild(selectedTower.gameObject));
         });
-        TowerSelectUI.OnSelectedTowerUpdatedStatic += (tower, selected) =>
-        {
-            if (selected)
-                selectedTower = tower;
-            button.gameObject.SetActive(selected);
-        };
     }
 }

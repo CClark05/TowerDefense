@@ -5566,7 +5566,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19362028, g: 0.4433962, b: 0.18195978, a: 0}
+  m_BackGroundColor: {r: 0.27450982, g: 0.50980395, b: 0.19607843, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -18033,7 +18033,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7455780ac6f459092ce9d5c863b97bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: e6069f6f12dad6c44bfba1395ad3448a, type: 2}
+  data: {fileID: 11400000, guid: 37c6ca8f926de9641b00fedc754bda02, type: 2}
   nameText: {fileID: 2023403439}
   priceText: {fileID: 1268325396}
   button: {fileID: 781232869}
@@ -19560,7 +19560,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   costText: {fileID: 286912986}
   button: {fileID: 566484049}
-  towerData: {fileID: 11400000, guid: 37c6ca8f926de9641b00fedc754bda02, type: 2}
+  towerData: {fileID: 11400000, guid: b8980ec42a4b37440a587dba9cb7502e, type: 2}
   background: {fileID: 566484045}
 --- !u!1001 &1906921779
 PrefabInstance:

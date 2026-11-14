@@ -18,27 +18,13 @@ public class TowerSelectUI : MonoBehaviour
     [SerializeField] private GridLayoutGroup emptySlotsLayoutGroup;
     [SerializeField] private GameObject emptySlotPrefab;
     private List<GameObject> emptySlots = new();
-    private bool selected;
     private TowerDrag towerDrag;
-    public bool Selected
-    {
-        get => selected;
-        private set
-        {
-            if (selected == value) return;
-            selected = value;
-            OnSelectedUpdated?.Invoke(selected);
-            OnSelectedTowerUpdatedStatic?.Invoke(towerData, selected);
-        }
-    }
     
-    public event Action<bool> OnSelectedUpdated;
-    public static event Action<TowerDataHolder, bool> OnSelectedTowerUpdatedStatic;
     private List<(SkillInstance instance, CardIconUI iconUI)> activeCards = new();
     
     private EnemyManager enemyManager;
     private CardSelectUI cardSelectUI;
-    
+    private bool isSelected;
     private void Start()
     {
         enemyManager = EnemyManager.Instance;
@@ -51,7 +37,7 @@ public class TowerSelectUI : MonoBehaviour
         };
         towerHoverable.OnLeaveHoverTower += () =>
         {
-            if (TowerDrag.IsAnyMoving) return;
+            if (TowerDrag.IsAnyMoving || isSelected) return;
             UI.SetActive(false);
         };
         towerDrag.OnMoving += () =>
@@ -61,6 +47,16 @@ public class TowerSelectUI : MonoBehaviour
         towerDrag.OnDoneMoving += (successful) =>
         {
             UI.SetActive(successful);
+        };
+        towerDrag.OnSelect += () =>
+        {
+            isSelected = true;
+            UI.SetActive(true);
+        };
+        towerDrag.OnDeselect += () =>
+        {
+            isSelected = false;
+            UI.SetActive(false);
         };
         towerData.OnUpdateCards += UpdateCards;
         towerData.OnUpdateCards += UpdateUI;
@@ -146,20 +142,7 @@ public class TowerSelectUI : MonoBehaviour
             
             button.OnClick.AddListener(() =>
             {
-                /**
-                if (EnemyManager.Instance.WaveState != EnemyManager.WaveStates.Idle) return;
-                /**
-                if (selectedCard == newCard)
-                {
-                    newCard.Selected = false;
-                    selectedCard = null;
-                    sellText.text = $"SELL : <color=#DE9E41>${towerData.GoldValue}</color>";
-                    return;
-                }
-                */
-                
                 fullCardPreview.GetComponent<CardPreviewUI>().SetSkill(instance);
-                //sellText.text = $"SELL : <color=#DE9E41>${Mathf.FloorToInt(instance.Data.price * 0.5f)}</color>";
             });
             
         }
@@ -167,19 +150,10 @@ public class TowerSelectUI : MonoBehaviour
 
     private void OnWaveStarted()
     {
-        Selected = false;
-        /**
-        if (selectedCard != null)
-        {
-            selectedCard.Selected = false;
-            selectedCard = null;
-        }
-        */
         UI.SetActive(false);
     }
     private void OnWaveComplete()
     {
-        Selected = false;
         UI.SetActive(false);
     }
     private void OnDisable()

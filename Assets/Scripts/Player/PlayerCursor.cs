@@ -7,6 +7,7 @@ public class PlayerCursor : Singleton<PlayerCursor>
     public IHoverable CurrentHoveredObject { get; private set; }
     private Camera mainCam;
     [SerializeField] private LayerMask hoverLayer;
+    public event Action<IHoverable> OnClick;
     private new void Awake()
     {
         base.Awake();
@@ -15,9 +16,10 @@ public class PlayerCursor : Singleton<PlayerCursor>
 
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0) && CurrentHoveredObject != null)
+        if(Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
         {
-            CurrentHoveredObject.OnClick();
+            CurrentHoveredObject?.OnClick();
+            OnClick?.Invoke(CurrentHoveredObject);
         }
 
         if (EventSystem.current.IsPointerOverGameObject())

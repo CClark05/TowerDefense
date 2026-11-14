@@ -151,13 +151,16 @@ public class SupportSkillInstance<TData> : SkillInstance<TData>, ITowerCardRecei
     protected SupportSkillInstance(TData data) : base(data)
     {
     }
+    
+    private bool IsInRange(TowerDataHolder t)
+    {
+        return t != skillContext.Tower && Vector2.Distance(t.transform.position, skillContext.Tower.transform.position) <= skillContext.Tower.RuntimeData.Range;
+    }
 
     private List<TowerDataHolder> GetTowers()
     {
-        return TowerDataHolder.ActiveTowerList.Where(
-            t => t.SkillContext != skillContext && Vector2.Distance(t.transform.position, skillContext.Tower.transform.position) <= skillContext.Tower.RuntimeData.Range).ToList();
+        return TowerDataHolder.ActiveTowerList.Where(IsInRange).ToList();
     }
-    
     public void Apply(TowerWaveData towerWaveData)
     {
         var towers = GetTowers();
@@ -177,17 +180,19 @@ public class SupportSkillInstance<TData> : SkillInstance<TData>, ITowerCardRecei
     
     public void OnNewTowerAdded(TowerDataHolder towerDataHolder)
     {
-        if (Vector2.Distance(towerDataHolder.transform.position, skillContext.Tower.transform.position) <= skillContext.Tower.RuntimeData.Range)
+        if (IsInRange(towerDataHolder))
         {
             OnApply?.Invoke(towerDataHolder);
             affectedTowers.Add(towerDataHolder);
         }
     }
-    
-    public void OnRangeUpdated()
+
+    public void OnRangeUpdated() => RefreshAffectedTowers();
+
+    public void RefreshAffectedTowers()
     {
-        var towers = TowerDataHolder.ActiveTowerList.Where(
-            t => t.SkillContext != skillContext && Vector2.Distance(t.transform.position, skillContext.Tower.transform.position) <= skillContext.Tower.RuntimeData.Range);
+        Debug.Log("Refresh");
+        var towers = GetTowers();
         foreach (var tower in towers.Except(affectedTowers).ToList())
         {
             OnApply?.Invoke(tower);
