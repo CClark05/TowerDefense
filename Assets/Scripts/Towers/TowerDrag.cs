@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Mono.Cecil.Cil;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -59,15 +58,17 @@ public class TowerDrag : MonoBehaviour
     void OnMouseDown()
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
-        GameManager.Instance.SetCursor(GameManager.Cursors.ClosedHand);
         isPressed = true;
         mouseDownScreenPos = Input.mousePosition;
+        if (EnemyManager.Instance.WaveState is not EnemyManager.WaveStates.Idle) return;
+        GameManager.Instance.SetCursor(GameManager.Cursors.ClosedHand);
         Vector2 mousePosition = cam.ScreenToWorldPoint(Input.mousePosition);
         offset = (Vector2)transform.position - mousePosition;
     }
 
     void OnMouseDrag()
     {
+        if(EnemyManager.Instance.WaveState is not EnemyManager.WaveStates.Idle) return;
         if (!isPressed) return;
 
         if (!isMoving)
@@ -103,7 +104,8 @@ public class TowerDrag : MonoBehaviour
         Physics2D.SyncTransforms();
         Vector2 mouseWorld = cam.ScreenToWorldPoint(Input.mousePosition);
         bool overTower = GetComponent<Collider2D>().OverlapPoint(mouseWorld);
-        GameManager.Instance.SetCursor(overTower ? GameManager.Cursors.OpenHand : GameManager.Cursors.Default);
+        bool canMove = EnemyManager.Instance.WaveState is EnemyManager.WaveStates.Idle;
+        GameManager.Instance.SetCursor(overTower && canMove ? GameManager.Cursors.OpenHand : GameManager.Cursors.Default);
         isPressed = false;
 
         if (!isMoving)

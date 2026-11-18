@@ -1,11 +1,7 @@
 using System;
 using System.Collections;
-using Mono.Cecil;
-using UnityEditor.Build.Content;
-using UnityEditor.Tilemaps;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.LightTransport;
 
 public class BuildingManager : Singleton<BuildingManager>
 {

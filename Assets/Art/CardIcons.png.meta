@@ -1259,6 +1259,28 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Mort_Icon
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 81
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bc6ac3f447c968489ef0274b91d5ef8
+      internalID: -1875546881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     customData: 
     physicsShape: []
@@ -1302,6 +1324,7 @@ TextureImporter:
       Jajanken_Icon: 1145404442578332096
       KillingFocus_Icon: 1207296231234192340
       KillingSpree_Icon: 4017673532660534875
+      Mort_Icon: -1875546881
       MysteryDraw_Icon: 466084926
       Overclock_Icon: -1129501906
       Overflow_Icon: -903315029327368214

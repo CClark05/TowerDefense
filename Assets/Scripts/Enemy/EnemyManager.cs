@@ -172,7 +172,7 @@ public class EnemyManager : Singleton<EnemyManager>
         {
             for (int i = 0; i < (e.count > 0 ? e.count : 1); i++)
             {
-                SpawnEnemy(e.enemy.EnemyData, e.enemiesUnderneath, e.isElite);
+                if(e.enemy.EnemyData != null) SpawnEnemy(e.enemy.EnemyData, e.enemiesUnderneath, e.isElite);
                 yield return new WaitForSeconds(e.delay > 0 ? e.delay : defaultDelay);
             }
         }

@@ -8,6 +8,7 @@ public class TowerCards : MonoBehaviour, IUsesCards
     public event Action<SkillInstance> OnRemovedCard;
     [SerializeField] private SkillRegistry skillRegistry;
     private TowerDataHolder towerDataHolder;
+    public event Action OnInit;
     private void Start()
     {
         towerDataHolder = GetComponent<TowerDataHolder>();
@@ -20,6 +21,7 @@ public class TowerCards : MonoBehaviour, IUsesCards
         {
             AddCard(card.CreateInstance());
         }
+        OnInit?.Invoke();
     }
     public void AddCard(SkillInstance skillInstance)
     {

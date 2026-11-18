@@ -43,10 +43,15 @@ public class TowerVisual : MonoBehaviour
         };
         towerDrag.OnDoneMoving += (successful) =>
         {
+            GridTileOutline.Instance.ShowOutline(transform.position);
             if (successful) return;
             //GameManager.Instance.SetCursor(GameManager.Cursors.Default);
             rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
             outlineEffect.ToggleWhiteOutline(false);
+        };
+        towerDrag.OnMoving += () =>
+        {
+            GridTileOutline.Instance.HideOutline();
         };
         towerDrag.OnSelect += () =>
         {
@@ -58,6 +63,7 @@ public class TowerVisual : MonoBehaviour
             outlineEffect.ToggleWhiteOutline(false);
             rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
             visual.transform.localScale = new Vector3(1f, 1f, 1f);
+            GridTileOutline.Instance.HideOutline();
         };
     }
 
@@ -67,14 +73,16 @@ public class TowerVisual : MonoBehaviour
         outlineEffect.ToggleWhiteOutline(false);
         isSelected = false;
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
+        GridTileOutline.Instance.HideOutline();
     }
 
 
     private void OnHover()
     {
         if (TowerDrag.IsAnyMoving) return;
-        GameManager.Instance.SetCursor(GameManager.Cursors.OpenHand);
         rangeVisual.transform.GetChild(0).gameObject.SetActive(true);
+        GameManager.Instance.SetCursor(GameManager.Cursors.OpenHand);
+        GridTileOutline.Instance.ShowOutline(transform.position);
     }
 
     private void OnLeaveHover()
@@ -83,6 +91,7 @@ public class TowerVisual : MonoBehaviour
         GameManager.Instance.SetCursor(GameManager.Cursors.Default);
         if(towerDrag.IsSelected) return;
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
+        GridTileOutline.Instance.HideOutline();
     }
 
     private void Update()
