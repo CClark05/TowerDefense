@@ -12,7 +12,6 @@ public class TowerDrag : MonoBehaviour
     private Vector2 originalPosition;
     private TowerHoverable towerHoverable;
     private bool isMoving;
-    public bool IsMoving => isMoving;
     public static bool IsAnyMoving;
     public event Action OnMoving;
     public event Action<bool> OnDoneMoving;
@@ -76,10 +75,14 @@ public class TowerDrag : MonoBehaviour
             if (Vector2.Distance(Input.mousePosition, mouseDownScreenPos) < DragThreshold) return;
             StartMoving();
         }
-
+        
         Vector2 offsetPosition = cam.ScreenToWorldPoint(Input.mousePosition) + offset;
         gridManager.Grid.GetXY(offsetPosition, out int x, out int y);
         Vector2 worldGridPosition = gridManager.Grid.GetWorldPosition(x, y) + Vector2.one * (gridManager.CellSize / 2f);
+        Vector2 half = Vector2.one * (gridManager.CellSize / 2f);
+        Vector3 minVp = cam.WorldToViewportPoint(worldGridPosition - half);
+        Vector3 maxVp = cam.WorldToViewportPoint(worldGridPosition + half);
+        if (minVp.x < 0f || maxVp.x > 1f || minVp.y < 0f || maxVp.y > 1f) return;
         transform.position = worldGridPosition;
         isInvalidSpot = gridManager.Grid.GetValue(x, y).id is not 0 || EventSystem.current.IsPointerOverGameObject();
         selectionTile.SetGreen(!isInvalidSpot);

@@ -8,7 +8,6 @@ public enum TargetingModes
     Close,
     Strong
 }
-
 public class TowerShooting : MonoBehaviour
 {
     [SerializeField] private Transform shootOrigin;
@@ -22,7 +21,7 @@ public class TowerShooting : MonoBehaviour
     public float TotalUptime { get; private set; }
     private Coroutine shootCoroutine;
     private float timeBetweenShots => towerDataHolder.RuntimeData.TimeBetweenShots;
-    private float range => towerDataHolder.RuntimeData.Range;
+    private float range => towerDataHolder.RuntimeData.Range == 0 ? Mathf.Infinity : towerDataHolder.RuntimeData.Range;
     [SerializeField] private TargetingModes targetingMode = TargetingModes.First;
     public TargetingModes TargetingMode => targetingMode;
     public int ShotsThisRound { get; private set; }
@@ -30,14 +29,19 @@ public class TowerShooting : MonoBehaviour
     private EnemyManager enemyManager;
     public Vector2? Direction { get; private set; }
     private GameObject target;
+    public GameObject Target => target;
+    public event Action<GameObject> OnTargetChanged;
     private bool disableShooting;
     private TowerAnimation towerAnimation;
     public event Action<bool> OnToggleShooting;
+
+    private ITowerAimOverride aimOverride;
     private void Awake()
     {
         towerDataHolder = GetComponent<TowerDataHolder>();
         projectileData = towerDataHolder.ProjectileData;
         towerAnimation = GetComponent<TowerAnimation>();
+        aimOverride = GetComponent<ITowerAimOverride>();
     }
 
     private void OnEnable()
@@ -68,40 +72,44 @@ public class TowerShooting : MonoBehaviour
         shootTimer += Time.deltaTime;
 
         var closestEnemy = TargetEnemy();
+        SetTarget(closestEnemy);
+        Direction = target != null ? (target.transform.position - transform.position) : null;
         if (closestEnemy != null)
             TotalUptime += Time.deltaTime;
+
         if (shootCoroutine != null && shootTimer >= timeBetweenShots)
         {
             shootTimer = timeBetweenShots;
             return;
         }
-
+        
         if (shootCoroutine == null && shootTimer >= timeBetweenShots)
         {
             if (closestEnemy == null) return;
+            if (aimOverride != null && !aimOverride.CanShoot(closestEnemy)) return;
             shootCoroutine = StartCoroutine(ShootProjectile());
             shootTimer = 0f;
         }
-
-        Direction = target != null ? (target.transform.position - transform.position) : null;
     }
 
     private IEnumerator ShootProjectile()
     {
         if (projectileData == null) yield break;
-        target = TargetEnemy();
-        if (target == null)
+        SetTarget(TargetEnemy());
+        var shotTarget = target;
+        if (shotTarget == null)
             yield break;
+        Vector2 origin = shootOrigin.position;
         var shotData = new ProjectileShotData(Time.time)
         {
-            originalDirection = (target.transform.position - transform.position).normalized
+            originalDirection = aimOverride?.GetShotDirection(origin, shotTarget) ?? ((Vector2)shotTarget.transform.position - origin).normalized
         };
         CallModifier.Call<IShotModifier>(towerDataHolder.SkillContext, (mod, instance) => mod.Modify(shotData));
         yield return ProjectileService.ModifyProjectile(shotData, towerDataHolder.SkillContext);
         if (shotData.shootMainProjectile) shotData.projectiles++;
-        
+
         shotData.directionOverrides.ForEach((_) => shotData.projectiles++);
-        if (target != null && target.TryGetComponent<IDamageable>(out var damageable))
+        if (shotTarget != null && shotTarget.TryGetComponent<IDamageable>(out var damageable))
         {
             OnShoot?.Invoke();
             Action OnShootComplete = null;
@@ -113,14 +121,14 @@ public class TowerShooting : MonoBehaviour
                     var projectile = Projectile.CreateProjectile(projectileData, shotData, shootOrigin.position, damageable, towerDataHolder, shotData.originalDirection);
                     Hook(projectile);
                 }
-                
+
                 foreach (var dir in shotData.directionOverrides)
                 {
                     var p = Projectile.CreateProjectile(projectileData, shotData, shootOrigin.position, dir, towerDataHolder);
                     Hook(p);
                 }
                 ShotsThisRound++;
-            
+
                 void Hook(Projectile p)
                 {
                     shotData.RegisterProjectile(p);
@@ -131,7 +139,7 @@ public class TowerShooting : MonoBehaviour
                         OnDealDamageStatic?.Invoke(pos, hitData);
                         if (hitData.didKill) OnKillEnemy?.Invoke();
                     };
-                      
+
                 }
                 shootCoroutine = null;
             };
@@ -139,7 +147,7 @@ public class TowerShooting : MonoBehaviour
         }
         else
             shootCoroutine = null;
-        
+
     }
 
     public void ToggleShooting(bool disable)
@@ -155,6 +163,12 @@ public class TowerShooting : MonoBehaviour
     }
 
     public void AddHit(int amount = 1) => HitsThisRound += amount;
+    private void SetTarget(GameObject newTarget)
+    {
+        if (ReferenceEquals(newTarget, target)) return;
+        target = newTarget;
+        OnTargetChanged?.Invoke(target);
+    }
 
     private GameObject TargetEnemy()
     {

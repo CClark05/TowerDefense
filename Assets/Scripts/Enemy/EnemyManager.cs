@@ -122,32 +122,22 @@ public class EnemyManager : Singleton<EnemyManager>
     {
         currentEnemies.Remove(enemy);
         OnEnemiesUpdated?.Invoke();
-        if (currentEnemies.Count == 0 && WaveState == WaveStates.DoneSpawning && PlayerLife.Instance.CurrentLives > 0)
-        {
-            /**
-            if (CurrentWave - 1 >= levelData.waves.Length)
-            {
-                Debug.LogError("No more waves left");
-                FunctionTimer.Create(() =>
-                {
-                    OnNoWavesLeft?.Invoke(PlayerGameOverStats.GetGameOverData());
-                }, 2f);
-                return;
-            }
-            */
-            DeadEnemiesThisWave.Clear();
-            WaveState = WaveStates.Complete;
-            OnWaveComplete?.Invoke();
-            if (EncounterGenerator.Instance.GetEncounter(CurrentWave - 1) != null)
-            {
-                WaveState = WaveStates.Idle;
-                OnIdle?.Invoke();
-            }
-                
-            WaveTimer = 0;
-        }
+        TryCompleteWave();
     }
-
+    private void TryCompleteWave()
+    {
+        currentEnemies.RemoveAll(e => e == null);
+        if (currentEnemies.Count != 0 || WaveState != WaveStates.DoneSpawning || PlayerLife.Instance.CurrentLives <= 0) return;
+        DeadEnemiesThisWave.Clear();
+        WaveState = WaveStates.Complete;
+        OnWaveComplete?.Invoke();
+        if (EncounterGenerator.Instance.GetEncounter(CurrentWave - 1) != null)
+        {
+            WaveState = WaveStates.Idle;
+            OnIdle?.Invoke();
+        }
+        WaveTimer = 0;
+    }
     private IEnumerator SpawnWave()
     {
         WaveTimer = 0;
@@ -164,6 +154,7 @@ public class EnemyManager : Singleton<EnemyManager>
             }
             WaveState = WaveStates.DoneSpawning;
             CurrentWave++;
+            TryCompleteWave();
             yield break;
         }
 
@@ -178,5 +169,6 @@ public class EnemyManager : Singleton<EnemyManager>
         }
         WaveState = WaveStates.DoneSpawning;
         CurrentWave++;
+        TryCompleteWave();
     }
 }

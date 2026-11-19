@@ -15,12 +15,12 @@ MonoBehaviour:
   objectName: Mort
   id: 4
   prefab: {fileID: 7896190119818206311, guid: 3348bf089f0ae2d4ca7896d218ae29e4, type: 3}
-  timeBetweenShots: 0
+  timeBetweenShots: 1
   range: 0
-  damage: 0
+  damage: 10
   cardSlots: 4
   cost: 50
   startingCards:
   - {fileID: 11400000, guid: 03064ebb961a5314291522284ec59525, type: 2}
-  visualModel: {fileID: 2186133299630989011, guid: b91e2af4620999d4db98267fc6d7033c, type: 3}
+  visualModel: {fileID: 3339433976067135977, guid: b91e2af4620999d4db98267fc6d7033c, type: 3}
   growthRate: 1.28

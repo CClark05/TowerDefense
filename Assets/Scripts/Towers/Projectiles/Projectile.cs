@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using CodeMonkey.Utils;
 using DG.Tweening;
 using UnityEngine;
 
@@ -11,6 +10,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float steerGain = 12;
     [SerializeField] private float turnRateDegPerSec = 1080;
     [SerializeField] private float homingDelay = 0.035f;
+    [SerializeField] private bool destroyOnPath;
     private IDamageable target;
     private TowerDataHolder towerData;
 
@@ -175,7 +175,22 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
+        /**
+        if(destroyOnPath && other.GetComponent<PathObject>() != null)
+        {
+            Debug.Log("path");
+            if (returning) return;
+            shotData.ShotDestroyed(this, out bool eventInvoked);
+            direction = null;
+            if (eventInvoked)
+            {
+                homing = false;
+                returning = true;
+                return;
+            }
+            Destroy(gameObject);
+        }
+        */
         if (other.GetComponent<IDamageable>() == null) return;
         ApplyDamage(other.GetComponent<IDamageable>());
     }

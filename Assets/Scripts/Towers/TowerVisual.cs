@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.Serialization;
 
 public class TowerVisual : MonoBehaviour
@@ -47,7 +46,7 @@ public class TowerVisual : MonoBehaviour
             if (successful) return;
             //GameManager.Instance.SetCursor(GameManager.Cursors.Default);
             rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
-            outlineEffect.ToggleWhiteOutline(false);
+            ToggleWhiteOutline(false);
         };
         towerDrag.OnMoving += () =>
         {
@@ -55,22 +54,29 @@ public class TowerVisual : MonoBehaviour
         };
         towerDrag.OnSelect += () =>
         {
-            outlineEffect.ToggleWhiteOutline(true);
-            visual.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
+            ToggleWhiteOutline(true);
+            baseVisual.transform.localScale = new Vector3(1.1f, 1.1f, 1.1f);
         };
         towerDrag.OnDeselect += () =>
         {
-            outlineEffect.ToggleWhiteOutline(false);
+            ToggleWhiteOutline(false);
             rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
-            visual.transform.localScale = new Vector3(1f, 1f, 1f);
+            baseVisual.transform.localScale = new Vector3(1f, 1f, 1f);
             GridTileOutline.Instance.HideOutline();
         };
     }
 
-
+    private void ToggleWhiteOutline(bool enabled)
+    {
+        outlineEffect.ToggleWhiteOutline(enabled);
+        if(baseVisual.TryGetComponent<WhiteOutlineEffect>(out var baseOutline))
+        {
+            baseOutline.ToggleWhiteOutline(enabled);
+        }
+    }
     private void DisableSelection()
     {
-        outlineEffect.ToggleWhiteOutline(false);
+        ToggleWhiteOutline(false);
         isSelected = false;
         rangeVisual.transform.GetChild(0).gameObject.SetActive(false);
         GridTileOutline.Instance.HideOutline();

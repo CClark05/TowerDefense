@@ -207,6 +207,27 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
+  - name: Mort_Poop
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 104
+      y: 69
+      width: 12
+      height: 12
+    spriteID: 2f6ff583e8e0b554e8b478a7631f7f31
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
   asepriteLayers:
   - layerIndex: 0
     guid: 470810896
@@ -221,7 +242,7 @@ ScriptedImporter:
       cellRect:
         x: 15
         y: 8
-        width: 95
+        width: 111
         height: 90
       spriteId: 75c6fba5b7e775e4383c3b83bf583f25
     linkedCells: []
